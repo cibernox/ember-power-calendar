@@ -1,10 +1,16 @@
 <div class="ember-power-calendar">
+  <div class="ember-power-calendar-nav">
+    <button {{action "prev"}}>Prev</button>
+    {{monthName}}
+    <button {{action "next"}}>Next</button>
+  </div>
   <div class="ember-power-calendar-day-grid">
     {{#each weeks as |week|}}
       <div class="ember-power-calendar-week">
         {{#each week as |day|}}
           <div class="ember-power-calendar-day">
-            {{yield day}}
+            Number: {{day.number}}
+            Current: {{day.currentMonth}}
           </div>
         {{/each}}
       </div>
