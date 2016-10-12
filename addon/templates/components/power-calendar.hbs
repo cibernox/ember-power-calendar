@@ -1,0 +1,13 @@
+<div class="ember-power-calendar">
+  <div class="ember-power-calendar-day-grid">
+    {{#each weeks as |week|}}
+      <div class="ember-power-calendar-week">
+        {{#each week as |day|}}
+          <div class="ember-power-calendar-day">
+            {{yield day}}
+          </div>
+        {{/each}}
+      </div>
+    {{/each}}
+  </div>
+</div>
