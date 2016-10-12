@@ -1,6 +1,9 @@
 .ember-power-calendar {
   display: flex;
   flex-direction: column;
+  * {
+    box-sizing: border-box;
+  }
 }
 .ember-power-calendar-nav {
   text-align: center;
@@ -26,13 +29,16 @@
   margin: 1px;
   align-items: center;
   justify-content: center;
-  &:focus {
-    background-color: yellow;
-  }
 }
 .ember-power-calendar-day--current-month {
   background-color: #eee;
 }
 .ember-power-calendar-day--today {
   background-color: #ddd;
+}
+.ember-power-calendar-day--selected {
+  background-color: orange;
+}
+.ember-power-calendar-day--focused {
+  outline: 1px solid blue;
 }

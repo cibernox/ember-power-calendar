@@ -14,12 +14,6 @@ export default Controller.extend({
     this.set('pastMonth', moment().subtract(1, 'month'));
     this.set('nextMonth', moment().add(1, 'month'));
     this.set('februaryNextYear', moment().year(2017).month('february'));
-  },
-
-  // Actions
-  actions: {
-    onSelect(day) {
-      console.debug(day);
-    }
+    this.set('selected', moment().add(1, 'day'));
   }
 });

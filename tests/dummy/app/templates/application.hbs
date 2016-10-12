@@ -1,6 +1,6 @@
 <h1>Ember Power Calendar</h1>
 {{#power-calendar
   class="demo-calendar"
-  date=pastMonth
-  onchange=(action "onSelect") as |day|}}
+  selected=selected
+  onchange=(action (mut selected) value="moment") as |day|}}
 {{/power-calendar}}
