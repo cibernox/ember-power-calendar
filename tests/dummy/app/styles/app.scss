@@ -3,3 +3,12 @@ html {
 }
 
 @import 'ember-power-calendar';
+
+.demo-calendar {
+  border: 1px solid black;
+  width: 500px;
+  height: 500px;
+  .ember-power-calendar-day {
+    height: 60px;
+  }
+}

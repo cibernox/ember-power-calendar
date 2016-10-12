@@ -1,13 +1,38 @@
+.ember-power-calendar {
+  display: flex;
+  flex-direction: column;
+}
+.ember-power-calendar-nav {
+  text-align: center;
+}
 .ember-power-calendar-day-grid {
   display: flex;
   flex-direction: column;
 }
-.ember-power-calendar-week {
+.ember-power-calendar-header {
   display: flex;
 }
+.ember-power-calendar-week {
+  display: flex;
+  flex: 1;
+}
+// Days
 .ember-power-calendar-day {
+  background-color: initial;
+  border: initial;
+  outline: initial;
+  display: flex;
   flex: 1;
   margin: 1px;
+  align-items: center;
+  justify-content: center;
+  &:focus {
+    background-color: yellow;
+  }
+}
+.ember-power-calendar-day--current-month {
   background-color: #eee;
-  text-align: center;
+}
+.ember-power-calendar-day--today {
+  background-color: #ddd;
 }

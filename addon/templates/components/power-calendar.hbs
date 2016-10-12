@@ -1,19 +1,24 @@
-<div class="ember-power-calendar">
-  <div class="ember-power-calendar-nav">
-    <button {{action "prev"}}>Prev</button>
-    {{monthName}}
-    <button {{action "next"}}>Next</button>
-  </div>
-  <div class="ember-power-calendar-day-grid">
-    {{#each weeks as |week|}}
-      <div class="ember-power-calendar-week">
-        {{#each week as |day|}}
-          <div class="ember-power-calendar-day">
-            Number: {{day.number}}
-            Current: {{day.currentMonth}}
-          </div>
-        {{/each}}
-      </div>
-    {{/each}}
-  </div>
+<div class="ember-power-calendar-nav">
+  <button onclick={{publicAPI.actions.decreaseMonth}}>Prev</button>
+  {{moment-format date 'MMMM YYYY'}}
+  <button onclick={{publicAPI.actions.increaseMonth}}>Next</button>
 </div>
+<div class="ember-power-calendar-header">
+  {{#each dayNames as |name|}}
+    <div class="ember-power-calendar-day">
+      {{name}}
+    </div>
+  {{/each}}
+</div>
+<div class="ember-power-calendar-day-grid">
+  {{#each weeks as |week|}}
+    <div class="ember-power-calendar-week">
+      {{#each week.days as |day|}}
+        <button onclick={{action "clickDay" day}} class="ember-power-calendar-day {{if day.isCurrentMonth 'ember-power-calendar-day--current-month'}} {{if day.isToday 'ember-power-calendar-day--today'}}">
+          {{day.number}}
+        </button>
+      {{/each}}
+    </div>
+  {{/each}}
+</div>
+

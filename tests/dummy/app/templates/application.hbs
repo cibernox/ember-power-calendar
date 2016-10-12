@@ -1,4 +1,6 @@
 <h1>Ember Power Calendar</h1>
-{{#power-calendar as |day|}}
-  {{day.number}}
+{{#power-calendar
+  class="demo-calendar"
+  date=pastMonth
+  onchange=(action "onSelect") as |day|}}
 {{/power-calendar}}

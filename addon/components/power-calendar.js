@@ -5,14 +5,37 @@ import moment from 'moment';
 
 export default Component.extend({
   layout,
+  classNames: ['ember-power-calendar'],
+  date: null,
   onlyCurrent: false,
-  monthNumber: 0,
+  monthNumber: 9,
+
+  // Lifecycle hooks
+  init() {
+    this._super(...arguments);
+    let date = this.get('date');
+    if (!date) {
+      this.set('date', moment());
+    }
+    this.publicAPI = {
+      actions: {
+        decreaseMonth: () => this.send('decreaseMonth'),
+        increaseMonth: () => this.send('increaseMonth')
+      }
+    }
+  },
+
   // CPs
-  monthName: computed('monthNumber', function() {
-    return moment().month(this.get('monthNumber')).format('MMMM');
+  monthNumber: computed('date', function() {
+    return this.get('date').month();
+  }),
+
+  dayNames: computed(function() {
+    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }),
 
   weeks: computed('monthNumber', function() {
+    let today = moment();
     let monthNumber = this.get('monthNumber');
     let month = moment().month(monthNumber);
     let beginOfMonth = month.clone().startOf('month');
@@ -24,14 +47,15 @@ export default Component.extend({
     while (currentMoment.isBefore(endOfLastWeek)) {
       days.push({
         number: currentMoment.date(),
-        currentMonth: currentMoment.month() === monthNumber
+        isCurrentMonth: currentMoment.month() === monthNumber,
+        isToday: currentMoment.isSame(today, 'day')
       });
       currentMoment.add(1, 'day');
     }
-    let weeks = new Array(days.length / 7);
+    let weeks = [];
     let i = 0;
     while (days[i]) {
-      weeks[i] = days.slice(i, i + 7);
+      weeks.push({ days: days.slice(i, i + 7) });
       i += 7;
     }
     return weeks;
@@ -39,16 +63,19 @@ export default Component.extend({
 
   // Actions
   actions: {
-    prev() {
-      let newNumber = this.get('monthNumber') - 1;
-      if (newNumber < 0) {
-        newNumber += 11;
-      }
-      this.set('monthNumber', newNumber);
+    decreaseMonth() {
+      this.set('date', this.get('date').clone().subtract(1, 'month'));
     },
-    next() {
-      let newNumber = this.get('monthNumber') + 1 % 11;
-      this.set('monthNumber', newNumber);
+
+    increaseMonth() {
+      this.set('date', this.get('date').clone().add(1, 'month'));
+    },
+
+    clickDay(day, e) {
+      let action = this.get('onchange');
+      if (action) {
+        action(day, e);
+      }
     }
   }
 });
