@@ -14,23 +14,80 @@
   display: flex;
   justify-content: space-between;
 }
+.ember-power-calendar-weekday {
+  -webkit-appearance: none;
+  flex: 1;
+  padding: 0;
+  background-color: initial;
+  border: initial;
+  outline: initial;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
 .ember-power-calendar-day {
+  -webkit-appearance: none;
   background-color: initial;
   border: initial;
   outline: initial;
   flex: 1;
-  margin: 1px;
+  font-size: inherit;
+}
+.ember-power-calendar-nav-control {
+  -webkit-appearance: none;
+  background-color: initial;
+  border: initial;
+  outline: initial;
+  font-size: inherit;
 }
 
+// Theme styles
+.ember-power-calendar {
+  font-size: 14px;
+  line-height: 1.42857;
+}
+.ember-power-calendar-weekdays {
+  color: #333333;
+}
+.ember-power-calendar-day {
+  color: #E6E9ED;
+}
+.ember-power-calendar-nav {
+  line-height: 2;
+}
+.ember-power-calendar-nav-control {
+  line-height: 1;
+  font-size: 150%;
+  color: #0078c9;
+  &:focus {
+    transform: scale(1.2);
+    color: lighten(#0078c9, 10%);
+  }
+}
 .ember-power-calendar-day--current-month {
+  color: #656D78;
+  background-color: #F5F7FA;
+}
+.ember-power-calendar-day--today, .ember-power-calendar-day:hover {
   background-color: #eee;
 }
-.ember-power-calendar-day--today {
-  background-color: #ddd;
-}
 .ember-power-calendar-day--selected {
-  background-color: orange;
+  font-weight: bold;
+  background-color: #ddd;
+  color: #656D78;
 }
 .ember-power-calendar-day--focused {
-  outline: 1px solid blue;
+  box-shadow: inset 0px -2px 0px 0px #0078c9;
 }
+
+@mixin ember-power-calendar($cell-size) {
+  width: ($cell-size + 2px) * 7 - 2px;
+  .ember-power-calendar-day {
+    max-width: $cell-size;
+    max-height: $cell-size;
+  }
+  .ember-power-calendar-weekdays, .ember-power-calendar-week {
+    height: $cell-size + 2px;
+  }
+}
+

@@ -1,11 +1,11 @@
 <div class="ember-power-calendar-nav">
-  <button onclick={{publicAPI.actions.decreaseMonth}}>Prev</button>
+  <button class="ember-power-calendar-nav-control ember-power-calendar-nav-control--previous" onclick={{publicAPI.actions.decreaseMonth}}>«</button>
   {{moment-format date 'MMMM YYYY'}}
-  <button onclick={{publicAPI.actions.increaseMonth}}>Next</button>
+  <button class="ember-power-calendar-nav-control ember-power-calendar-nav-control--next" onclick={{publicAPI.actions.increaseMonth}}>»</button>
 </div>
-<div class="ember-power-calendar-row ember-power-calendar-header">
+<div class="ember-power-calendar-row ember-power-calendar-weekdays">
   {{#each dayNames as |name|}}
-    <div class="ember-power-calendar-day">
+    <div class="ember-power-calendar-weekday">
       {{name}}
     </div>
   {{/each}}

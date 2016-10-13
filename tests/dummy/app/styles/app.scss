@@ -1,14 +1,15 @@
 html {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 @import 'ember-power-calendar';
 
-.demo-calendar {
-  border: 1px solid black;
-  width: 500px;
-  height: 500px;
-  .ember-power-calendar-day {
-    height: 60px;
-  }
+.demo-calendar-small {
+  @include ember-power-calendar($cell-size: 30px);
+}
+.demo-calendar-medium {
+  @include ember-power-calendar($cell-size: 50px);
+}
+.demo-calendar-big {
+  @include ember-power-calendar($cell-size: 70px);
 }
