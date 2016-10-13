@@ -3,7 +3,7 @@
   {{moment-format date 'MMMM YYYY'}}
   <button onclick={{publicAPI.actions.increaseMonth}}>Next</button>
 </div>
-<div class="ember-power-calendar-header">
+<div class="ember-power-calendar-row ember-power-calendar-header">
   {{#each dayNames as |name|}}
     <div class="ember-power-calendar-day">
       {{name}}
@@ -12,7 +12,7 @@
 </div>
 <div class="ember-power-calendar-day-grid" onkeydown={{action "onKeyDown"}}>
   {{#each weeks key='id' as |week|}}
-    <div class="ember-power-calendar-week">
+    <div class="ember-power-calendar-row ember-power-calendar-week">
       {{#each week.days key='date' as |day|}}
         <button
           data-date="{{day.date}}"
