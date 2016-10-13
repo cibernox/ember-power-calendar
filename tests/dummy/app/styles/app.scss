@@ -1,6 +1,12 @@
-html {
-  font-family: "Open Sans", sans-serif;
-}
+@import 'variables';
+@import 'base';
+@import 'utilities';
+@import 'layout';
+
+// Components
+@import 'components/main-header';
+@import 'components/main-footer';
+@import 'components/index';
 
 @import 'ember-power-calendar';
 

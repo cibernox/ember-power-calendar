@@ -1,0 +1,33 @@
+<header class="main-header">
+  <nav class="main-header-nav">
+    <div class="main-header-nav-links">
+      {{#link-to 'public-pages.docs' class="main-header-nav-link"}}Docs{{/link-to}}
+      <a href="#" class="main-header-nav-link">Cookbook</a>
+      <a href="#" class="main-header-nav-link">Addons</a>
+      <a href="https://github.com/cibernox/ember-power-select" class="main-header-nav-link">Github</a>
+    </div>
+    <div class="main-header-logo">
+      {{#link-to 'public-pages.index' class="home-link"}}
+        <img src="/ember_logo.png" alt="ember">
+      {{/link-to}}
+      <strong>Power</strong>
+      <div class="calendar-page">
+        <sub class="calendar-page-number">{{moment-format today 'D'}}</sub>
+        Calendar
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="main-content">
+  {{outlet}}
+</div>
+<footer class="main-footer">
+  <div class="main-footer-content">
+    Deployed with love by <a href="http://github.com/cibernox">Miguel Camba</a>
+    <div class="icons-attributions">
+      <small>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>  is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></small>
+    </div>
+  </div>
+</footer>
+
+{{remember-document-scroll key=applicationController.currentRouteName}}

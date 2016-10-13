@@ -41,7 +41,8 @@
     "ember-moment": "6.1.0",
     "ember-resolver": "^2.0.3",
     "eslint-plugin-ember-suave": "^1.0.0",
-    "loader.js": "^4.0.10"
+    "loader.js": "^4.0.10",
+    "memory-scroll": "0.2.0"
   },
   "keywords": [
     "ember-addon"

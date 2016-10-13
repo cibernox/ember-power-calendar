@@ -1,0 +1,94 @@
+// main header
+.main-header {
+  background-color: $brand-color;
+  color: white;
+}
+.main-header-nav {
+  @extend %wrapper;
+}
+.main-header-logo {
+  color: white;
+  font-size: 30px;
+  display: block;
+  text-align: center;
+  line-height: 30px;
+  padding-top: 15px;
+  height: 76px;
+  .home-link {
+    vertical-align: text-bottom;
+  }
+  img {
+    height: 36px;
+    vertical-align: -5%;
+  }
+}
+.main-header-nav-links {
+  display: flex;
+}
+.main-header-nav-link {
+  color: inherit;
+  font-weight: 500;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media only screen and (max-width: $small-breakpoint) {
+  .main-header {
+    line-height: 44px;
+  }
+  .main-header-nav {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .main-header-logo {
+    display: block;
+    text-align: center;
+  }
+  .main-header-nav-links {
+    justify-content: space-between;
+    background-color: rgba(black, 0.2);
+  }
+}
+@media only screen and (min-width: $small-breakpoint) {
+  .main-header {
+    line-height: 66px;
+  }
+  .main-header-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+  .main-header-nav-link.active {
+    background-color: white;
+    color: $brand-color;
+  }
+}
+
+.calendar-page {
+  position: relative;
+  border: 4px solid white;
+  border-radius: 5px;
+  display: inline-block;
+  height: 50px;
+  line-height: 1.5;
+  padding: 0 15px;
+  &::before, &:after {
+    content: "";
+    border: 3px solid $brand-color;
+    display: block;
+    background-color: white;
+    width: 4px;
+    height: 9px;
+    border-radius: 8px;
+    position: absolute;
+    top: -10px;
+  }
+  &:after {
+    right: 15px;
+  }
+}
+.calendar-page-number {
+  font-size: 10px;
+  position: absolute;
+  left: 3px;
+}
+
