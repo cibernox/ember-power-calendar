@@ -7,14 +7,14 @@
       <a href="https://github.com/cibernox/ember-power-select" class="main-header-nav-link">Github</a>
     </div>
     <div class="main-header-logo">
-      {{#link-to 'public-pages.index' class="home-link"}}
+      <a href={{href-to 'public-pages.index'}} class="home-link">
         <img src="/ember_logo.png" alt="ember">
-      {{/link-to}}
-      <strong>Power</strong>
-      <div class="calendar-page">
-        <sub class="calendar-page-number">{{moment-format today 'D'}}</sub>
-        Calendar
-      </div>
+        <strong>Power</strong>
+        <div class="calendar-page">
+          <sub class="calendar-page-number">{{moment-format today 'D'}}</sub>
+          Calendar
+        </div>
+      </a>
     </div>
   </nav>
 </header>

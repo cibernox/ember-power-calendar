@@ -9,7 +9,9 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('public-pages', { path: '' }, function() {
     this.route('docs', function() {
-
+      // GETTING STARTED
+      // index.hbs is "Overview"
+      this.route('installation');
     });
   });
   this.route('legacy-demo');

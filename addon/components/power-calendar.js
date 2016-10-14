@@ -9,7 +9,6 @@ export default Component.extend({
   classNames: ['ember-power-calendar'],
   date: null,
   onlyCurrent: false,
-  monthNumber: 9,
 
   // Lifecycle hooks
   init() {
@@ -24,7 +23,7 @@ export default Component.extend({
         decreaseMonth: () => this.send('decreaseMonth'),
         increaseMonth: () => this.send('increaseMonth')
       }
-    }
+    };
   },
 
   // CPs
@@ -58,7 +57,7 @@ export default Component.extend({
         isFocused: focusedDate === date,
         isCurrentMonth: currentMoment.month() === monthNumber,
         isToday: currentMoment.isSame(today, 'day'),
-        isSelected: selected ? currentMoment.isSame(selected, 'day') : false,
+        isSelected: selected ? currentMoment.isSame(selected, 'day') : false
       });
       currentMoment.add(1, 'day');
     }
