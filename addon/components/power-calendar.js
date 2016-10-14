@@ -117,8 +117,10 @@ export default Component.extend({
           }
         }
         if (e.keyCode === 38) {
+          e.preventDefault();
           day = days[Math.max(index - 7, 0)];
         } else if (e.keyCode === 40) {
+          e.preventDefault();
           day = days[Math.min(index + 7, days.length - 1)];
         } else if (e.keyCode === 37) {
           day = days[Math.max(index - 1, 0)];

@@ -12,6 +12,7 @@ Router.map(function() {
 
     });
   });
+  this.route('legacy-demo');
 });
 
 export default Router;
