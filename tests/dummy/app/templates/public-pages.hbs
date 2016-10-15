@@ -10,9 +10,13 @@
       <a href={{href-to 'public-pages.index'}} class="home-link">
         <img src="/ember_logo.png" alt="ember">
         <strong>Power</strong>
-        <div class="calendar-page">
-          <sub class="calendar-page-number">{{moment-format today 'D'}}</sub>
-          Calendar
+        <div class="header-calendar" onclick={{action "flipPage"}}>
+          <div class="header-calendar-page {{unless (eq day today) 'run-animation'}}">
+            <sub class="calendar-page-number">{{moment-format day 'D'}}</sub>
+            Calendar
+          </div>
+          <div class="header-calendar-ring left"></div>
+          <div class="header-calendar-ring right"></div>
         </div>
       </a>
     </div>
