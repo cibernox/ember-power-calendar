@@ -12,6 +12,7 @@ Router.map(function() {
       // GETTING STARTED
       // index.hbs is "Overview"
       this.route('installation');
+      this.route('how-to-use-it');
     });
   });
   this.route('legacy-demo');
