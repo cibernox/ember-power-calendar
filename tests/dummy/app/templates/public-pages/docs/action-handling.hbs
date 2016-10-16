@@ -1,0 +1,175 @@
+<h1 class="doc-page-title">Action handling</h1>
+
+<p>
+  Ember Power Calendar aims to be very customizable and because of that it also has to be very explicit
+  about it's behaviour even it that makes it slightly verbose.
+</p>
+
+<p>
+  The data flow from the app to the addon is extrictly unidirectional. Data comes into the component,
+  and actions are fired from the inside. The user must handle those actions in order for <strong>anything</strong>
+  to happen.
+</p>
+
+<p>Let's start with the basics. Add month navigation</p>
+
+<h3><code>onMonthChange</code></h3>
+
+<p>
+  In the previous section we mentioned that if you pass <code>displayedMonth=someDate</code> to the component, that
+  month is displayed. If that option gets updates the calendar will render the new month. That means that you can create
+  your own interface to navigate months, it only has to update the <code>displayedMonth</code> property.
+</p>
+
+<p>
+  However, it would be inconvenient to force every single programmes to do that, so if you pass <code>onMonthChange</code> action to
+  the component a built-in controls to navigate to the previous and next month appear. Use that action to update the displayed month,
+  and you have a navigable calendar.
+</p>
+
+{{#code-sample hbs="action-handling-1.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Making this interaction so explicit makes many usages very simple. By example, let's
+  create a calendar that only allows you to navigate between the current month and two months from now.
+</p>
+
+{{#code-sample hbs="action-handling-2.hbs" js="action-handling-2-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+
+{{!-- <p>
+  Ember power select aims to be maximally flexible and because of that it doesn't try to make strong
+  assumptions about how you want to use it. Instead it embraces DDAU <em>(Data Down Actions Up)</em> philosophy
+  of Ember 2.0 so data flow always is unidirectional and explicit.
+</p>
+
+<p>
+  Data changes that occur in the component are not propagated to the outside using two-way bindings,
+  but rather they are communicated via actions.
+</p>
+
+<p>
+  This section describes the available actions with the notable exception of the <code>search</code>,
+  because there is an entire section dedicated to it, and gives you some examples of what you
+  can do with each of them.
+</p>
+
+<h3><code>onchange</code> Action</h3>
+
+<p>
+  This action will fire whenever an option of the component is selected or unselected.
+</p>
+
+<p>
+  The most common use case when you want changes inside a component to do something on its context
+  is expressed this way:
+</p>
+
+
+{{#code-sample hbs="action-handling-1.hbs" js="action-handling-1-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  That gives you the freedom of doing whatever suits your need when the user selects a value. <br>
+  If the only thing you want to do is update the value, you can make it more concise by using the
+  <code>mut</code> helper.
+</p>
+
+{{#code-sample hbs="action-handling-2.hbs" js="action-handling-2-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  It might seem a bit more verbose at first for this, the simplest use case possible, but
+  it simplifies a lot the mental model and enables some advanced usages that would otherwise be
+  very tricky to implement.
+</p>
+
+<h3><code>onkeydown</code> Action</h3>
+
+<p>
+  The second option you can provide to the component to customize it's behavior is <code>onkeypress</code>.
+  This options will be fired whenever the user presses a key while the component or the search input inside
+  have the focus.
+</p>
+
+<p>
+  This action receives two arguments, <code>dropdown</code> and <code>event</code>. The first one is
+  an object that you can use to control the component through it's actions (open, close, toggle...).
+  The event is the raw <code>keydown</code> event you can use to decide what to do next.
+  If you desire to highjack the browsers' default bahaviour you can call `preventDefault` on that
+  event. If you want to avoid the component's default behaviour (p.e. open/close the select or
+  navigate through the options using the arrow keys) return false from this action.
+</p>
+
+<p>
+  One particular common use case for this action is to add new options in multiple selects when the
+  user introduced free text.
+</p>
+
+{{#code-sample hbs="action-handling-3.hbs" js="action-handling-3-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<h3><code>onfocus/onblur</code> Actions</h3>
+
+<p>
+  The next actions you can use are <code>onfocus/onblur</code>. It does exactly what the names suggests and receives <code>(select, event)</code>
+</p>
+
+<p>
+  You can use this action for many things (fire a request to prefetch data, show a tooltip, trigger some animation ...) but
+  perhaps the most straightforward use case is to automatically open the component on focus.
+</p>
+
+{{#code-sample hbs="action-handling-4.hbs" js="action-handling-4-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Note that this action will be fired when the component or another element inside, like the searchboxes, gain the focus,
+  and sometimes you need which one triggered the focus/blur event. Since the <code>FocusEvent</code> is received
+  as last argument, you can check <code>event.target</code> to know it's origin.
+</p>
+
+<h3><code>onopen/onclose</code> Actions</h3>
+
+<p>
+  As their names suggest, this actions are fired when the component is about to be opened or closed respectively,
+  and they both have the same signature <code>(select, event)</code> (the event will be undefined if
+  the component is not opened as result of user interaction).
+</p>
+
+<p>
+  You can use this action for many useful purposes, but since the troll-force is strong in me, I
+  want to show a useless example: The select components for spies!
+</p>
+
+{{#code-sample hbs="action-handling-5.hbs" js="action-handling-5-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Another neat trick is that you can prevent the component from open/close if you return <code>false</code>
+  from these actions, so you have the last word. This is all it takes to create a mandatory select component
+  that once opened it cannot be closed until you select some value, and changes
+  the styles of the component.
+</p>
+
+{{#code-sample hbs="action-handling-6.hbs" js="action-handling-6-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Have I mentioned that your can also render groups?
+</p>
+ --}}
+<div class="doc-page-nav">
+  <a href={{href-to 'public-pages.docs.how-to-use-it'}} class="doc-page-nav-link-prev">&lt; How to use it</a>
+  {{!-- {{#link-to 'public-pages.docs.groups' class="doc-page-nav-link-next"}}Groups &gt;{{/link-to}} --}}
+</div>

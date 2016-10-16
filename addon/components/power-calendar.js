@@ -31,7 +31,7 @@ export default Component.extend({
     return moment(this.get('displayedMonth') || this.get('selected') || this.get('calendar').getDate());
   }),
 
-  days: computed('monthNumber', 'selected', 'focusedId', function() {
+  days: computed('currentlyDisplayedMonth', 'selected', 'focusedId', function() {
     let today = this.get('calendar').getDate();
     let displayedMonth = this.get('currentlyDisplayedMonth');
     let beginOfMonth = displayedMonth.clone().startOf('month');
@@ -87,8 +87,8 @@ export default Component.extend({
     increaseMonth() {
       let displayedMonth = this.get('displayedMonth');
       let momentDate = moment(displayedMonth);
-      let previousMonth = momentDate.clone().add(1, 'month');
-      let newMonth = previousMonth instanceof Date ? previousMonth._d : previousMonth;
+      let nextMonth = momentDate.clone().add(1, 'month');
+      let newMonth = nextMonth instanceof Date ? nextMonth._d : nextMonth;
       this.get('onMonthChange')(newMonth);
     },
 

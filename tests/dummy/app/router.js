@@ -13,6 +13,7 @@ Router.map(function() {
       // index.hbs is "Overview"
       this.route('installation');
       this.route('how-to-use-it');
+      this.route('action-handling');
     });
   });
   this.route('legacy-demo');
