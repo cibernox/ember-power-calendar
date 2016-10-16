@@ -4,6 +4,24 @@ import { assertionInjector, assertionCleanup } from '../../assertions';
 import moment from 'moment';
 import run from 'ember-runloop';
 import getOwner from 'ember-owner/get';
+import $ from 'jquery';
+
+function triggerKeydown(domElement, k) {
+  let oEvent = document.createEvent('Events');
+  oEvent.initEvent('keydown', true, true);
+  $.extend(oEvent, {
+    view: window,
+    ctrlKey: false,
+    altKey: false,
+    shiftKey: false,
+    metaKey: false,
+    keyCode: k,
+    charCode: k
+  });
+  run(() => {
+    domElement.dispatchEvent(oEvent);
+  });
+}
 
 let calendarService;
 moduleForComponent('power-calendar', 'Integration | Component | Power Calendar', {
@@ -175,3 +193,38 @@ test('If the `onChange` updates the selected value, it can work as a date-select
   run(() => this.$('.ember-power-calendar-day[data-date="2016-02-21"]').click());
   assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-02-21');
 });
+
+test('If a day is focused, using left/right arrow keys focuses the previous/next day', function(assert) {
+  assert.expect(6);
+  this.render(hbs`{{power-calendar onChange=(action (mut selected) value="date")}}`);
+
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-18"]').focus());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
+
+  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0), 37); // left arrow
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-17"]').get(0));
+
+  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').get(0), 39); // right arrow
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
+});
+
+test('If a day is focused, using up/down arrow keys focuses the same weekday of the previous/next week', function(assert) {
+  assert.expect(6);
+  this.render(hbs`{{power-calendar onChange=(action (mut selected) value="date")}}`);
+
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-18"]').focus());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
+
+  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0), 38); // left arrow
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-11"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-11"]').get(0));
+
+  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').get(0), 40); // right arrow
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
+});
+

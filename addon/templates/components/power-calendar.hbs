@@ -16,9 +16,8 @@
     </div>
   {{/each}}
 </div>
-{{!-- <div class="ember-power-calendar-day-grid" onkeydown={{action "onKeyDown"}}> --}}
 {{#if onChange}}
-  <div class="ember-power-calendar-day-grid">
+  <div class="ember-power-calendar-day-grid" onkeydown={{action "onKeyDown"}}>
     {{#each weeks key='id' as |week|}}
       <div class="ember-power-calendar-row ember-power-calendar-week">
         {{#each week.days key='id' as |day|}}
