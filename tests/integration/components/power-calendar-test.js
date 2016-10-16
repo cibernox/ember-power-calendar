@@ -1,24 +1,100 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import moment from 'moment';
+import run from 'ember-runloop';
+import getOwner from 'ember-owner/get';
 
-moduleForComponent('power-calendar', 'Integration | Component | power calendar', {
-  integration: true
+let calendarService;
+moduleForComponent('power-calendar', 'Integration | Component | Power Calendar', {
+  integration: true,
+  beforeEach() {
+    calendarService = getOwner(this).lookup('service:calendar');
+    calendarService.set('date', new Date(2013, 9, 18));
+  }
 });
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
+test('Rendered without any arguments, it displays the current month and has no month navigation', function(assert) {
+  assert.expect(3);
   this.render(hbs`{{power-calendar}}`);
+  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('October 2013') > -1, 'The calendar is centered in the present');
+  assert.equal(this.$('.ember-power-calendar-nav-control').length, 0, 'There is no controls to navigate months');
+  assert.equal(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').length, 1, 'The days in the calendar actually belong to the presnet month');
+});
 
-  assert.equal(this.$().text().trim(), '');
+test('when it receives a Date in the `displayedMonth` argument, it displays that month', function(assert) {
+  assert.expect(3);
+  this.displayedMonth = new Date(2016, 1, 5);
+  this.render(hbs`{{power-calendar displayedMonth=displayedMonth}}`);
+  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
+  assert.equal(this.$('.ember-power-calendar-nav-control').length, 0, 'There is no controls to navigate months');
+  assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
+});
 
-  // Template block usage:
-  this.render(hbs`
-    {{#power-calendar}}
-      template block text
-    {{/power-calendar}}
-  `);
+test('when it receives a `moment()` in the `displayedMonth` argument, it displays that month', function(assert) {
+  assert.expect(3);
+  this.displayedMonth = moment('2016-02-05');
+  this.render(hbs`{{power-calendar displayedMonth=displayedMonth}}`);
+  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
+  assert.equal(this.$('.ember-power-calendar-nav-control').length, 0, 'There is no controls to navigate months');
+  assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
+});
 
-  assert.equal(this.$().text().trim(), 'template block text');
+test('when it receives a `displayedMonth` and an `onMonthChange` action, it shows controls to go to the next & previous month and the action is called when they are clicked', function(assert) {
+  assert.expect(7);
+  this.displayedMonth = new Date(2016, 1, 5);
+  this.changeMonth = function() {
+    assert.ok(true, 'The changeMonth action is invoked');
+  };
+  this.render(hbs`{{power-calendar displayedMonth=displayedMonth onMonthChange=changeMonth}}`);
+  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
+  assert.equal(this.$('.ember-power-calendar-nav-control--previous').length, 1, 'There is a control to go to previous month');
+  assert.equal(this.$('.ember-power-calendar-nav-control--next').length, 1, 'There is a control to go to next month');
+
+  run(() => this.$('.ember-power-calendar-nav-control--previous').click());
+  run(() => this.$('.ember-power-calendar-nav-control--next').click());
+  run(() => this.$('.ember-power-calendar-nav-control--next').click());
+
+  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is still centered in the the passed month');
+});
+
+test('when the `onMonthChange` action changes the `displayedMonth` attribute, the calendar shows the new month', function(assert) {
+  assert.expect(2);
+  this.displayedMonth = new Date(2016, 1, 5);
+  this.render(hbs`{{power-calendar displayedMonth=displayedMonth onMonthChange=(action (mut displayedMonth))}}`);
+  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
+
+  run(() => this.$('.ember-power-calendar-nav-control--next').click());
+
+  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('March 2016') > -1, 'The calendar is now centered in the the next month');
+});
+
+test('when it receives a Date in the `selected` argument, it displays that month, and that day is marked as selected', function(assert) {
+  assert.expect(4);
+  this.selected = new Date(2016, 1, 5);
+  this.render(hbs`{{power-calendar selected=selected}}`);
+  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the selected date');
+  assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
+  assert.equal(this.$('.ember-power-calendar-day--selected').length, 1, 'There is one day marked as selected');
+  assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-02-05', 'The passed `selected` is the selected day');
+});
+
+test('when it receives a `moment` in the `selected` argument, it displays that month, and that day is marked as selected', function(assert) {
+  assert.expect(4);
+  this.selected = moment('2016-02-05');
+  this.render(hbs`{{power-calendar selected=selected}}`);
+  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the selected date');
+  assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
+  assert.equal(this.$('.ember-power-calendar-day--selected').length, 1, 'There is one day marked as selected');
+  assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-02-05', 'The passed `selected` is the selected day');
+});
+
+test('when it receives both `selected` and `displayedMonth`, `displayedMonth` trumps and that month is displayed', function(assert) {
+  assert.expect(4);
+  this.selected = new Date(2016, 2, 5);
+  this.displayedMonth = new Date(2016, 1, 5);
+  this.render(hbs`{{power-calendar selected=selected displayedMonth=displayedMonth}}`);
+  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the `displayedMonth`, no on the `selected` date');
+  assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
+  assert.equal(this.$('.ember-power-calendar-day--selected').length, 1, 'There is one day marked as selected');
+  assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-03-05', 'The passed `selected` is the selected day');
 });

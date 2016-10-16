@@ -62,3 +62,23 @@ This changes the selected date, so now we need another property, and an OR:
 ```
 
 This starts to feel a bit too much for just a calendar with month navigation.
+
+### Example syntax
+
+```hbs
+{{power-calendar}} {{!-- Static calendar. No month navigation. Shows current month --}}
+
+{{power-calendar displayedMonth=month}} {{!-- Static calendar. No month navigation. Shows month of passed date --}}
+
+{{power-calendar displayedMonth=month onMonthChange=(action (mut month))}} {{!-- Shows month of passed date. Has month navigation --}}
+
+{{power-calendar selected=selected}} {{!-- Static calendar. No month navigation. Shows month of passed selected date. Can't change selected date --}}
+
+{{power-calendar selected=selected onChange=(action (mut selected))}} {{!-- Static calendar. No month navigation. Shows month of passed selected date. Can change selected date. --}}
+
+{{power-calendar displayedMonth=month selected=selected onChange=(action (mut selected)) onMonthChange=(action (mut month))}}
+{{!--
+  Displays the given month. The selected date is selected but it may not be visible, because the displayed month trumps.
+  User can navigate months. User can change selected date.
+--}}
+```
