@@ -1,26 +1,21 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import { assertionInjector, assertionCleanup } from '../../assertions';
 import moment from 'moment';
 import run from 'ember-runloop';
 import getOwner from 'ember-owner/get';
-
-function looksLikeADay(day) {
-  return typeof day.isCurrentMonth === 'boolean'
-    && typeof day.isToday === 'boolean'
-    && typeof day.isSelected === 'boolean'
-    && typeof day.isFocused === 'boolean'
-    && typeof day.isCurrentMonth === 'boolean'
-    && typeof day.id === 'string'
-    && day.moment._isAMomentObject
-    && day.date instanceof Date;
-}
 
 let calendarService;
 moduleForComponent('power-calendar', 'Integration | Component | Power Calendar', {
   integration: true,
   beforeEach() {
+    assertionInjector(this);
     calendarService = getOwner(this).lookup('service:calendar');
     calendarService.set('date', new Date(2013, 9, 18));
+  },
+
+  afterEach() {
+    assertionCleanup(this);
   }
 });
 
@@ -152,7 +147,7 @@ test('If there is an `onChange` action, days can be focused', function(assert) {
 test('Clicking one day, triggers the `onChange` action with that day (which is a object with some basic information)', function(assert) {
   assert.expect(2);
   this.didChange = function(day, e) {
-    assert.ok(looksLikeADay(day), 'The first argument is a day object');
+    assert.isDay(day, 'The first argument is a day object');
     assert.ok(e instanceof Event, 'The second argument is an event');
   };
   this.render(hbs`{{power-calendar onChange=(action didChange)}}`);
