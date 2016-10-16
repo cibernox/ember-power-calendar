@@ -4,6 +4,17 @@ import moment from 'moment';
 import run from 'ember-runloop';
 import getOwner from 'ember-owner/get';
 
+function looksLikeADay(day) {
+  return typeof day.isCurrentMonth === 'boolean'
+    && typeof day.isToday === 'boolean'
+    && typeof day.isSelected === 'boolean'
+    && typeof day.isFocused === 'boolean'
+    && typeof day.isCurrentMonth === 'boolean'
+    && typeof day.id === 'string'
+    && day.moment._isAMomentObject
+    && day.date instanceof Date;
+}
+
 let calendarService;
 moduleForComponent('power-calendar', 'Integration | Component | Power Calendar', {
   integration: true,
@@ -120,4 +131,31 @@ test('It shows the abbreviation of the week-days starting on Monday', function(a
   assert.expect(1);
   this.render(hbs`{{power-calendar}}`);
   assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Mon Tue Wed Thu Fri Sat Sun');
+});
+
+test('If there is no `onChange` action, days cannot be focused', function(assert) {
+  assert.expect(1);
+  this.render(hbs`{{power-calendar}}`);
+  let dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0);
+  run(() => dayElement.focus());
+  assert.notEqual(document.activeElement, dayElement);
+});
+
+test('If there is an `onChange` action, days can be focused', function(assert) {
+  assert.expect(1);
+  this.render(hbs`{{power-calendar onChange=(action (mut foo))}}`);
+  let dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0);
+  run(() => dayElement.focus());
+  assert.equal(document.activeElement, dayElement);
+});
+
+test('Clicking one day, triggers the `onChange` action with that day (which is a object with some basic information)', function(assert) {
+  assert.expect(2);
+  this.didChange = function(day, e) {
+    assert.ok(looksLikeADay(day), 'The first argument is a day object');
+    assert.ok(e instanceof Event, 'The second argument is an event');
+  };
+  this.render(hbs`{{power-calendar onChange=(action didChange)}}`);
+  let dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0);
+  run(() => dayElement.click());
 });

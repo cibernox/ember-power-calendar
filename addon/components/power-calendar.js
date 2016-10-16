@@ -46,13 +46,14 @@ export default Component.extend({
     let focusedDate = this.get('focusedDate');
     let days = [];
     while (currentMoment.isBefore(endOfLastWeek)) {
-      let date = currentMoment.format('YYYY-MM-DD');
+      let id = currentMoment.format('YYYY-MM-DD');
       let momentDate = currentMoment.clone();
       days.push({
-        date,
+        id,
         number: currentMoment.date(),
+        date: momentDate._d,
         moment: momentDate,
-        isFocused: focusedDate === date,
+        isFocused: focusedDate === id,
         isCurrentMonth: currentMoment.month() === displayedMonth.month(),
         isToday: currentMoment.isSame(today, 'day'),
         isSelected: selected ? currentMoment.isSame(selected, 'day') : false
@@ -92,6 +93,13 @@ export default Component.extend({
       let previousMonth = momentDate.clone().add(1, 'month');
       let newMonth = previousMonth instanceof Date ? previousMonth._d : previousMonth;
       this.get('onMonthChange')(newMonth);
+    },
+
+    clickDay(day, e) {
+      let action = this.get('onChange');
+      if (action) {
+        action(day, e);
+      }
     }
   }
 
