@@ -115,3 +115,9 @@ test('The current day has a special class that other days don\'t', function(asse
   assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-19"]').hasClass('ember-power-calendar-day--today'));
   assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').hasClass('ember-power-calendar-day--today'));
 });
+
+test('It shows the abbreviation of the week-days starting on Monday', function(assert) {
+  assert.expect(1);
+  this.render(hbs`{{power-calendar}}`);
+  assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Mon Tue Wed Thu Fri Sat Sun');
+});

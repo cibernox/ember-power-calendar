@@ -26,6 +26,10 @@ export default Component.extend({
     };
   }),
 
+  dayNames: computed(function() {
+    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  }),
+
   currentlyDisplayedMonth: computed('displayedMonth', 'selected', function() {
     return moment(this.get('displayedMonth') || this.get('selected') || this.get('calendar').getDate());
   }),

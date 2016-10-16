@@ -9,6 +9,10 @@
   display: flex;
   justify-content: space-between;
 }
+.ember-power-calendar-nav-title {
+  flex: 1;
+  text-align: center;
+}
 
 .ember-power-calendar-row {
   display: flex;

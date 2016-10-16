@@ -2,7 +2,9 @@
   {{#if onMonthChange}}
     <button class="ember-power-calendar-nav-control ember-power-calendar-nav-control--previous" onclick={{publicAPI.actions.decreaseMonth}}>«</button>
   {{/if}}
-  {{moment-format currentlyDisplayedMonth 'MMMM YYYY'}}
+  <div class="ember-power-calendar-nav-title">
+    {{moment-format currentlyDisplayedMonth 'MMMM YYYY'}}
+  </div>
   {{#if onMonthChange}}
     <button class="ember-power-calendar-nav-control ember-power-calendar-nav-control--next" onclick={{publicAPI.actions.increaseMonth}}>»</button>
   {{/if}}
