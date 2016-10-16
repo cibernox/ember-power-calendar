@@ -2,7 +2,7 @@ import layout from '../templates/components/power-calendar';
 import Component from 'ember-component';
 import computed from 'ember-computed';
 import moment from 'moment';
-// import { scheduleOnce } from 'ember-runloop';
+import { scheduleOnce } from 'ember-runloop';
 import service from 'ember-service/inject';
 
 // function getMonth(date) {
@@ -14,6 +14,7 @@ export default Component.extend({
   classNames: ['ember-power-calendar'],
   displayedMonth: null,
   selected: null,
+  focusedDate: null,
   calendar: service(),
 
   // CPs
@@ -100,7 +101,20 @@ export default Component.extend({
       if (action) {
         action(day, e);
       }
+    },
+
+    onFocusDay(day) {
+      scheduleOnce('actions', this, this._updateFocused, day.id);
+    },
+
+    onBlurDay() {
+      scheduleOnce('actions', this, this._updateFocused, null);
     }
+  },
+
+  // Methods
+  _updateFocused(id) {
+    this.set('focusedDate', id);
   }
 
   // date: null,

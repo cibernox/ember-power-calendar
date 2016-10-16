@@ -5,6 +5,7 @@
   {{#power-calendar
     class="demo-calendar-small"
     onMonthChange=(action (mut foo))
+    onChange=(action (mut selected) value="date")
     selected=selected
     onchange=(action (mut selected) value="moment") as |day|}}
   {{/power-calendar}}

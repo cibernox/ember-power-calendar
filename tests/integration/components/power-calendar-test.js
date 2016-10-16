@@ -131,17 +131,29 @@ test('It shows the abbreviation of the week-days starting on Monday', function(a
 test('If there is no `onChange` action, days cannot be focused', function(assert) {
   assert.expect(1);
   this.render(hbs`{{power-calendar}}`);
-  let dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0);
-  run(() => dayElement.focus());
-  assert.notEqual(document.activeElement, dayElement);
+  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]');
+  run(() => $dayElement.focus());
+  assert.notEqual(document.activeElement, $dayElement.get(0));
 });
 
 test('If there is an `onChange` action, days can be focused', function(assert) {
   assert.expect(1);
   this.render(hbs`{{power-calendar onChange=(action (mut foo))}}`);
-  let dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0);
-  run(() => dayElement.focus());
-  assert.equal(document.activeElement, dayElement);
+  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]');
+  run(() => $dayElement.focus());
+  assert.equal(document.activeElement, $dayElement.get(0));
+});
+
+test('If a day is focused, it gets a special hasClass', function(assert) {
+  assert.expect(3);
+  this.render(hbs`{{power-calendar onChange=(action (mut foo))}}`);
+  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]');
+  run(() => $dayElement.focus());
+  assert.ok($dayElement.hasClass('ember-power-calendar-day--focused'), 'The focused day gets a special class');
+  let $anotherDayElement = this.$('.ember-power-calendar-day[data-date="2013-10-21"]');
+  run(() => $anotherDayElement.focus());
+  assert.notOk($dayElement.hasClass('ember-power-calendar-day--focused'), 'The focused day gets a special class');
+  assert.ok($anotherDayElement.hasClass('ember-power-calendar-day--focused'), 'The focused day gets a special class');
 });
 
 test('Clicking one day, triggers the `onChange` action with that day (which is a object with some basic information)', function(assert) {
