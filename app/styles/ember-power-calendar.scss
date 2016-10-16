@@ -36,6 +36,9 @@
   outline: initial;
   flex: 1;
   font-size: inherit;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 .ember-power-calendar-nav-control {
   -webkit-appearance: none;
