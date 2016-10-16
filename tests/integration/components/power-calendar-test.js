@@ -154,3 +154,12 @@ test('Clicking one day, triggers the `onChange` action with that day (which is a
   let dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0);
   run(() => dayElement.click());
 });
+
+test('If the `onChange` updates the selected value, it can work as a date-selector', function(assert) {
+  assert.expect(2);
+  this.selected = new Date(2016, 1, 5);
+  this.render(hbs`{{power-calendar selected=selected onChange=(action (mut selected) value="date")}}`);
+  assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-02-05');
+  run(() => this.$('.ember-power-calendar-day[data-date="2016-02-21"]').click());
+  assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-02-21');
+});
