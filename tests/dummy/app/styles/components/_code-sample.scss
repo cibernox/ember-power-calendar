@@ -22,9 +22,13 @@
 }
 .code-sample-snippet {
   margin-bottom: 0;
-  background-color: #f9f9f9;
   padding: 1rem;
   &:not(.active) {
     display: none;
+  }
+}
+.code-sample-snippet.result {
+  .ember-power-calendar {
+    margin: 0 auto;
   }
 }

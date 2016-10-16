@@ -13,6 +13,10 @@
 
 @import 'ember-power-calendar';
 
+.ember-power-calendar {
+  @include ember-power-calendar($cell-size: 50px);
+}
+
 .demo-calendar-small {
   @include ember-power-calendar($cell-size: 30px);
 }

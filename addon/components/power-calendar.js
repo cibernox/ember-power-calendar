@@ -4,6 +4,10 @@ import computed from 'ember-computed';
 import moment from 'moment';
 import { scheduleOnce } from 'ember-runloop';
 
+function getMonth(date) {
+  return date instanceof Date ? date.getMonth() : date.month();
+}
+
 export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],
@@ -28,7 +32,7 @@ export default Component.extend({
 
   // CPs
   monthNumber: computed('date', function() {
-    return this.get('date').month();
+    return getMonth(this.get('date'));
   }),
 
   dayNames: computed(function() {
