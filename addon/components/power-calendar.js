@@ -31,7 +31,7 @@ export default Component.extend({
   }),
 
   days: computed('monthNumber', 'selected', 'focusedDate', function() {
-    let today = moment();
+    let today = this.get('calendar').getDate();
     let displayedMonth = this.get('currentlyDisplayedMonth');
     let beginOfMonth = displayedMonth.clone().startOf('month');
     let startOfFirstWeek = beginOfMonth.clone().startOf('isoWeek');
