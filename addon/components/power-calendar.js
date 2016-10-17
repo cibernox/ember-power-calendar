@@ -4,10 +4,12 @@ import computed from 'ember-computed';
 import moment from 'moment';
 import { scheduleOnce } from 'ember-runloop';
 import service from 'ember-service/inject';
+import { task } from 'ember-concurrency';
 
 export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],
+  classNameBindings: ['changeMonthTask.isRunning:ember-power-calendar--loading'],
   displayedMonth: null,
   selected: null,
   focusedId: null,
@@ -17,8 +19,8 @@ export default Component.extend({
   publicAPI: computed(function() {
     return {
       actions: {
-        decreaseMonth: () => this.send('decreaseMonth'),
-        increaseMonth: () => this.send('increaseMonth')
+        decreaseMonth: () => this.changeMonthTask.perform(-1),
+        increaseMonth: () => this.changeMonthTask.perform(1)
       }
     };
   }),
@@ -76,22 +78,6 @@ export default Component.extend({
 
   // Actions
   actions: {
-    decreaseMonth() {
-      let displayedMonth = this.get('displayedMonth');
-      let momentDate = moment(displayedMonth);
-      let previousMonth = momentDate.clone().subtract(1, 'month');
-      let newMonth = previousMonth instanceof Date ? previousMonth._d : previousMonth;
-      this.get('onMonthChange')(newMonth);
-    },
-
-    increaseMonth() {
-      let displayedMonth = this.get('displayedMonth');
-      let momentDate = moment(displayedMonth);
-      let nextMonth = momentDate.clone().add(1, 'month');
-      let newMonth = nextMonth instanceof Date ? nextMonth._d : nextMonth;
-      this.get('onMonthChange')(newMonth);
-    },
-
     clickDay(day, e) {
       let action = this.get('onChange');
       if (action) {
@@ -136,6 +122,15 @@ export default Component.extend({
       }
     }
   },
+
+  // Tasks
+  changeMonthTask: task(function* (step) {
+    let displayedMonth = this.get('displayedMonth');
+    let momentDate = moment(displayedMonth);
+    let month = momentDate.clone().add(step, 'month');
+    let newMonthValue = month._isAMomentObject ? month : month._d;
+    yield this.get('onMonthChange')(newMonthValue);
+  }),
 
   // Methods
   _updateFocused(id) {

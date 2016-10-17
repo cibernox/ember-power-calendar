@@ -1,10 +1,10 @@
 .ember-power-calendar {
   box-sizing: border-box;
+  position: relative;
 }
 .ember-power-calendar * {
   box-sizing: border-box;
 }
-
 .ember-power-calendar-nav {
   display: flex;
   justify-content: space-between;
