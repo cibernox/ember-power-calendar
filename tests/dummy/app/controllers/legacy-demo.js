@@ -6,6 +6,7 @@ export default Controller.extend({
   pastMonth: null,
   nextMonth: null,
   februaryNextYear: null,
+  range: null,
 
   // Lifecycle hooks
   init() {
@@ -15,5 +16,6 @@ export default Controller.extend({
     this.set('nextMonth', moment().add(1, 'month'));
     this.set('februaryNextYear', moment().year(2017).month('february'));
     this.set('selected', moment().add(1, 'day'));
+    this.set('range', { start: moment().add(2, 'day'), end: moment().add(7, 'day') });
   }
 });

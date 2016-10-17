@@ -5,6 +5,7 @@ import moment from 'moment';
 import { scheduleOnce } from 'ember-runloop';
 import service from 'ember-service/inject';
 import { task } from 'ember-concurrency';
+import { getProperties } from 'ember-metal/get';
 
 export default Component.extend({
   layout,
@@ -41,12 +42,29 @@ export default Component.extend({
     let endOfMonth = displayedMonth.clone().endOf('month');
     let endOfLastWeek = endOfMonth.clone().endOf('isoWeek');
     let currentMoment = startOfFirstWeek.clone();
-    let selected = this.get('selected');
+    let isRange = this.get('range') || false;
     let focusedId = this.get('focusedId');
     let days = [];
+    let isSelected;
     while (currentMoment.isBefore(endOfLastWeek)) {
       let id = currentMoment.format('YYYY-MM-DD');
       let momentDate = currentMoment.clone();
+      let isRangeStart = false;
+      let isRangeEnd = false;
+      if (isRange) {
+        let { start, end } = getProperties(this.get('selected') || { start: null, end: null }, 'start', 'end');
+        if (start && end) {
+          isSelected = currentMoment.isBetween(start, end, 'day', '[]');
+          isRangeStart = isSelected && currentMoment.isSame(start, 'day');
+          isRangeEnd = !isRangeStart && currentMoment.isSame(end, 'day');
+        } else {
+          isRangeStart = isSelected = currentMoment.isSame(start, 'day');
+        }
+      } else {
+        let selected = this.get('selected');
+        isSelected =  selected ? currentMoment.isSame(selected, 'day') : false;
+      }
+
       days.push({
         id,
         number: currentMoment.date(),
@@ -55,7 +73,9 @@ export default Component.extend({
         isFocused: focusedId === id,
         isCurrentMonth: currentMoment.month() === displayedMonth.month(),
         isToday: currentMoment.isSame(today, 'day'),
-        isSelected: selected ? currentMoment.isSame(selected, 'day') : false
+        isSelected,
+        isRangeStart,
+        isRangeEnd
       });
       currentMoment.add(1, 'day');
     }
