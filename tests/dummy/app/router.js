@@ -14,6 +14,7 @@ Router.map(function() {
       this.route('installation');
       this.route('how-to-use-it');
       this.route('action-handling');
+      this.route('date-ranges');
     });
   });
   this.route('legacy-demo');
