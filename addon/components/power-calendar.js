@@ -31,7 +31,15 @@ export default Component.extend({
   }),
 
   currentlyDisplayedMonth: computed('displayedMonth', 'selected', function() {
-    return moment(this.get('displayedMonth') || this.get('selected') || this.get('calendar').getDate());
+    let displayedMonth = this.get('displayedMonth');
+    if (displayedMonth) {
+      return displayedMonth;
+    }
+    if (this.get('range')) {
+      return moment(this.get('selected.start') || this.get('calendar').getDate());
+    } else {
+      return moment(this.get('selected') || this.get('calendar').getDate());
+    }
   }),
 
   days: computed('currentlyDisplayedMonth', 'selected', 'focusedId', function() {

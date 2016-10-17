@@ -236,7 +236,7 @@ test('If the `onMonthChange` action returns a `thenable`, the component enter lo
     return new RSVP.Promise(function(resolve) {
       run.later(resolve, 200);
     });
-  }
+  };
   this.render(hbs`{{power-calendar onMonthChange=(action asyncAction)}}`);
 
   setTimeout(function() {
@@ -249,4 +249,19 @@ test('If the `onMonthChange` action returns a `thenable`, the component enter lo
     assert.notOk(this.$('.ember-power-calendar').hasClass('ember-power-calendar--loading'), 'The component is not in a loading state anymore');
     done();
   }, 250);
+});
+
+test('when it receives a range in the `selected` argument containing `Date` objects, the range is highlighted', function(assert) {
+  assert.expect(4);
+  this.selected = { start: new Date(2016, 1, 5), end: new Date(2016, 1, 9) };
+  this.render(hbs`{{power-calendar range=true selected=selected}}`);
+  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the selected date');
+  let allDaysInRangeAreSelected = this.$('.ember-power-calendar-day[data-date="2016-02-05"]').hasClass('ember-power-calendar-day--selected')
+    && this.$('.ember-power-calendar-day[data-date="2016-02-06"]').hasClass('ember-power-calendar-day--selected')
+    && this.$('.ember-power-calendar-day[data-date="2016-02-07"]').hasClass('ember-power-calendar-day--selected')
+    && this.$('.ember-power-calendar-day[data-date="2016-02-08"]').hasClass('ember-power-calendar-day--selected')
+    && this.$('.ember-power-calendar-day[data-date="2016-02-09"]').hasClass('ember-power-calendar-day--selected');
+  assert.ok(allDaysInRangeAreSelected, 'All days in range are selected');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2016-02-05"]').hasClass('ember-power-calendar-day--range-start'), 'The start of the range has a special class');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2016-02-09"]').hasClass('ember-power-calendar-day--range-end'), 'The end of the range has a special class');
 });
