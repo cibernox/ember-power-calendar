@@ -5,6 +5,7 @@ import moment from 'moment';
 import run from 'ember-runloop';
 import getOwner from 'ember-owner/get';
 import $ from 'jquery';
+import RSVP from 'rsvp';
 
 function triggerKeydown(domElement, k) {
   let oEvent = document.createEvent('Events');
@@ -228,3 +229,24 @@ test('If a day is focused, using up/down arrow keys focuses the same weekday of 
   assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
 });
 
+test('If the `onMonthChange` action returns a `thenable`, the component enter loading state while that thenable resolves or rejects', function(assert) {
+  assert.expect(2);
+  let done = assert.async();
+  this.asyncAction = function() {
+    return new RSVP.Promise(function(resolve) {
+      run.later(resolve, 200);
+    });
+  }
+  this.render(hbs`{{power-calendar onMonthChange=(action asyncAction)}}`);
+
+  setTimeout(function() {
+    assert.ok(this.$('.ember-power-calendar').hasClass('ember-power-calendar--loading'), 'The component is in a loading state');
+  }, 100);
+
+  run(() => this.$('.ember-power-calendar-nav-control--next').click());
+
+  setTimeout(function() {
+    assert.notOk(this.$('.ember-power-calendar').hasClass('ember-power-calendar--loading'), 'The component is not in a loading state anymore');
+    done();
+  }, 250);
+});
