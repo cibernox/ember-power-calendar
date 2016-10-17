@@ -75,8 +75,12 @@
   color: #656D78;
   background-color: #F5F7FA;
 }
-.ember-power-calendar-day--today, .ember-power-calendar-day--interactive:hover {
+.ember-power-calendar-day--today,
+.ember-power-calendar-day--interactive:hover {
   background-color: #eee;
+}
+.ember-power-calendar-day--other-month:hover {
+  color: darken(#E6E9ED, 15%);
 }
 .ember-power-calendar-day--selected {
   font-weight: bold;

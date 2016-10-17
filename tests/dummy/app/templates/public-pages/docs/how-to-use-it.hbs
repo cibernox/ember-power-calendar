@@ -13,6 +13,8 @@
   Nice, but not very interesting. The calendar is smart enough to display the current month but that's it.
 </p>
 
+<h3><code>displayedMonth</code></h3>
+
 <p>
   To make the calendar show render on a different month, just pass <code>displayedMonth=someDate</code>, and the calendar will
   display the month of that date.
@@ -24,11 +26,14 @@
 {{/code-sample}}
 
 <p>
-  Oh, and by the way, this component speaks native <code>Date</code> and <code>MomentJS</code>. You can pass any, at your best convenience.
+  Oh, and by the way, this component speaks native <code>Date</code> and <code>MomentJS</code>.
+  You can pass any, at your best convenience. The same is true for all options that take a date.
 </p>
 
+<h3><code>selected</code></h3>
+
 <p>
-  Sometimes you want a day of the month to be selected. To mark that selection, pass <code>selected=someDate</code> to the component.
+  Sometimes you want a day of the month to be highlighted. To do it pass <code>selected=someDate</code> to the component.
 </p>
 
 {{#code-sample hbs="how-to-use-it-3.hbs" js="how-to-use-it-3-js.js" as |partialName|}}
@@ -43,11 +48,11 @@
 </p>
 
 <p>
-  Enough for static calendar. If you just wanted to display a static grid of days you probably wouldn't be using an ember-addon for that.
+  Enough for static calendars. If you just wanted to display a static grid of days you probably wouldn't be using an ember-addon for that.
   You want to navigate months, you want to select days and ranges. Let's see how to do this things in the next chapter.
 </p>
 
 <div class="doc-page-nav">
   <a href={{href-to 'public-pages.docs.installation'}} class="doc-page-nav-link-prev">&lt; Installation</a>
-  {{#link-to 'public-pages.docs.action-handling' class="doc-page-nav-link-next"}}Action handling &gt;{{/link-to}}
+  <a href={{href-to 'public-pages.docs.action-handling'}} class="doc-page-nav-link-next">Action handling &gt;</a>
 </div>
