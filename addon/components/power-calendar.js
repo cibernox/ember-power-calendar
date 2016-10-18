@@ -37,6 +37,8 @@ export default Component.extend({
     }
     if (this.get('range')) {
       return moment(this.get('selected.start') || this.get('calendar').getDate());
+    } else if (this.get('multiple')) {
+      return moment((this.get('selected') || [])[0] || this.get('calendar').getDate());
     } else {
       return moment(this.get('selected') || this.get('calendar').getDate());
     }
