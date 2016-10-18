@@ -82,9 +82,9 @@
 .ember-power-calendar-day--other-month:hover {
   color: darken(#E6E9ED, 15%);
 }
-.ember-power-calendar-day--selected {
+.ember-power-calendar-day--selected, .ember-power-calendar-day--selected:hover {
   font-weight: bold;
-  background-color: #ddd;
+  background-color: lighten(#0078c9, 50%);
   color: #656D78;
 }
 .ember-power-calendar-day--focused {

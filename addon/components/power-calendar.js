@@ -30,7 +30,7 @@ export default Component.extend({
     return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }),
 
-  currentlyDisplayedMonth: computed('displayedMonth', 'selected', function() {
+  currentlyDisplayedMonth: computed('displayedMonth', function() {
     let displayedMonth = this.get('displayedMonth');
     if (displayedMonth) {
       return displayedMonth;
