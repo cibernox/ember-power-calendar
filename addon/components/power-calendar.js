@@ -33,7 +33,7 @@ export default Component.extend({
   currentlyDisplayedMonth: computed('displayedMonth', function() {
     let displayedMonth = this.get('displayedMonth');
     if (displayedMonth) {
-      return displayedMonth;
+      return moment(displayedMonth);
     }
     if (this.get('range')) {
       return moment(this.get('selected.start') || this.get('calendar').getDate());
@@ -109,7 +109,12 @@ export default Component.extend({
     clickDay(day, e) {
       let action = this.get('onChange');
       if (action) {
-        action(day, e);
+        if (this.get('range')) {
+          let range = this._buildNewRange(day);
+          action(range, e);
+        } else {
+          action(day, e);
+        }
       }
     },
 
@@ -169,6 +174,30 @@ export default Component.extend({
     let dayElement = this.element.querySelector(`[data-date="${id}"]`);
     if (dayElement) {
       dayElement.focus();
+    }
+  },
+
+  _buildNewRange(day) {
+    let selected = this.get('selected') || { start: null, end: null };
+    let { start, end } = getProperties(selected, 'start', 'end');
+    if (start && !end) {
+      let startMoment = moment(start);
+      if (startMoment.isAfter(day.moment)) {
+        return {
+          moment: { start: day.moment, end: startMoment },
+          date: {  start: day.date, end: startMoment._d }
+        };
+      }  else {
+        return {
+          moment: { start: startMoment, end: day.moment },
+          date: {  start: startMoment._d, end: day.date }
+        };
+      }
+    } else {
+      return {
+        moment: { start: day.moment, end: null },
+        date: {  start: day.date, end: null }
+      };
     }
   }
 });

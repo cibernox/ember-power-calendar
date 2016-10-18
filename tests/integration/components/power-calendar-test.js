@@ -265,3 +265,71 @@ test('when it receives a range in the `selected` argument containing `Date` obje
   assert.ok(this.$('.ember-power-calendar-day[data-date="2016-02-05"]').hasClass('ember-power-calendar-day--range-start'), 'The start of the range has a special class');
   assert.ok(this.$('.ember-power-calendar-day[data-date="2016-02-09"]').hasClass('ember-power-calendar-day--range-end'), 'The end of the range has a special class');
 });
+
+test('In range calendars, clicking a day selects one end of the range, and clicking another closes the range', function(assert) {
+  this.selected = null;
+  let numberOfCalls = 0;
+  this.didChange = (range, e) => {
+    numberOfCalls++;
+    if (numberOfCalls === 1) {
+      assert.ok(range.date.start, 'The start is present');
+      assert.notOk(range.date.end, 'The end is not present');
+    } else {
+      assert.ok(range.date.start, 'The start is present');
+      assert.ok(range.date.end, 'The start is also present');
+    }
+    this.set('selected', range.date);
+    assert.ok(e instanceof Event, 'The second argument is an event');
+  };
+  this.render(hbs`{{power-calendar range=true selected=selected onChange=(action didChange)}}`);
+
+  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days have been selected');
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'), 'The clicked date is selected');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-start'), 'The clicked date is the start of the range');
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'), 'The first clicked date is still selected');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-start'), 'The first clicked date is still the start of the range');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'), 'The clicked date is selected');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--range-end'), 'The clicked date is the start of the range');
+  let allDaysInBetweenAreSelected = this.$('.ember-power-calendar-day[data-date="2013-10-11"]').hasClass('ember-power-calendar-day--selected')
+    && this.$('.ember-power-calendar-day[data-date="2013-10-12"]').hasClass('ember-power-calendar-day--selected')
+    && this.$('.ember-power-calendar-day[data-date="2013-10-13"]').hasClass('ember-power-calendar-day--selected')
+    && this.$('.ember-power-calendar-day[data-date="2013-10-14"]').hasClass('ember-power-calendar-day--selected');
+  assert.ok(allDaysInBetweenAreSelected, 'All days in between are also selected');
+  assert.equal(numberOfCalls, 2, 'The onChange action was called twice');
+});
+
+test('In range calendars, clicking first the end of the range and then the start is not a problem', function(assert) {
+  this.selected = null;
+  let numberOfCalls = 0;
+  this.didChange = (range, e) => {
+    numberOfCalls++;
+    if (numberOfCalls === 1) {
+      assert.ok(range.date.start, 'The start is present');
+      assert.notOk(range.date.end, 'The end is not present');
+    } else {
+      assert.ok(range.date.start, 'The start is present');
+      assert.ok(range.date.end, 'The start is also present');
+    }
+    this.set('selected', range.date);
+    assert.ok(e instanceof Event, 'The second argument is an event');
+  };
+  this.render(hbs`{{power-calendar range=true selected=selected onChange=(action didChange)}}`);
+
+  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days have been selected');
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'), 'The clicked date is selected');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--range-start'), 'The clicked date is the start of the range');
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'), 'The first clicked date is still selected');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-start'), 'The first clicked date is still the start of the range');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'), 'The clicked date is selected');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--range-end'), 'The clicked date is the start of the range');
+  let allDaysInBetweenAreSelected = this.$('.ember-power-calendar-day[data-date="2013-10-11"]').hasClass('ember-power-calendar-day--selected')
+    && this.$('.ember-power-calendar-day[data-date="2013-10-12"]').hasClass('ember-power-calendar-day--selected')
+    && this.$('.ember-power-calendar-day[data-date="2013-10-13"]').hasClass('ember-power-calendar-day--selected')
+    && this.$('.ember-power-calendar-day[data-date="2013-10-14"]').hasClass('ember-power-calendar-day--selected');
+  assert.ok(allDaysInBetweenAreSelected, 'All days in between are also selected');
+  assert.equal(numberOfCalls, 2, 'The onChange action was called twice');
+});
