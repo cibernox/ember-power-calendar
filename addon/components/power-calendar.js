@@ -212,7 +212,7 @@ export default Component.extend({
     let moments;
     if (matchingDate) {
       moments = [];
-      selected.forEach((d, i) => {
+      selected.forEach((d) => {
         let m = moment(d);
         if (!m.isSame(day.moment)) {
           moments[moments.length] = m;
