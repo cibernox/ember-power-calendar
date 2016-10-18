@@ -50,7 +50,6 @@ export default Component.extend({
     let endOfMonth = displayedMonth.clone().endOf('month');
     let endOfLastWeek = endOfMonth.clone().endOf('isoWeek');
     let currentMoment = startOfFirstWeek.clone();
-    let isRange = this.get('range') || false;
     let focusedId = this.get('focusedId');
     let days = [];
     let isSelected;
@@ -59,7 +58,7 @@ export default Component.extend({
       let momentDate = currentMoment.clone();
       let isRangeStart = false;
       let isRangeEnd = false;
-      if (isRange) {
+      if (this.get('range')) {
         let { start, end } = getProperties(this.get('selected') || { start: null, end: null }, 'start', 'end');
         if (start && end) {
           isSelected = currentMoment.isBetween(start, end, 'day', '[]');
@@ -68,6 +67,9 @@ export default Component.extend({
         } else {
           isRangeStart = isSelected = currentMoment.isSame(start, 'day');
         }
+      } else if (this.get('multiple')) {
+        let selected = this.get('selected') || [];
+        isSelected =  selected.some((d) => currentMoment.isSame(d, 'day'));
       } else {
         let selected = this.get('selected');
         isSelected =  selected ? currentMoment.isSame(selected, 'day') : false;
@@ -112,6 +114,9 @@ export default Component.extend({
         if (this.get('range')) {
           let range = this._buildNewRange(day);
           action(range, e);
+        } else if (this.get('multiple')) {
+          let collection = this._buildNewCollection(day);
+          action(collection, e);
         } else {
           action(day, e);
         }
@@ -199,5 +204,26 @@ export default Component.extend({
         date: {  start: day.date, end: null }
       };
     }
+  },
+
+  _buildNewCollection(day) {
+    let selected = this.get('selected') || [];
+    let matchingDate = selected.find((date) => day.moment.isSame(date, 'day'));
+    let moments;
+    if (matchingDate) {
+      moments = [];
+      selected.forEach((d, i) => {
+        let m = moment(d);
+        if (!m.isSame(day.moment)) {
+          moments[moments.length] = m;
+        }
+      });
+    } else {
+      moments = [...selected.map((d) => moment(d)), day.moment];
+    }
+    return {
+      moment: moments,
+      date: moments.map((m) => m._d)
+    };
   }
 });
