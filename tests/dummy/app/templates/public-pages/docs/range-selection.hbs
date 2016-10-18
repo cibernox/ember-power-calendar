@@ -1,0 +1,51 @@
+<h1 class="doc-page-title">Range selection</h1>
+
+<p>
+  The most common use case of calendars, is selecting one day. The second one more common, is selecting a
+  duration, aka, a range.
+</p>
+
+<p>
+  The only difference in the API between a calendar for selecting a single day and a calendar
+  for selecting a range, is that the <code>selected</code> value has to be implement the <code>Range</code>
+  interface. Sounds scary, but it only means that it has to be an object with <code>start</code> and <code>end</code>
+  properties.
+</p>
+
+<p>
+  The same <code>onChange</code> action used in the previous chapter to select one date,
+  is not used to select a range. The object that this action receives has a <code>date</code> and <code>code</code>
+  properties, each one containing a range with the dates in native Date objects or in momentJS objects.
+</p>
+
+<p>
+  Lets see this in action.
+</p>
+
+{{#code-sample hbs="range-selection-1.hbs" js="range-selection-1-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  All the days in the range are selected, and the ends of the range have some special
+  classes so you can style them differently.
+</p>
+
+<p>
+  Let's see an example:
+</p>
+
+{{#code-sample hbs="range-selection-2.hbs" js="range-selection-1-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>Hey, I never said I was a brilliant designer! But you get the idea.</p>
+
+<p>
+  Not let's see how to select several non consecutive dates.
+</p>
+
+<div class="doc-page-nav">
+  <a href={{href-to 'public-pages.docs.action-handling'}} class="doc-page-nav-link-prev">&lt; Action handling</a>
+  <a href={{href-to 'public-pages.docs.multiple-selection'}} class="doc-page-nav-link-next">Multiple selection &gt;</a>
+</div>

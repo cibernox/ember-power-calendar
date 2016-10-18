@@ -47,20 +47,11 @@
   }
 }
 
-.demo-range {
-  .ember-power-calendar-day--selected {
-    background-color: lighten($brand-color, 50%);
-  }
-  .ember-power-calendar-day--range-start,
-  .ember-power-calendar-day--range-end {
-    background-color: lighten($brand-color, 35%)
-  }
+.demo-range-calendar-with-pretty-range-ends-yo {
   .ember-power-calendar-day--range-start {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolygon points='0,0 8,0 10,5 8,10 0,10' fill='%237dcaff'/%3E%3C/svg%3E");
   }
   .ember-power-calendar-day--range-end {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolygon points='0,5 2,0 10,0 10,10 2,10' fill='%237dcaff'/%3E%3C/svg%3E");
   }
 }
