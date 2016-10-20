@@ -13,10 +13,15 @@
 
 @import 'ember-power-calendar';
 
+// Utility classes
+.pink-text {
+  color: #ff0789;
+}
+
+// Calendar styles
 .ember-power-calendar {
   @include ember-power-calendar($cell-size: 50px);
 }
-
 .demo-calendar-small {
   @include ember-power-calendar($cell-size: 30px);
 }

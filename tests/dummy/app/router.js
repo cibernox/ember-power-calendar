@@ -16,6 +16,12 @@ Router.map(function() {
       this.route('action-handling');
       this.route('range-selection');
       this.route('multiple-selection');
+
+      // BASIC CUSTOMIZATION
+      this.route('the-day');
+
+      // OTHER
+      this.route('api-reference');
     });
   });
   this.route('legacy-demo');

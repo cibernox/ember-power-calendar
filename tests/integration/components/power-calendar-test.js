@@ -392,3 +392,19 @@ test('When days are clicked in a multiple calendar, the `onChange` action is cal
   assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'));
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-09"]').hasClass('ember-power-calendar-day--selected'));
 });
+
+test('If the calendar without `onChange` receives a block, that block is used to render each one of the days of the cell', function(assert) {
+  assert.expect(1);
+  this.render(hbs`
+    {{#power-calendar as |day|}}{{day.number}}!{{/power-calendar}}
+  `);
+  assert.equal(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').text().trim(), '1!', 'The block has been rendered');
+});
+
+test('If the calendar with `onChange` receives a block, that block is used to render each one of the days of the cell', function(assert) {
+  assert.expect(1);
+  this.render(hbs`
+    {{#power-calendar selected=day onChange=(action (mut day) value="date") as |day|}}{{day.number}}!{{/power-calendar}}
+  `);
+  assert.equal(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').text().trim(), '1!', 'The block has been rendered');
+});

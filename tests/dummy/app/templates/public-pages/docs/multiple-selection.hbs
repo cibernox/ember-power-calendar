@@ -38,8 +38,20 @@
   Why would anyone want to do that?! No clue.
 </p>
 
+<p>
+  Another thing to note is that selection order is preserved. The last clicked element is at the last position of the array, so
+  you can use this kind of calendar to perform order sensitive selections:
+</p>
+
+{{#code-sample hbs="multiple-selection-3.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Now lest talk about serious business. Customization.
+</p>
 
 <div class="doc-page-nav">
   <a href={{href-to 'public-pages.docs.range-selection'}} class="doc-page-nav-link-prev">&lt; Date Ranges</a>
-  {{!-- <a href={{href-to 'public-pages.docs.multiple-dates'}} class="doc-page-nav-link-next">Multiple dates &gt;</a> --}}
+  <a href={{href-to 'public-pages.docs.the-day'}} class="doc-page-nav-link-next">The day &gt;</a>
 </div>

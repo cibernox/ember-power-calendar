@@ -17,7 +17,7 @@ export default Controller.extend({
         let prevPrime = primes[nextPrimeIndex - 1];
         let closestPrime = nextPrime - number < number - prevPrime ? nextPrime : prevPrime;
         if (moments.some((m) => m.date() === closestPrime)) {
-          moments.pop()
+          moments.pop();
         } else {
           lastOne.date(closestPrime);
         }
@@ -25,4 +25,4 @@ export default Controller.extend({
       this.set('selectedPrimes', moments);
     }
   }
-});;
+});

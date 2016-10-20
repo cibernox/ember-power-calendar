@@ -1,0 +1,28 @@
+<h1 class="doc-page-title">The day</h1>
+
+<p>
+  A calendar is basically a list of days, typically (although not necessarily)
+  displayed in a grid with 7 columns. So the first thing you might want to customize is
+  the content of each day.
+</p>
+
+<h3>Passing a block</h3>
+
+<p>
+  There is many ways of doing it, but the simplest one is passing a block that will be
+  the content of each cell of the grid. It's not the most versatile but can be used for
+  simple customizations.
+</p>
+
+<p>
+  The block receives two arguments. The first one is a useful day object and the second is the
+  public API of the component. You can check the API of both objects <a href="/docs/api-reference">API reference</a> section.
+</p>
+
+<p>
+  Let's start by making the number of the days of the weeked be strong and pink, because we like weekends.
+</p>
+
+{{#code-sample hbs="the-day-1.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}

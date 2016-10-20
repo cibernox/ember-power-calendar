@@ -1,0 +1,9 @@
+{{#power-calendar as |day|}}
+  {{#with (moment-format day.date 'ddd') as |weekday|}}
+    {{#if (or (eq weekday "Sat") (eq weekday "Sun"))}}
+      <strong class="pink-text">{{day.number}}</strong>
+    {{else}}
+      {{day.number}}
+    {{/if}}
+  {{/with}}
+{{/power-calendar}}
