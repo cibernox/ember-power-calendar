@@ -4,11 +4,40 @@
   The last use case is allowing the user to select several non-consecutive dates.
 </p>
 
-<p>There is no much need of explanation, so lets see it in action.</p>
-{{!--
+<p>There is no much need of explanation, so lets see it in action. Play with it, click around and use the keyboard.</p>
+
 {{#code-sample hbs="multiple-selection-1.hbs" js="multiple-selection-1-js.js" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}} --}}
+{{/code-sample}}
+
+<p>
+  When you want to select multiple dates, the <code>selected</code> property is, unsurprisingly, an array of dates.
+</p>
+
+<p>
+  Every time you select a day, the <code>onChange</code> action is called with the <code>Date</code> and <code>MomentJS</code>
+  lists of days clicked so far. It's worth noticing that clicking on a selected day unselects it and that the days are passed in the
+  order they are clicked.
+</p>
+
+<p>
+  Since what the <code>onChange</code> action does is up to you, you can implement any logic you want, no
+  matter how <strike>absurd</strike> complex it is.
+</p>
+
+<p>
+  By example, let's implement a calendar that allows you to click on any day, and when you do, it selects the nearest day
+  which number is prime, selecting the lowest one in case of a tie.
+</p>
+
+{{#code-sample hbs="multiple-selection-2.hbs" js="multiple-selection-2-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Why would anyone want to do that?! No clue.
+</p>
+
 
 <div class="doc-page-nav">
   <a href={{href-to 'public-pages.docs.range-selection'}} class="doc-page-nav-link-prev">&lt; Date Ranges</a>
