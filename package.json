@@ -44,6 +44,7 @@
     "ember-load-initializers": "^0.5.1",
     "ember-moment": "6.1.0",
     "ember-pagefront": "0.11.2",
+    "ember-power-select": "1.0.0-beta.25",
     "ember-resolver": "^2.0.3",
     "ember-truth-helpers": "^1.2.0",
     "eslint-plugin-ember-suave": "^1.0.0",
