@@ -6,11 +6,11 @@ html, body {
   margin: 0;
   padding: 0;
 }
-
 html {
   font-size: 100%;
   line-height: 1.42;
   font-family: 'Open sans', sans-serif;
+  touch-action: manipulation;
 }
 
 body {
