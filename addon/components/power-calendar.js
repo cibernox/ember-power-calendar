@@ -20,8 +20,8 @@ export default Component.extend({
   publicAPI: computed(function() {
     return {
       actions: {
-        decreaseMonth: () => this.changeMonthTask.perform(-1),
-        increaseMonth: () => this.changeMonthTask.perform(1)
+        decreaseMonth: () => this.get('changeMonthTask').perform(-1),
+        increaseMonth: () => this.get('changeMonthTask').perform(1)
       }
     };
   }),
@@ -210,17 +210,18 @@ export default Component.extend({
 
   _buildNewCollection(day) {
     let selected = this.get('selected') || [];
-    let matchingDate = selected.find((date) => day.moment.isSame(date, 'day'));
-    let moments;
-    if (matchingDate) {
-      moments = [];
-      selected.forEach((d) => {
-        let m = moment(d);
-        if (!m.isSame(day.moment)) {
-          moments[moments.length] = m;
-        }
-      });
-    } else {
+    let moments = [];
+    for (let i = 0; i < selected.length; i++) {
+      if (day.moment.isSame(selected[i], 'day')) {
+        selected.forEach((d, index) => {
+          if (i !== index) {
+            moments[moments.length] = moment(d);
+          }
+        });
+        break;
+      }
+    }
+    if (moments.length === 0) {
       moments = [...selected.map((d) => moment(d)), day.moment];
     }
     return {
