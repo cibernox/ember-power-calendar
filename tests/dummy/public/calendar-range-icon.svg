@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Border top top -->
+  <line fill="none" stroke="#444444" stroke-width="5" x1="2.5" y1="5" x2="15" y2="5"/>
+  <line fill="none" stroke="#444444" stroke-width="5" x1="25" y1="5" x2="75" y2="5"/>
+  <line fill="none" stroke="#444444" stroke-width="5" x1="85" y1="5" x2="97.5" y2="5"/>
+
+  <!-- Border left -->
+  <line fill="none" stroke="#444444" stroke-width="5" x1="2.5" y1="2.5" x2="2.5" y2="92.5"/>
+
+  <!-- Border right -->
+  <line fill="none" stroke="#444444" stroke-width="5" x1="97.5" y1="2.5" x2="97.5" y2="92.5"/>
+
+  <!-- Border bottom -->
+  <line fill="none" stroke="#444444" stroke-width="5" x1="2.5" y1="90" x2="97.5" y2="90"/>
+
+  <!-- Hanger lines -->
+  <line fill="none" stroke="#444444" stroke-width="5" x1="20" y1="0" x2="20" y2="10"/>
+  <line fill="none" stroke="#444444" stroke-width="5" x1="80" y1="0" x2="80" y2="10"/>
+
+  <!-- Header bottom -->
+  <line fill="none" stroke="#444444" stroke-width="5" x1="2.5" y1="20" x2="97.5" y2="20"/>
+
+  <!-- Days -->
+  <!-- <rect x="15" y="30" width="10" height="10"/> -->
+  <!-- <polygon points="35,30 45,30 45,40 35,40" /> -->
+  <rect x="35" y="30" width="10" height="10" fill="#444444"/>
+  <line fill="none" stroke="#a9dcff" stroke-width="13" x1="60" y1="35" x2="80" y2="35" stroke-linecap="round"/>
+  <circle cx="60" cy="35" r="5" fill="#444444"/>
+  <!-- <rect x="55" y="30" width="10" height="10"/> -->
+  <circle cx="80" cy="35" r="5" fill="#444444"/>
+  <!-- <rect x="75" y="30" width="10" height="10"/> -->
+
+  <line fill="none" stroke="#a9dcff" stroke-width="13" x1="20" y1="55" x2="60" y2="55" stroke-linecap="round"/>
+  <circle cx="20" cy="55" r="5" fill="#444444"/>
+  <!-- <rect x="15" y="50" width="10" height="10"/> -->
+  <circle cx="40" cy="55" r="5" fill="#444444"/>
+  <!-- <rect x="35" y="50" width="10" height="10"/> -->
+  <circle cx="60" cy="55" r="5" fill="#444444"/>
+  <!-- <rect x="55" y="50" width="10" height="10"/> -->
+  <rect x="75" y="50" width="10" height="10" fill="#444444"/>
+
+  <rect x="15" y="70" width="10" height="10" fill="#444444"/>
+  <rect x="35" y="70" width="10" height="10" fill="#444444"/>
+  <rect x="55" y="70" width="10" height="10" fill="#444444"/>
+  <!-- <rect x="75" y="70" width="10" height="10"/> -->
+</svg>

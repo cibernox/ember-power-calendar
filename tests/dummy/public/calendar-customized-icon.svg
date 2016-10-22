@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <path d="M 15 9.5 L 12.5 12 L 15 14.5" stroke="#444444" fill="none" stroke-width="1" stroke-linecap="round" transform="rotate(4, 13.75, 12)"/>
+  <path d="M 76.5 13 L 79 15.5 L 76.5 18" stroke="#444444" fill="none" stroke-width="1" stroke-linecap="round" transform="rotate(4, 77.75, 15.5)"/>
+  <!-- Border top top -->
+  <line fill="none" stroke="#444444" stroke-width="5" x1="7.5" y1="2.5" x2="85" y2="7.5"/>
+
+  <!-- Border left -->
+  <line fill="none" stroke="#444444" stroke-width="5" x1="7.5" y1="2.5" x2="2.5" y2="92.5" stroke-linecap="round"/>
+
+  <!-- Border right -->
+  <line fill="none" stroke="#444444" stroke-width="5" x1="85" y1="7.5" x2="80" y2="97.5" stroke-linecap="round"/>
+  <line fill="none" stroke="#444444" stroke-width="5" x1="85" y1="7.5" x2="95" y2="90" stroke-linecap="round"/>
+
+  <!-- Border bottom -->
+  <line fill="none" stroke="#444444" stroke-width="5" x1="2.5" y1="90" x2="80" y2="95" stroke-linecap="round"/>
+  <line fill="none" stroke="#444444" stroke-width="5" x1="82" y1="84.5" x2="92.5" y2="85" stroke-linecap="round"/>
+
+  <!-- Hanger lines -->
+  <line fill="none" stroke="#444444" stroke-width="5" x1="5" y1="20" x2="85" y2="25"/>
+
+  <!-- Days -->
+  <polygon points="32,31 41.5,31.5 41,41.5 31.5,41" fill="#444444"></polygon>
+  <polygon points="49,32 58.5,32.5 58,42.5 48.5,42" fill="#444444"></polygon>
+  <polygon points="66,33 75.5,33.5 75,43.5 65.5,43" fill="#444444"></polygon>
+
+  <polygon points="14,50 23.5,50.5 23,60.5 13.5,60" fill="#444444"></polygon>
+  <polygon points="31,51 40.5,51.5 40,61.5 30.5,61" fill="#444444"></polygon>
+  <polygon points="48,52 57.5,52.5 57,62.5 47.5,62" fill="#ff7777"></polygon>
+  <polygon points="65,53 74.5,53.5 74,63.5 64.5,63" fill="#444444"></polygon>
+
+  <polygon points="13,70 22.5,70.5 22,80.5 12.5,80" fill="#444444"></polygon>
+  <polygon points="30,71 39.5,71.5 39,81.5 29.5,81" fill="#444444"></polygon>
+  <polygon points="47,72 56.5,72.5 56,82.5 46.5,82" fill="#444444"></polygon>
+</svg>
