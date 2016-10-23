@@ -1,5 +1,7 @@
-{{power-calendar
-  range=true
+{{#power-calendar-range
   displayedMonth=displayedMonth
   selected=range
-  onChange=(action (mut range) value="moment")}}
+  onChange=(action (mut range) value="moment") as |calendar|}}
+  {{calendar.nav}}
+  {{calendar.days}}
+{{/power-calendar-range}}

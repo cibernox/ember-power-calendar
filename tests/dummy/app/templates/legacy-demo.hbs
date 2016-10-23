@@ -1,12 +1,60 @@
 <h1>Ember Power Calendar</h1>
 <div class="legacy-demo" style="padding: 10px 20px">
-  <h3>Small</h3>
+  <h3>Small with only navbar</h3>
+  {{#power-calendar
+    class="demo-calendar-small"
+    displayedMonth=foo as |calendar|}}
+    {{calendar.nav}}
+  {{/power-calendar}}
+
+  <h3>Small with no nav</h3>
+  {{#power-calendar
+    class="demo-calendar-small"
+    onChange=(action (mut selected) value="date")
+    selected=selected as |calendar|}}
+    {{calendar.days}}
+  {{/power-calendar}}
+
+  <h3>Small with no blocks at all</h3>
+  {{#power-calendar
+    class="demo-calendar-small"
+    displayedMonth=foo
+    onMonthChange=(action (mut foo) value="date")
+    onChange=(action (mut selected) value="date")
+    selected=selected as |calendar|}}
+
+    {{calendar.nav}}
+    {{calendar.days}}
+  {{/power-calendar}}
+
+  <h3>Small with a custom block on the nav</h3>
 
   {{#power-calendar
     class="demo-calendar-small"
-    onMonthChange=(action (mut foo))
+    displayedMonth=foo
+    onMonthChange=(action (mut foo) value="date")
     onChange=(action (mut selected) value="date")
-    selected=selected as |day|}}
+    selected=selected as |calendar|}}
+
+    {{#calendar.nav as |month|}}
+      {{moment-format month 'MMM YY'}}
+    {{/calendar.nav}}
+    {{calendar.days}}
+  {{/power-calendar}}
+
+  <h3>Small with a custom block on the days</h3>
+
+  {{#power-calendar
+    class="demo-calendar-small"
+    displayedMonth=foo
+    onMonthChange=(action (mut foo) value="date")
+    onChange=(action (mut selected) value="date")
+    selected=selected as |calendar|}}
+
+    {{calendar.nav}}
+    {{#calendar.days as |day|}}
+      {{moment-format day.moment 'Do'}}
+    {{/calendar.days}}
   {{/power-calendar}}
 
   <h3>Medium</h3>
@@ -14,7 +62,9 @@
   {{#power-calendar
     class="demo-calendar-medium"
     selected=selected
-    onChange=(action (mut selected) value="moment") as |day|}}
+    onChange=(action (mut selected) value="moment") as |calendar|}}
+    {{calendar.nav}}
+    {{calendar.days}}
   {{/power-calendar}}
 
   <h3>Big</h3>
@@ -22,28 +72,32 @@
   {{#power-calendar
     class="demo-calendar-big"
     selected=selected
-    onChange=(action (mut selected) value="moment") as |day|}}
+    onChange=(action (mut selected) value="moment") as |calendar|}}
+    {{calendar.nav}}
+    {{calendar.days}}
   {{/power-calendar}}
 
   <h3>Range</h3>
 
-  {{#power-calendar
-    range=true
+  {{#power-calendar-range
     class="demo-calendar-medium demo-range-calendar-with-pretty-range-ends-yo"
     displayedMonth=foo
-    onMonthChange=(action (mut foo))
+    onMonthChange=(action (mut foo) value="date")
     selected=range
-    onChange=(action (mut range) value="moment")}}
-  {{/power-calendar}}
+    onChange=(action (mut range) value="moment") as |calendar|}}
+    {{calendar.nav}}
+    {{calendar.days}}
+  {{/power-calendar-range}}
 
   <h3>Multiple</h3>
 
-  {{#power-calendar
-    multiple=true
+  {{#power-calendar-multiple
     class="demo-calendar-medium"
     displayedMonth=foo
-    onMonthChange=(action (mut foo))
+    onMonthChange=(action (mut foo) value="date")
     selected=collection
-    onChange=(action (mut collection) value="date")}}
-  {{/power-calendar}}
+    onChange=(action (mut collection) value="date") as |calendar|}}
+    {{calendar.nav}}
+    {{calendar.days}}
+  {{/power-calendar-multiple}}
 </div>

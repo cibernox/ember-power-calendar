@@ -1,0 +1,15 @@
+<nav class="ember-power-calendar-nav">
+  {{#if onMonthChange}}
+    <button type="button" class="ember-power-calendar-nav-control ember-power-calendar-nav-control--previous" onclick={{calendar.actions.decreaseMonth}}>«</button>
+  {{/if}}
+  <div class="ember-power-calendar-nav-title">
+    {{#if hasBlock}}
+      {{yield calendar}}
+    {{else}}
+      {{moment-format month 'MMMM YYYY'}}
+    {{/if}}
+  </div>
+  {{#if onMonthChange}}
+    <button type="button" class="ember-power-calendar-nav-control ember-power-calendar-nav-control--next" onclick={{calendar.actions.increaseMonth}}>»</button>
+  {{/if}}
+</nav>

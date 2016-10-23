@@ -1,4 +1,7 @@
-{{power-calendar
+{{#power-calendar
   class="demo--with-animated-loading"
   displayedMonth=displayedMonth
-  onMonthChange=(perform updateMonth)}}
+  onMonthChange=(perform updateMonth) as |calendar|}}
+  {{calendar.nav}}
+  {{calendar.days}}
+{{/power-calendar}}

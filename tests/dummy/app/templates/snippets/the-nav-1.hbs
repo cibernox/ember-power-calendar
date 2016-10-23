@@ -1,0 +1,7 @@
+{{#power-calendar class="demo-calendar-small" as |calendar|}}
+  {{#calendar.nav}}
+    {{moment-format calendar.displayedMonth 'MMM YY'}}
+  {{/calendar.nav}}
+
+  {{calendar.days}}
+{{/power-calendar}}

@@ -6,15 +6,16 @@
 </p>
 
 <p>
-  The only difference in the API between a calendar for selecting a single day and a calendar
-  for selecting a range, is that the <code>selected</code> value has to be implement the <code>Range</code>
-  interface. Sounds scary, but it only means that it has to be an object with <code>start</code> and <code>end</code>
+  The only differences in the API between a calendar for selecting a single day and a calendar
+  for selecting a range, are that the name of the component is now <code>power-calendar-range</code> and that
+  the <code>selected</code> option has to be implement the <code>Range</code> interface.
+  Sounds scary, but it only means that it has to be an object with <code>start</code> and <code>end</code>
   properties.
 </p>
 
 <p>
   The same <code>onChange</code> action used in the previous chapter to select one date,
-  is not used to select a range. The object that this action receives has a <code>date</code> and <code>code</code>
+  is not used to select a range. The object that this action receives has a <code>date</code> and <code>moment</code>
   properties, each one containing a range with the dates in native Date objects or in momentJS objects.
 </p>
 

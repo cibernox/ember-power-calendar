@@ -1,4 +1,4 @@
-<h1 class="doc-page-title">The day</h1>
+<h1 class="doc-page-title">The days</h1>
 
 <p>
   A calendar is basically a list of days, typically (although not necessarily)
@@ -23,10 +23,15 @@
   Let's start by making the number of the days of the weeked be strong and pink, because we like weekends.
 </p>
 
-{{#code-sample hbs="the-day-1.hbs" as |partialName|}}
+{{#code-sample hbs="the-days-1.hbs" as |partialName|}}
   {{partial partialName}}
 {{/code-sample}}
 
 <p>
   Many of the properties of the day object are designed to make the most usual customizations
 </p>
+
+<div class="doc-page-nav">
+  <a href={{href-to 'public-pages.docs.the-nav'}} class="doc-page-nav-link-prev">&lt; The nav</a>
+  {{!-- <a href={{href-to 'public-pages.docs.the-nav'}} class="doc-page-nav-link-next">The days &gt;</a> --}}
+</div>
