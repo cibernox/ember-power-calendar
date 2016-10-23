@@ -1,5 +1,4 @@
 import DaysComponent from '../power-calendar/days';
-import moment from 'moment';
 import { getProperties } from 'ember-metal/get';
 
 export default DaysComponent.extend({
@@ -20,29 +19,5 @@ export default DaysComponent.extend({
 
   dayIsSelected() {
     return false;
-  },
-
-  buildOnChangeValue(day) {
-    let selected = this.get('calendar.selected') || { start: null, end: null };
-    let { start, end } = getProperties(selected, 'start', 'end');
-    if (start && !end) {
-      let startMoment = moment(start);
-      if (startMoment.isAfter(day.moment)) {
-        return {
-          moment: { start: day.moment, end: startMoment },
-          date: {  start: day.date, end: startMoment._d }
-        };
-      }  else {
-        return {
-          moment: { start: startMoment, end: day.moment },
-          date: {  start: startMoment._d, end: day.date }
-        };
-      }
-    } else {
-      return {
-        moment: { start: day.moment, end: null },
-        date: {  start: day.date, end: null }
-      };
-    }
   }
 });

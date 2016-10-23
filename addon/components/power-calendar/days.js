@@ -46,13 +46,6 @@ export default Component.extend({
 
   // Actions
   actions: {
-    clickDay(day, e) {
-      let action = this.get('onChange');
-      if (action) {
-        action(this.buildOnChangeValue(day), e);
-      }
-    },
-
     onFocusDay(day) {
       scheduleOnce('actions', this, this._updateFocused, day.id);
     },

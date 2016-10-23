@@ -18,7 +18,8 @@ export default Component.extend({
     this._super(...arguments);
     this.publicActions = {
       decreaseMonth: () => this.get('changeMonthTask').perform(-1),
-      increaseMonth: () => this.get('changeMonthTask').perform(1)
+      increaseMonth: () => this.get('changeMonthTask').perform(1),
+      select: (...args) => this.send('select', ...args)
     };
   },
 
@@ -39,11 +40,25 @@ export default Component.extend({
     };
   }),
 
+  actions: {
+    select(day, e) {
+      let action = this.get('onChange');
+      if (action) {
+        action(this.buildOnChangeValue(day), e);
+      }
+    }
+  },
+
   // Tasks
   changeMonthTask: task(function* (step) {
     let displayedMonth = this.get('displayedMonth');
     let momentDate = moment(displayedMonth);
     let month = momentDate.clone().add(step, 'month');
     yield this.get('onMonthChange')({ date: month._d, moment: month });
-  })
+  }),
+
+  // Methods
+  buildOnChangeValue(day) {
+    return day;
+  }
 });
