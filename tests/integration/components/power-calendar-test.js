@@ -24,12 +24,11 @@ function triggerKeydown(domElement, k) {
   });
 }
 
-let calendarService;
 moduleForComponent('power-calendar', 'Integration | Component | Power Calendar', {
   integration: true,
   beforeEach() {
     assertionInjector(this);
-    calendarService = getOwner(this).lookup('service:calendar');
+    let calendarService = getOwner(this).lookup('service:power-calendar-clock');
     calendarService.set('date', new Date(2013, 9, 18));
   },
 
@@ -40,7 +39,12 @@ moduleForComponent('power-calendar', 'Integration | Component | Power Calendar',
 
 test('Rendered without any arguments, it displays the current month and has no month navigation', function(assert) {
   assert.expect(3);
-  this.render(hbs`{{power-calendar}}`);
+  this.render(hbs`
+    {{#power-calendar as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('October 2013') > -1, 'The calendar is centered in the present');
   assert.equal(this.$('.ember-power-calendar-nav-control').length, 0, 'There is no controls to navigate months');
   assert.equal(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').length, 1, 'The days in the calendar actually belong to the presnet month');
@@ -49,7 +53,12 @@ test('Rendered without any arguments, it displays the current month and has no m
 test('when it receives a Date in the `displayedMonth` argument, it displays that month', function(assert) {
   assert.expect(3);
   this.displayedMonth = new Date(2016, 1, 5);
-  this.render(hbs`{{power-calendar displayedMonth=displayedMonth}}`);
+  this.render(hbs`
+    {{#power-calendar displayedMonth=displayedMonth as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
   assert.equal(this.$('.ember-power-calendar-nav-control').length, 0, 'There is no controls to navigate months');
   assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
@@ -58,7 +67,12 @@ test('when it receives a Date in the `displayedMonth` argument, it displays that
 test('when it receives a `moment()` in the `displayedMonth` argument, it displays that month', function(assert) {
   assert.expect(3);
   this.displayedMonth = moment('2016-02-05');
-  this.render(hbs`{{power-calendar displayedMonth=displayedMonth}}`);
+  this.render(hbs`
+    {{#power-calendar displayedMonth=displayedMonth as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
   assert.equal(this.$('.ember-power-calendar-nav-control').length, 0, 'There is no controls to navigate months');
   assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
@@ -70,7 +84,12 @@ test('when it receives a `displayedMonth` and an `onMonthChange` action, it show
   this.changeMonth = function() {
     assert.ok(true, 'The changeMonth action is invoked');
   };
-  this.render(hbs`{{power-calendar displayedMonth=displayedMonth onMonthChange=changeMonth}}`);
+  this.render(hbs`
+    {{#power-calendar displayedMonth=displayedMonth onMonthChange=changeMonth as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
   assert.equal(this.$('.ember-power-calendar-nav-control--previous').length, 1, 'There is a control to go to previous month');
   assert.equal(this.$('.ember-power-calendar-nav-control--next').length, 1, 'There is a control to go to next month');
@@ -85,7 +104,12 @@ test('when it receives a `displayedMonth` and an `onMonthChange` action, it show
 test('when the `onMonthChange` action changes the `displayedMonth` attribute, the calendar shows the new month', function(assert) {
   assert.expect(2);
   this.displayedMonth = new Date(2016, 1, 5);
-  this.render(hbs`{{power-calendar displayedMonth=displayedMonth onMonthChange=(action (mut displayedMonth))}}`);
+  this.render(hbs`
+    {{#power-calendar displayedMonth=displayedMonth onMonthChange=(action (mut displayedMonth) value="date") as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
 
   run(() => this.$('.ember-power-calendar-nav-control--next').click());
@@ -96,7 +120,12 @@ test('when the `onMonthChange` action changes the `displayedMonth` attribute, th
 test('when it receives a Date in the `selected` argument, it displays that month, and that day is marked as selected', function(assert) {
   assert.expect(4);
   this.selected = new Date(2016, 1, 5);
-  this.render(hbs`{{power-calendar selected=selected}}`);
+  this.render(hbs`
+    {{#power-calendar selected=selected as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the selected date');
   assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
   assert.equal(this.$('.ember-power-calendar-day--selected').length, 1, 'There is one day marked as selected');
@@ -106,7 +135,12 @@ test('when it receives a Date in the `selected` argument, it displays that month
 test('when it receives a `moment` in the `selected` argument, it displays that month, and that day is marked as selected', function(assert) {
   assert.expect(4);
   this.selected = moment('2016-02-05');
-  this.render(hbs`{{power-calendar selected=selected}}`);
+  this.render(hbs`
+    {{#power-calendar selected=selected as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the selected date');
   assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
   assert.equal(this.$('.ember-power-calendar-day--selected').length, 1, 'There is one day marked as selected');
@@ -117,7 +151,12 @@ test('when it receives both `selected` and `displayedMonth`, `displayedMonth` tr
   assert.expect(4);
   this.selected = new Date(2016, 2, 5);
   this.displayedMonth = new Date(2016, 1, 5);
-  this.render(hbs`{{power-calendar selected=selected displayedMonth=displayedMonth}}`);
+  this.render(hbs`
+    {{#power-calendar selected=selected displayedMonth=displayedMonth as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the `displayedMonth`, no on the `selected` date');
   assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
   assert.equal(this.$('.ember-power-calendar-day--selected').length, 1, 'There is one day marked as selected');
@@ -126,7 +165,12 @@ test('when it receives both `selected` and `displayedMonth`, `displayedMonth` tr
 
 test('The days that belong to the currently displayed month have a distintive class that the days belonging to the previous/next month don\'t', function(assert) {
   assert.expect(4);
-  this.render(hbs`{{power-calendar}}`);
+  this.render(hbs`
+    {{#power-calendar as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').hasClass('ember-power-calendar-day--current-month'), 'Days of the current month have this class');
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-31"]').hasClass('ember-power-calendar-day--current-month'), 'Days of the current month have this class');
   assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-09-30"]').hasClass('ember-power-calendar-day--current-month'), 'Days of the previous month don\'t');
@@ -135,7 +179,12 @@ test('The days that belong to the currently displayed month have a distintive cl
 
 test('The current day has a special class that other days don\'t', function(assert) {
   assert.expect(3);
-  this.render(hbs`{{power-calendar}}`);
+  this.render(hbs`
+    {{#power-calendar as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--today'), 'The current day has a special class');
   assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-19"]').hasClass('ember-power-calendar-day--today'));
   assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').hasClass('ember-power-calendar-day--today'));
@@ -143,13 +192,23 @@ test('The current day has a special class that other days don\'t', function(asse
 
 test('It shows the abbreviation of the week-days starting on Monday', function(assert) {
   assert.expect(1);
-  this.render(hbs`{{power-calendar}}`);
+  this.render(hbs`
+    {{#power-calendar as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Mon Tue Wed Thu Fri Sat Sun');
 });
 
 test('If there is no `onChange` action, days cannot be focused', function(assert) {
   assert.expect(1);
-  this.render(hbs`{{power-calendar}}`);
+  this.render(hbs`
+    {{#power-calendar as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]');
   run(() => $dayElement.focus());
   assert.notEqual(document.activeElement, $dayElement.get(0));
@@ -157,7 +216,12 @@ test('If there is no `onChange` action, days cannot be focused', function(assert
 
 test('If there is an `onChange` action, days can be focused', function(assert) {
   assert.expect(1);
-  this.render(hbs`{{power-calendar onChange=(action (mut foo))}}`);
+  this.render(hbs`
+    {{#power-calendar onChange=(action (mut foo)) as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]');
   run(() => $dayElement.focus());
   assert.equal(document.activeElement, $dayElement.get(0));
@@ -165,7 +229,12 @@ test('If there is an `onChange` action, days can be focused', function(assert) {
 
 test('If a day is focused, it gets a special hasClass', function(assert) {
   assert.expect(3);
-  this.render(hbs`{{power-calendar onChange=(action (mut foo))}}`);
+  this.render(hbs`
+    {{#power-calendar onChange=(action (mut foo)) as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]');
   run(() => $dayElement.focus());
   assert.ok($dayElement.hasClass('ember-power-calendar-day--focused'), 'The focused day gets a special class');
@@ -181,7 +250,12 @@ test('Clicking one day, triggers the `onChange` action with that day (which is a
     assert.isDay(day, 'The first argument is a day object');
     assert.ok(e instanceof Event, 'The second argument is an event');
   };
-  this.render(hbs`{{power-calendar onChange=(action didChange)}}`);
+  this.render(hbs`
+    {{#power-calendar onChange=(action didChange) as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   let dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0);
   run(() => dayElement.click());
 });
@@ -189,7 +263,13 @@ test('Clicking one day, triggers the `onChange` action with that day (which is a
 test('If the `onChange` updates the selected value, it can work as a date-selector', function(assert) {
   assert.expect(2);
   this.selected = new Date(2016, 1, 5);
-  this.render(hbs`{{power-calendar selected=selected onChange=(action (mut selected) value="date")}}`);
+  this.render(hbs`
+    {{#power-calendar selected=selected onChange=(action (mut selected) value="date") as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
+
   assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-02-05');
   run(() => this.$('.ember-power-calendar-day[data-date="2016-02-21"]').click());
   assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-02-21');
@@ -197,7 +277,12 @@ test('If the `onChange` updates the selected value, it can work as a date-select
 
 test('If a day is focused, using left/right arrow keys focuses the previous/next day', function(assert) {
   assert.expect(6);
-  this.render(hbs`{{power-calendar onChange=(action (mut selected) value="date")}}`);
+  this.render(hbs`
+    {{#power-calendar onChange=(action (mut selected) value="date") as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
 
   run(() => this.$('.ember-power-calendar-day[data-date="2013-10-18"]').focus());
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--focused'));
@@ -214,8 +299,12 @@ test('If a day is focused, using left/right arrow keys focuses the previous/next
 
 test('If a day is focused, using up/down arrow keys focuses the same weekday of the previous/next week', function(assert) {
   assert.expect(6);
-  this.render(hbs`{{power-calendar onChange=(action (mut selected) value="date")}}`);
-
+  this.render(hbs`
+    {{#power-calendar onChange=(action (mut selected) value="date") as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
   run(() => this.$('.ember-power-calendar-day[data-date="2013-10-18"]').focus());
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--focused'));
   assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
@@ -237,7 +326,12 @@ test('If the `onMonthChange` action returns a `thenable`, the component enter lo
       run.later(resolve, 200);
     });
   };
-  this.render(hbs`{{power-calendar onMonthChange=(action asyncAction)}}`);
+  this.render(hbs`
+    {{#power-calendar onMonthChange=(action asyncAction) as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
 
   setTimeout(function() {
     assert.ok(this.$('.ember-power-calendar').hasClass('ember-power-calendar--loading'), 'The component is in a loading state');
@@ -251,160 +345,26 @@ test('If the `onMonthChange` action returns a `thenable`, the component enter lo
   }, 250);
 });
 
-test('when it receives a range in the `selected` argument containing `Date` objects, the range is highlighted', function(assert) {
-  assert.expect(4);
-  this.selected = { start: new Date(2016, 1, 5), end: new Date(2016, 1, 9) };
-  this.render(hbs`{{power-calendar range=true selected=selected}}`);
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the selected date');
-  let allDaysInRangeAreSelected = this.$('.ember-power-calendar-day[data-date="2016-02-05"]').hasClass('ember-power-calendar-day--selected')
-    && this.$('.ember-power-calendar-day[data-date="2016-02-06"]').hasClass('ember-power-calendar-day--selected')
-    && this.$('.ember-power-calendar-day[data-date="2016-02-07"]').hasClass('ember-power-calendar-day--selected')
-    && this.$('.ember-power-calendar-day[data-date="2016-02-08"]').hasClass('ember-power-calendar-day--selected')
-    && this.$('.ember-power-calendar-day[data-date="2016-02-09"]').hasClass('ember-power-calendar-day--selected');
-  assert.ok(allDaysInRangeAreSelected, 'All days in range are selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2016-02-05"]').hasClass('ember-power-calendar-day--range-start'), 'The start of the range has a special class');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2016-02-09"]').hasClass('ember-power-calendar-day--range-end'), 'The end of the range has a special class');
-});
-
-test('In range calendars, clicking a day selects one end of the range, and clicking another closes the range', function(assert) {
-  this.selected = null;
-  let numberOfCalls = 0;
-  this.didChange = (range, e) => {
-    numberOfCalls++;
-    if (numberOfCalls === 1) {
-      assert.ok(range.date.start, 'The start is present');
-      assert.notOk(range.date.end, 'The end is not present');
-    } else {
-      assert.ok(range.date.start, 'The start is present');
-      assert.ok(range.date.end, 'The start is also present');
-    }
-    this.set('selected', range.date);
-    assert.ok(e instanceof Event, 'The second argument is an event');
-  };
-  this.render(hbs`{{power-calendar range=true selected=selected onChange=(action didChange)}}`);
-
-  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days have been selected');
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'), 'The clicked date is selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-start'), 'The clicked date is the start of the range');
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'), 'The first clicked date is still selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-start'), 'The first clicked date is still the start of the range');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'), 'The clicked date is selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--range-end'), 'The clicked date is the start of the range');
-  let allDaysInBetweenAreSelected = this.$('.ember-power-calendar-day[data-date="2013-10-11"]').hasClass('ember-power-calendar-day--selected')
-    && this.$('.ember-power-calendar-day[data-date="2013-10-12"]').hasClass('ember-power-calendar-day--selected')
-    && this.$('.ember-power-calendar-day[data-date="2013-10-13"]').hasClass('ember-power-calendar-day--selected')
-    && this.$('.ember-power-calendar-day[data-date="2013-10-14"]').hasClass('ember-power-calendar-day--selected');
-  assert.ok(allDaysInBetweenAreSelected, 'All days in between are also selected');
-  assert.equal(numberOfCalls, 2, 'The onChange action was called twice');
-});
-
-test('In range calendars, clicking first the end of the range and then the start is not a problem', function(assert) {
-  this.selected = null;
-  let numberOfCalls = 0;
-  this.didChange = (range, e) => {
-    numberOfCalls++;
-    if (numberOfCalls === 1) {
-      assert.ok(range.date.start, 'The start is present');
-      assert.notOk(range.date.end, 'The end is not present');
-    } else {
-      assert.ok(range.date.start, 'The start is present');
-      assert.ok(range.date.end, 'The start is also present');
-    }
-    this.set('selected', range.date);
-    assert.ok(e instanceof Event, 'The second argument is an event');
-  };
-  this.render(hbs`{{power-calendar range=true selected=selected onChange=(action didChange)}}`);
-
-  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days have been selected');
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'), 'The clicked date is selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--range-start'), 'The clicked date is the start of the range');
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'), 'The first clicked date is still selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-start'), 'The first clicked date is still the start of the range');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'), 'The clicked date is selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--range-end'), 'The clicked date is the start of the range');
-  let allDaysInBetweenAreSelected = this.$('.ember-power-calendar-day[data-date="2013-10-11"]').hasClass('ember-power-calendar-day--selected')
-    && this.$('.ember-power-calendar-day[data-date="2013-10-12"]').hasClass('ember-power-calendar-day--selected')
-    && this.$('.ember-power-calendar-day[data-date="2013-10-13"]').hasClass('ember-power-calendar-day--selected')
-    && this.$('.ember-power-calendar-day[data-date="2013-10-14"]').hasClass('ember-power-calendar-day--selected');
-  assert.ok(allDaysInBetweenAreSelected, 'All days in between are also selected');
-  assert.equal(numberOfCalls, 2, 'The onChange action was called twice');
-});
-
-test('When a multiple calendar receives an array of dates, those dates are marked as selected', function(assert) {
-  assert.expect(5);
-  this.selected = [new Date(2016, 1, 5), new Date(2016, 1, 9), new Date(2016, 1, 15)];
-
-  this.render(hbs`{{power-calendar multiple=true selected=selected}}`);
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the first selected date');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2016-02-05"]').hasClass('ember-power-calendar-day--selected'), 'The first selected day is selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2016-02-09"]').hasClass('ember-power-calendar-day--selected'), 'The second selected day is selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2016-02-15"]').hasClass('ember-power-calendar-day--selected'), 'The third selected day is selected');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2016-02-08"]').hasClass('ember-power-calendar-day--selected'), 'The days in between those aren\'t day is selected');
-});
-
-test('When days are clicked in a multiple calendar, the `onChange` action is called with the acumulated list of days, in the order they were clicked', function(assert) {
-  let callsCount = 0;
-  this.didChange = (days, e) => {
-    callsCount++;
-    if (callsCount === 1) {
-      assert.equal(days.date.length, 1);
-      assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
-    } else if (callsCount === 2) {
-      assert.equal(days.date.length, 2);
-      assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
-      assert.ok(days.moment[1].isSame(moment('2013-10-15'), 'day'));
-    } else if (callsCount === 3) {
-      assert.equal(days.date.length, 3);
-      assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
-      assert.ok(days.moment[1].isSame(moment('2013-10-15'), 'day'));
-      assert.ok(days.moment[2].isSame(moment('2013-10-09'), 'day'));
-    } else {
-      assert.equal(days.date.length, 2);
-      assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
-      assert.ok(days.moment[1].isSame(moment('2013-10-09'), 'day'));
-    }
-    assert.ok(e instanceof Event, 'The second argument is an event');
-    this.set('selected', days.date);
-  };
-
-  this.render(hbs`{{power-calendar multiple=true selected=selected onChange=(action didChange)}}`);
-
-  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days are selected');
-
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-05"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
-
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'));
-
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-09"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-09"]').hasClass('ember-power-calendar-day--selected'));
-
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-09"]').hasClass('ember-power-calendar-day--selected'));
-});
-
-test('If the calendar without `onChange` receives a block, that block is used to render each one of the days of the cell', function(assert) {
+test('If the calendar without `onChange` receives a block on the `days` component, that block is used to render each one of the days of the cell', function(assert) {
   assert.expect(1);
   this.render(hbs`
-    {{#power-calendar as |day|}}{{day.number}}!{{/power-calendar}}
+    {{#power-calendar as |calendar|}}
+      {{#calendar.days as |day|}}
+        {{day.number}}!
+      {{/calendar.days}}
+    {{/power-calendar}}
   `);
   assert.equal(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').text().trim(), '1!', 'The block has been rendered');
 });
 
-test('If the calendar with `onChange` receives a block, that block is used to render each one of the days of the cell', function(assert) {
+test('If the calendar with `onChange` receives a block on the `days` component, that block is used to render each one of the days of the cell', function(assert) {
   assert.expect(1);
   this.render(hbs`
-    {{#power-calendar selected=day onChange=(action (mut day) value="date") as |day|}}{{day.number}}!{{/power-calendar}}
+    {{#power-calendar selected=day onChange=(action (mut day) value="date") as |calendar|}}
+      {{#calendar.days as |day|}}
+        {{day.number}}!
+      {{/calendar.days}}
+    {{/power-calendar}}
   `);
   assert.equal(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').text().trim(), '1!', 'The block has been rendered');
 });

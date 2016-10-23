@@ -47,3 +47,27 @@ The `onChange` action is fired every time either end of the range changes.
   selected=selected
   onChange=(action (mut selected) value="moment")}}
 ```
+
+
+### EXAMPLE OF CONTEXTUAL COMPONENTS API
+
+<!-- Just days -->
+{{#power-calendar as |calendar|}}
+  {{calendar.days}}
+{{/power-calendar}}
+
+<!-- Days and nav -->
+{{#power-calendar as |calendar|}}
+  {{calendar.nav}}
+  {{calendar.days}}
+{{/power-calendar}}
+
+
+<!-- Days and nav -->
+{{#power-calendar displayedMonth=month selected=day onChange=(action (mut day) value="moment") onMonthChange=(action (mut month) value="moment") as |calendar|}}
+  {{calendar.nav}}
+
+  {{#calendar.days as |day|}}
+    {{day.number}}
+  {{/calendar.days}}
+{{/power-calendar}}
