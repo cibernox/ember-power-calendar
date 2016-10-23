@@ -1,3 +1,6 @@
-{{power-calendar
+{{#power-calendar
   selected=selected
-  onChange=(action (mut selected) value="moment")}}
+  onChange=(action (mut selected) value="moment") as |calendar|}}
+  {{calendar.nav}}
+  {{calendar.days}}
+{{/power-calendar}}

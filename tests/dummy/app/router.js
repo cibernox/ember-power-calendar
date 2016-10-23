@@ -18,7 +18,8 @@ Router.map(function() {
       this.route('multiple-selection');
 
       // BASIC CUSTOMIZATION
-      this.route('the-day');
+      this.route('the-nav');
+      this.route('the-days');
 
       // OTHER
       this.route('api-reference');

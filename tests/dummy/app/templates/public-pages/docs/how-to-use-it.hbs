@@ -1,8 +1,14 @@
 <h1 class="doc-page-title">How to use it</h1>
 
 <p>
-  The basic component usage is very simple. There is no mandatory fields. Just invoke the component and you will get
-  a nice calendar.
+  This component is built with a technique known as <em>Contextual Components</em>. If you haven't
+  heard of it, check <a href="https://guides.emberjs.com/v2.8.0/components/wrapping-content-in-a-component/#toc_sharing-component-data-with-its-wrapped-content">the official guides</a> for some background.
+</p>
+
+<p>
+  The basic usage is pretty simple. There is no mandatory fields. Just invoke the <code>power-calendar</code> component and yield
+  the calendar to the block. Once inside the block, the yielded calendar has a couple components inside,
+  but the one you probably care more abour is named <code>days.</code>
 </p>
 
 {{#code-sample hbs="how-to-use-it-1.hbs" as |partialName|}}
@@ -10,7 +16,8 @@
 {{/code-sample}}
 
 <p>
-  Nice, but not very interesting. The calendar is smart enough to display the current month but that's it.
+  Nice, but not very interesting. The <code>calendar.days</code> component renders a grid of days, and it is smart enough to display
+  the current month but that's it. Let's see how to show a different month.
 </p>
 
 <h3><code>displayedMonth</code></h3>
@@ -26,8 +33,19 @@
 {{/code-sample}}
 
 <p>
-  Oh, and by the way, this component speaks native <code>Date</code> and <code>MomentJS</code>.
-  You can pass any, at your best convenience. The same is true for all options that take a date.
+  The month above is November of 2013, but that's hard to know if there is nothing else telling us. The second
+  component that the calendar has and that you will find yourself using often is <code>calendar.nav</code>.
+  This component displays the name of the month and, optionally, some controllers to navigate to the previous/next month.
+</p>
+
+
+{{#code-sample hbs="how-to-use-it-3.hbs" js="how-to-use-it-3-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Oh, and by the way, ember-power-calendar and all its sub-components speak native <code>Date</code> and <code>MomentJS</code>.
+  All options that are dates can take values in either format, and all action that this component fires will contain dates in both formats too.
 </p>
 
 <h3><code>selected</code></h3>

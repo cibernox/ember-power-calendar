@@ -17,7 +17,9 @@ const groupedSections = [
   {
     groupName: 'Basic customization',
     options: [
-      { route: 'public-pages.docs.the-day',         text: 'The list' }
+      { route: 'public-pages.docs.the-nav',          text: 'The nav' },
+      { route: 'public-pages.docs.the-days',         text: 'The list' }
+      // { route: 'public-pages.docs.the-trigger',      text: 'The trigger' },
       // { route: 'public-pages.docs.the-trigger',      text: 'The trigger' },
       // { route: 'public-pages.docs.the-search',       text: 'The Search' },
       // { route: 'public-pages.docs.styles',           text: 'Styles' }

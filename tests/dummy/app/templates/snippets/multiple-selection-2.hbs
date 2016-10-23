@@ -1,5 +1,7 @@
-{{power-calendar
-  multiple=true
+{{#power-calendar-multiple
   displayedMonth=displayedMonth
   selected=selectedPrimes
-  onChange=(action "selectClosestPrime" value="moment")}}
+  onChange=(action "selectClosestPrime" value="moment") as |calendar|}}
+  {{calendar.nav}}
+  {{calendar.days}}
+{{/power-calendar-multiple}}

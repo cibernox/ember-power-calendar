@@ -1,3 +1,6 @@
-{{power-calendar
+{{#power-calendar
   displayedMonth=displayedMonth
-  onMonthChange=(action (mut displayedMonth))}}
+  onMonthChange=(action (mut displayedMonth) value="date") as |calendar|}}
+  {{calendar.nav}}
+  {{calendar.days}}
+{{/power-calendar}}

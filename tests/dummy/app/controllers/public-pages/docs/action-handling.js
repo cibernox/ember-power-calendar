@@ -5,9 +5,9 @@ import moment from 'moment';
 export default Controller.extend({
   selected: moment('2016-05-17'),
 
-  updateMonth: task(function* (newMonth) {
+  updateMonth: task(function* ({ date }) {
     yield timeout(600); // Pretend this is an ajax call to the server
     // here we update the events
-    this.set('displayedMonth', newMonth);
+    this.set('displayedMonth', date);
   }).drop()
 });

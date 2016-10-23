@@ -14,13 +14,11 @@
 </div>
 
 <p>
-  If you use just vanilla css, you're good to go. Ember-power-select will add the default styles
-  to your vendor css file.
+  This addon still requires Sass, although support for people using vanilla CSS is coming.
 </p>
 
 <p>
-  However, if you are using Sass the addon won't do that. Instead you need to import the addon styles
-  yourself.
+  If you are using Sass, all you need to do is import the addon styles with.
 </p>
 
 <div class="highlight">
@@ -30,6 +28,32 @@
     </code>
   </pre>
 </div>
+
+<p>
+  Doing that will bring a all of styles except those related with the size of the calendar.
+  For defining the size of the calendar there is a mixin that takes the size of the cell
+  you want your canlendar to be. By example:
+</p>
+
+<div class="highlight">
+  <pre>
+    <code class="language-sass" data-lang="sass">
+      .demo-calendar-small {
+        @include ember-power-calendar($cell-size: 30px);
+      }
+      .demo-calendar-medium {
+        @include ember-power-calendar($cell-size: 50px);
+      }
+      .demo-calendar-big {
+        @include ember-power-calendar($cell-size: 70px);
+      }
+    </code>
+  </pre>
+</div>
+
+<p>
+  This code above will make each one of those classes have a different size.
+</p>
 
 <div class="doc-page-nav">
   <a href={{href-to 'public-pages.docs.index'}} class="doc-page-nav-link-prev">&lt; Overview</a>

@@ -1,0 +1,13 @@
+{{#power-calendar as |calendar|}}
+  {{calendar.nav}}
+
+  {{#calendar.days as |day|}}
+    {{#with (moment-format day.date 'ddd') as |weekday|}}
+      {{#if (or (eq weekday "Sat") (eq weekday "Sun"))}}
+        <strong class="pink-text">{{day.number}}</strong>
+      {{else}}
+        {{day.number}}
+      {{/if}}
+    {{/with}}
+  {{/calendar.days}}
+{{/power-calendar}}

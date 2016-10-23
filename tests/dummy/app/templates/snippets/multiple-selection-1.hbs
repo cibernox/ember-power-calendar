@@ -1,5 +1,7 @@
-{{power-calendar
-  multiple=true
+{{#power-calendar-multiple
   displayedMonth=displayedMonth
   selected=collection
-  onChange=(action (mut collection) value="moment")}}
+  onChange=(action (mut collection) value="moment") as |calendar|}}
+  {{calendar.nav}}
+  {{calendar.days}}
+{{/power-calendar-multiple}}
