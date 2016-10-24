@@ -93,7 +93,7 @@
 
 @mixin ember-power-calendar($cell-size) {
   width: ($cell-size + 2px) * 7 - 2px;
-  .ember-power-calendar-day {
+  .ember-power-calendar-day, .ember-power-calendar-weekday {
     max-width: $cell-size;
     max-height: $cell-size;
   }

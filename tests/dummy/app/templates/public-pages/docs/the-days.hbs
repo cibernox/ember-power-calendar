@@ -28,8 +28,49 @@
 {{/code-sample}}
 
 <p>
-  Many of the properties of the day object are designed to make the most usual customizations
+  The properties of they so called "day" object to make most common customizations easy.
 </p>
+
+<h3>Just using the public API</h3>
+
+<p>
+  Like with <a href={{href-to 'public-pages.docs.the-nav'}}>The nav</a> component, all the behaviour is
+  implemented using the public API of the calendar, so you can build your calendar in your place.
+</p>
+
+<p>
+  This is a non-trivial example where I build a weird month grid that has no Mondays or Wednesdays.
+  Yay short weeks!
+</p>
+
+{{#code-sample hbs="the-days-2.hbs"  js="the-days-2-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<h3>Passing a custom component</h3>
+
+<p>
+  Just like with the nav component, you can encapsulate this weird grid with 5 days week into a component to
+  reuse it all over the place. Maybe if you use it often enough the boss end up thinking weeks have 3 working days.
+</p>
+
+{{#code-sample hbs="the-days-3.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  This options are the one that give you more power, but it would be silly to make user create they own components
+  for very common changes like customizing the start of the week and things like that, so the default <code>calendar.days</code>
+  component has a few configuration options to tweak the most common use cases.
+</p>
+
+<h3><code>startOfWeek</code></h3>
+
+<p>TODO: Make the week start on Sundays and things like that</p>
+
+<h3><code>daysAround</code></h3>
+
+<p>TODO: Allow to show/not show days before/after the first/last day of the month. Perhaps also allow to tweak how many?</p>
 
 <div class="doc-page-nav">
   <a href={{href-to 'public-pages.docs.the-nav'}} class="doc-page-nav-link-prev">&lt; The nav</a>

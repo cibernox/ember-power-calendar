@@ -1,0 +1,22 @@
+{{#power-calendar as |calendar|}}
+  {{calendar.nav}}
+
+  <div class="ember-power-calendar-row ember-power-calendar-weekdays">
+    <div class="ember-power-calendar-weekday">Tue</div>
+    <div class="ember-power-calendar-weekday">Thu</div>
+    <div class="ember-power-calendar-weekday">Fri</div>
+    <div class="ember-power-calendar-weekday">Sat</div>
+    <div class="ember-power-calendar-weekday">Sun</div>
+  </div>
+  <div class="ember-power-calendar-day-grid">
+    {{#each weeksWithoutMondaysOrWednesday as |week|}}
+      <div class="ember-power-calendar-row ember-power-calendar-week">
+        {{#each week.days as |day|}}
+          <div class="ember-power-calendar-day {{if day.isCurrentMonth 'ember-power-calendar-day--current-month'}}">
+            {{moment-format day.date 'D'}}
+          </div>
+        {{/each}}
+      </div>
+    {{/each}}
+  </div>
+{{/power-calendar}}
