@@ -7,6 +7,7 @@ import { scheduleOnce } from 'ember-runloop';
 export default Component.extend({
   layout,
   focusedId: null,
+  showDaysAround: true,
   clockService: service('power-calendar-clock'),
   dayNamesAbbrs: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 
@@ -38,14 +39,19 @@ export default Component.extend({
     return days;
   }),
 
-  weeks: computed('days', function() {
-    let days = this.get('days');
+  weeks: computed('showDaysAround', 'days', function() {
+    let { showDaysAround, days } = this.getProperties('showDaysAround', 'days');
     let weeks = [];
     let i = 0;
     while (days[i]) {
+      let daysOfWeek = days.slice(i, i + 7);
+      if (!showDaysAround) {
+        daysOfWeek = daysOfWeek.filter((d) => d.isCurrentMonth);
+      }
       weeks.push({
         id: days[0].moment.format('YYYY-w'),
-        days: days.slice(i, i + 7)
+        days: daysOfWeek,
+        missingDays: 7 - daysOfWeek.length
       });
       i += 7;
     }

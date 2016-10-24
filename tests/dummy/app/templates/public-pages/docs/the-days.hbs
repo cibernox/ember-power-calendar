@@ -76,9 +76,16 @@
   {{partial partialName}}
 {{/code-sample}}
 
-<h3><code>daysAround</code></h3>
+<h3><code>showDaysAround</code></h3>
 
-<p>TODO: Allow to show/not show days before/after the first/last day of the month. Perhaps also allow to tweak how many?</p>
+<p>
+  By default the calendar displays the days of the surrounding months in the first and last week but
+  if you want to hide them pass <code>showDaysAround=false</code>.
+</p>
+
+{{#code-sample hbs="the-days-5.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
 
 <div class="doc-page-nav">
   <a href={{href-to 'public-pages.docs.the-nav'}} class="doc-page-nav-link-prev">&lt; The nav</a>

@@ -389,3 +389,15 @@ test('If the `days` component receives a `startOfWeek` option, that weekday beco
   assert.equal(this.$('.ember-power-calendar-day:eq(0)').text().trim(), '27', 'The first day of the first week is the 25th of September');
   assert.equal(this.$('.ember-power-calendar-day:last').text().trim(), '31', 'The last day of the last week is the 31th of October');
 });
+
+test('If the `days` component receives a `showDaysAround=false` option, it doesn\'t show the days before or after the first day of the month', function(assert) {
+  assert.expect(3);
+  this.render(hbs`
+    {{#power-calendar as |calendar|}}
+      {{calendar.days showDaysAround=false}}
+    {{/power-calendar}}
+  `);
+  assert.equal(this.$('.ember-power-calendar-week:eq(0) .ember-power-calendar-day').length, 6, 'The first week has 6 days');
+  assert.equal(this.$('.ember-power-calendar-week:eq(0)').data('missing-days'), 1, 'It has a special data-attribute');
+  assert.equal(this.$('.ember-power-calendar-week:eq(4) .ember-power-calendar-day').length, 4, 'The last week has 4 days');
+});

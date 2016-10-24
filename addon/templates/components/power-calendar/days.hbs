@@ -30,7 +30,7 @@
 {{else}}
   <div class="ember-power-calendar-day-grid">
     {{#each weeks key='id' as |week|}}
-      <div class="ember-power-calendar-row ember-power-calendar-week">
+      <div class="ember-power-calendar-row ember-power-calendar-week" data-missing-days={{week.missingDays}}>
         {{#each week.days key='id' as |day|}}
           <div
             data-date="{{day.id}}"
