@@ -1,15 +1,15 @@
 {{#power-calendar class="demo-calendar-small"
-  displayedMonth=month
-  onMonthChange=(action (mut month) value="date") as |calendar|}}
+  center=month
+  onCenterChange=(action (mut month) value="date") as |calendar|}}
 
   <nav class="ember-power-calendar-nav">
-    <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.changeMonth -12}}>«</button>
-    <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.changeMonth -1}}>‹</button>
+    <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.changeMonth -12 'month'}}>«</button>
+    <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.changeMonth -1 'month'}}>‹</button>
     <div class="ember-power-calendar-nav-title">
       {{moment-format month 'MMMM YYYY'}}
     </div>
-    <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.changeMonth 1}}>›</button>
-    <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.changeMonth 12}}>»</button>
+    <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.changeMonth 1 'month'}}>›</button>
+    <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.changeMonth 12 'month'}}>»</button>
   </nav>
 
   {{calendar.days}}

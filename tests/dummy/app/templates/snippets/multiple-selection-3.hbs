@@ -1,7 +1,7 @@
 <p>Choose the dates you prefer in the order you prefer them:</p>
 
 {{#power-calendar-multiple
-  displayedMonth=displayedMonth
+  center=center
   selected=preferredDates
   onSelect=(action (mut preferredDates) value="moment") as |calendar|}}
   {{calendar.nav}}

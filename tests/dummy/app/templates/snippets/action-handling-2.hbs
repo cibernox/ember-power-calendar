@@ -1,7 +1,7 @@
 {{#power-calendar
   class="demo--with-animated-loading"
-  displayedMonth=displayedMonth
-  onMonthChange=(perform updateMonth) as |calendar|}}
+  center=center
+  onCenterChange=(perform updateMonth) as |calendar|}}
   {{calendar.nav}}
   {{calendar.days}}
 {{/power-calendar}}

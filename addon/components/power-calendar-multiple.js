@@ -6,10 +6,10 @@ export default CalendarComponent.extend({
   daysComponent: 'power-calendar-multiple/days',
 
   // CPs
-  currentlyDisplayedMonth: computed('displayedMonth', function() {
-    let displayedMonth = this.get('displayedMonth');
-    if (displayedMonth) {
-      return moment(displayedMonth);
+  currentCenter: computed('center', function() {
+    let center = this.get('center');
+    if (center) {
+      return moment(center);
     }
     return moment((this.get('selected') || [])[0] || this.get('clockService').getDate());
   }),

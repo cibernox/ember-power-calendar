@@ -3,7 +3,7 @@
   <h3>Small with only navbar</h3>
   {{#power-calendar
     class="demo-calendar-small"
-    displayedMonth=foo as |calendar|}}
+    center=foo as |calendar|}}
     {{calendar.nav}}
   {{/power-calendar}}
 
@@ -18,8 +18,8 @@
   <h3>Small with no blocks at all</h3>
   {{#power-calendar
     class="demo-calendar-small"
-    displayedMonth=foo
-    onMonthChange=(action (mut foo) value="date")
+    center=foo
+    onCenterChange=(action (mut foo) value="date")
     onSelect=(action (mut selected) value="date")
     selected=selected as |calendar|}}
 
@@ -31,8 +31,8 @@
 
   {{#power-calendar
     class="demo-calendar-small"
-    displayedMonth=foo
-    onMonthChange=(action (mut foo) value="date")
+    center=foo
+    onCenterChange=(action (mut foo) value="date")
     onSelect=(action (mut selected) value="date")
     selected=selected as |calendar|}}
 
@@ -46,8 +46,8 @@
 
   {{#power-calendar
     class="demo-calendar-small"
-    displayedMonth=foo
-    onMonthChange=(action (mut foo) value="date")
+    center=foo
+    onCenterChange=(action (mut foo) value="date")
     onSelect=(action (mut selected) value="date")
     selected=selected as |calendar|}}
 
@@ -81,8 +81,8 @@
 
   {{#power-calendar-range
     class="demo-calendar-medium demo-range-calendar-with-pretty-range-ends-yo"
-    displayedMonth=foo
-    onMonthChange=(action (mut foo) value="date")
+    center=foo
+    onCenterChange=(action (mut foo) value="date")
     selected=range
     onSelect=(action (mut range) value="moment") as |calendar|}}
     {{calendar.nav}}
@@ -93,8 +93,8 @@
 
   {{#power-calendar-multiple
     class="demo-calendar-medium"
-    displayedMonth=foo
-    onMonthChange=(action (mut foo) value="date")
+    center=foo
+    onCenterChange=(action (mut foo) value="date")
     selected=collection
     onSelect=(action (mut collection) value="date") as |calendar|}}
     {{calendar.nav}}

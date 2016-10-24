@@ -1,6 +1,6 @@
 {{#power-calendar class="demo-calendar-small" as |calendar|}}
   {{#calendar.nav}}
-    {{moment-format calendar.displayedMonth 'MMM YY'}}
+    {{moment-format calendar.center 'MMM YY'}}
   {{/calendar.nav}}
 
   {{calendar.days}}

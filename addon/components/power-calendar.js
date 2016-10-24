@@ -8,33 +8,33 @@ import { task } from 'ember-concurrency';
 export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],
-  classNameBindings: ['changeMonthTask.isRunning:ember-power-calendar--loading'],
+  classNameBindings: ['changeCenterTask.isRunning:ember-power-calendar--loading'],
   clockService: service('power-calendar-clock'),
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
-  displayedMonth: null,
+  center: null,
   // Lifecycle chooks
   init() {
     this._super(...arguments);
     this.publicActions = {
-      changeMonth: (...args) => this.get('changeMonthTask').perform(...args),
+      changeCenter: (...args) => this.get('changeCenterTask').perform(...args),
       select: (...args) => this.send('select', ...args)
     };
   },
 
   // CPs
-  currentlyDisplayedMonth: computed('displayedMonth', function() {
-    let displayedMonth = this.get('displayedMonth');
-    if (displayedMonth) {
-      return moment(displayedMonth);
+  currentCenter: computed('center', function() {
+    let center = this.get('center');
+    if (center) {
+      return moment(center);
     }
     return moment(this.get('selected') || this.get('clockService').getDate());
   }),
 
-  publicAPI: computed('selected', 'currentlyDisplayedMonth', function() {
+  publicAPI: computed('selected', 'currentCenter', function() {
     return {
       selected: this.get('selected'),
-      displayedMonth: this.get('currentlyDisplayedMonth'),
+      center: this.get('currentCenter'),
       actions: this.get('publicActions')
     };
   }),
@@ -49,11 +49,11 @@ export default Component.extend({
   },
 
   // Tasks
-  changeMonthTask: task(function* (step) {
-    let displayedMonth = this.get('displayedMonth');
-    let momentDate = moment(displayedMonth);
-    let month = momentDate.clone().add(step, 'month');
-    yield this.get('onMonthChange')({ date: month._d, moment: month });
+  changeCenterTask: task(function* (step, unit) {
+    let center = this.get('center');
+    let momentDate = moment(center);
+    let month = momentDate.clone().add(step, unit);
+    yield this.get('onCenterChange')({ date: month._d, moment: month });
   }),
 
   // Methods

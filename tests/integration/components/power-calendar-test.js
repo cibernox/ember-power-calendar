@@ -50,11 +50,11 @@ test('Rendered without any arguments, it displays the current month and has no m
   assert.equal(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').length, 1, 'The days in the calendar actually belong to the presnet month');
 });
 
-test('when it receives a Date in the `displayedMonth` argument, it displays that month', function(assert) {
+test('when it receives a Date in the `center` argument, it displays that month', function(assert) {
   assert.expect(3);
-  this.displayedMonth = new Date(2016, 1, 5);
+  this.center = new Date(2016, 1, 5);
   this.render(hbs`
-    {{#power-calendar displayedMonth=displayedMonth as |calendar|}}
+    {{#power-calendar center=center as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
@@ -64,11 +64,11 @@ test('when it receives a Date in the `displayedMonth` argument, it displays that
   assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
 });
 
-test('when it receives a `moment()` in the `displayedMonth` argument, it displays that month', function(assert) {
+test('when it receives a `moment()` in the `center` argument, it displays that month', function(assert) {
   assert.expect(3);
-  this.displayedMonth = moment('2016-02-05');
+  this.center = moment('2016-02-05');
   this.render(hbs`
-    {{#power-calendar displayedMonth=displayedMonth as |calendar|}}
+    {{#power-calendar center=center as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
@@ -78,14 +78,14 @@ test('when it receives a `moment()` in the `displayedMonth` argument, it display
   assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
 });
 
-test('when it receives a `displayedMonth` and an `onMonthChange` action, it shows controls to go to the next & previous month and the action is called when they are clicked', function(assert) {
+test('when it receives a `center` and an `onCenterChange` action, it shows controls to go to the next & previous month and the action is called when they are clicked', function(assert) {
   assert.expect(7);
-  this.displayedMonth = new Date(2016, 1, 5);
-  this.changeMonth = function() {
-    assert.ok(true, 'The changeMonth action is invoked');
+  this.center = new Date(2016, 1, 5);
+  this.changeCenter = function() {
+    assert.ok(true, 'The changeCenter action is invoked');
   };
   this.render(hbs`
-    {{#power-calendar displayedMonth=displayedMonth onMonthChange=changeMonth as |calendar|}}
+    {{#power-calendar center=center onCenterChange=changeCenter as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
@@ -101,11 +101,11 @@ test('when it receives a `displayedMonth` and an `onMonthChange` action, it show
   assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is still centered in the the passed month');
 });
 
-test('when the `onMonthChange` action changes the `displayedMonth` attribute, the calendar shows the new month', function(assert) {
+test('when the `onCenterChange` action changes the `center` attribute, the calendar shows the new month', function(assert) {
   assert.expect(2);
-  this.displayedMonth = new Date(2016, 1, 5);
+  this.center = new Date(2016, 1, 5);
   this.render(hbs`
-    {{#power-calendar displayedMonth=displayedMonth onMonthChange=(action (mut displayedMonth) value="date") as |calendar|}}
+    {{#power-calendar center=center onCenterChange=(action (mut center) value="date") as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
@@ -147,17 +147,17 @@ test('when it receives a `moment` in the `selected` argument, it displays that m
   assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-02-05', 'The passed `selected` is the selected day');
 });
 
-test('when it receives both `selected` and `displayedMonth`, `displayedMonth` trumps and that month is displayed', function(assert) {
+test('when it receives both `selected` and `center`, `center` trumps and that month is displayed', function(assert) {
   assert.expect(4);
   this.selected = new Date(2016, 2, 5);
-  this.displayedMonth = new Date(2016, 1, 5);
+  this.center = new Date(2016, 1, 5);
   this.render(hbs`
-    {{#power-calendar selected=selected displayedMonth=displayedMonth as |calendar|}}
+    {{#power-calendar selected=selected center=center as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the `displayedMonth`, no on the `selected` date');
+  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the `center`, no on the `selected` date');
   assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
   assert.equal(this.$('.ember-power-calendar-day--selected').length, 1, 'There is one day marked as selected');
   assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-03-05', 'The passed `selected` is the selected day');
@@ -318,7 +318,7 @@ test('If a day is focused, using up/down arrow keys focuses the same weekday of 
   assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
 });
 
-test('If the `onMonthChange` action returns a `thenable`, the component enter loading state while that thenable resolves or rejects', function(assert) {
+test('If the `onCenterChange` action returns a `thenable`, the component enter loading state while that thenable resolves or rejects', function(assert) {
   assert.expect(2);
   let done = assert.async();
   this.asyncAction = function() {
@@ -327,7 +327,7 @@ test('If the `onMonthChange` action returns a `thenable`, the component enter lo
     });
   };
   this.render(hbs`
-    {{#power-calendar onMonthChange=(action asyncAction) as |calendar|}}
+    {{#power-calendar onCenterChange=(action asyncAction) as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}

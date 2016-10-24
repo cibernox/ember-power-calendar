@@ -3,7 +3,7 @@ import moment from 'moment';
 
 const primes = [1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31];
 export default Controller.extend({
-  displayedMonth: moment('2016-05-17'),
+  center: moment('2016-05-17'),
   collection: [],
   selectedPrimes: [],
 

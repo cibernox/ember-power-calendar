@@ -64,7 +64,7 @@ The `onSelect` action is fired every time either end of the range changes.
 
 
 <!-- Days and nav -->
-{{#power-calendar displayedMonth=month selected=day onSelect=(action (mut day) value="moment") onMonthChange=(action (mut month) value="moment") as |calendar|}}
+{{#power-calendar center=month selected=day onSelect=(action (mut day) value="moment") onCenterChange=(action (mut month) value="moment") as |calendar|}}
   {{calendar.nav}}
 
   {{#calendar.days as |day|}}

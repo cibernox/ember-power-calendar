@@ -13,16 +13,16 @@
 
 <p>Let's start with the basics. Add month navigation</p>
 
-<h3><code>onMonthChange</code></h3>
+<h3><code>onCenterChange</code></h3>
 
 <p>
-  In the previous section we mentioned that if you pass <code>displayedMonth=someDate</code> to the component, that
+  In the previous section we mentioned that if you pass <code>center=someDate</code> to the component, that
   month is displayed. If that option gets updates the calendar will render the new month. That means that you can create
-  your own interface to navigate months, it only has to update the <code>displayedMonth</code> property.
+  your own interface to navigate months, it only has to update the <code>center</code> property.
 </p>
 
 <p>
-  However, it would be inconvenient to force every single programmes to do that, so if you pass <code>onMonthChange</code> action to
+  However, it would be inconvenient to force every single programmes to do that, so if you pass <code>onCenterChange</code> action to
   the component, the <code>calendar.nav</code> component gets some built-in controls to navigate to the previous and next month.
   Use that action to update the displayed month and you have a navigable calendar!
 </p>

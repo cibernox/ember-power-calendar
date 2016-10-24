@@ -1,7 +1,7 @@
 {{#power-calendar class="demo-calendar-small"
-  displayedMonth=month
+  center=month
   navComponent="calendar-nav-with-year-buttons"
-  onMonthChange=(action (mut month) value="date") as |calendar|}}
+  onCenterChange=(action (mut month) value="date") as |calendar|}}
 
   {{calendar.nav}}
   {{calendar.days}}

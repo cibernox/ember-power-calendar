@@ -14,12 +14,12 @@ export default Component.extend({
     return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }),
 
-  days: computed('calendar.{displayedMonth,selected}', 'focusedId', function() {
+  days: computed('calendar.{center,selected}', 'focusedId', function() {
     let today = this.get('clockService').getDate();
     let calendar = this.get('calendar');
-    let beginOfMonth = calendar.displayedMonth.clone().startOf('month');
+    let beginOfMonth = calendar.center.clone().startOf('month');
     let startOfFirstWeek = beginOfMonth.clone().startOf('isoWeek');
-    let endOfMonth = calendar.displayedMonth.clone().endOf('month');
+    let endOfMonth = calendar.center.clone().endOf('month');
     let endOfLastWeek = endOfMonth.clone().endOf('isoWeek');
     let currentMoment = startOfFirstWeek.clone();
     let days = [];
@@ -94,7 +94,7 @@ export default Component.extend({
       date: momentDate._d,
       moment: momentDate,
       isFocused: this.get('focusedId') === id,
-      isCurrentMonth: momentDate.month() === calendar.displayedMonth.month(),
+      isCurrentMonth: momentDate.month() === calendar.center.month(),
       isToday: momentDate.isSame(today, 'day'),
       isSelected: this.dayIsSelected(momentDate, calendar)
     };
