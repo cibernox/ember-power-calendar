@@ -15,7 +15,7 @@ export default CalendarComponent.extend({
   }),
 
   // Methods
-  buildOnChangeValue(day) {
+  buildonSelectValue(day) {
     let selected = this.get('publicAPI.selected') || [];
     let moments = [];
     for (let i = 0; i < selected.length; i++) {

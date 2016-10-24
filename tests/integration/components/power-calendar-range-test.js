@@ -47,7 +47,7 @@ test('In range calendars, clicking a day selects one end of the range, and click
     assert.ok(e instanceof Event, 'The second argument is an event');
   };
   this.render(hbs`
-    {{#power-calendar-range selected=selected onChange=(action didChange) as |calendar|}}
+    {{#power-calendar-range selected=selected onSelect=(action didChange) as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar-range}}
@@ -67,7 +67,7 @@ test('In range calendars, clicking a day selects one end of the range, and click
     && this.$('.ember-power-calendar-day[data-date="2013-10-13"]').hasClass('ember-power-calendar-day--selected')
     && this.$('.ember-power-calendar-day[data-date="2013-10-14"]').hasClass('ember-power-calendar-day--selected');
   assert.ok(allDaysInBetweenAreSelected, 'All days in between are also selected');
-  assert.equal(numberOfCalls, 2, 'The onChange action was called twice');
+  assert.equal(numberOfCalls, 2, 'The onSelect action was called twice');
 });
 
 test('In range calendars, clicking first the end of the range and then the start is not a problem', function(assert) {
@@ -86,7 +86,7 @@ test('In range calendars, clicking first the end of the range and then the start
     assert.ok(e instanceof Event, 'The second argument is an event');
   };
   this.render(hbs`
-    {{#power-calendar-range selected=selected onChange=(action didChange) as |calendar|}}
+    {{#power-calendar-range selected=selected onSelect=(action didChange) as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar-range}}
@@ -106,5 +106,5 @@ test('In range calendars, clicking first the end of the range and then the start
     && this.$('.ember-power-calendar-day[data-date="2013-10-13"]').hasClass('ember-power-calendar-day--selected')
     && this.$('.ember-power-calendar-day[data-date="2013-10-14"]').hasClass('ember-power-calendar-day--selected');
   assert.ok(allDaysInBetweenAreSelected, 'All days in between are also selected');
-  assert.equal(numberOfCalls, 2, 'The onChange action was called twice');
+  assert.equal(numberOfCalls, 2, 'The onSelect action was called twice');
 });

@@ -16,7 +16,7 @@ export default CalendarComponent.extend({
   }),
 
   // Methods
-  buildOnChangeValue(day) {
+  buildonSelectValue(day) {
     let selected = this.get('publicAPI.selected') || { start: null, end: null };
     let { start, end } = getProperties(selected, 'start', 'end');
     if (start && !end) {

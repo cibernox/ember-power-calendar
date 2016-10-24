@@ -29,7 +29,7 @@ test('When a multiple calendar receives an array of dates, those dates are marke
   assert.notOk(this.$('.ember-power-calendar-day[data-date="2016-02-08"]').hasClass('ember-power-calendar-day--selected'), 'The days in between those aren\'t day is selected');
 });
 
-test('When days are clicked in a multiple calendar, the `onChange` action is called with the acumulated list of days, in the order they were clicked', function(assert) {
+test('When days are clicked in a multiple calendar, the `onSelect` action is called with the acumulated list of days, in the order they were clicked', function(assert) {
   let callsCount = 0;
   this.didChange = (days, e) => {
     callsCount++;
@@ -55,7 +55,7 @@ test('When days are clicked in a multiple calendar, the `onChange` action is cal
   };
 
   this.render(hbs`
-    {{#power-calendar-multiple selected=selected onChange=(action didChange) as |calendar|}}
+    {{#power-calendar-multiple selected=selected onSelect=(action didChange) as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar-multiple}}

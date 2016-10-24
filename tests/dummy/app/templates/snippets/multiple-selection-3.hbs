@@ -3,7 +3,7 @@
 {{#power-calendar-multiple
   displayedMonth=displayedMonth
   selected=preferredDates
-  onChange=(action (mut preferredDates) value="moment") as |calendar|}}
+  onSelect=(action (mut preferredDates) value="moment") as |calendar|}}
   {{calendar.nav}}
   {{calendar.days}}
 {{/power-calendar-multiple}}

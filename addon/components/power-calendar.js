@@ -41,9 +41,9 @@ export default Component.extend({
 
   actions: {
     select(day, e) {
-      let action = this.get('onChange');
+      let action = this.get('onSelect');
       if (action) {
-        action(this.buildOnChangeValue(day), e);
+        action(this.buildonSelectValue(day), e);
       }
     }
   },
@@ -57,7 +57,7 @@ export default Component.extend({
   }),
 
   // Methods
-  buildOnChangeValue(day) {
+  buildonSelectValue(day) {
     return day;
   }
 });

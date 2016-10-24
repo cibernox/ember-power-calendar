@@ -6,7 +6,7 @@
   {{/each}}
 </div>
 
-{{#if onChange}}
+{{#if onSelect}}
   <div class="ember-power-calendar-day-grid" onkeydown={{action "onKeyDown"}}>
     {{#each weeks key='id' as |week|}}
       <div class="ember-power-calendar-row ember-power-calendar-week">

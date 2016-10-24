@@ -100,7 +100,7 @@ export default Component.extend({
     };
   },
 
-  buildOnChangeValue(day) {
+  buildonSelectValue(day) {
     return day;
   },
 

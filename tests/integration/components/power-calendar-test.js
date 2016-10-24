@@ -201,7 +201,7 @@ test('It shows the abbreviation of the week-days starting on Monday', function(a
   assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Mon Tue Wed Thu Fri Sat Sun');
 });
 
-test('If there is no `onChange` action, days cannot be focused', function(assert) {
+test('If there is no `onSelect` action, days cannot be focused', function(assert) {
   assert.expect(1);
   this.render(hbs`
     {{#power-calendar as |calendar|}}
@@ -214,10 +214,10 @@ test('If there is no `onChange` action, days cannot be focused', function(assert
   assert.notEqual(document.activeElement, $dayElement.get(0));
 });
 
-test('If there is an `onChange` action, days can be focused', function(assert) {
+test('If there is an `onSelect` action, days can be focused', function(assert) {
   assert.expect(1);
   this.render(hbs`
-    {{#power-calendar onChange=(action (mut foo)) as |calendar|}}
+    {{#power-calendar onSelect=(action (mut foo)) as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
@@ -230,7 +230,7 @@ test('If there is an `onChange` action, days can be focused', function(assert) {
 test('If a day is focused, it gets a special hasClass', function(assert) {
   assert.expect(3);
   this.render(hbs`
-    {{#power-calendar onChange=(action (mut foo)) as |calendar|}}
+    {{#power-calendar onSelect=(action (mut foo)) as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
@@ -244,14 +244,14 @@ test('If a day is focused, it gets a special hasClass', function(assert) {
   assert.ok($anotherDayElement.hasClass('ember-power-calendar-day--focused'), 'The focused day gets a special class');
 });
 
-test('Clicking one day, triggers the `onChange` action with that day (which is a object with some basic information)', function(assert) {
+test('Clicking one day, triggers the `onSelect` action with that day (which is a object with some basic information)', function(assert) {
   assert.expect(2);
   this.didChange = function(day, e) {
     assert.isDay(day, 'The first argument is a day object');
     assert.ok(e instanceof Event, 'The second argument is an event');
   };
   this.render(hbs`
-    {{#power-calendar onChange=(action didChange) as |calendar|}}
+    {{#power-calendar onSelect=(action didChange) as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
@@ -260,11 +260,11 @@ test('Clicking one day, triggers the `onChange` action with that day (which is a
   run(() => dayElement.click());
 });
 
-test('If the `onChange` updates the selected value, it can work as a date-selector', function(assert) {
+test('If the `onSelect` updates the selected value, it can work as a date-selector', function(assert) {
   assert.expect(2);
   this.selected = new Date(2016, 1, 5);
   this.render(hbs`
-    {{#power-calendar selected=selected onChange=(action (mut selected) value="date") as |calendar|}}
+    {{#power-calendar selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
@@ -278,7 +278,7 @@ test('If the `onChange` updates the selected value, it can work as a date-select
 test('If a day is focused, using left/right arrow keys focuses the previous/next day', function(assert) {
   assert.expect(6);
   this.render(hbs`
-    {{#power-calendar onChange=(action (mut selected) value="date") as |calendar|}}
+    {{#power-calendar onSelect=(action (mut selected) value="date") as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
@@ -300,7 +300,7 @@ test('If a day is focused, using left/right arrow keys focuses the previous/next
 test('If a day is focused, using up/down arrow keys focuses the same weekday of the previous/next week', function(assert) {
   assert.expect(6);
   this.render(hbs`
-    {{#power-calendar onChange=(action (mut selected) value="date") as |calendar|}}
+    {{#power-calendar onSelect=(action (mut selected) value="date") as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
@@ -345,7 +345,7 @@ test('If the `onMonthChange` action returns a `thenable`, the component enter lo
   }, 250);
 });
 
-test('If the calendar without `onChange` receives a block on the `days` component, that block is used to render each one of the days of the cell', function(assert) {
+test('If the calendar without `onSelect` receives a block on the `days` component, that block is used to render each one of the days of the cell', function(assert) {
   assert.expect(1);
   this.render(hbs`
     {{#power-calendar as |calendar|}}
@@ -357,10 +357,10 @@ test('If the calendar without `onChange` receives a block on the `days` componen
   assert.equal(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').text().trim(), '1!', 'The block has been rendered');
 });
 
-test('If the calendar with `onChange` receives a block on the `days` component, that block is used to render each one of the days of the cell', function(assert) {
+test('If the calendar with `onSelect` receives a block on the `days` component, that block is used to render each one of the days of the cell', function(assert) {
   assert.expect(1);
   this.render(hbs`
-    {{#power-calendar selected=day onChange=(action (mut day) value="date") as |calendar|}}
+    {{#power-calendar selected=day onSelect=(action (mut day) value="date") as |calendar|}}
       {{#calendar.days as |day|}}
         {{day.number}}!
       {{/calendar.days}}

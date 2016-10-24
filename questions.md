@@ -13,7 +13,7 @@
 {{!--
 
 One value and one action. The value is anything that has `start` and `end` keys,
-but the value passed by the `onChange` action is a convenient Range object, that
+but the value passed by the `onSelect` action is a convenient Range object, that
 lookis like this:
 {
   date: { start: Date, end: Date }, // POJO like the entry object, with dates
@@ -26,12 +26,12 @@ lookis like this:
   }
 }
 
-The `onChange` action is fired every time either end of the range changes.
+The `onSelect` action is fired every time either end of the range changes.
 --}}
 
 {{power-calendar
   selected=selected
-  onChange=(action (mut selected) value="moment")}}
+  onSelect=(action (mut selected) value="moment")}}
 
 ```
 
@@ -40,12 +40,12 @@ The `onChange` action is fired every time either end of the range changes.
 ```hbs
 {{!-- Selected is an array of Dates or moments --}}
 {{!--
-  The value received by the onChange action is an object with two keys, `date` and `moment` (maybe `dates` and `moments`),
+  The value received by the onSelect action is an object with two keys, `date` and `moment` (maybe `dates` and `moments`),
   one containing an array of dates and the other containing an array of moments
 --}}
 {{power-calendar
   selected=selected
-  onChange=(action (mut selected) value="moment")}}
+  onSelect=(action (mut selected) value="moment")}}
 ```
 
 
@@ -64,7 +64,7 @@ The `onChange` action is fired every time either end of the range changes.
 
 
 <!-- Days and nav -->
-{{#power-calendar displayedMonth=month selected=day onChange=(action (mut day) value="moment") onMonthChange=(action (mut month) value="moment") as |calendar|}}
+{{#power-calendar displayedMonth=month selected=day onSelect=(action (mut day) value="moment") onMonthChange=(action (mut month) value="moment") as |calendar|}}
   {{calendar.nav}}
 
   {{#calendar.days as |day|}}

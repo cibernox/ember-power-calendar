@@ -10,7 +10,7 @@
   <h3>Small with no nav</h3>
   {{#power-calendar
     class="demo-calendar-small"
-    onChange=(action (mut selected) value="date")
+    onSelect=(action (mut selected) value="date")
     selected=selected as |calendar|}}
     {{calendar.days}}
   {{/power-calendar}}
@@ -20,7 +20,7 @@
     class="demo-calendar-small"
     displayedMonth=foo
     onMonthChange=(action (mut foo) value="date")
-    onChange=(action (mut selected) value="date")
+    onSelect=(action (mut selected) value="date")
     selected=selected as |calendar|}}
 
     {{calendar.nav}}
@@ -33,7 +33,7 @@
     class="demo-calendar-small"
     displayedMonth=foo
     onMonthChange=(action (mut foo) value="date")
-    onChange=(action (mut selected) value="date")
+    onSelect=(action (mut selected) value="date")
     selected=selected as |calendar|}}
 
     {{#calendar.nav as |month|}}
@@ -48,7 +48,7 @@
     class="demo-calendar-small"
     displayedMonth=foo
     onMonthChange=(action (mut foo) value="date")
-    onChange=(action (mut selected) value="date")
+    onSelect=(action (mut selected) value="date")
     selected=selected as |calendar|}}
 
     {{calendar.nav}}
@@ -62,7 +62,7 @@
   {{#power-calendar
     class="demo-calendar-medium"
     selected=selected
-    onChange=(action (mut selected) value="moment") as |calendar|}}
+    onSelect=(action (mut selected) value="moment") as |calendar|}}
     {{calendar.nav}}
     {{calendar.days}}
   {{/power-calendar}}
@@ -72,7 +72,7 @@
   {{#power-calendar
     class="demo-calendar-big"
     selected=selected
-    onChange=(action (mut selected) value="moment") as |calendar|}}
+    onSelect=(action (mut selected) value="moment") as |calendar|}}
     {{calendar.nav}}
     {{calendar.days}}
   {{/power-calendar}}
@@ -84,7 +84,7 @@
     displayedMonth=foo
     onMonthChange=(action (mut foo) value="date")
     selected=range
-    onChange=(action (mut range) value="moment") as |calendar|}}
+    onSelect=(action (mut range) value="moment") as |calendar|}}
     {{calendar.nav}}
     {{calendar.days}}
   {{/power-calendar-range}}
@@ -96,7 +96,7 @@
     displayedMonth=foo
     onMonthChange=(action (mut foo) value="date")
     selected=collection
-    onChange=(action (mut collection) value="date") as |calendar|}}
+    onSelect=(action (mut collection) value="date") as |calendar|}}
     {{calendar.nav}}
     {{calendar.days}}
   {{/power-calendar-multiple}}
