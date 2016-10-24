@@ -1,4 +1,4 @@
-{{#power-calendar center=wedding as |calendar|}}
+{{#power-calendar as |calendar|}}
   <input type="radio" name="weekday" id="weekday-radio-button-1" value="1" checked onchange={{action (mut startOfWeek) value="target.value"}}>
   <label for="weekday-radio-button-1">Mon</label>
   <input type="radio" name="weekday" id="weekday-radio-button-2" value="2" onchange={{action (mut startOfWeek) value="target.value"}}>
@@ -14,6 +14,5 @@
   <input type="radio" name="weekday" id="weekday-radio-button-0" value="0" onchange={{action (mut startOfWeek) value="target.value"}}>
   <label for="weekday-radio-button-0">Sun</label>
 
-  {{calendar.nav}}
   {{calendar.days startOfWeek=startOfWeek}}
 {{/power-calendar}}

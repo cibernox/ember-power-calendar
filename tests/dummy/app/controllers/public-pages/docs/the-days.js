@@ -3,8 +3,6 @@ import computed from 'ember-computed';
 import moment from 'moment';
 
 export default Controller.extend({
-  wedding: new Date(2013, 9, 18),
-
   days: computed(function() {
     let now = moment();
     let day = now.clone().startOf('month').startOf('isoWeek');
