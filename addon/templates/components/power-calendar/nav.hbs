@@ -1,6 +1,6 @@
 <nav class="ember-power-calendar-nav">
   {{#if onMonthChange}}
-    <button type="button" class="ember-power-calendar-nav-control ember-power-calendar-nav-control--previous" onclick={{calendar.actions.decreaseMonth}}>«</button>
+    <button type="button" class="ember-power-calendar-nav-control ember-power-calendar-nav-control--previous" onclick={{action calendar.actions.changeMonth -1}}>«</button>
   {{/if}}
   <div class="ember-power-calendar-nav-title">
     {{#if hasBlock}}
@@ -10,6 +10,6 @@
     {{/if}}
   </div>
   {{#if onMonthChange}}
-    <button type="button" class="ember-power-calendar-nav-control ember-power-calendar-nav-control--next" onclick={{calendar.actions.increaseMonth}}>»</button>
+    <button type="button" class="ember-power-calendar-nav-control ember-power-calendar-nav-control--next" onclick={{action calendar.actions.changeMonth 1}}>»</button>
   {{/if}}
 </nav>

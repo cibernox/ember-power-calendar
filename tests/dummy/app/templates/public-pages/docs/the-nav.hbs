@@ -29,23 +29,48 @@
   {{partial partialName}}
 {{/code-sample}}
 
-<h3>Just using the <code>calendar</code> and the DOM</h3>
+<h3>Just using the public API</h3>
 
 <p>
-  TODO: Build a demo that allows to change months AND years in pure DOM. Link to the API reference.
+  If the thing you want is beyond what you can do with the block, Ember Power Calendar doesn't
+  try to provide a miriad of option to configure the component. Instead it gives you the tools to
+  build it yourself using the yielded <code>calendar</code>. It's easy!
 </p>
+
+
+<p>
+  Per example, let's build a different nav that, reusing the existing CSS classes, allows you to change
+  months <em>and years</em>.
+</p>
+
+{{#code-sample hbs="the-nav-2.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
 
 <h3>Passing your own component</h3>
 
 <p>
-  TODO: Encapsulate the previous demo into a custom navComponent
+  The example above is simple and works if you only have one calendar, but if you have several
+  calendars it becomes repetitive. The last way of customizing your calendar is replacing the <code>nav</code>
+  component with your own component.
+</p>
+
+<p>Let's encapsulate the same logic above into a component and use that instead</p>
+
+{{#code-sample hbs="the-nav-3.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Now you have the same logic but to use it the only thing you have to do is tell the calenda to use your component with
+  <code>navComponent="name-of-my-component"</code>. Much easier to reuse across your app.
 </p>
 
 <p>
-  Many of the properties of the day object are designed to make the most usual customizations
+  Enough about the nav. Not it's the turn of the days.
 </p>
 
 <div class="doc-page-nav">
   <a href={{href-to 'public-pages.docs.multiple-selection'}} class="doc-page-nav-link-prev">&lt; Multiple selection</a>
-  <a href={{href-to 'public-pages.docs.the-nav'}} class="doc-page-nav-link-next">The days &gt;</a>
+  <a href={{href-to 'public-pages.docs.the-days'}} class="doc-page-nav-link-next">The days &gt;</a>
 </div>

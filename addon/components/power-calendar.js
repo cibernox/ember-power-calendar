@@ -17,8 +17,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.publicActions = {
-      decreaseMonth: () => this.get('changeMonthTask').perform(-1),
-      increaseMonth: () => this.get('changeMonthTask').perform(1),
+      changeMonth: (...args) => this.get('changeMonthTask').perform(...args),
       select: (...args) => this.send('select', ...args)
     };
   },
