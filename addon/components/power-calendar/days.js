@@ -8,22 +8,30 @@ export default Component.extend({
   layout,
   focusedId: null,
   clockService: service('power-calendar-clock'),
+  dayNamesAbbrs: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 
   // CPs
-  dayNames: computed(function() {
-    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  startOfWeek: computed({
+    get() {
+      return 1;
+    },
+    set(_, v) {
+      return v == null ? 1 : parseInt(v, 10);
+    }
   }),
 
-  days: computed('calendar.{center,selected}', 'focusedId', function() {
+  weekDaysAbbrs: computed('startOfWeek', function() {
+    let { startOfWeek, dayNamesAbbrs } = this.getProperties('startOfWeek', 'dayNamesAbbrs');
+    return dayNamesAbbrs.slice(startOfWeek).concat(dayNamesAbbrs.slice(0, startOfWeek));
+  }),
+
+  days: computed('calendar.{center,selected}', 'focusedId', 'startOfWeek', function() {
     let today = this.get('clockService').getDate();
     let calendar = this.get('calendar');
-    let beginOfMonth = calendar.center.clone().startOf('month');
-    let startOfFirstWeek = beginOfMonth.clone().startOf('isoWeek');
-    let endOfMonth = calendar.center.clone().endOf('month');
-    let endOfLastWeek = endOfMonth.clone().endOf('isoWeek');
-    let currentMoment = startOfFirstWeek.clone();
+    let lastDay = this.lastDay(calendar);
+    let currentMoment = this.firstDay(calendar);
     let days = [];
-    while (currentMoment.isBefore(endOfLastWeek)) {
+    while (currentMoment.isBefore(lastDay)) {
       days.push(this.buildDay(currentMoment, today, calendar));
       currentMoment.add(1, 'day');
     }
@@ -106,6 +114,24 @@ export default Component.extend({
 
   dayIsSelected(dayMoment, calendar = this.get('calendar')) {
     return calendar.selected ? dayMoment.isSame(calendar.selected, 'day') : false;
+  },
+
+  firstDay(calendar) {
+    let firstDay = calendar.center.clone().startOf('month');
+    let startOfWeek = this.get('startOfWeek');
+    while (firstDay.weekday() !== startOfWeek) {
+      firstDay.add(-1, 'day');
+    }
+    return firstDay;
+  },
+
+  lastDay(calendar) {
+    let startOfWeek = this.get('startOfWeek');
+    let lastDay = calendar.center.clone().endOf('month');
+    while (lastDay.weekday() !== (startOfWeek + 6) % 7) {
+      lastDay.add(1, 'day');
+    }
+    return lastDay;
   },
 
   _updateFocused(id) {
