@@ -24,6 +24,10 @@ Router.map(function() {
       // OTHER
       this.route('api-reference');
     });
+
+    this.route('cookbook', function() {
+      this.route('datepicker');
+    });
   });
   this.route('legacy-demo');
 });

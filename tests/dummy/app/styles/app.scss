@@ -61,3 +61,15 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpolygon points='0,5 2,0 10,0 10,10 2,10' fill='%237dcaff'/%3E%3C/svg%3E");
   }
 }
+
+.datepicker-demo-input {
+  padding-left: 0.4rem;
+  border: 1px solid #ccc;
+  height: 2rem;
+  border-radius: 4px;
+}
+.datepicker-demo-dropdown {
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  box-shadow: rgba(0,0,0,.172549) 0 6px 12px 0;
+}
