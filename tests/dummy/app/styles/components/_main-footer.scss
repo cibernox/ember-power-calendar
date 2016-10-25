@@ -10,8 +10,3 @@
   @extend %wrapper;
   padding: 1rem 0;
 }
-@media only screen and (min-width: $medium-breakpoint) {
-  .icons-attributions {
-    float: right;
-  }
-}
