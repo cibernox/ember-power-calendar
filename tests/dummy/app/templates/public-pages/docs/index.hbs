@@ -1,16 +1,49 @@
 <h1 class="doc-page-title">Overview</h1>
 
 <p>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam doloremque in rem! Quis cupiditate sed vel impedit, fuga odit! Expedita dolore, voluptatibus molestiae ut voluptate, cumque cum commodi? Ipsa, recusandae!.
+  Calendars. I don't know about you, but every time that building an Ember app I found myself
+  adding a calendar or datepicker, I <strong>never</strong> had a good time doing it.
 </p>
 
 <p>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam doloremque in rem! Quis cupiditate sed vel impedit, fuga odit! Expedita dolore, voluptatibus molestiae ut voluptate, cumque cum commodi? Ipsa, recusandae!.
+  There is some addons that wrap jQuery libraries there that claim to make your life easier on this regard, and they do
+  at first. Having a basic calendar rendered with the default styles takes minutes and you feel very productive. However,
+  there is always something else that makes you push your calendar a little bit the basic usage, and there is where things
+  get unpleasant.
 </p>
 
 <p>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam doloremque in rem! Quis cupiditate sed vel impedit, fuga odit! Expedita dolore, voluptatibus molestiae ut voluptate, cumque cum commodi? Ipsa, recusandae!.
+  Sometimes is customizing the styles, sometimes is hook yourself into the calendar to do things when you hover or click a day.
+  Highlight days, add tooltips to days with events... Ugh.
 </p>
+
+<p>
+  The problem is not in the addon, it's in the libraries they wrap. Most jQuery libraries for calendars act as blackboxes
+  where you don't get to choose how they render or work, you just have a public API of option that allow you to tweak here and there.
+  That API is imperactive and wraping it in a way that can be used from a declarative language like <em>Handlebars</em> is
+  not simple, and even if you get it right you are naturally limited by the public API you wrap.
+</p>
+
+<p>
+  Generally speaking, wrapping an imperative library is a convenient solution for simple usages but it doesn't scale well
+  beyond a certain complexity level and has inherent problem playing nicely with Ember: No fastboot rendering, manual bookeeping of event handlers and
+  data bindings, inability to use your own templates and dificulty to interact with it in tests are some of them.
+</p>
+
+<p>
+  <strong>Ember Power Calendar</strong> aims to solve the calendar problem <em>The Ember Way</em>: Providing sensible defaults
+  but allowing users to hook into what is going on and how things look like, just the way they do with their own components:
+  Handling actions, passing data, providing blocks and replacing the parts that don't fit their needs with their own.
+</p>
+
+<p>
+  At the same time it aims to be flexible, it attempts to make the simple case simple by bringing some conventions, defaults
+  and good patterns to the table.
+</p>
+
+<p>Just the Ember filosofy, but with days, weeks and stuff like that.</p>
+
+<p>I hope you find it useful</p>
 
 <div class="doc-page-nav">
   <a href="{{href-to 'public-pages.docs.installation'}}" class="doc-page-nav-link-next">Installation &gt;</a>
