@@ -28,6 +28,10 @@ Router.map(function() {
     this.route('cookbook', function() {
       this.route('datepicker');
     });
+
+    this.route('addons', function() {
+      this.route('index');
+    });
   });
   this.route('legacy-demo');
 });
