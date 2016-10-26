@@ -10,3 +10,9 @@
   @extend %wrapper;
   padding: 1rem 0;
 }
+
+@media only screen and (min-width: $small-breakpoint) {
+  .contribute-call-to-action {
+    float: right;
+  }
+}

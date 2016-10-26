@@ -32,6 +32,8 @@ Router.map(function() {
     this.route('addons', function() {
       this.route('index');
     });
+
+    this.route('support-the-project');
   });
   this.route('legacy-demo');
 });
