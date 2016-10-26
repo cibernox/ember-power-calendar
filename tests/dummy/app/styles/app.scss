@@ -20,9 +20,17 @@
 }
 
 // Calendar styles
-.ember-power-calendar {
-  @include ember-power-calendar($cell-size: 50px);
+@media only screen and (min-width: $small-breakpoint) {
+  .ember-power-calendar {
+    @include ember-power-calendar($cell-size: 50px);
+  }
 }
+@media only screen and (max-width: $small-breakpoint) {
+  .ember-power-calendar {
+    @include ember-power-calendar($cell-size: 42px);
+  }
+}
+
 .demo-calendar-small {
   @include ember-power-calendar($cell-size: 30px);
 }

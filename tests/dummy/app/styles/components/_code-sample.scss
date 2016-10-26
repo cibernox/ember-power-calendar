@@ -23,6 +23,7 @@
 .code-sample-snippet {
   margin-bottom: 0;
   padding: 1rem;
+  max-width: 96vw;
   &:not(.active) {
     display: none;
   }
