@@ -1,7 +1,8 @@
 {{#power-calendar-range
   class="demo-range-calendar-with-pretty-range-ends-yo"
-  center=center
+  center=foo
   selected=range
+  onCenterChange=(action (mut foo) value="date")
   onSelect=(action (mut range) value="moment") as |calendar|}}
   {{calendar.nav}}
   {{calendar.days}}
