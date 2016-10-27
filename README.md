@@ -1,27 +1,25 @@
-# ember-power-calendar
+# Ember Power Calendar
 
-This README outlines the details of collaborating on this Ember addon.
+Customizable Calendar Component for Ember.
+
+## Disclayment
+
+This addon is in very early days of development, so things might change fast over
+the next weeks. Use it with caution!
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd ember-power-calendar`
-* `npm install`
-* `bower install`
+`ember install ember-power-calendar`
 
-## Running
+## Usage
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+There is many possible ways to use it, for giving you just a taste of the API:
 
-## Running Tests
+```hbs
+{{#power-calendar selected=arrival onSelect=(action (mut arrival) value="moment") as |calendar|}}
+  {{calendar.nav}}
+  {{calendar.days}}
+{{/power-calendar}}
+```
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
-
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+Check the full documentation in www.ember-power-calendar.com
