@@ -6,9 +6,9 @@
 </p>
 
 <p>
-  The basic usage is pretty simple. There is no mandatory fields. Just invoke the <code>power-calendar</code> component and yield
-  the calendar to the block. Once inside the block, the yielded calendar has a couple components inside,
-  but the one you probably care more abour is named <code>days.</code>
+  The basic usage is pretty simple. There are no mandatory fields. Just invoke the <code>power-calendar</code> component and yield
+  the calendar to the block. Once inside the block, the yielded calendar has a couple of components inside,
+  but the one you probably care most about is named <code>days</code>.
 </p>
 
 {{#code-sample hbs="how-to-use-it-1.hbs" as |partialName|}}
@@ -48,7 +48,7 @@
 
 <p>
   Oh, and by the way, ember-power-calendar and all its sub-components speak native <code>Date</code> and <code>MomentJS</code>.
-  All options that are dates can take values in either format, and all action that this component fires will contain dates in both formats too.
+  All options that are dates can take values in either format, and all actions that this component fires will contain dates in both formats too.
 </p>
 
 <h3><code>selected</code></h3>
@@ -62,15 +62,15 @@
 {{/code-sample}}
 
 <p>
-  You can see that the calendar shows the selected date in blue. Besides, you might also have noticed that
-  the despite just passing a <code>selected</code> option, the month is not the current one. That is because, in the
-  absence of a specific <code>center</code>, the calendar will show the month of the selected date. But take into account
-  that if both options are provided, <code>center</code> <strong>always</strong> prevails.
+  You can see that the calendar shows the selected date in blue. You may have also noticed that
+  the despite only passing a <code>selected</code> option, the month is not the current one. That is because in the
+  absence of a specific <code>center</code>, the calendar will show the month of the selected date. If both options
+  are provided, <code>center</code> <strong>always</strong> prevails.
 </p>
 
 <p>
-  Enough for static calendars. If you just wanted to display a static grid of days you probably wouldn't be using an ember-addon for that.
-  You want to navigate months, you want to select days and ranges. Let's see how to do this things in the next chapter.
+  Enough of static calendars. If you just wanted to display a static grid of days you probably wouldn't be using an ember-addon for that.
+  You want to navigate months, you want to select days and ranges. Let's see how to do these things in the next chapter.
 </p>
 
 <div class="doc-page-nav">
