@@ -1,7 +1,7 @@
 {
   "name": "ember-power-calendar",
   "version": "0.1.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Powerful and customizable calendar component for Ember",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,12 +11,21 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/cibernox/ember-power-calendar.git"
+  },
   "engines": {
     "node": ">= 0.12.0"
   },
-  "author": "",
+  "author": "Miguel Camba",
   "license": "MIT",
+  "files": [
+    "addon/",
+    "app/",
+    "test-support/",
+    "index.js"
+  ],
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^2.4.1",
