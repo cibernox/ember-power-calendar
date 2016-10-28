@@ -3,13 +3,14 @@ import layout from '../../templates/components/power-calendar/days';
 import computed from 'ember-computed';
 import service from 'ember-service/inject';
 import { scheduleOnce } from 'ember-runloop';
+import moment from 'moment';
 
 export default Component.extend({
   layout,
   focusedId: null,
   showDaysAround: true,
   clockService: service('power-calendar-clock'),
-  dayNamesAbbrs: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  dayNamesAbbrs: moment.weekdaysShort(),
 
   // CPs
   startOfWeek: computed({
