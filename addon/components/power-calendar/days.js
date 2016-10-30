@@ -26,7 +26,7 @@ export default Component.extend({
     return dayNamesAbbrs.slice(startOfWeek).concat(dayNamesAbbrs.slice(0, startOfWeek));
   }),
 
-  days: computed('calendar.{center,selected}', 'focusedId', 'startOfWeek', function() {
+  days: computed('calendar.{center,selected}', 'focusedId', 'startOfWeek', 'minDate', function() {
     let today = this.get('clockService').getDate();
     let calendar = this.get('calendar');
     let lastDay = this.lastDay(calendar);
@@ -102,12 +102,25 @@ export default Component.extend({
   buildDay(dayMoment, today, calendar) {
     let id = dayMoment.format('YYYY-MM-DD');
     let momentDate = dayMoment.clone();
+    let isDisabled = !this.get('onSelect');
+    if (!isDisabled) {
+      let minDate = this.get('minDate');
+      if (minDate && momentDate.isBefore(minDate)) {
+        isDisabled = true;
+      }
+      if (!isDisabled) {
+        let maxDate = this.get('maxDate');
+        if (maxDate && momentDate.isAfter(maxDate)) {
+          isDisabled = true;
+        }
+      }
+    }
     return {
       id,
       number: momentDate.date(),
       date: momentDate._d,
       moment: momentDate,
-      isDisabled: !this.get('onSelect'),
+      isDisabled,
       isFocused: this.get('focusedId') === id,
       isCurrentMonth: momentDate.month() === calendar.center.month(),
       isToday: momentDate.isSame(today, 'day'),

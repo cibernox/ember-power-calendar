@@ -10,6 +10,8 @@ export default Controller.extend({
 
   // Lifecycle hooks
   init() {
+    this.set('tenDaysAgo', moment().add(-10, 'day'));
+    this.set('threeDaysAgo', moment().add(-3, 'day'));
     this.set('tomorrow', moment().add(1, 'day'));
     this.set('tomorrowDate', moment().add(1, 'day')._d);
     this.set('pastMonth', moment().subtract(1, 'month'));

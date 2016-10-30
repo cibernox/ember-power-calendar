@@ -91,6 +91,9 @@
 .ember-power-calendar-day--focused {
   box-shadow: inset 0px -2px 0px 0px #0078c9;
 }
+.ember-power-calendar-day--interactive[disabled] {
+  opacity: 0.5;
+}
 
 @mixin ember-power-calendar($cell-size) {
   $cell-with-spacing-width: $cell-size + 2px;
