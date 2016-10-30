@@ -76,13 +76,14 @@
   background-color: #F5F7FA;
 }
 .ember-power-calendar-day--today,
-.ember-power-calendar-day--interactive:hover {
+.ember-power-calendar-day:not([disabled]):hover {
   background-color: #eee;
 }
-.ember-power-calendar-day--other-month:hover {
+.ember-power-calendar-day--other-month:not([disabled]):hover {
   color: darken(#E6E9ED, 15%);
 }
-.ember-power-calendar-day--selected, .ember-power-calendar-day--selected:hover {
+.ember-power-calendar-day--selected,
+.ember-power-calendar-day--selected:not([disabled]):hover {
   font-weight: bold;
   background-color: lighten(#0078c9, 50%);
   color: #656D78;

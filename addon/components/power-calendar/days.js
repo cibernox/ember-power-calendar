@@ -107,6 +107,7 @@ export default Component.extend({
       number: momentDate.date(),
       date: momentDate._d,
       moment: momentDate,
+      isDisabled: !this.get('onSelect'),
       isFocused: this.get('focusedId') === id,
       isCurrentMonth: momentDate.month() === calendar.center.month(),
       isToday: momentDate.isSame(today, 'day'),
