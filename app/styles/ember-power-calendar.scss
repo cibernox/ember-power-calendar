@@ -57,7 +57,7 @@
   color: #333333;
 }
 .ember-power-calendar-day {
-  color: #E6E9ED;
+  color: #bbb;
 }
 .ember-power-calendar-nav {
   line-height: 2;
@@ -80,7 +80,7 @@
   background-color: #eee;
 }
 .ember-power-calendar-day--other-month:not([disabled]):hover {
-  color: darken(#E6E9ED, 15%);
+  color: #aaa;
 }
 .ember-power-calendar-day--selected,
 .ember-power-calendar-day--selected:not([disabled]):hover {
@@ -92,7 +92,7 @@
   box-shadow: inset 0px -2px 0px 0px #0078c9;
 }
 .ember-power-calendar-day--interactive[disabled] {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 @mixin ember-power-calendar($cell-size) {

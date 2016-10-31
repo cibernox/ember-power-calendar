@@ -461,3 +461,83 @@ test('If the user passes `maxDate=someDate` to range calendars, days after that 
   assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The maxDate is selectable');
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-16"]').prop('disabled'), 'Days after the maxDate are disabled');
 });
+
+test('When the user tries to focus a disabled date with the left arrow key, the focus stays where it is', function(assert) {
+  assert.expect(4);
+  this.minDate = new Date(2013, 9, 15);
+  this.render(hbs`
+    {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days minDate=minDate}}
+    {{/power-calendar-range}}
+  `);
+
+  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-15"]');
+  run(() => $dayElement.focus());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+
+  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0), 37); // left arrow
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+});
+
+test('When the user tries to focus a disabled date with the up arrow key, the focus goes to the latest selectable day', function(assert) {
+  assert.expect(4);
+  this.minDate = new Date(2013, 9, 15);
+  this.render(hbs`
+    {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days minDate=minDate}}
+    {{/power-calendar-range}}
+  `);
+
+  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]');
+  run(() => $dayElement.focus());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
+
+  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0), 38); // up arrow
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+});
+
+test('When the user tries to focus a disabled date with the right arrow key, the focus stays where it is', function(assert) {
+  assert.expect(4);
+  this.maxDate = new Date(2013, 9, 15);
+  this.render(hbs`
+    {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days maxDate=maxDate}}
+    {{/power-calendar-range}}
+  `);
+
+  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-15"]');
+  run(() => $dayElement.focus());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+
+  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0), 39); // right arrow
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+});
+
+test('When the user tries to focus a disabled date with the down arrow key, the focus goes to the latest selectable day', function(assert) {
+  assert.expect(4);
+  this.maxDate = new Date(2013, 9, 15);
+  this.render(hbs`
+    {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days maxDate=maxDate}}
+    {{/power-calendar-range}}
+  `);
+
+  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-11"]');
+  run(() => $dayElement.focus());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-11"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-11"]').get(0));
+
+  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-11"]').get(0), 40); // down arrow
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+});

@@ -71,7 +71,7 @@
     selected=selected
     onSelect=(action (mut selected) value="moment") as |calendar|}}
     {{calendar.nav}}
-    {{calendar.days minDate=tenDaysAgo maxDate=threeDaysAgo}}
+    {{calendar.days minDate=tenDaysAgo maxDate=threeDaysFromNow}}
   {{/power-calendar}}
 
   <h3>Big</h3>

@@ -81,14 +81,38 @@ export default Component.extend({
         }
         if (e.keyCode === 38) {
           e.preventDefault();
-          day = days[Math.max(index - 7, 0)];
+          let newIndex = Math.max(index - 7, 0);
+          day = days[newIndex];
+          if (day.isDisabled) {
+            for (let i = newIndex + 1; i <= index; i++) {
+              day = days[i];
+              if (!day.isDisabled) {
+                break;
+              }
+            }
+          }
         } else if (e.keyCode === 40) {
           e.preventDefault();
-          day = days[Math.min(index + 7, days.length - 1)];
+          let newIndex = Math.min(index + 7, days.length - 1);
+          day = days[newIndex];
+          if (day.isDisabled) {
+            for (let i = newIndex - 1; i >= index; i--) {
+              day = days[i];
+              if (!day.isDisabled) {
+                break;
+              }
+            }
+          }
         } else if (e.keyCode === 37) {
           day = days[Math.max(index - 1, 0)];
+          if (day.isDisabled) {
+            return;
+          }
         } else if (e.keyCode === 39) {
           day = days[Math.min(index + 1, days.length - 1)];
+          if (day.isDisabled) {
+            return;
+          }
         } else {
           return;
         }

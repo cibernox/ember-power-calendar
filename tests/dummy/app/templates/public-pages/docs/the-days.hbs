@@ -87,6 +87,19 @@
   {{partial partialName}}
 {{/code-sample}}
 
+<h3><code>minDate</code> and <code>maxDate</code></h3>
+
+<p>
+  If you want to prevent some days before some date from being selected, pass <code>minDate=someDate</code> and/or <code>maxDate=someOtherDate</code>.
+  Dates before/after those values can be selected (those dates included), but the rest of the days cannot be selected or focused.
+</p>
+
+<p>By example, in the next example, only days between 11th and 21th can be selected (both inclusive)</p>
+
+{{#code-sample hbs="the-days-6.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
 <div class="doc-page-nav">
   <a href={{href-to 'public-pages.docs.the-nav'}} class="doc-page-nav-link-prev">&lt; The nav</a>
   {{!-- <a href={{href-to 'public-pages.docs.the-nav'}} class="doc-page-nav-link-next">The days &gt;</a> --}}
