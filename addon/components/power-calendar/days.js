@@ -26,7 +26,7 @@ export default Component.extend({
     return dayNamesAbbrs.slice(startOfWeek).concat(dayNamesAbbrs.slice(0, startOfWeek));
   }),
 
-  days: computed('calendar.{center,selected}', 'focusedId', 'startOfWeek', 'minDate', function() {
+  days: computed('calendar.{center,selected}', 'focusedId', 'startOfWeek', 'minDate', 'maxDate', function() {
     let today = this.get('clockService').getDate();
     let calendar = this.get('calendar');
     let lastDay = this.lastDay(calendar);
