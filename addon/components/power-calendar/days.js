@@ -26,7 +26,7 @@ export default Component.extend({
     return dayNamesAbbrs.slice(startOfWeek).concat(dayNamesAbbrs.slice(0, startOfWeek));
   }),
 
-  days: computed('calendar.{center,selected}', 'focusedId', 'startOfWeek', function() {
+  days: computed('calendar.{center,selected}', 'focusedId', 'startOfWeek', 'minDate', 'maxDate', function() {
     let today = this.get('clockService').getDate();
     let calendar = this.get('calendar');
     let lastDay = this.lastDay(calendar);
@@ -81,14 +81,38 @@ export default Component.extend({
         }
         if (e.keyCode === 38) {
           e.preventDefault();
-          day = days[Math.max(index - 7, 0)];
+          let newIndex = Math.max(index - 7, 0);
+          day = days[newIndex];
+          if (day.isDisabled) {
+            for (let i = newIndex + 1; i <= index; i++) {
+              day = days[i];
+              if (!day.isDisabled) {
+                break;
+              }
+            }
+          }
         } else if (e.keyCode === 40) {
           e.preventDefault();
-          day = days[Math.min(index + 7, days.length - 1)];
+          let newIndex = Math.min(index + 7, days.length - 1);
+          day = days[newIndex];
+          if (day.isDisabled) {
+            for (let i = newIndex - 1; i >= index; i--) {
+              day = days[i];
+              if (!day.isDisabled) {
+                break;
+              }
+            }
+          }
         } else if (e.keyCode === 37) {
           day = days[Math.max(index - 1, 0)];
+          if (day.isDisabled) {
+            return;
+          }
         } else if (e.keyCode === 39) {
           day = days[Math.min(index + 1, days.length - 1)];
+          if (day.isDisabled) {
+            return;
+          }
         } else {
           return;
         }
@@ -102,11 +126,25 @@ export default Component.extend({
   buildDay(dayMoment, today, calendar) {
     let id = dayMoment.format('YYYY-MM-DD');
     let momentDate = dayMoment.clone();
+    let isDisabled = !this.get('onSelect');
+    if (!isDisabled) {
+      let minDate = this.get('minDate');
+      if (minDate && momentDate.isBefore(minDate)) {
+        isDisabled = true;
+      }
+      if (!isDisabled) {
+        let maxDate = this.get('maxDate');
+        if (maxDate && momentDate.isAfter(maxDate)) {
+          isDisabled = true;
+        }
+      }
+    }
     return {
       id,
       number: momentDate.date(),
       date: momentDate._d,
       moment: momentDate,
+      isDisabled,
       isFocused: this.get('focusedId') === id,
       isCurrentMonth: momentDate.month() === calendar.center.month(),
       isToday: momentDate.isSame(today, 'day'),
