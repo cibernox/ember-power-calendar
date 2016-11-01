@@ -551,3 +551,31 @@ test('When the user tries to focus a disabled date with the down arrow key, the 
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
   assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
 });
+
+test('If is used default moment language, it should show the weekdays in english', function(assert) {
+  assert.expect(1);
+  this.render(hbs`
+    {{#power-calendar center=center as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
+
+  let weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  assert.equal(this.$('.ember-power-calendar-weekday').text().replace(/\s/g, ''), weekDays.join(''), 'The week days should be in english');
+});
+
+test('If is used "pt" as moment language, it should show the weekdays in Portuguese', function(assert) {
+  assert.expect(1);
+  moment.locale('pt');
+
+  this.render(hbs`
+    {{#power-calendar center=center as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
+
+  let weekDays = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+  assert.equal(this.$('.ember-power-calendar-weekday').text().replace(/\s/g, ''), weekDays.join(''), 'The week days should be in english');
+});
