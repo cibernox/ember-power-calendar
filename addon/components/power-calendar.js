@@ -10,6 +10,7 @@ export default Component.extend({
   classNames: ['ember-power-calendar'],
   classNameBindings: ['changeCenterTask.isRunning:ember-power-calendar--loading'],
   clockService: service('power-calendar-clock'),
+  momentService: service('moment'),
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
   center: null,
@@ -31,11 +32,11 @@ export default Component.extend({
     return moment(this.get('selected') || this.get('clockService').getDate());
   }),
 
-  publicAPI: computed('selected', 'currentCenter', 'locale', function() {
+  publicAPI: computed('selected', 'currentCenter', 'locale', 'momentService.locale', function() {
     return {
       selected: this.get('selected'),
       center: this.get('currentCenter'),
-      locale: this.get('locale') || moment.locale(),
+      locale: this.get('locale') || this.get('momentService.locale'),
       actions: this.get('publicActions')
     };
   }),

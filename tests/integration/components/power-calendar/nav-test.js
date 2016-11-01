@@ -5,13 +5,14 @@ import moment from 'moment';
 import run from 'ember-runloop';
 import getOwner from 'ember-owner/get';
 
-let calendarService, calendar;
+let calendarService, momentService, calendar;
 moduleForComponent('power-calendar', 'Integration | Component | power-calendar/nav', {
   integration: true,
   beforeEach() {
     assertionInjector(this);
     calendarService = getOwner(this).lookup('service:power-calendar-clock');
     calendarService.set('date', new Date(2013, 9, 18));
+    momentService = getOwner(this).lookup('service:moment');
     calendar = {
       center: moment(calendarService.getDate()),
       actions: {
@@ -22,14 +23,14 @@ moduleForComponent('power-calendar', 'Integration | Component | power-calendar/n
   },
 
   afterEach() {
-    moment.locale('en-US');
+    run(() => momentService.changeLocale('en-US'));
     assertionCleanup(this);
   }
 });
 
 test('[i18n] The name of the month respect the locale set in moment.js', function(assert) {
   assert.expect(1);
-  moment.locale('pt');
+  run(() => momentService.changeLocale('pt'));
   this.render(hbs`{{#power-calendar as |cal|}}{{cal.nav}}{{/power-calendar}}`);
   assert.equal(this.$('.ember-power-calendar-nav-title').text().trim(), 'Outubro 2013');
 });

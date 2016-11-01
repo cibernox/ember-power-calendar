@@ -5,13 +5,14 @@ import moment from 'moment';
 import run from 'ember-runloop';
 import getOwner from 'ember-owner/get';
 
-let calendarService, calendar;
+let calendarService, momentService, calendar;
 moduleForComponent('power-calendar', 'Integration | Component | power-calendar/days', {
   integration: true,
   beforeEach() {
     assertionInjector(this);
     calendarService = getOwner(this).lookup('service:power-calendar-clock');
     calendarService.set('date', new Date(2013, 9, 18));
+    momentService = getOwner(this).lookup('service:moment');
     calendar = {
       center: moment(calendarService.getDate()),
       locale: 'en',
@@ -23,15 +24,14 @@ moduleForComponent('power-calendar', 'Integration | Component | power-calendar/d
   },
 
   afterEach() {
-    moment.locale('en-US');
+    run(() => momentService.changeLocale('en-US'));
     assertionCleanup(this);
   }
 });
 
 test('[i18n] The name of the weekdays respect the locale set in moment.js', function(assert) {
   assert.expect(1);
-  this.calendar = calendar;
-  moment.locale('pt');
+  run(() => momentService.changeLocale('pt'));
   this.render(hbs`{{#power-calendar as |cal|}}{{cal.days}}{{/power-calendar}}`);
   assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Seg Ter Qua Qui Sex Sáb Dom');
 });
