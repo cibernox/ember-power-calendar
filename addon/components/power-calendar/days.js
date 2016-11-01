@@ -10,7 +10,9 @@ export default Component.extend({
   focusedId: null,
   showDaysAround: true,
   clockService: service('power-calendar-clock'),
-  dayNamesAbbrs: moment.weekdaysShort(),
+  dayNamesAbbrs: computed(function() {
+    return moment.weekdaysShort();
+  }),
 
   // CPs
   startOfWeek: computed({
