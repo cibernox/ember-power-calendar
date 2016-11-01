@@ -25,8 +25,8 @@ export default Component.extend({
   clockService: service('power-calendar-clock'),
 
   // CPs
-  dayNamesAbbrs: computed('locale', function() {
-    return withLocale(this.get('locale'), () => moment.weekdaysShort());
+  dayNamesAbbrs: computed('calendar.locale', function() {
+    return withLocale(this.get('calendar.locale'), () => moment.weekdaysShort());
   }),
 
   localeStartOfWeek: computed('dayNamesAbbrs', 'startOfWeek', function() {
@@ -35,7 +35,7 @@ export default Component.extend({
       return parseInt(forcedStartOfWeek, 10);
     }
     let now = this.get('clockService').getDate();
-    let dayAbbr = withLocale(this.get('locale'), () => moment(now).startOf('week').format('ddd'));
+    let dayAbbr = withLocale(this.get('calendar.locale'), () => moment(now).startOf('week').format('ddd'));
     return this.get('dayNamesAbbrs').indexOf(dayAbbr);
   }),
 

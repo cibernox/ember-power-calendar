@@ -31,10 +31,11 @@ export default Component.extend({
     return moment(this.get('selected') || this.get('clockService').getDate());
   }),
 
-  publicAPI: computed('selected', 'currentCenter', function() {
+  publicAPI: computed('selected', 'currentCenter', 'locale', function() {
     return {
       selected: this.get('selected'),
       center: this.get('currentCenter'),
+      locale: this.get('locale') || moment.locale(),
       actions: this.get('publicActions')
     };
   }),
