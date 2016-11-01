@@ -1,7 +1,7 @@
 <h1>Ember Power Calendar</h1>
 <div class="legacy-demo" style="padding: 10px 20px">
   <h3>Small with only navbar</h3>
-{{!--   {{#power-calendar
+  {{#power-calendar
     class="demo-calendar-small"
     center=foo as |calendar|}}
     {{calendar.nav}}
@@ -24,7 +24,7 @@
     selected=selected as |calendar|}}
 
     {{calendar.nav}}
-    {{calendar.days}}
+    {{calendar.days locale="pt"}}
   {{/power-calendar}}
 
   <h3>Small with a custom block on the nav</h3>
@@ -55,16 +55,9 @@
     {{#calendar.days as |day|}}
       {{moment-format day.moment 'Do'}}
     {{/calendar.days}}
-  {{/power-calendar}} --}}
-
-  <h3>Medium</h3>
-
-
-  {{#power-calendar class="demo-calendar-medium" as |calendar|}}
-    {{calendar.nav}}
-    {{calendar.days minDate=tenDaysAgo maxDate=threeDaysAgo}}
   {{/power-calendar}}
 
+  <h3>Medium</h3>
 
   {{#power-calendar
     class="demo-calendar-medium"
