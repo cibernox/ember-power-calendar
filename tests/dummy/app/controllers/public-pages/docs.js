@@ -35,7 +35,7 @@ const groupedSections = [
   {
     groupName: 'Other',
     options: [
-      // { route: 'public-pages.docs.test-helpers', text: 'Test helpers' },
+      { route: 'public-pages.docs.test-helpers', text: 'Test helpers' },
       // { route: 'public-pages.docs.troubleshooting', text: 'Troubleshooting' },
       // { route: 'public-pages.docs.architecture', text: 'Architecture' },
       { route: 'public-pages.docs.api-reference', text: 'API reference' }

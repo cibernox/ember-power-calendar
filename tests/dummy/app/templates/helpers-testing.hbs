@@ -1,0 +1,32 @@
+<h3>Helpers testing</h3>
+<div class="calendar-center-1">
+  {{#power-calendar center=center1 onCenterChange=(action (mut center1) value="date") as |calendar|}}
+    {{calendar.nav}}
+    {{calendar.days}}
+  {{/power-calendar}}
+</div>
+
+<div class="calendar-center-2">
+  {{#power-calendar class="calendar-center-2-calendar" center=center2 onCenterChange=(action (mut center2) value="date") as |calendar|}}
+    {{calendar.nav}}
+    {{calendar.days}}
+  {{/power-calendar}}
+</div>
+
+<div class="calendar-center-3">
+  {{#power-calendar center=center3 as |calendar|}}
+    {{calendar.nav}}
+    {{calendar.days}}
+  {{/power-calendar}}
+</div>
+
+<div class="calendar-select-1">
+  {{#power-calendar
+    center=center4
+    selected=selected4
+    onSelect=(action (mut selected4) value="date")
+    onCenterChange=(action (mut center4) value="date") as |calendar|}}
+    {{calendar.nav}}
+    {{calendar.days}}
+  {{/power-calendar}}
+</div>

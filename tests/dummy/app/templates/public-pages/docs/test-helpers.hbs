@@ -1,0 +1,54 @@
+<h1 class="doc-page-title">Test helpers</h1>
+
+<br>
+<h2>Acceptance Tests</h2>
+
+<p>
+  Ember Power Calendar provides two acceptance helpers (<code>calendarCenter</code> and <code>calendarSelect</code>)
+  that make it nicer to interact with the component suring tests.
+</p>
+
+<p>
+  To use those helpers in acceptance tests you need to register them in the <code>/tests/helpers/start-app.js</code>
+  file.
+</p>
+
+<p>
+  For that import the registration function and invoke it immedialty.
+</p>
+
+{{code-snippet name="test-helpers-1-js.js"}}
+
+<h3><code>calendarCenter(cssSelector, dateOrMoment)</code></h3>
+
+<p>
+  This async helper allows you to move the center (change the month) of the calendar in the given selector
+  without interacting with the nav.
+</p>
+
+{{code-snippet name="test-helpers-2-js.js"}}
+
+<p>If the calendar does not have an <code>onCenterChange</code> action it will throw a helpful error message.</p>
+
+<h3><code>calendarSelect(cssSelector, dateOrMoment)</code></h3>
+
+<p>
+  Use this helper to select a day of the calendar like if you clicked on it. If to do so the calendar
+  has to display a different month, it will do that automatically.
+</p>
+
+{{code-snippet name="test-helpers-3-js.js"}}
+
+<p>
+  If you are dealing with a multiple or range calendar you can just call it more than once.
+</p>
+
+<p>
+  <strong>Note:</strong> Remember to whitelist <code>calendarCenter</code> and <code>calendarSelect</code> in the list of allowed
+  globals in your <code>tests/.jshintrc</code> or <code>tests/.eslintrc.js</code> manifest.
+</p>
+
+<div class="doc-page-nav">
+  <a href={{href-to 'public-pages.docs.the-days'}} class="doc-page-nav-link-prev">&lt; The days</a>
+  <a href={{href-to 'public-pages.docs.api-reference'}} class="doc-page-nav-link-next">Api reference &gt;</a>
+</div>
