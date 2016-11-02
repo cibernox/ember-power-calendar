@@ -23,6 +23,7 @@ Router.map(function() {
       this.route('the-days');
 
       // OTHER
+      this.route('test-helpers');
       this.route('api-reference');
     });
 

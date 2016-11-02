@@ -10,6 +10,7 @@ function findCalendarElement(selector) {
 
 function findComponentInstance(app, selector) {
   let calendarElement = findCalendarElement(selector);
+  assert(`Could not find a calendar using selector: "${selector}"`, calendarElement.length > 0);
   let calendarId = calendarElement.attr('id');
   let container = app.__container__;
   // Warning. This is super-private.
@@ -31,7 +32,7 @@ export default function() {
     assert('`calendarSelect` expect a Date or MomentJS object as second argument', selected);
     let selectedMoment = moment(selected);
     let calendarElement = findCalendarElement(selector);
-    let daySelector = `[data-date=${selectedMoment.format('YYYY-MM-DD')}]`;
+    let daySelector = `${selector} [data-date=${selectedMoment.format('YYYY-MM-DD')}]`;
     let dayElement = calendarElement.find(daySelector)
     if (dayElement.length === 0) {
       run(() => calendarCenter(selector, selected));

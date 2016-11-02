@@ -44,6 +44,17 @@ test('`calendarCenter` throws an error if callend on a calendar without `onCente
   });
 });
 
+test('`calendarCenter` throws an error it cannot find a calendar using the given selector', function(assert) {
+  assert.expect(1);
+  visit('/helpers-testing');
+
+  andThen(function() {
+    calendarCenter('.non-exister-selector', new Date(2013, 8, 3)).catch((error) => {
+      assert.equal(error.message, 'Assertion Failed: Could not find a calendar using selector: ".non-exister-selector"');
+    });
+  });
+});
+
 moduleForAcceptance('Acceptance | helpers | calendarSelect');
 
 test('`calendarSelect` selects the given date ', function(assert) {
