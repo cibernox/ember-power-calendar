@@ -1,72 +1,31 @@
 <h1 class="doc-page-title">I18n</h1>
 
 <p>
-  Ember Power Calendar is written using contextual components and follows the
-  <a href="https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0">Presentational and Container Components</a>
-  pattern.
+  Ember Power Calendar uses ember-moment to format dates in the appropriate locale and updates
+  if it changes. For more information check the docs of <a href="https://github.com/stefanpenner/ember-moment#i18n-support">ember-moment</a>
+  about how to use the <code>service:moment</code> to set application wide locales.
 </p>
 
 <p>
-  The contextual components are <em>mostly</em> presentationals and you can customize
-  how they look without much knowledge of how the calendar works. The
-  <code>calendar.nav</code> component is the simplest one.
+  When the locale is updates not only the language changes but also the first day of the week and any other configuration.
 </p>
 
-<p>
-  The default it displays the displayed month in <code>MMMM YYYY</code> format
-  and a couple buttons to move to other months. Let's change that.
-</p>
-
-<h3>Passing a block</h3>
-
-<p>
-  If you pass a block to this component, that block will replace the month/year text. It can
-  be used by example if you want to display the month in a different format, maybe a more compact one
-  for very small calendars.
-</p>
-
-{{#code-sample hbs="the-nav-1.hbs" as |partialName|}}
-  {{partial partialName}}
-{{/code-sample}}
-
-<h3>Just using the public API</h3>
-
-<p>
-  If the thing you want is beyond what you can do with the block, Ember Power Calendar doesn't
-  try to provide a miriad of option to configure the component. Instead it gives you the tools to
-  build it yourself using the yielded <code>calendar</code>. It's easy!
-</p>
-
-<p>
-  Per example, let's build a different nav that, reusing the existing CSS classes, allows you to change
-  months <em>and years</em>.
-</p>
-
-{{#code-sample hbs="the-nav-2.hbs" as |partialName|}}
-  {{partial partialName}}
-{{/code-sample}}
-
-<h3>Passing your own component</h3>
-
-<p>
-  The example above is simple and works if you only have one calendar, but if you have several
-  calendars it becomes repetitive. The last way of customizing your calendar is replacing the <code>nav</code>
-  component with your own component.
-</p>
-
-<p>Let's encapsulate the same logic above into a component and use that instead</p>
-
-{{#code-sample hbs="the-nav-3.hbs" as |partialName|}}
+{{#code-sample hbs="i18n-1.hbs" js="i18n-1-js.js" as |partialName|}}
   {{partial partialName}}
 {{/code-sample}}
 
 <p>
-  Now you have the same logic but to use it the only thing you have to do is tell the calenda to use your component with
-  <code>navComponent="name-of-my-component"</code>. Much easier to reuse across your app.
+  Also, you can override the global locale on a per-instance basis passing <code>locale="some-locale"</code>.
+  The next calendar is going to be in russian no matter what the global locale is.
 </p>
 
+{{#code-sample hbs="i18n-2.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
 <p>
-  Enough about the nav. Not it's the turn of the days.
+  In the next sections you are going to see how to customize the sub-components of
+  the calendar.
 </p>
 
 <div class="doc-page-nav">

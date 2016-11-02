@@ -24,12 +24,14 @@ function triggerKeydown(domElement, k) {
   });
 }
 
+let momentService;
 moduleForComponent('power-calendar', 'Integration | Component | Power Calendar', {
   integration: true,
   beforeEach() {
     assertionInjector(this);
     let calendarService = getOwner(this).lookup('service:power-calendar-clock');
     calendarService.set('date', new Date(2013, 9, 18));
+    momentService = getOwner(this).lookup('service:moment');
   },
 
   afterEach() {
@@ -506,4 +508,21 @@ test('When the user tries to focus a disabled date with the down arrow key, the 
   triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-11"]').get(0), 40); // down arrow
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
   assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+});
+
+test('[i18n] If the global locale in ember-moment changes, the calendar updates', function(assert) {
+  assert.expect(6);
+  this.render(hbs`
+    {{#power-calendar as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
+  assert.equal(this.$('.ember-power-calendar-nav-title').text().trim(), 'October 2013');
+  assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Sun Mon Tue Wed Thu Fri Sat');
+  assert.equal(this.$('.ember-power-calendar-day:eq(0)').text().trim(), '29');
+  run(() => momentService.changeLocale('pt'));
+  assert.equal(this.$('.ember-power-calendar-nav-title').text().trim(), 'Outubro 2013');
+  assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Seg Ter Qua Qui Sex Sáb Dom');
+  assert.equal(this.$('.ember-power-calendar-day:eq(0)').text().trim(), '30');
 });
