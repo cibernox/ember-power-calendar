@@ -1,0 +1,34 @@
+<h1 class="doc-page-title">I18n</h1>
+
+<p>
+  Ember Power Calendar uses ember-moment to format dates in the appropriate locale and updates
+  if it changes. For more information check the docs of <a href="https://github.com/stefanpenner/ember-moment#i18n-support">ember-moment</a>
+  about how to use the <code>service:moment</code> to set application wide locales.
+</p>
+
+<p>
+  When the locale is updates not only the language changes but also the first day of the week and any other configuration.
+</p>
+
+{{#code-sample hbs="i18n-1.hbs" js="i18n-1-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Also, you can override the global locale on a per-instance basis passing <code>locale="some-locale"</code>.
+  The next calendar is going to be in russian no matter what the global locale is.
+</p>
+
+{{#code-sample hbs="i18n-2.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  In the next sections you are going to see how to customize the sub-components of
+  the calendar.
+</p>
+
+<div class="doc-page-nav">
+  <a href={{href-to 'public-pages.docs.multiple-selection'}} class="doc-page-nav-link-prev">&lt; Multiple selection</a>
+  <a href={{href-to 'public-pages.docs.the-nav'}} class="doc-page-nav-link-next">The nav &gt;</a>
+</div>

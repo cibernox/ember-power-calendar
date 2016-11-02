@@ -24,12 +24,14 @@ function triggerKeydown(domElement, k) {
   });
 }
 
+let momentService;
 moduleForComponent('power-calendar', 'Integration | Component | Power Calendar', {
   integration: true,
   beforeEach() {
     assertionInjector(this);
     let calendarService = getOwner(this).lookup('service:power-calendar-clock');
     calendarService.set('date', new Date(2013, 9, 18));
+    momentService = getOwner(this).lookup('service:moment');
   },
 
   afterEach() {
@@ -188,17 +190,6 @@ test('The current day has a special class that other days don\'t', function(asse
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--today'), 'The current day has a special class');
   assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-19"]').hasClass('ember-power-calendar-day--today'));
   assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').hasClass('ember-power-calendar-day--today'));
-});
-
-test('It shows the abbreviation of the week-days starting on Monday', function(assert) {
-  assert.expect(1);
-  this.render(hbs`
-    {{#power-calendar as |calendar|}}
-      {{calendar.nav}}
-      {{calendar.days}}
-    {{/power-calendar}}
-  `);
-  assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Mon Tue Wed Thu Fri Sat Sun');
 });
 
 test('If there is no `onSelect` action, days cannot be focused', function(assert) {
@@ -369,39 +360,6 @@ test('If the calendar with `onSelect` receives a block on the `days` component, 
   assert.equal(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').text().trim(), '1!', 'The block has been rendered');
 });
 
-test('If the `days` component receives a `startOfWeek` option, that weekday becomes the start of the week', function(assert) {
-  assert.expect(9);
-  this.startOfWeek = '2';
-  this.render(hbs`
-    {{#power-calendar as |calendar|}}
-      {{calendar.days startOfWeek=startOfWeek}}
-    {{/power-calendar}}
-  `);
-  assert.equal(this.$('.ember-power-calendar-weekday:eq(0)').text().trim(), 'Tue', 'The week starts on Tuesday');
-  assert.equal(this.$('.ember-power-calendar-day:eq(0)').text().trim(), '1', 'The first day of the first week is the 1st of October');
-  assert.equal(this.$('.ember-power-calendar-day:last').text().trim(), '4', 'The last day of the last week the 4th of November');
-  run(() => this.set('startOfWeek', '3'));
-  assert.equal(this.$('.ember-power-calendar-weekday:eq(0)').text().trim(), 'Wed', 'The week starts on Wednesday');
-  assert.equal(this.$('.ember-power-calendar-day:eq(0)').text().trim(), '25', 'The first day of the first week is the 25th of September');
-  assert.equal(this.$('.ember-power-calendar-day:last').text().trim(), '5', 'The last day of the last week is the 5th of November');
-  run(() => this.set('startOfWeek', '5'));
-  assert.equal(this.$('.ember-power-calendar-weekday:eq(0)').text().trim(), 'Fri', 'The week starts on Friday');
-  assert.equal(this.$('.ember-power-calendar-day:eq(0)').text().trim(), '27', 'The first day of the first week is the 25th of September');
-  assert.equal(this.$('.ember-power-calendar-day:last').text().trim(), '31', 'The last day of the last week is the 31th of October');
-});
-
-test('If the `days` component receives a `showDaysAround=false` option, it doesn\'t show the days before or after the first day of the month', function(assert) {
-  assert.expect(3);
-  this.render(hbs`
-    {{#power-calendar as |calendar|}}
-      {{calendar.days showDaysAround=false}}
-    {{/power-calendar}}
-  `);
-  assert.equal(this.$('.ember-power-calendar-week:eq(0) .ember-power-calendar-day').length, 6, 'The first week has 6 days');
-  assert.equal(this.$('.ember-power-calendar-week:eq(0)').data('missing-days'), 1, 'It has a special data-attribute');
-  assert.equal(this.$('.ember-power-calendar-week:eq(4) .ember-power-calendar-day').length, 4, 'The last week has 4 days');
-});
-
 test('If the user passes `minDate=someDate` to single calendars, days before that one cannot be selected, but that day and those after can', function(assert) {
   assert.expect(6);
   this.minDate = new Date(2013, 9, 15);
@@ -550,4 +508,21 @@ test('When the user tries to focus a disabled date with the down arrow key, the 
   triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-11"]').get(0), 40); // down arrow
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
   assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+});
+
+test('[i18n] If the global locale in ember-moment changes, the calendar updates', function(assert) {
+  assert.expect(6);
+  this.render(hbs`
+    {{#power-calendar as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
+  assert.equal(this.$('.ember-power-calendar-nav-title').text().trim(), 'October 2013');
+  assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Sun Mon Tue Wed Thu Fri Sat');
+  assert.equal(this.$('.ember-power-calendar-day:eq(0)').text().trim(), '29');
+  run(() => momentService.changeLocale('pt'));
+  assert.equal(this.$('.ember-power-calendar-nav-title').text().trim(), 'Outubro 2013');
+  assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Seg Ter Qua Qui Sex Sáb Dom');
+  assert.equal(this.$('.ember-power-calendar-day:eq(0)').text().trim(), '30');
 });

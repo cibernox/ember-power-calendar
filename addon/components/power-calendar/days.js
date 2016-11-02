@@ -3,30 +3,48 @@ import layout from '../../templates/components/power-calendar/days';
 import computed from 'ember-computed';
 import service from 'ember-service/inject';
 import { scheduleOnce } from 'ember-runloop';
+import moment from 'moment';
+
+function withLocale(locale, fn) {
+  let returnValue;
+  if (locale) {
+    let previousLocale = moment.locale();
+    moment.locale(locale);
+    returnValue = fn();
+    moment.locale(previousLocale);
+  } else {
+    returnValue = fn();
+  }
+  return returnValue;
+}
 
 export default Component.extend({
   layout,
   focusedId: null,
   showDaysAround: true,
   clockService: service('power-calendar-clock'),
-  dayNamesAbbrs: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 
   // CPs
-  startOfWeek: computed({
-    get() {
-      return 1;
-    },
-    set(_, v) {
-      return v == null ? 1 : parseInt(v, 10);
+  dayNamesAbbrs: computed('calendar.locale', function() {
+    return withLocale(this.get('calendar.locale'), () => moment.weekdaysShort());
+  }),
+
+  localeStartOfWeek: computed('dayNamesAbbrs', 'startOfWeek', function() {
+    let forcedStartOfWeek = this.get('startOfWeek');
+    if (forcedStartOfWeek) {
+      return parseInt(forcedStartOfWeek, 10);
     }
+    let now = this.get('clockService').getDate();
+    let dayAbbr = withLocale(this.get('calendar.locale'), () => moment(now).startOf('week').format('ddd'));
+    return this.get('dayNamesAbbrs').indexOf(dayAbbr);
   }),
 
-  weekDaysAbbrs: computed('startOfWeek', function() {
-    let { startOfWeek, dayNamesAbbrs } = this.getProperties('startOfWeek', 'dayNamesAbbrs');
-    return dayNamesAbbrs.slice(startOfWeek).concat(dayNamesAbbrs.slice(0, startOfWeek));
+  weekDaysAbbrs: computed('localeStartOfWeek', 'dayNamesAbbrs', function() {
+    let { localeStartOfWeek, dayNamesAbbrs } = this.getProperties('localeStartOfWeek', 'dayNamesAbbrs');
+    return dayNamesAbbrs.slice(localeStartOfWeek).concat(dayNamesAbbrs.slice(0, localeStartOfWeek));
   }),
 
-  days: computed('calendar.{center,selected}', 'focusedId', 'startOfWeek', 'minDate', 'maxDate', function() {
+  days: computed('calendar.{center,selected}', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', function() {
     let today = this.get('clockService').getDate();
     let calendar = this.get('calendar');
     let lastDay = this.lastDay(calendar);
@@ -162,17 +180,17 @@ export default Component.extend({
 
   firstDay(calendar) {
     let firstDay = calendar.center.clone().startOf('month');
-    let startOfWeek = this.get('startOfWeek');
-    while (firstDay.weekday() !== startOfWeek) {
+    let localeStartOfWeek = this.get('localeStartOfWeek');
+    while (firstDay.weekday() !== localeStartOfWeek) {
       firstDay.add(-1, 'day');
     }
     return firstDay;
   },
 
   lastDay(calendar) {
-    let startOfWeek = this.get('startOfWeek');
+    let localeStartOfWeek = this.get('localeStartOfWeek');
     let lastDay = calendar.center.clone().endOf('month');
-    while (lastDay.weekday() !== (startOfWeek + 6) % 7) {
+    while (lastDay.weekday() !== (localeStartOfWeek + 6) % 7) {
       lastDay.add(1, 'day');
     }
     return lastDay;

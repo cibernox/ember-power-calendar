@@ -6,7 +6,7 @@
     {{#if hasBlock}}
       {{yield calendar}}
     {{else}}
-      {{moment-format center 'MMMM YYYY'}}
+      {{moment-format calendar.center 'MMMM YYYY' locale=calendar.locale}}
     {{/if}}
   </div>
   {{#if onCenterChange}}

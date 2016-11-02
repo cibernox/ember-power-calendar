@@ -17,12 +17,15 @@ module.exports = function(environment) {
       }
     },
 
+    moment: {
+      includeLocales: true
+    },
+
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
   };
-
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;

@@ -67,9 +67,9 @@
 <h3><code>startOfWeek</code></h3>
 
 <p>
-  By default weeks starts on Monday, but that in some parts of the world they start in Sunday or Saturday, so
-  there is a built in option to tweak this. Pass <code>startOfWeek=[NUMBER]</code> to change
-  the first day of the weeks. Values go from <code>0</code> (Sunday) to <code>6</code> (Saturday).
+  By default weeks will start in the appropriate day of the week based on the locale configured
+  in <code>ember-moment</code> there is a built in option to tweak the locale's default. Pass
+  <code>startOfWeek=[NUMBER]</code> to change the first day of the week. Values go from <code>0</code> (Sunday) to <code>6</code> (Saturday).
 </p>
 
 {{#code-sample hbs="the-days-4.hbs" as |partialName|}}

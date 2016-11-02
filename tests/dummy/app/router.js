@@ -18,6 +18,7 @@ Router.map(function() {
       this.route('multiple-selection');
 
       // BASIC CUSTOMIZATION
+      this.route('i18n');
       this.route('the-nav');
       this.route('the-days');
 
