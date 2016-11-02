@@ -23,7 +23,7 @@ export default function() {
     assert('`calendarCenter` expect a Date or MomentJS object as second argument', newCenter);
     let calendarComponent = findComponentInstance(app, selector);
     let onCenterChange = calendarComponent.get('onCenterChange');
-    assert('You cannot call `calendarCenter` on a component that doesn\'t has an `onCenterChange` action', onCenterChange);
+    assert('You cannot call `calendarCenter` on a component that doesn\'t has an `onCenterChange` action', !!onCenterChange);
     let newCenterMoment = moment(newCenter);
     return onCenterChange({ date: newCenterMoment._d, moment: newCenterMoment });
   });
