@@ -67,6 +67,16 @@ test('[i18n] The it receives a `startOfWeek` option, that weekday becomes the st
   assert.equal(this.$('.ember-power-calendar-day:last').text().trim(), '31', 'The last day of the last week is the 31th of October');
 });
 
+test('The format of the weekdays can be changed passing `weekdayFormat="long|short|min"`', function(assert) {
+  this.calendar = calendar;
+  this.render(hbs`{{power-calendar/days calendar=calendar weekdayFormat=weekdayFormat}}`);
+  assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Sun Mon Tue Wed Thu Fri Sat');
+  run(() => this.set('weekdayFormat', 'long'));
+  assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Sunday Monday Tuesday Wednesday Thursday Friday Saturday');
+  run(() => this.set('weekdayFormat', 'min'));
+  assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Su Mo Tu We Th Fr Sa');
+});
+
 test('If it receives `showDaysAround=false` option, it doesn\'t show the days before or after the first day of the month', function(assert) {
   assert.expect(3);
   this.calendar = calendar;

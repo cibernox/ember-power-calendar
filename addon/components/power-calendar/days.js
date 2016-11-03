@@ -22,26 +22,37 @@ export default Component.extend({
   layout,
   focusedId: null,
   showDaysAround: true,
+  weekdayFormat: 'short', // "min" | "short" | "long"
   clockService: service('power-calendar-clock'),
 
   // CPs
-  dayNamesAbbrs: computed('calendar.locale', function() {
+  weekdaysMin: computed('calendar.locale', function() {
+    return withLocale(this.get('calendar.locale'), () => moment.weekdaysMin());
+  }),
+
+  weekdaysShort: computed('calendar.locale', function() {
     return withLocale(this.get('calendar.locale'), () => moment.weekdaysShort());
   }),
 
-  localeStartOfWeek: computed('dayNamesAbbrs', 'startOfWeek', function() {
+  weekdays: computed('calendar.locale', function() {
+    return withLocale(this.get('calendar.locale'), () => moment.weekdays());
+  }),
+
+  localeStartOfWeek: computed('weekdaysShort', 'startOfWeek', function() {
     let forcedStartOfWeek = this.get('startOfWeek');
     if (forcedStartOfWeek) {
       return parseInt(forcedStartOfWeek, 10);
     }
     let now = this.get('clockService').getDate();
     let dayAbbr = withLocale(this.get('calendar.locale'), () => moment(now).startOf('week').format('ddd'));
-    return this.get('dayNamesAbbrs').indexOf(dayAbbr);
+    return this.get('weekdaysShort').indexOf(dayAbbr);
   }),
 
-  weekDaysAbbrs: computed('localeStartOfWeek', 'dayNamesAbbrs', function() {
-    let { localeStartOfWeek, dayNamesAbbrs } = this.getProperties('localeStartOfWeek', 'dayNamesAbbrs');
-    return dayNamesAbbrs.slice(localeStartOfWeek).concat(dayNamesAbbrs.slice(0, localeStartOfWeek));
+  weekdaysNames: computed('localeStartOfWeek', 'weekdayFormat', 'calendar.locale', function() {
+    let { localeStartOfWeek, weekdayFormat } = this.getProperties('localeStartOfWeek', 'weekdayFormat');
+    let format = `weekdays${weekdayFormat === 'long' ? '' : (weekdayFormat === 'min' ? 'Min' : 'Short')}`;
+    let weekdaysNames = this.get(format);
+    return weekdaysNames.slice(localeStartOfWeek).concat(weekdaysNames.slice(0, localeStartOfWeek));
   }),
 
   days: computed('calendar.{center,selected}', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', function() {
