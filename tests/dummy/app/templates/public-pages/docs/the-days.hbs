@@ -100,7 +100,18 @@
   {{partial partialName}}
 {{/code-sample}}
 
+<h3><code>weekdayFormat</code></h3>
+
+<p>
+  By default the name of the days of the week is in its abbreviated form, but you can use the <code>weekdayFormat</code>
+  to change it. The accepted values are <code>"short"</code> (the default), <code>long</code> (the full day name) and <code>min</code> (an even shorter abbreviation).
+</p>
+
+{{#code-sample hbs="the-days-7.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
 <div class="doc-page-nav">
   <a href={{href-to 'public-pages.docs.the-nav'}} class="doc-page-nav-link-prev">&lt; The nav</a>
-  {{!-- <a href={{href-to 'public-pages.docs.the-nav'}} class="doc-page-nav-link-next">The days &gt;</a> --}}
+  <a href={{href-to 'public-pages.docs.test-helpers'}} class="doc-page-nav-link-next">Test helpers &gt;</a>
 </div>

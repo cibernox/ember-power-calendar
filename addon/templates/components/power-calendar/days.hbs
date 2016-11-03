@@ -1,8 +1,6 @@
 <div class="ember-power-calendar-row ember-power-calendar-weekdays">
-  {{#each weekDaysAbbrs as |weekDayAbbr|}}
-    <div class="ember-power-calendar-weekday">
-      {{weekDayAbbr}}
-    </div>
+  {{#each weekdaysNames as |wdn|}}
+    <div class="ember-power-calendar-weekday">{{wdn}}</div>
   {{/each}}
 </div>
 
