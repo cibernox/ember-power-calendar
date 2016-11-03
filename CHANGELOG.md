@@ -1,5 +1,7 @@
 ## Master
 
+- [BUGFIX] Clicking on the last selected day selected it twice instead of removing it.
+
 ## 0.1.4
 - [FEATURE] Add `weekdayFormat` to customize the format of the weekdays. Values: "short" (default), "long" and "min".
 
