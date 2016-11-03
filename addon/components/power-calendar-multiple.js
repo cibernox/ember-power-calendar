@@ -17,23 +17,23 @@ export default CalendarComponent.extend({
   // Methods
   buildonSelectValue(day) {
     let selected = this.get('publicAPI.selected') || [];
-    let moments = [];
+    let values = [];
+    let index = -1;
     for (let i = 0; i < selected.length; i++) {
       if (day.moment.isSame(selected[i], 'day')) {
-        selected.forEach((d, index) => {
-          if (i !== index) {
-            moments[moments.length] = moment(d);
-          }
-        });
+        index = i;
         break;
       }
     }
-    if (moments.length === 0) {
-      moments = [...selected.map((d) => moment(d)), day.moment];
+    if (index === -1) {
+      values = [...selected, day.moment];
+    } else {
+      values = selected.slice(0, index).concat(selected.slice(index + 1));
     }
+    let moments = values.map((d) => moment(d));
     return {
       moment: moments,
-      date: moments.map((m) => m._d)
+      date: moments.map((m) => m.toDate())
     };
   }
 });

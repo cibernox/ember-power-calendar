@@ -81,3 +81,37 @@ test('When days are clicked in a multiple calendar, the `onSelect` action is cal
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-09"]').hasClass('ember-power-calendar-day--selected'));
 });
 
+test('Clicking on a day selects it, and clicking again on it unselects it', function(assert) {
+  assert.expect(13);
+  this.render(hbs`
+    {{#power-calendar-multiple selected=selected onSelect=(action (mut selected) value="moment") as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar-multiple}}
+  `);
+  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days are selected');
+
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-05"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
+
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'));
+
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-12"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'));
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-12"]').hasClass('ember-power-calendar-day--selected'));
+  assert.equal(this.get('selected')[0].format('YYYY-MM-DD'), '2013-10-05');
+  assert.equal(this.get('selected')[1].format('YYYY-MM-DD'), '2013-10-10');
+  assert.equal(this.get('selected')[2].format('YYYY-MM-DD'), '2013-10-12');
+
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
+  assert.equal(this.get('selected')[0].format('YYYY-MM-DD'), '2013-10-05');
+  assert.equal(this.get('selected')[1].format('YYYY-MM-DD'), '2013-10-12');
+
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-12"]').get(0).click());
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-05"]').get(0).click());
+  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days are selected');
+});
+
