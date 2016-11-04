@@ -1,23 +1,21 @@
 <h1 class="doc-page-title">Datepicker</h1>
 
 <p>
-  One very common use cases of calendars are as part of another datepicker component. That is, a calendar associated
-  with an input field, in which when the input is clicked, the calendar appears in a floating box to ease choosing a date.
+  A couple people asked me if I was considering adding a feature present in the well known
+  <a href="http://dbushell.github.io/Pikaday/">Pickaday</a> library where you can click in
+  the month or year to quicky navigate to far away dates.
 </p>
 
 <p>
-  It might seem that is will take a lot of code, but the Ember ecosystem is amazing, and there is already
-  some components that act as building blocks for other components that we can leverage.
+  The answer I gave was that I wasn't considering it, but not because I don't think it is a good
+  pattern, but because the flexible nature of Ember Power Calendar makes it unnecesary!
 </p>
 
 <p>
-  One of them is <a href="https://github.com/cibernox/ember-basic-dropdown">Ember Basic Dropdown</a>. It does only one thing,
-  but it does it well: Display a floating box next to another element when that element is clicked.
+  Let's build it in a few lines of code.
 </p>
 
-<p>Let's build a naive datepicker in 20 lines of code!</p>
-
-{{#code-sample hbs="datepicker-1.hbs" as |partialName|}}
+{{#code-sample hbs="nav-select-1.hbs" as |partialName|}}
   {{partial partialName}}
 {{/code-sample}}
 
@@ -45,5 +43,4 @@
 
 <div class="doc-page-nav">
   <a href={{href-to 'public-pages.cookbook.index'}} class="doc-page-nav-link-prev">&lt; System-wide config</a>
-  <a href={{href-to 'public-pages.cookbook.nav-select'}} class="doc-page-nav-link-next">Nav with select &gt;</a>
 </div>

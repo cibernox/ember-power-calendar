@@ -7,7 +7,8 @@ const groupedSections = [
     groupName: 'Basic recipes',
     options: [
       { route: 'public-pages.cookbook.index',                 text: 'System-wide config' },
-      { route: 'public-pages.cookbook.datepicker',            text: 'Datepicker' }
+      { route: 'public-pages.cookbook.datepicker',            text: 'Datepicker' },
+      { route: 'public-pages.cookbook.nav-select',            text: 'Nav with select' }
       // { route: 'public-pages.cookbook.material-theme',        text: 'Material theme' },
       // { route: 'public-pages.cookbook.css-animations',        text: 'CSS animations' },
       // { route: 'public-pages.cookbook.debounce-searches',     text: 'Debounce searches' },

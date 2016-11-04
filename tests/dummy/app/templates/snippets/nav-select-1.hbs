@@ -1,0 +1,24 @@
+{{#power-calendar
+  center=center
+  onCenterChange=(action (mut center) value="date")
+  selected=selected
+  onSelect=(action (mut selected) value="date") as |calendar|}}
+
+  {{#calendar.nav}}
+    <span>
+      {{#with (moment-format calendar.center 'MMMM') as |monthName|}}
+        {{monthName}}
+        <select onchange={{action "changeCenter" "month" calendar}}>
+          {{#each months as |month|}}
+            <option value="{{month}}" selected={{eq month monthName}}>{{month}}</option>
+          {{/each}}
+        </select>
+      {{/with}}
+    </span>
+    <span>
+      {{moment-format calendar.center 'YYYY' locale=calendar.locale}}
+    </span>
+  {{/calendar.nav}}
+
+  {{calendar.days}}
+{{/power-calendar}}
