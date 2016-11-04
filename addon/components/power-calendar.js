@@ -8,7 +8,7 @@ import { task } from 'ember-concurrency';
 export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],
-  classNameBindings: ['changeCenterTask.isRunning:ember-power-calendar--loading'],
+  classNameBindings: ['moveCenterTask.isRunning:ember-power-calendar--loading'],
   clockService: service('power-calendar-clock'),
   momentService: service('moment'),
   navComponent: 'power-calendar/nav',
@@ -18,7 +18,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.publicActions = {
-      changeCenter: (...args) => this.get('changeCenterTask').perform(...args),
+      moveCenter: (...args) => this.get('moveCenterTask').perform(...args),
       select: (...args) => this.send('select', ...args)
     };
   },
@@ -51,7 +51,7 @@ export default Component.extend({
   },
 
   // Tasks
-  changeCenterTask: task(function* (step, unit) {
+  moveCenterTask: task(function* (step, unit) {
     let center = this.get('center');
     let momentDate = moment(center);
     let month = momentDate.clone().add(step, unit);

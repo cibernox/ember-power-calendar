@@ -17,7 +17,7 @@ moduleForComponent('power-calendar', 'Integration | Component | power-calendar/d
       center: moment(calendarService.getDate()),
       locale: 'en',
       actions: {
-        changeCenter: () => {},
+        moveCenter: () => {},
         select: () => {}
       }
     };

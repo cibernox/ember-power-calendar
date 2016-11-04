@@ -1,5 +1,6 @@
 ## Master
 
+- [BREAKING] Rename `calendar.actions.changeCenter` to `calendar.actions.moveCenter`.
 - [BUGFIX] Clicking on the last selected day selected it twice instead of removing it.
 
 ## 0.1.4

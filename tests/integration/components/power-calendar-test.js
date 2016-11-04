@@ -83,11 +83,11 @@ test('when it receives a `moment()` in the `center` argument, it displays that m
 test('when it receives a `center` and an `onCenterChange` action, it shows controls to go to the next & previous month and the action is called when they are clicked', function(assert) {
   assert.expect(7);
   this.center = new Date(2016, 1, 5);
-  this.changeCenter = function() {
-    assert.ok(true, 'The changeCenter action is invoked');
+  this.moveCenter = function() {
+    assert.ok(true, 'The moveCenter action is invoked');
   };
   this.render(hbs`
-    {{#power-calendar center=center onCenterChange=changeCenter as |calendar|}}
+    {{#power-calendar center=center onCenterChange=moveCenter as |calendar|}}
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
