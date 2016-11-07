@@ -138,5 +138,19 @@
   }
   .ember-power-select-trigger {
     border: none;
+    box-shadow: none;
+    min-width: 70px;
+  }
+}
+
+.nav-with-number-input-demo {
+  input[type="number"] {
+    border: none;
+    margin-left: 5px;
+    width: 50px;
+    font-size: 100%;
+    line-height: 1.6;
+    font-family: 'Open sans', sans-serif;
+    color: $text-color;
   }
 }

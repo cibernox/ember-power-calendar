@@ -1,20 +1,17 @@
-{{#power-calendar
-  class="nav-with-power-select-demo"
-  center=center
-  onCenterChange=(action (mut center) value="date") as |calendar|}}
-
-  {{#calendar.nav}}
+{{#power-calendar class="nav-with-power-select-demo" center=center2 onCenterChange=(action (mut center2) value="date") as |cal|}}
+  {{#cal.nav}}
     {{#power-select options=months
-      selected=(moment-format calendar.center "MMMM")
-      onchange=(action "changeCenter2" "month" calendar) as |currentMonth|}}
-      {{currentMonth}}
+      selected=(moment-format cal.center "MMMM")
+      matchTriggerWidth=false
+      onchange=(action "changeCenter2" "month" cal) as |month|}}
+      {{month}}
     {{/power-select}}
-    {{#power-select options=years
-      selected=(moment-format calendar.center "YYYY")
-      onchange=(action "changeCenter2" "year" calendar) as |currentYear|}}
-      {{currentYear}}
+    {{#power-select options=groupedYears
+      selected=(moment-format cal.center "YYYY")
+      onchange=(action "changeCenter2" "year" cal) as |year|}}
+      {{year}}
     {{/power-select}}
-  {{/calendar.nav}}
+  {{/cal.nav}}
 
-  {{calendar.days}}
+  {{cal.days}}
 {{/power-calendar}}

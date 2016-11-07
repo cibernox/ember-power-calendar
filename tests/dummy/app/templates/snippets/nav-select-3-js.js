@@ -3,11 +3,10 @@ import moment from 'moment';
 
 export default Controller.extend({
   months: moment.months(),
-  years: Array(...Array(80)).map((_, i) => `${i + 1940}`),
 
   actions: {
-    changeCenter(unit, calendar, e) {
-      let newCenter = calendar.center.clone()[unit](e.target.value);
+    changeYear(calendar, e) {
+      let newCenter = calendar.center.clone().year(e.target.value);
       calendar.actions.changeCenter(newCenter);
     }
   }

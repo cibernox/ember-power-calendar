@@ -1,4 +1,4 @@
-<h1 class="doc-page-title">Datepicker</h1>
+<h1 class="doc-page-title">Nav with select</h1>
 
 <p>
   A couple people asked me if I was considering adding a feature present in the well known
@@ -40,20 +40,30 @@
 </p>
 
 <p>
-  What if you prefer to use Ember Power Select instead of a native select?
+  What if you prefer to use Ember Power Select with the years grouped by decade and some fancy animations instead of a native select?
 </p>
 
-{{!-- {{#code-sample js="nav-select-2-js.js" hbs="nav-select-2.hbs" as |partialName|}} --}}
-{{#code-sample hbs="nav-select-2.hbs" as |partialName|}}
+{{#code-sample js="nav-select-2-js.js" hbs="nav-select-2.hbs" as |partialName|}}
   {{partial partialName}}
 {{/code-sample}}
 
 <p>
-  Or maybe a text input
+  Or maybe an <code>&lt;input type="number"&gt;</code> for the year only?
 </p>
 
-DEMO
+{{#code-sample js="nav-select-3-js.js"  hbs="nav-select-3.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Since you can replace any part of the component by your own code and templates,
+  there is no limits in what you can do.
+</p>
+
+<p>
+  Go ahead, build something cool and publish it!
+</p>
 
 <div class="doc-page-nav">
-  <a href={{href-to 'public-pages.cookbook.index'}} class="doc-page-nav-link-prev">&lt; System-wide config</a>
+  <a href={{href-to 'public-pages.cookbook.datepicker'}} class="doc-page-nav-link-prev">&lt; Datepicker</a>
 </div>
