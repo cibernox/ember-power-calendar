@@ -11,8 +11,43 @@
 @import 'components/docs';
 @import 'components/code-sample';
 
+// Power Select
+@import 'ember-power-select/themes/bootstrap';
 @import 'ember-power-select';
 @import 'ember-power-calendar';
+@keyframes drop-fade-below {
+  0%   {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(3px);
+  }
+}
+@keyframes drop-fade-above {
+  0%   {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+.ember-basic-dropdown-content--below.ember-basic-dropdown--transitioning-in {
+  animation: drop-fade-below .15s;
+}
+.ember-basic-dropdown-content--below.ember-basic-dropdown--transitioning-out {
+  animation: drop-fade-below .15s reverse;
+}
+.ember-basic-dropdown-content--above.ember-basic-dropdown--transitioning-in {
+  animation: drop-fade-above .15s;
+}
+.ember-basic-dropdown-content--above.ember-basic-dropdown--transitioning-out {
+  animation: drop-fade-above .15s reverse;
+}
+
 
 // Utility classes
 .pink-text {
@@ -85,4 +120,23 @@
 .i18n-select-demo {
   max-width: 400px;
   margin: 0 auto;
+}
+
+.with-invisible-select {
+  position: relative;
+  select {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0;
+  }
+}
+
+.nav-with-power-select-demo {
+  .ember-power-calendar-nav-title {
+    display: flex;
+    justify-content: center;
+  }
+  .ember-power-select-trigger {
+    border: none;
+  }
 }

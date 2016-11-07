@@ -9,11 +9,6 @@ export default Controller.extend({
     changeCenter(unit, calendar, e) {
       let newCenter = calendar.center.clone()[unit](e.target.value);
       calendar.actions.changeCenter(newCenter);
-    },
-
-    changeCenter2(unit, calendar, val) {
-      let newCenter = calendar.center.clone()[unit](val);
-      calendar.actions.changeCenter(newCenter);
     }
   }
 });

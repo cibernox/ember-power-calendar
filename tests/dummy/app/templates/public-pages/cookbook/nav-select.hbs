@@ -15,31 +15,44 @@
   Let's build it in a few lines of code.
 </p>
 
-{{#code-sample hbs="nav-select-1.hbs" as |partialName|}}
+{{#code-sample js="nav-select-1-js.js" hbs="nav-select-1.hbs" css="nav-select-1-css.css" as |partialName|}}
   {{partial partialName}}
 {{/code-sample}}
 
 <p>
-  We've just <em>composed</em> two battle-tested community addons into a entirely new component
-  without a single line of Javascript! How cool is that?
+  Ok, let's disect what is going on here.
 </p>
 
 <p>
-  You can style it in any way you want, add wrapper divs like the ones requires by some CSS frameworks
-  (I'm looking at you, Bootstrap), format the text of the input using the well-know helper <code>moment-format</code>
-  from <a href="https://github.com/stefanpenner/ember-moment">ember-moment</a>.
-  You could also modify it to use a text-area or to format ranges in a breeze.
+  We pass a block to the <code>calendar.nav</code> component to replace the default markup with the name of the component
+  with our own markup. In that markup we add two invisible select on top of the text of the month and year that
+  when interacted call an action that builds a new date and pass it to <code>calendar.actions.changeCenter</code> public action
+  to center the calendar on that action.
 </p>
 
 <p>
-  Admitely there is some room for refinement.
-</p>
-<p>
-  By example, you could want to close the dropdown when a day is selected or allow
-  the users to type on the input and parse the date as they type, but this gives
-  a starting point for anyone to create - and publish ;) - their own datepicker component.
+  The markup itself is a bit verbose because we're coding a select outselves, but the logic is easy to follow.
 </p>
 
+<p>
+  Ember Power Calendar prefers to let users enhance the calendar themselves instead of attempting to
+  imagine all the possible scenarios.
+</p>
+
+<p>
+  What if you prefer to use Ember Power Select instead of a native select?
+</p>
+
+{{!-- {{#code-sample js="nav-select-2-js.js" hbs="nav-select-2.hbs" as |partialName|}} --}}
+{{#code-sample hbs="nav-select-2.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Or maybe a text input
+</p>
+
+DEMO
 
 <div class="doc-page-nav">
   <a href={{href-to 'public-pages.cookbook.index'}} class="doc-page-nav-link-prev">&lt; System-wide config</a>

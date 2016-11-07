@@ -1,22 +1,27 @@
 {{#power-calendar
   center=center
-  onCenterChange=(action (mut center) value="date")
-  selected=selected
-  onSelect=(action (mut selected) value="date") as |calendar|}}
+  onCenterChange=(action (mut center) value="date") as |calendar|}}
 
   {{#calendar.nav}}
-    <span>
-      {{#with (moment-format calendar.center 'MMMM') as |monthName|}}
-        {{monthName}}
+    <span class="with-invisible-select">
+      {{#with (moment-format calendar.center 'MMMM') as |currentMonth|}}
+        {{currentMonth}}
         <select onchange={{action "changeCenter" "month" calendar}}>
           {{#each months as |month|}}
-            <option value="{{month}}" selected={{eq month monthName}}>{{month}}</option>
+            <option value="{{month}}" selected={{eq month currentMonth}}>{{month}}</option>
           {{/each}}
         </select>
       {{/with}}
     </span>
-    <span>
-      {{moment-format calendar.center 'YYYY' locale=calendar.locale}}
+    <span class="with-invisible-select">
+      {{#with (moment-format calendar.center 'YYYY') as |currentYear|}}
+        {{currentYear}}
+        <select onchange={{action "changeCenter" "year" calendar}}>
+          {{#each years as |year|}}
+            <option value="{{year}}" selected={{eq year currentYear}}>{{year}}</option>
+          {{/each}}
+        </select>
+      {{/with}}
     </span>
   {{/calendar.nav}}
 
