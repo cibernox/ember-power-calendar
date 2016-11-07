@@ -1,0 +1,10 @@
+{{#power-calendar class="nav-with-number-input-demo" center=center3 onCenterChange=(action (mut center3) value="date") as |cal|}}
+  {{#cal.nav}}
+    {{moment-format cal.center "MMMM"}}
+    <input type="number" min="1940" max="2020"
+      value={{moment-format cal.center "YYYY"}}
+      oninput={{action "changeYear" cal}}>
+  {{/cal.nav}}
+
+  {{cal.days}}
+{{/power-calendar}}

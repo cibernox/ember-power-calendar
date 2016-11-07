@@ -1,0 +1,69 @@
+<h1 class="doc-page-title">Nav with select</h1>
+
+<p>
+  A couple people asked me if I was considering adding a feature present in the well known
+  <a href="http://dbushell.github.io/Pikaday/">Pickaday</a> library where you can click in
+  the month or year to quicky navigate to far away dates.
+</p>
+
+<p>
+  The answer I gave was that I wasn't considering it, but not because I don't think it is a good
+  pattern, but because the flexible nature of Ember Power Calendar makes it unnecesary!
+</p>
+
+<p>
+  Let's build it in a few lines of code.
+</p>
+
+{{#code-sample js="nav-select-1-js.js" hbs="nav-select-1.hbs" css="nav-select-1-css.css" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Ok, let's disect what is going on here.
+</p>
+
+<p>
+  We pass a block to the <code>calendar.nav</code> component to replace the default markup with the name of the component
+  with our own markup. In that markup we add two invisible select on top of the text of the month and year that
+  when interacted call an action that builds a new date and pass it to <code>calendar.actions.changeCenter</code> public action
+  to center the calendar on that action.
+</p>
+
+<p>
+  The markup itself is a bit verbose because we're coding a select outselves, but the logic is easy to follow.
+</p>
+
+<p>
+  Ember Power Calendar prefers to let users enhance the calendar themselves instead of attempting to
+  imagine all the possible scenarios.
+</p>
+
+<p>
+  What if you prefer to use Ember Power Select with the years grouped by decade and some fancy animations instead of a native select?
+</p>
+
+{{#code-sample js="nav-select-2-js.js" hbs="nav-select-2.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Or maybe an <code>&lt;input type="number"&gt;</code> for the year only?
+</p>
+
+{{#code-sample js="nav-select-3-js.js"  hbs="nav-select-3.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<p>
+  Since you can replace any part of the component by your own code and templates,
+  there is no limits in what you can do.
+</p>
+
+<p>
+  Go ahead, build something cool and publish it!
+</p>
+
+<div class="doc-page-nav">
+  <a href={{href-to 'public-pages.cookbook.datepicker'}} class="doc-page-nav-link-prev">&lt; Datepicker</a>
+</div>

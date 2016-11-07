@@ -29,6 +29,7 @@ Router.map(function() {
 
     this.route('cookbook', function() {
       this.route('datepicker');
+      this.route('nav-select');
     });
 
     this.route('addons', function() {
