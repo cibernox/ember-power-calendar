@@ -9,7 +9,7 @@ export default DaysComponent.extend({
     if (start && end) {
       day.isSelected = dayMoment.isBetween(start, end, 'day', '[]');
       day.isRangeStart = day.isSelected && dayMoment.isSame(start, 'day');
-      day.isRangeEnd = !day.isRangeStart && dayMoment.isSame(end, 'day');
+      day.isRangeEnd = day.isSelected && dayMoment.isSame(end, 'day');
     } else {
       day.isRangeStart = day.isSelected = dayMoment.isSame(start, 'day');
       day.isRangeEnd = false;

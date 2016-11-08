@@ -70,6 +70,25 @@ test('In range calendars, clicking a day selects one end of the range, and click
   assert.equal(numberOfCalls, 2, 'The onSelect action was called twice');
 });
 
+test('The start and end of the range can be the same day', function(assert) {
+  this.range = null;
+  this.render(hbs`
+    {{#power-calendar-range selected=range onSelect=(action (mut range) value="moment") as |cal|}}
+      {{cal.nav}}
+      {{cal.days}}
+    {{/power-calendar-range}}
+  `);
+
+  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days have been selected');
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'), 'The clicked date is selected');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-start'), 'The clicked date is the start of the range');
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'), 'The first clicked date is still selected');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-start'), 'The first clicked date is still the start of the range');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-end'), 'The same day is also the end');
+});
+
 test('In range calendars, clicking first the end of the range and then the start is not a problem', function(assert) {
   this.selected = null;
   let numberOfCalls = 0;
