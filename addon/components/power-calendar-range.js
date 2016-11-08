@@ -2,6 +2,7 @@ import CalendarComponent from './power-calendar';
 import computed from 'ember-computed';
 import moment from 'moment';
 import { getProperties } from 'ember-metal/get';
+import { assign } from 'ember-platform';
 
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-range/days',
@@ -14,6 +15,25 @@ export default CalendarComponent.extend({
       return moment(center);
     }
     return moment(this.get('selected.start') || this.get('clockService').getDate());
+  }),
+
+  minRangeDuration: computed('minRange', function() {
+    let minRange = this.get('minRange');
+    if (moment.isDuration(minRange)) {
+      return minRange;
+    }
+    if (typeof minRange === 'number') {
+      return moment.duration(minRange, 'days');
+    }
+    if (typeof minRange === 'string') {
+      let [, quantity, units] = minRange.match(/(\d+)(.*)/);
+      units = units.trim() || 'days';
+      return moment.duration(parseInt(quantity, 10), units);
+    }
+  }),
+
+  publicAPI: computed('_publicAPI', 'minRangeDuration', function() {
+    return assign({ minRange: this.get('minRangeDuration') }, this.get('_publicAPI'));
   }),
 
   // Methods
@@ -44,21 +64,6 @@ export default CalendarComponent.extend({
         moment: { start: day.moment, end: null },
         date: {  start: day.date, end: null }
       };
-    }
-  },
-
-  _buildMinRange() {
-    let minRange = this.get('minRange');
-    if (moment.isDuration(minRange)) {
-      return minRange;
-    }
-    if (typeof minRange === 'number') {
-      return moment.duration(minRange, 'days');
-    }
-    if (typeof minRange === 'string') {
-      let [, quantity, units] = minRange.match(/(\d+)(.*)/);
-      units = units.trim() || 'days';
-      return moment.duration(parseInt(quantity, 10), units);
     }
   }
 });

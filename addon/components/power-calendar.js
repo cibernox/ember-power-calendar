@@ -34,10 +34,20 @@ export default Component.extend({
     return moment(this.get('selected') || this.get('clockService').getDate());
   }),
 
-  publicAPI: computed('selected', 'currentCenter', 'locale', 'momentService.locale', function() {
-    return this.buildPublicAPI();
+  publicAPI: computed('_publicAPI', function() {
+    return this.get('_publicAPI');
   }),
 
+  _publicAPI: computed('selected', 'currentCenter', 'locale', 'momentService.locale', function() {
+    return {
+      selected: this.get('selected'),
+      center: this.get('currentCenter'),
+      locale: this.get('locale') || this.get('momentService.locale'),
+      actions: this.get('publicActions')
+    };
+  }),
+
+  // Actions
   actions: {
     select(day, e) {
       let action = this.get('onSelect');
@@ -53,15 +63,6 @@ export default Component.extend({
   }),
 
   // Methods
-  buildPublicAPI() {
-    return {
-      selected: this.get('selected'),
-      center: this.get('currentCenter'),
-      locale: this.get('locale') || this.get('momentService.locale'),
-      actions: this.get('publicActions')
-    };
-  },
-
   buildonSelectValue(day) {
     return day;
   }
