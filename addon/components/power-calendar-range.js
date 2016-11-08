@@ -5,6 +5,7 @@ import { getProperties } from 'ember-metal/get';
 
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-range/days',
+  minRange: moment.duration(1, 'day'),
 
   // CPs
   currentCenter: computed('center', function() {
@@ -16,6 +17,12 @@ export default CalendarComponent.extend({
   }),
 
   // Methods
+  buildPublicAPI() {
+    let publicAPI = this._super(...arguments);
+    publicAPI.minRange = this._buildMinRange();
+    return publicAPI;
+  },
+
   buildonSelectValue(day) {
     let selected = this.get('publicAPI.selected') || { start: null, end: null };
     let { start, end } = getProperties(selected, 'start', 'end');
@@ -37,6 +44,21 @@ export default CalendarComponent.extend({
         moment: { start: day.moment, end: null },
         date: {  start: day.date, end: null }
       };
+    }
+  },
+
+  _buildMinRange() {
+    let minRange = this.get('minRange');
+    if (moment.isDuration(minRange)) {
+      return minRange;
+    }
+    if (typeof minRange === 'number') {
+      return moment.duration(minRange, 'days');
+    }
+    if (typeof minRange === 'string') {
+      let [, quantity, units] = minRange.match(/(\d+)(.*)/);
+      units = units.trim() || 'days';
+      return moment.duration(parseInt(quantity, 10), units);
     }
   }
 });

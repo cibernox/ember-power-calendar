@@ -127,3 +127,31 @@ test('In range calendars, clicking first the end of the range and then the start
   assert.ok(allDaysInBetweenAreSelected, 'All days in between are also selected');
   assert.equal(numberOfCalls, 2, 'The onSelect action was called twice');
 });
+
+test('Passing `minRange` allows to determine the minimum length of a range (in days)', function(assert) {
+  assert.expect(10);
+  this.render(hbs`
+    {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") minRange=3 as |cal|}}
+      {{cal.nav}}
+      {{cal.days}}
+    {{/power-calendar-range}}
+  `);
+
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').prop('disabled'), 'The clicked day is disabled');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-11"]').prop('disabled'), 'The next day is disabled');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-12"]').prop('disabled'), 'The next-next day is disabled too');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-13"]').prop('disabled'), 'The next-next-next day is enabled');
+
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-09"]').prop('disabled'), 'The prev day is disabled');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-08"]').prop('disabled'), 'The prev-prev day is disabled too');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-07"]').prop('disabled'), 'The prev-prev-prev day is enabled');
+
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-12"]').get(0).click());
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-12"]').hasClass('ember-power-calendar-day--selected'), 'Clicking a day not long enough didn\'t select anything');
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-13"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-13"]').hasClass('ember-power-calendar-day--selected'), 'Clicking outside the range select it');
+  let allDaysInBetweenAreSelected = this.$('.ember-power-calendar-day[data-date="2013-10-11"]').hasClass('ember-power-calendar-day--selected')
+    && this.$('.ember-power-calendar-day[data-date="2013-10-12"]').hasClass('ember-power-calendar-day--selected');
+  assert.ok(allDaysInBetweenAreSelected, 'the 11th and 12th day are selected');
+});
