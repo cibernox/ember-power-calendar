@@ -14,6 +14,7 @@ export default Component.extend({
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
   center: null,
+
   // Lifecycle chooks
   init() {
     this._super(...arguments);
@@ -34,7 +35,11 @@ export default Component.extend({
     return moment(this.get('selected') || this.get('clockService').getDate());
   }),
 
-  publicAPI: computed('selected', 'currentCenter', 'locale', 'momentService.locale', function() {
+  publicAPI: computed('_publicAPI', function() {
+    return this.get('_publicAPI');
+  }),
+
+  _publicAPI: computed('selected', 'currentCenter', 'locale', 'momentService.locale', function() {
     return {
       selected: this.get('selected'),
       center: this.get('currentCenter'),
@@ -43,11 +48,12 @@ export default Component.extend({
     };
   }),
 
+  // Actions
   actions: {
     select(day, e) {
       let action = this.get('onSelect');
       if (action) {
-        action(this.buildonSelectValue(day), e);
+        action(day, e);
       }
     }
   },
@@ -55,10 +61,5 @@ export default Component.extend({
   // Tasks
   changeCenterTask: task(function* (newCenterMoment) {
     yield this.get('onCenterChange')({ date: newCenterMoment.toDate(), moment: newCenterMoment });
-  }),
-
-  // Methods
-  buildonSelectValue(day) {
-    return day;
-  }
+  })
 });
