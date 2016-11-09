@@ -88,6 +88,13 @@
   background-color: lighten(#0078c9, 50%);
   color: #656D78;
 }
+.ember-power-calendar-day--selected.ember-power-calendar-day--range-start,
+.ember-power-calendar-day--selected.ember-power-calendar-day--range-end {
+  background-color: lighten(#0078c9, 40%);
+  &:hover {
+    background-color: lighten(#0078c9, 40%);
+  }
+}
 .ember-power-calendar-day--focused {
   box-shadow: inset 0px -2px 0px 0px #0078c9;
 }
