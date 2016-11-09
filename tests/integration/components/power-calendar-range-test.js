@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import getOwner from 'ember-owner/get';
 import run from 'ember-runloop';
+import moment from 'moment';
 
 moduleForComponent('power-calendar-range', 'Integration | Component | power calendar range', {
   integration: true,
@@ -70,25 +71,6 @@ test('In range calendars, clicking a day selects one end of the range, and click
   assert.equal(numberOfCalls, 2, 'The onSelect action was called twice');
 });
 
-test('The start and end of the range can be the same day', function(assert) {
-  this.range = null;
-  this.render(hbs`
-    {{#power-calendar-range selected=range onSelect=(action (mut range) value="moment") as |cal|}}
-      {{cal.nav}}
-      {{cal.days}}
-    {{/power-calendar-range}}
-  `);
-
-  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days have been selected');
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'), 'The clicked date is selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-start'), 'The clicked date is the start of the range');
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'), 'The first clicked date is still selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-start'), 'The first clicked date is still the start of the range');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-end'), 'The same day is also the end');
-});
-
 test('In range calendars, clicking first the end of the range and then the start is not a problem', function(assert) {
   this.selected = null;
   let numberOfCalls = 0;
@@ -154,4 +136,63 @@ test('Passing `minRange` allows to determine the minimum length of a range (in d
   let allDaysInBetweenAreSelected = this.$('.ember-power-calendar-day[data-date="2013-10-11"]').hasClass('ember-power-calendar-day--selected')
     && this.$('.ember-power-calendar-day[data-date="2013-10-12"]').hasClass('ember-power-calendar-day--selected');
   assert.ok(allDaysInBetweenAreSelected, 'the 11th and 12th day are selected');
+});
+
+test('Passing `minRange=0` allows to make a range start and end on the same date', function(assert) {
+  assert.expect(7);
+  this.render(hbs`
+    {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") minRange=0 as |cal|}}
+      {{cal.nav}}
+      {{cal.days}}
+    {{/power-calendar-range}}
+  `);
+
+  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days have been selected');
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').prop('disabled'), 'The clicked day is still enabled');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'), 'The clicked date is selected');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-start'), 'The clicked date is the start of the range');
+
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'), 'The clicked date is selected');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-start'), 'The clicked date is the start of the range');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--range-end'), 'The clicked date is also the end of the range');
+});
+
+test('The default minRange is one day, but it can be changed passing convenient strings', function(assert) {
+  assert.expect(4);
+  this.render(hbs`
+    {{#power-calendar-range minRange=minRange as |calendar|}}
+      <div class="formatted-min-range">{{moment-duration calendar.minRange}}</div>
+    {{/power-calendar-range}}
+  `);
+
+  assert.equal(this.$('.formatted-min-range').text().trim(), 'a day', 'the default minRange is one day');
+  run(() => this.set('minRange', 3));
+  assert.equal(this.$('.formatted-min-range').text().trim(), '3 days', 'when passed a number, it is interpreted as number of days');
+  run(() => this.set('minRange', '1 week'));
+  assert.equal(this.$('.formatted-min-range').text().trim(), '7 days', 'it can regognize humanized durations');
+  run(() => this.set('minRange', '1m'));
+  assert.equal(this.$('.formatted-min-range').text().trim(), 'a minute', 'it can regognize humanized durations that use abbreviations');
+});
+
+test('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is smaller than the minRange', function(assert) {
+  assert.expect(2);
+  this.selected = { start: new Date(2016, 1, 5), end: null };
+  this.invalidDay = { date: new Date(2016, 1, 6), moment: moment(new Date(2016, 1, 6)) };
+  this.validDay = { date: new Date(2016, 1, 8), moment: moment(new Date(2016, 1, 8)) };
+  let range;
+  this.didSelect = function(r) {
+    range = r;
+  };
+  this.render(hbs`
+    {{#power-calendar-range selected=selected onSelect=didSelect minRange=2 as |cal|}}
+      <button id="select-invalid-range-end" onclick={{action cal.actions.select invalidDay}}>Select invalid date</button>
+      <button id="select-valid-range-end" onclick={{action cal.actions.select validDay}}>Select valid date</button>
+    {{/power-calendar-range}}
+  `);
+  run(() => this.$('#select-invalid-range-end').get(0).click());
+  assert.equal(range, undefined, 'The actions has not been called');
+  run(() => this.$('#select-valid-range-end').get(0).click());
+  assert.notEqual(range, undefined, 'The actions has been called now');
 });

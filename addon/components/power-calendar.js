@@ -14,6 +14,7 @@ export default Component.extend({
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
   center: null,
+
   // Lifecycle chooks
   init() {
     this._super(...arguments);
@@ -52,7 +53,7 @@ export default Component.extend({
     select(day, e) {
       let action = this.get('onSelect');
       if (action) {
-        action(this.buildonSelectValue(day), e);
+        action(day, e);
       }
     }
   },
@@ -60,10 +61,5 @@ export default Component.extend({
   // Tasks
   changeCenterTask: task(function* (newCenterMoment) {
     yield this.get('onCenterChange')({ date: newCenterMoment.toDate(), moment: newCenterMoment });
-  }),
-
-  // Methods
-  buildonSelectValue(day) {
-    return day;
-  }
+  })
 });

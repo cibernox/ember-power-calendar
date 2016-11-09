@@ -11,8 +11,13 @@ export default DaysComponent.extend({
       day.isRangeStart = day.isSelected && dayMoment.isSame(start, 'day');
       day.isRangeEnd = day.isSelected && dayMoment.isSame(end, 'day');
     } else {
-      day.isRangeStart = day.isSelected = dayMoment.isSame(start, 'day');
       day.isRangeEnd = false;
+      if (!start) {
+        day.isRangeStart = false;
+      } else {
+        day.isRangeStart = day.isSelected = dayMoment.isSame(start, 'day');
+        day.isDisabled = day.isDisabled || Math.abs(day.moment.diff(start)) < calendar.minRange.as('ms');
+      }
     }
     return day;
   },

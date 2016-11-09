@@ -55,7 +55,7 @@ export default Component.extend({
     return weekdaysNames.slice(localeStartOfWeek).concat(weekdaysNames.slice(0, localeStartOfWeek));
   }),
 
-  days: computed('calendar.{center,selected}', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', function() {
+  days: computed('calendar', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', function() {
     let today = this.get('clockService').getDate();
     let calendar = this.get('calendar');
     let lastDay = this.lastDay(calendar);

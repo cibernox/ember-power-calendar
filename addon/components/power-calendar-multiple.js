@@ -14,8 +14,18 @@ export default CalendarComponent.extend({
     return moment((this.get('selected') || [])[0] || this.get('clockService').getDate());
   }),
 
+  // Actions
+  actions: {
+    select(day, e) {
+      let action = this.get('onSelect');
+      if (action) {
+        action(this._buildCollection(day), e);
+      }
+    }
+  },
+
   // Methods
-  buildonSelectValue(day) {
+  _buildCollection(day) {
     let selected = this.get('publicAPI.selected') || [];
     let values = [];
     let index = -1;

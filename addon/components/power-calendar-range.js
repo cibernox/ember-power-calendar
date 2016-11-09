@@ -4,9 +4,19 @@ import moment from 'moment';
 import { getProperties } from 'ember-metal/get';
 import { assign } from 'ember-platform';
 
+function allbackIfUndefined(fallback) {
+  return computed({
+    get() {
+      return fallback;
+    },
+    set(_, v) {
+      return v === undefined ? fallback : v;
+    }
+  });
+}
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-range/days',
-  minRange: moment.duration(1, 'day'),
+  minRange: allbackIfUndefined(moment.duration(1, 'day')),
 
   // CPs
   currentCenter: computed('center', function() {
@@ -36,14 +46,23 @@ export default CalendarComponent.extend({
     return assign({ minRange: this.get('minRangeDuration') }, this.get('_publicAPI'));
   }),
 
-  // Methods
-  buildPublicAPI() {
-    let publicAPI = this._super(...arguments);
-    publicAPI.minRange = this._buildMinRange();
-    return publicAPI;
+  // Actions
+  actions: {
+    select(day, e) {
+      let range = this._buildRange(day);
+      let { start, end } = range.moment;
+      if (start && end && Math.abs(end.diff(start)) < this.get('publicAPI.minRange').as('ms')) {
+        return;
+      }
+      let action = this.get('onSelect');
+      if (action) {
+        action(range, e);
+      }
+    }
   },
 
-  buildonSelectValue(day) {
+  // Methods
+  _buildRange(day) {
     let selected = this.get('publicAPI.selected') || { start: null, end: null };
     let { start, end } = getProperties(selected, 'start', 'end');
     if (start && !end) {
