@@ -1,5 +1,8 @@
 ## Master
 
+## 0.1.5
+- [FEATURE] Add `maxRange` to prevent users from selecting ranges > the given duration.
+- [FEATURE] Add `minRange` to prevent users from selecting ranges < the given duration.
 - [BUGFIX] If a range has `start` and `end` in the same day, that day has both `*--range-start` and `*--range-end` classes.
 - [BREAKING] Rename `calendar.actions.changeCenter` to `calendar.actions.moveCenter`.
 - [BUGFIX] Clicking on the last selected day selected it twice instead of removing it.
