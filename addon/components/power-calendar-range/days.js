@@ -16,7 +16,11 @@ export default DaysComponent.extend({
         day.isRangeStart = false;
       } else {
         day.isRangeStart = day.isSelected = dayMoment.isSame(start, 'day');
-        day.isDisabled = day.isDisabled || Math.abs(day.moment.diff(start)) < calendar.minRange.as('ms');
+        if (!day.isDisabled) {
+          let diff = Math.abs(day.moment.diff(start));
+          day.isDisabled = diff < calendar.minRange.as('ms')
+            || calendar.maxRange !== null && diff > calendar.maxRange.as('ms');
+        }
       }
     }
     return day;

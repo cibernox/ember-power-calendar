@@ -1,7 +1,7 @@
 {{#power-calendar-range
   center=center
   selected=largeRange
-  minRange="1 week"
+  maxRange="1 week"
   onCenterChange=(action (mut center) value="date")
   onSelect=(action (mut largeRange) value="moment") as |cal|}}
   {{cal.nav}}

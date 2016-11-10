@@ -4,7 +4,7 @@ import moment from 'moment';
 import { getProperties } from 'ember-metal/get';
 import { assign } from 'ember-platform';
 
-function allbackIfUndefined(fallback) {
+function fallbackIfUndefined(fallback) {
   return computed({
     get() {
       return fallback;
@@ -14,9 +14,25 @@ function allbackIfUndefined(fallback) {
     }
   });
 }
+
+function parseDuration(value) {
+  if (value === null || moment.isDuration(value)) {
+    return value;
+  }
+  if (typeof value === 'number') {
+    return moment.duration(value, 'days');
+  }
+  if (typeof value === 'string') {
+    let [, quantity, units] = value.match(/(\d+)(.*)/);
+    units = units.trim() || 'days';
+    return moment.duration(parseInt(quantity, 10), units);
+  }
+}
+
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-range/days',
-  minRange: allbackIfUndefined(moment.duration(1, 'day')),
+  minRange: fallbackIfUndefined(moment.duration(1, 'day')),
+  maxRange: fallbackIfUndefined(null),
 
   // CPs
   currentCenter: computed('center', function() {
@@ -28,22 +44,16 @@ export default CalendarComponent.extend({
   }),
 
   minRangeDuration: computed('minRange', function() {
-    let minRange = this.get('minRange');
-    if (moment.isDuration(minRange)) {
-      return minRange;
-    }
-    if (typeof minRange === 'number') {
-      return moment.duration(minRange, 'days');
-    }
-    if (typeof minRange === 'string') {
-      let [, quantity, units] = minRange.match(/(\d+)(.*)/);
-      units = units.trim() || 'days';
-      return moment.duration(parseInt(quantity, 10), units);
-    }
+    return parseDuration(this.get('minRange'));
   }),
 
-  publicAPI: computed('_publicAPI', 'minRangeDuration', function() {
-    return assign({ minRange: this.get('minRangeDuration') }, this.get('_publicAPI'));
+  maxRangeDuration: computed('maxRange', function() {
+    return parseDuration(this.get('maxRange'));
+  }),
+
+  publicAPI: computed('_publicAPI', 'minRangeDuration', 'maxRangeDuration', function() {
+    let rangeOnlyAPI = { minRange: this.get('minRangeDuration'), maxRange: this.get('maxRangeDuration') };
+    return assign(rangeOnlyAPI, this.get('_publicAPI'));
   }),
 
   // Actions
@@ -51,8 +61,12 @@ export default CalendarComponent.extend({
     select(day, e) {
       let range = this._buildRange(day);
       let { start, end } = range.moment;
-      if (start && end && Math.abs(end.diff(start)) < this.get('publicAPI.minRange').as('ms')) {
-        return;
+      if (start && end) {
+        let { minRange, maxRange } = this.get('publicAPI');
+        let diff = Math.abs(end.diff(start));
+        if (diff < minRange.as('ms') || maxRange && diff > maxRange.as('ms')) {
+          return;
+        }
       }
       let action = this.get('onSelect');
       if (action) {
