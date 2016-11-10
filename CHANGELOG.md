@@ -1,5 +1,8 @@
 ## Master
 
+## 0.1.6
+- [BUGFIX] Make `ember-assign-helper` a runtime dependency.
+
 ## 0.1.5
 - [FEATURE] Add `maxRange` to prevent users from selecting ranges > the given duration.
 - [FEATURE] Add `minRange` to prevent users from selecting ranges < the given duration.
