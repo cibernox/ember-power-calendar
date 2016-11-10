@@ -176,6 +176,30 @@ test('The default minRange is one day, but it can be changed passing convenient 
   assert.equal(this.$('.formatted-min-range').text().trim(), 'a minute', 'it can regognize humanized durations that use abbreviations');
 });
 
+test('Passing `maxRange` allows to determine the minimum length of a range (in days)', function(assert) {
+  assert.expect(9);
+  this.render(hbs`
+    {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") maxRange=2 as |cal|}}
+      {{cal.nav}}
+      {{cal.days}}
+    {{/power-calendar-range}}
+  `);
+
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').prop('disabled'), 'The clicked day is disabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-11"]').prop('disabled'), 'The next day is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-12"]').prop('disabled'), 'The next-next day is enabled too');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-13"]').prop('disabled'), 'The next-next-next day is disabled');
+
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-09"]').prop('disabled'), 'The prev day is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-08"]').prop('disabled'), 'The prev-prev day is enabled too');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-07"]').prop('disabled'), 'The prev-prev-prev day is disabled');
+
+  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-12"]').get(0).click());
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-12"]').hasClass('ember-power-calendar-day--selected'));
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-11"]').hasClass('ember-power-calendar-day--selected'), 'the 11th is selected');
+});
+
 test('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is smaller than the minRange', function(assert) {
   assert.expect(2);
   this.selected = { start: new Date(2016, 1, 5), end: null };
@@ -187,6 +211,27 @@ test('If `publicAPI.action.select` does not invoke the `onSelect` action if the 
   };
   this.render(hbs`
     {{#power-calendar-range selected=selected onSelect=didSelect minRange=2 as |cal|}}
+      <button id="select-invalid-range-end" onclick={{action cal.actions.select invalidDay}}>Select invalid date</button>
+      <button id="select-valid-range-end" onclick={{action cal.actions.select validDay}}>Select valid date</button>
+    {{/power-calendar-range}}
+  `);
+  run(() => this.$('#select-invalid-range-end').get(0).click());
+  assert.equal(range, undefined, 'The actions has not been called');
+  run(() => this.$('#select-valid-range-end').get(0).click());
+  assert.notEqual(range, undefined, 'The actions has been called now');
+});
+
+test('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is bigger than the maxRange', function(assert) {
+  assert.expect(2);
+  this.selected = { start: new Date(2016, 1, 5), end: null };
+  this.validDay = { date: new Date(2016, 1, 6), moment: moment(new Date(2016, 1, 6)) };
+  this.invalidDay = { date: new Date(2016, 1, 8), moment: moment(new Date(2016, 1, 8)) };
+  let range;
+  this.didSelect = function(r) {
+    range = r;
+  };
+  this.render(hbs`
+    {{#power-calendar-range selected=selected onSelect=didSelect maxRange=2 as |cal|}}
       <button id="select-invalid-range-end" onclick={{action cal.actions.select invalidDay}}>Select invalid date</button>
       <button id="select-valid-range-end" onclick={{action cal.actions.select validDay}}>Select valid date</button>
     {{/power-calendar-range}}
