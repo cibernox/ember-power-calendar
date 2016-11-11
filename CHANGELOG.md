@@ -1,5 +1,6 @@
 ## Master
 
+## 0.1.7
 - [BUGFIX] Fix calculation of days when the `moment` global had a different locale than the `service:moment`.
 
 ## 0.1.6
