@@ -29,11 +29,22 @@ moduleForComponent('power-calendar', 'Integration | Component | power-calendar/d
   }
 });
 
-test('[i18n] The name of the weekdays respect the locale set in moment.js', function(assert) {
+test('[i18n] The name of the weekdays respect the locale set in the moment service', function(assert) {
   assert.expect(1);
   run(() => momentService.changeLocale('pt'));
   this.render(hbs`{{#power-calendar as |cal|}}{{cal.days}}{{/power-calendar}}`);
   assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Seg Ter Qua Qui Sex Sáb Dom');
+});
+
+test('[i18n] The name of the weekdays respect the locale set in the `moment` global', function(assert) {
+  assert.expect(2);
+  this.center = new Date(2016, 10, 15);
+  let originalLocale = moment.locale();
+  moment.locale('fr');
+  this.render(hbs`{{#power-calendar center=center as |cal|}}{{cal.days}}{{/power-calendar}}`);
+  assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'lun. mar. mer. jeu. ven. sam. dim.');
+  assert.equal(this.$('.ember-power-calendar-day:eq(0)').data('date'), '2016-10-31');
+  moment.locale(originalLocale);
 });
 
 test('[i18n] The user can force a different locale from the one set in moment.js passing `locale="some-locale"`', function(assert) {

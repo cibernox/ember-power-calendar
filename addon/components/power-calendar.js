@@ -43,7 +43,7 @@ export default Component.extend({
     return {
       selected: this.get('selected'),
       center: this.get('currentCenter'),
-      locale: this.get('locale') || this.get('momentService.locale'),
+      locale: this.get('locale') || this.get('momentService.locale') || moment.locale(),
       actions: this.get('publicActions')
     };
   }),

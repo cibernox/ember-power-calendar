@@ -192,7 +192,7 @@ export default Component.extend({
   firstDay(calendar) {
     let firstDay = calendar.center.clone().startOf('month');
     let localeStartOfWeek = this.get('localeStartOfWeek');
-    while (firstDay.weekday() !== localeStartOfWeek) {
+    while ((firstDay.isoWeekday() % 7) !== localeStartOfWeek) {
       firstDay.add(-1, 'day');
     }
     return firstDay;
@@ -201,7 +201,8 @@ export default Component.extend({
   lastDay(calendar) {
     let localeStartOfWeek = this.get('localeStartOfWeek');
     let lastDay = calendar.center.clone().endOf('month');
-    while (lastDay.weekday() !== (localeStartOfWeek + 6) % 7) {
+    let localeEndOfWeek = (localeStartOfWeek + 6) % 7;
+    while ((lastDay.isoWeekday() % 7) !== localeEndOfWeek) {
       lastDay.add(1, 'day');
     }
     return lastDay;
