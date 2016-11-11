@@ -1,5 +1,7 @@
 ## Master
 
+- [BUGFIX] Fix calculation of days when the `moment` global had a different locale than the `service:moment`.
+
 ## 0.1.6
 - [BUGFIX] Make `ember-assign-helper` a runtime dependency.
 
