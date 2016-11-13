@@ -1,5 +1,8 @@
 ## Master
 
+## 0.1.8
+- [BUGFIX] Fix styles in IE11 - @nwhittaker
+
 ## 0.1.7
 - [BUGFIX] Fix calculation of days when the `moment` global had a different locale than the `service:moment`.
 
