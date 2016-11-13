@@ -23,8 +23,11 @@
   flex: 1 1 100%;
   padding: 0;
   background-color: transparent;
+  background-color: initial;
   border: none;
+  border: initial;
   outline: none;
+  outline: initial;
   justify-content: center;
   display: flex;
   align-items: center;
@@ -32,8 +35,11 @@
 .ember-power-calendar-day {
   -webkit-appearance: none;
   background-color: transparent;
+  background-color: initial;
   border: none;
+  border: initial;
   outline: none;
+  outline: initial;
   flex: 1 1 100%;
   font-size: inherit;
   align-items: center;
@@ -43,8 +49,11 @@
 .ember-power-calendar-nav-control {
   -webkit-appearance: none;
   background-color: transparent;
+  background-color: initial;
   border: none;
+  border: initial;
   outline: none;
+  outline: initial;
   font-size: inherit;
 }
 
