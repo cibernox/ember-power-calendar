@@ -20,10 +20,13 @@
 }
 .ember-power-calendar-weekday {
   -webkit-appearance: none;
-  flex: 1;
+  flex: 1 1 100%;
   padding: 0;
+  background-color: transparent;
   background-color: initial;
+  border: none;
   border: initial;
+  outline: none;
   outline: initial;
   justify-content: center;
   display: flex;
@@ -31,10 +34,13 @@
 }
 .ember-power-calendar-day {
   -webkit-appearance: none;
+  background-color: transparent;
   background-color: initial;
+  border: none;
   border: initial;
+  outline: none;
   outline: initial;
-  flex: 1;
+  flex: 1 1 100%;
   font-size: inherit;
   align-items: center;
   justify-content: center;
@@ -42,8 +48,11 @@
 }
 .ember-power-calendar-nav-control {
   -webkit-appearance: none;
+  background-color: transparent;
   background-color: initial;
+  border: none;
   border: initial;
+  outline: none;
   outline: initial;
   font-size: inherit;
 }
