@@ -20,7 +20,7 @@
 }
 .ember-power-calendar-weekday {
   -webkit-appearance: none;
-  flex: 1;
+  flex: 1 1 100%;
   padding: 0;
   background-color: transparent;
   border: none;
@@ -34,7 +34,7 @@
   background-color: transparent;
   border: none;
   outline: none;
-  flex: 1;
+  flex: 1 1 100%;
   font-size: inherit;
   align-items: center;
   justify-content: center;
