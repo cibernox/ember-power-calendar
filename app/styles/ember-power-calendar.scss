@@ -22,18 +22,18 @@
   -webkit-appearance: none;
   flex: 1;
   padding: 0;
-  background-color: initial;
-  border: initial;
-  outline: initial;
+  background-color: transparent;
+  border: none;
+  outline: none;
   justify-content: center;
   display: flex;
   align-items: center;
 }
 .ember-power-calendar-day {
   -webkit-appearance: none;
-  background-color: initial;
-  border: initial;
-  outline: initial;
+  background-color: transparent;
+  border: none;
+  outline: none;
   flex: 1;
   font-size: inherit;
   align-items: center;
@@ -42,9 +42,9 @@
 }
 .ember-power-calendar-nav-control {
   -webkit-appearance: none;
-  background-color: initial;
-  border: initial;
-  outline: initial;
+  background-color: transparent;
+  border: none;
+  outline: none;
   font-size: inherit;
 }
 
