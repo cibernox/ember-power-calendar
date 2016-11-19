@@ -2,7 +2,7 @@
 
 <p>
   Ember Power Calendar aims to be very customizable and because of that it also has to be very explicit
-  about it's behaviour even it that makes it slightly verbose.
+  about its behaviour, even if that makes it slightly verbose.
 </p>
 
 <p>
@@ -11,7 +11,7 @@
   to happen.
 </p>
 
-<p>Let's start with the basics. Add month navigation</p>
+<p>Let's start with the basics, adding month navigation.</p>
 
 <h3><code>onCenterChange</code></h3>
 
@@ -22,7 +22,7 @@
 </p>
 
 <p>
-  However, it would be inconvenient to force every single programmes to do that, so if you pass <code>onCenterChange</code> action to
+  However, it would be inconvenient to force everyone to do that, so if you pass <code>onCenterChange</code> action to
   the component, the <code>calendar.nav</code> component gets some built-in controls to navigate to the previous and next month.
   Use that action to update the displayed month and you have a navigable calendar!
 </p>
@@ -32,12 +32,12 @@
 {{/code-sample}}
 
 <p>
-  Making this interaction so explicit might seem verbose. It forces you to type a few chars for the simplest use case, butin exchange makes some usages that are
+  Making this interaction so explicit might seem verbose. It does force you to type a few characters for the simplest use case, but in exchange makes some usages that are
   usually very hard to implement extremely simple.
 </p>
 
 <p>
-  By example, imagine that changing to a different month needs to make an ajax call to the server to gather
+  For example, imagine that changing to a different month needs to make an ajax call to the server to gather
   all the events that are going to happen that month (we haven't seen how to display events on the calendar,
   but use your imagination) before showing the next month. While those events are loaded,
   we want to hold changing the month and show a loading state with an animated spinner.
@@ -58,7 +58,7 @@
 
 <p>
   One very common use case of a calendar is to select one (or many) days. For that purpose it exposes an <code>onSelect</code>
-  action that is called when the user clicks (or presses Enter over) one day.
+  action that is called when the user clicks (or presses Enter over) a day.
 </p>
 
 <p>
@@ -69,7 +69,7 @@
 </p>
 
 <p>
-  Like with the previous action, it's your responsability to react to this action, but in the most typical case you
+  Like with the previous action, it's your responsibility to react to this action, but in the most typical case you
   just want to update the <code>selected</code> value. Let's see how to do it, and we are going to use the <code>momentjs</code>
   version of the date.
 </p>
