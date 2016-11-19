@@ -9,8 +9,8 @@
 <h3>Passing a block</h3>
 
 <p>
-  There is many ways of doing it, but the simplest one is passing a block that will be
-  the content of each cell of the grid. It's not the most versatile but can be used for
+  There are many ways of doing it, but the simplest one is passing a block that will be
+  the content of each cell of the grid. It's not the most versatile, but it can be used for
   simple customizations.
 </p>
 
@@ -59,16 +59,16 @@
 {{/code-sample}}
 
 <p>
-  This options are the one that give you more power, but it would be silly to make user create they own components
+  This options is the one that gives you more power, but it would be silly to make users create their own components
   for very common changes like customizing the start of the week and things like that, so the default <code>calendar.days</code>
-  component has a few configuration options to tweak the most common use cases.
+  component has a few configuration options to tweak for the most common use cases.
 </p>
 
 <h3><code>startOfWeek</code></h3>
 
 <p>
-  By default weeks will start in the appropriate day of the week based on the locale configured
-  in <code>ember-moment</code> there is a built in option to tweak the locale's default. Pass
+  By default, weeks will start on the appropriate day of the week based on the locale configured
+  in <code>ember-moment</code>. There is a built in option to tweak the locale's default, pass
   <code>startOfWeek=[NUMBER]</code> to change the first day of the week. Values go from <code>0</code> (Sunday) to <code>6</code> (Saturday).
 </p>
 
@@ -90,7 +90,7 @@
 <h3><code>minDate</code> and <code>maxDate</code></h3>
 
 <p>
-  If you want to prevent some days before some date from being selected, pass <code>minDate=someDate</code> and/or <code>maxDate=someOtherDate</code>.
+  If you want to prevent some days before a particular date from being selected, pass <code>minDate=someDate</code> and/or <code>maxDate=someOtherDate</code>.
   Dates before/after those values can be selected (those dates included), but the rest of the days cannot be selected or focused.
 </p>
 
@@ -104,7 +104,7 @@
 
 <p>
   By default the name of the days of the week is in its abbreviated form, but you can use the <code>weekdayFormat</code>
-  to change it. The accepted values are <code>"short"</code> (the default), <code>long</code> (the full day name) and <code>min</code> (an even shorter abbreviation).
+  to change it. The accepted values are <code>short</code> (the default), <code>long</code> (the full day name) and <code>min</code> (an even shorter abbreviation).
 </p>
 
 {{#code-sample hbs="the-days-7.hbs" as |partialName|}}
