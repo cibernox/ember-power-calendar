@@ -1,5 +1,5 @@
 import EmberPowerCalendar from 'ember-power-calendar/components/power-calendar';
 
-export default EmberPowerSelect.extend({
+export default EmberPowerCalendar.extend({
   navComponent: 'my-custom-nav'
 });
