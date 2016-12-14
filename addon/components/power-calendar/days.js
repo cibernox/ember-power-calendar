@@ -78,7 +78,7 @@ export default Component.extend({
         daysOfWeek = daysOfWeek.filter((d) => d.isCurrentMonth);
       }
       weeks.push({
-        id: days[0].moment.format('YYYY-w'),
+        id: days[i].moment.format('YYYY-w'),
         days: daysOfWeek,
         missingDays: 7 - daysOfWeek.length
       });
