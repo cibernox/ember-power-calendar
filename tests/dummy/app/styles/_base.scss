@@ -109,6 +109,7 @@ code {
   }
 }
 pre {
+  max-width: calc(100vw - #{2 * $wrapper-padding});
   display: block;
   margin-top: 0;
   margin-bottom: 1rem;
