@@ -3,17 +3,7 @@ import computed from 'ember-computed';
 import moment from 'moment';
 import { getProperties } from 'ember-metal/get';
 import { assign } from 'ember-platform';
-
-function fallbackIfUndefined(fallback) {
-  return computed({
-    get() {
-      return fallback;
-    },
-    set(_, v) {
-      return v === undefined ? fallback : v;
-    }
-  });
-}
+import fallbackIfUndefined from '../utils/computed-fallback-if-undefined';
 
 function parseDuration(value) {
   if (value === null || moment.isDuration(value)) {

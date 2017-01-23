@@ -1,0 +1,5 @@
+{{#power-calendar-multiple
+  selected=collection
+  onSelect=(action (mut collection) value="moment") as |calendar|}}
+  {{calendar.days maxLength=4}}
+{{/power-calendar-multiple}}
