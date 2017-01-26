@@ -8,7 +8,6 @@ import { task } from 'ember-concurrency';
 export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],
-  classNameBindings: ['changeCenterTask.isRunning:ember-power-calendar--loading'],
   clockService: service('power-calendar-clock'),
   momentService: service('moment'),
   navComponent: 'power-calendar/nav',
@@ -39,9 +38,10 @@ export default Component.extend({
     return this.get('_publicAPI');
   }),
 
-  _publicAPI: computed('selected', 'currentCenter', 'locale', 'momentService.locale', function() {
+  _publicAPI: computed('selected', 'currentCenter', 'locale', 'momentService.locale', 'changeCenterTask.isRunning', function() {
     return {
       selected: this.get('selected'),
+      loading: this.get('changeCenterTask.isRunning'),
       center: this.get('currentCenter'),
       locale: this.get('locale') || this.get('momentService.locale') || moment.locale(),
       actions: this.get('publicActions')

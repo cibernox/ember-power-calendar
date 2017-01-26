@@ -1,7 +1,8 @@
 {{#power-calendar
-  class="demo--with-animated-loading"
   center=center
   onCenterChange=(perform updateMonth) as |calendar|}}
-  {{calendar.nav}}
-  {{calendar.days}}
+  <div class={{if calendar.loading 'loading-spiner-overlay'}}>
+    {{calendar.nav}}
+    {{calendar.days}}
+  </div>
 {{/power-calendar}}

@@ -50,6 +50,12 @@
 {{/code-sample}}
 
 <p>
+  While the calendar is performing a task, it's yielded public API has the <code>loading</code>
+  flag enabled, and since you can interleave the subcomponents in your own markup, you use
+  that flag to create an overlay.
+</p>
+
+<p>
   No black magic. Just the way you usually manage sync actions in your own code. Ember Power Calendar is
   promise-aware and task-aware, all the way down.
 </p>

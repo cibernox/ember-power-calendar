@@ -1,5 +1,10 @@
 ## Master
 
+- [BREAKING] The component no longer automatically gets a `ember-power-calendar--loading` when
+  the `onCenterChange` returns a promise/task. Instead, the publicAPI of the component will have
+  the `loading` flag set to true, and you can use that to any purpose. This flag might change
+  in future.
+
 ## 0.1.8
 - [BUGFIX] Fix styles in IE11 - @nwhittaker
 

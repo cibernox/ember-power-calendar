@@ -22,6 +22,7 @@ export default Component.extend({
   layout,
   focusedId: null,
   showDaysAround: true,
+  classNames: ['ember-power-calendar-days'],
   weekdayFormat: 'short', // "min" | "short" | "long"
   clockService: service('power-calendar-clock'),
 
