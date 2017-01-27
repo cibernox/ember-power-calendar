@@ -2,13 +2,20 @@
   box-sizing: border-box;
   position: relative;
 }
-.ember-power-calendar * {
-  box-sizing: border-box;
-}
+
 .ember-power-calendar-nav {
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
 }
+.ember-power-calendar-nav * {
+  box-sizing: border-box;
+}
+
+.ember-power-calendar-days, .ember-power-calendar-days * {
+  box-sizing: border-box;
+}
+
 .ember-power-calendar-nav-title {
   flex: 1;
   text-align: center;

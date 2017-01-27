@@ -319,19 +319,20 @@ test('If the `onCenterChange` action returns a `thenable`, the component enter l
   };
   this.render(hbs`
     {{#power-calendar onCenterChange=(action asyncAction) as |calendar|}}
+      <div class={{if calendar.loading 'is-loading-yo'}}></div>
       {{calendar.nav}}
       {{calendar.days}}
     {{/power-calendar}}
   `);
 
   setTimeout(function() {
-    assert.ok(this.$('.ember-power-calendar').hasClass('ember-power-calendar--loading'), 'The component is in a loading state');
+    assert.equal(this.$('.is-loading-yo').length, 1, 'The component is in a loading state');
   }, 100);
 
   run(() => this.$('.ember-power-calendar-nav-control--next').click());
 
   setTimeout(function() {
-    assert.notOk(this.$('.ember-power-calendar').hasClass('ember-power-calendar--loading'), 'The component is not in a loading state anymore');
+    assert.equal(this.$('.is-loading-yo').length, 0, 'The component is not in a loading state anymore');
     done();
   }, 250);
 });
