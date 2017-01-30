@@ -1,6 +1,9 @@
 ## Master
 
-## 0.2.0
+## 0.2.1
+- [ENHANCEMENT] Make Sass mixin more configurable, by accepting more variables. The basic usage remains 
+  the same, this is not breaking.
+## 0.2.1
 - [BREAKING] The component no longer automatically gets a `ember-power-calendar--loading` when
   the `onCenterChange` returns a promise/task. Instead, the publicAPI of the component will have
   the `loading` flag set to true, and you can use that to any purpose. This flag might change
