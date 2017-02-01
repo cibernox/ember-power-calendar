@@ -1,5 +1,7 @@
 ## Master
 
+- [ENHANCEMENT] Improve default styles of calendar days.
+
 ## 0.2.1
 - [ENHANCEMENT] Make Sass mixin more configurable, by accepting more variables. The basic usage remains 
   the same, this is not breaking.
