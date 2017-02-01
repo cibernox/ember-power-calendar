@@ -1,5 +1,6 @@
 ## Master
 
+## 0.2.2
 - [ENHANCEMENT] Improve default styles of calendar days.
 
 ## 0.2.1
