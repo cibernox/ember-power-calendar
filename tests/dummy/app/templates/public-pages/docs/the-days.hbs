@@ -96,7 +96,19 @@
 
 <p>By example, in the next example, only days between 11th and 21th can be selected (both inclusive)</p>
 
-{{#code-sample hbs="the-days-6.hbs" as |partialName|}}
+{{#code-sample hbs="the-days-6.hbs" js="the-days-6-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-sample}}
+
+<h3><code>disabledDates</code></h3>
+
+<p>
+  Sometimes you don't want to disabled dates before or after some marks but some specific list of dates, like
+  holidays or birthdays. The <code>disabledDates</code> is what you want. Pass a collection of Date or Moment
+  objects and those days will be disabled.
+</p>
+
+{{#code-sample hbs="the-days-7.hbs" js="the-days-7-js.js" as |partialName|}}
   {{partial partialName}}
 {{/code-sample}}
 
@@ -107,7 +119,7 @@
   to change it. The accepted values are <code>short</code> (the default), <code>long</code> (the full day name) and <code>min</code> (an even shorter abbreviation).
 </p>
 
-{{#code-sample hbs="the-days-7.hbs" as |partialName|}}
+{{#code-sample hbs="the-days-8.hbs" as |partialName|}}
   {{partial partialName}}
 {{/code-sample}}
 

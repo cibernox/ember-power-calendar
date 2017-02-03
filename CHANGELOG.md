@@ -1,5 +1,6 @@
 ## Master
 
+## 0.2.3
 - [ENHANCEMENT] Allow to disable specific days passing `{{cal.days disabledDates=collection}}`.
   As usual the property can be a collection of Dates or Moments.
 
