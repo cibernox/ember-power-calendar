@@ -56,7 +56,7 @@ export default Component.extend({
     return weekdaysNames.slice(localeStartOfWeek).concat(weekdaysNames.slice(0, localeStartOfWeek));
   }),
 
-  days: computed('calendar', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', 'disabledDates.[]', function() {
+  days: computed('calendar', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
     let today = this.get('clockService').getDate();
     let calendar = this.get('calendar');
     let lastDay = this.lastDay(calendar);
@@ -156,31 +156,13 @@ export default Component.extend({
   buildDay(dayMoment, today, calendar) {
     let id = dayMoment.format('YYYY-MM-DD');
     let momentDate = dayMoment.clone();
-    let isDisabled = !this.get('onSelect');
-    if (!isDisabled) {
-      let minDate = this.get('minDate');
-      if (minDate && momentDate.isBefore(minDate)) {
-        isDisabled = true;
-      }
-      if (!isDisabled) {
-        let maxDate = this.get('maxDate');
-        if (maxDate && momentDate.isAfter(maxDate)) {
-          isDisabled = true;
-        }
-      }
-      if (!isDisabled) {
-        let disabledDates = this.get('disabledDates');
-        if (disabledDates && disabledDates.some((d) => momentDate.isSame(d, 'day'))) {
-          isDisabled = true;
-        }
-      }
-    }
+
     return {
       id,
       number: momentDate.date(),
       date: momentDate._d,
       moment: momentDate,
-      isDisabled,
+      isDisabled: this.dayIsDisabled(momentDate),
       isFocused: this.get('focusedId') === id,
       isCurrentMonth: momentDate.month() === calendar.center.month(),
       isToday: momentDate.isSame(today, 'day'),
@@ -194,6 +176,29 @@ export default Component.extend({
 
   dayIsSelected(dayMoment, calendar = this.get('calendar')) {
     return calendar.selected ? dayMoment.isSame(calendar.selected, 'day') : false;
+  },
+
+  dayIsDisabled(momentDate) {
+    let isDisabled = !this.get('onSelect');
+    if (!isDisabled) {
+      let minDate = this.get('minDate');
+      if (minDate && momentDate.isBefore(minDate)) {
+        isDisabled = true;
+      }
+      if (!isDisabled) {
+        let maxDate = this.get('maxDate');
+        if (maxDate && momentDate.isAfter(maxDate)) {
+          isDisabled = true;
+        }
+        if (!isDisabled) {
+          let disabledDates = this.get('disabledDates');
+          if (disabledDates && disabledDates.some((d) => momentDate.isSame(d, 'day'))) {
+            isDisabled = true;
+          }
+        }
+      }
+    }
+    return isDisabled;
   },
 
   firstDay(calendar) {
