@@ -56,7 +56,7 @@ export default Component.extend({
     return weekdaysNames.slice(localeStartOfWeek).concat(weekdaysNames.slice(0, localeStartOfWeek));
   }),
 
-  days: computed('calendar', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', function() {
+  days: computed('calendar', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', 'disabledDates.[]', function() {
     let today = this.get('clockService').getDate();
     let calendar = this.get('calendar');
     let lastDay = this.lastDay(calendar);
@@ -165,6 +165,12 @@ export default Component.extend({
       if (!isDisabled) {
         let maxDate = this.get('maxDate');
         if (maxDate && momentDate.isAfter(maxDate)) {
+          isDisabled = true;
+        }
+      }
+      if (!isDisabled) {
+        let disabledDates = this.get('disabledDates');
+        if (disabledDates && disabledDates.some((d) => momentDate.isSame(d, 'day'))) {
           isDisabled = true;
         }
       }

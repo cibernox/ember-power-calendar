@@ -431,6 +431,38 @@ test('If the user passes `maxDate=someDate` to range calendars, days after that 
   assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-16"]').prop('disabled'), 'Days after the maxDate are disabled');
 });
 
+test('If the user passes `disabledDates=someDate` to single calendars, days on those days are disabled', function(assert) {
+  assert.expect(13);
+  this.disabledDates = [
+    new Date(2013, 9, 15),
+    new Date(2013, 9, 17),
+    new Date(2013, 9, 21),
+    new Date(2013, 9, 23)
+  ];
+  this.render(hbs`
+    {{#power-calendar selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days disabledDates=disabledDates}}
+    {{/power-calendar}}
+  `);
+
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 14th is enabled');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The 15th is disabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 16th is enabled');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').prop('disabled'), 'The 17th is disabled');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-21"]').prop('disabled'), 'The 21st is disabled');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-23"]').prop('disabled'), 'The 23rd is disabled');
+
+  run(() => this.set('disabledDates', [new Date(2013, 9, 22)]));
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 14th is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The 15th is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 16th is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').prop('disabled'), 'The 17th is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-21"]').prop('disabled'), 'The 21st is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-23"]').prop('disabled'), 'The 23rd is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-23"]').prop('disabled'), 'The 22nd is disabled');
+});
+
 test('When the user tries to focus a disabled date with the left arrow key, the focus stays where it is', function(assert) {
   assert.expect(4);
   this.minDate = new Date(2013, 9, 15);

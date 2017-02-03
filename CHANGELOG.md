@@ -1,5 +1,8 @@
 ## Master
 
+- [ENHANCEMENT] Allow to disable specific days passing `{{cal.days disabledDates=collection}}`.
+  As usual the property can be a collection of Dates or Moments.
+
 ## 0.2.2
 - [ENHANCEMENT] Improve default styles of calendar days.
 

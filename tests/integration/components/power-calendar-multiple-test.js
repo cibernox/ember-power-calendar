@@ -115,3 +115,34 @@ test('Clicking on a day selects it, and clicking again on it unselects it', func
   assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days are selected');
 });
 
+test('If the user passes `disabledDates=someDate` to multiple calendars, days on those days are disabled', function(assert) {
+  assert.expect(13);
+  this.disabledDates = [
+    new Date(2013, 9, 15),
+    new Date(2013, 9, 17),
+    new Date(2013, 9, 21),
+    new Date(2013, 9, 23)
+  ];
+  this.render(hbs`
+    {{#power-calendar-multiple selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days disabledDates=disabledDates}}
+    {{/power-calendar-multiple}}
+  `);
+
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 14th is enabled');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The 15th is disabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 16th is enabled');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').prop('disabled'), 'The 17th is disabled');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-21"]').prop('disabled'), 'The 21st is disabled');
+  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-23"]').prop('disabled'), 'The 23rd is disabled');
+
+  run(() => this.set('disabledDates', [new Date(2013, 9, 22)]));
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 14th is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The 15th is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 16th is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').prop('disabled'), 'The 17th is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-21"]').prop('disabled'), 'The 21st is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-23"]').prop('disabled'), 'The 23rd is enabled');
+  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-23"]').prop('disabled'), 'The 22nd is disabled');
+});
