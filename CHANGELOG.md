@@ -1,5 +1,10 @@
 ## Master
 
+## 0.2.4
+- [ENHANCEMENT] Add `maxLength` to the `{{cal.days}}` component of multiple selects. It determines the
+  max number of day selections the user can make. Once that number is reached no more days can be selected, 
+  but those selected can be unselected.  Defaults to `Infinity` so there is no limit by default.
+
 ## 0.2.3
 - [ENHANCEMENT] Allow to disable specific days passing `{{cal.days disabledDates=collection}}`.
   As usual the property can be a collection of Dates or Moments.
