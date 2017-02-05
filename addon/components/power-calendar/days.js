@@ -180,25 +180,26 @@ export default Component.extend({
 
   dayIsDisabled(momentDate) {
     let isDisabled = !this.get('onSelect');
-    if (!isDisabled) {
-      let minDate = this.get('minDate');
-      if (minDate && momentDate.isBefore(minDate)) {
-        isDisabled = true;
-      }
-      if (!isDisabled) {
-        let maxDate = this.get('maxDate');
-        if (maxDate && momentDate.isAfter(maxDate)) {
-          isDisabled = true;
-        }
-        if (!isDisabled) {
-          let disabledDates = this.get('disabledDates');
-          if (disabledDates && disabledDates.some((d) => momentDate.isSame(d, 'day'))) {
-            isDisabled = true;
-          }
-        }
-      }
+    if (isDisabled) {
+      return true;
     }
-    return isDisabled;
+
+    let minDate = this.get('minDate');
+    if (minDate && momentDate.isBefore(minDate)) {
+      return true;
+    }
+
+    let maxDate = this.get('maxDate');
+    if (maxDate && momentDate.isAfter(maxDate)) {
+      return true;
+    }
+
+    let disabledDates = this.get('disabledDates');
+    if (disabledDates && disabledDates.some((d) => momentDate.isSame(d, 'day'))) {
+      return true;
+    }
+
+    return false;
   },
 
   firstDay(calendar) {
