@@ -25,6 +25,10 @@ export default Component.extend({
       select: (...args) => this.send('select', ...args)
     };
     this.get('powerCalendarService').registerCalendar(this);
+    let onInit = this.get('onInit');
+    if (onInit) {
+      onInit(this.get('publicAPI'));
+    }
   },
 
   willDestroy() {

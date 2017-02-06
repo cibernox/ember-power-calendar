@@ -1,5 +1,9 @@
 ## Master
 
+## 0.2.6
+- [ENHANCEMENT] Added an  `onInit` action that can be passed from the outside, and it called with the public API
+  once.
+
 ## 0.2.5
 - [BREAKING] Renamed `service:power-calendar-clock` to just `service:power-calendar`. This service
   wasn't public, so it's unlikely anyone will be affected.
