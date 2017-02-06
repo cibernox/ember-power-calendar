@@ -9,7 +9,7 @@ import { guidFor } from 'ember-metal/utils';
 export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],
-  clockService: service('power-calendar-clock'),
+  powerCalendarService: service('power-calendar'),
   momentService: service('moment'),
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
@@ -24,6 +24,12 @@ export default Component.extend({
       moveCenter: (step, unit) => changeCenter(moment(this.get('center')).add(step, unit)),
       select: (...args) => this.send('select', ...args)
     };
+    this.get('powerCalendarService').registerCalendar(this);
+  },
+
+  willDestroy() {
+    this._super(...arguments);
+    this.get('powerCalendarService').unregisterCalendar(this);
   },
 
   // CPs
@@ -32,7 +38,7 @@ export default Component.extend({
     if (center) {
       return moment(center);
     }
-    return moment(this.get('selected') || this.get('clockService').getDate());
+    return moment(this.get('selected') || this.get('powerCalendarService').getDate());
   }),
 
   publicAPI: computed('_publicAPI', function() {

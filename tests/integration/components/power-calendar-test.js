@@ -29,7 +29,7 @@ moduleForComponent('power-calendar', 'Integration | Component | Power Calendar',
   integration: true,
   beforeEach() {
     assertionInjector(this);
-    let calendarService = getOwner(this).lookup('service:power-calendar-clock');
+    let calendarService = getOwner(this).lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
     momentService = getOwner(this).lookup('service:moment');
   },

@@ -7,7 +7,7 @@ import moment from 'moment';
 moduleForComponent('power-calendar-range', 'Integration | Component | power calendar range', {
   integration: true,
   beforeEach() {
-    let calendarService = getOwner(this).lookup('service:power-calendar-clock');
+    let calendarService = getOwner(this).lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
   }
 });

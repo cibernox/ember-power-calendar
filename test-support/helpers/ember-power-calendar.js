@@ -35,10 +35,8 @@ function findCalendarGuid(selector) {
 function findComponentInstance(app, selector) {
   let calendarGuid = findCalendarGuid(selector);
   assert(`Could not find a calendar using selector: "${selector}"`, calendarGuid);
-  let container = app.__container__;
-  // Warning. This is super-private.
-  let viewRegisty = container.lookup('-view-registry:main');
-  return viewRegisty[calendarGuid];
+  let calendarService = app.__container__.lookup('service:power-calendar');
+  return calendarService._calendars[calendarGuid];
 }
 
 export default function() {

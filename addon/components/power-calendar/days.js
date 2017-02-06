@@ -24,7 +24,7 @@ export default Component.extend({
   showDaysAround: true,
   classNames: ['ember-power-calendar-days'],
   weekdayFormat: 'short', // "min" | "short" | "long"
-  clockService: service('power-calendar-clock'),
+  powerCalendarService: service('power-calendar'),
   attributeBindings: [
     'calendar.uniqueId:data-power-calendar-id'
   ],
@@ -47,7 +47,7 @@ export default Component.extend({
     if (forcedStartOfWeek) {
       return parseInt(forcedStartOfWeek, 10);
     }
-    let now = this.get('clockService').getDate();
+    let now = this.get('powerCalendarService').getDate();
     let dayAbbr = withLocale(this.get('calendar.locale'), () => moment(now).startOf('week').format('ddd'));
     return this.get('weekdaysShort').indexOf(dayAbbr);
   }),
@@ -60,7 +60,7 @@ export default Component.extend({
   }),
 
   days: computed('calendar', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
-    let today = this.get('clockService').getDate();
+    let today = this.get('powerCalendarService').getDate();
     let calendar = this.get('calendar');
     let lastDay = this.lastDay(calendar);
     let currentMoment = this.firstDay(calendar);
