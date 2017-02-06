@@ -1,5 +1,8 @@
 ## Master
 
+## 0.2.5
+- [BREAKING] Renamed `service:power-calendar-clock` to just `service:power-calendar`. This service
+  wasn't public, so it's unlikely anyone will be affected.
 - [ENHANCEMENT] Added `calendar.uniqueId` to the public API. The `{{cal.days}}` use it to display a `data-power-calendar-id`
   attribute that reference the original calendar.
 - [ENHANCEMENT] The `calendarCenter` and `calendarSelect` test helpers now also work with tagless calendars,
