@@ -11,7 +11,7 @@ export default CalendarComponent.extend({
     if (center) {
       return moment(center);
     }
-    return moment((this.get('selected') || [])[0] || this.get('clockService').getDate());
+    return moment((this.get('selected') || [])[0] || this.get('powerCalendarService').getDate());
   }),
 
   // Actions

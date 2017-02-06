@@ -6,7 +6,7 @@ import getOwner from 'ember-owner/get';
 moduleForComponent('power-calendar-multiple/days', 'Integration | Component | power calendar multiple/days', {
   integration: true,
   beforeEach() {
-    let calendarService = getOwner(this).lookup('service:power-calendar-clock');
+    let calendarService = getOwner(this).lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
   }
 });

@@ -5,17 +5,38 @@ import moment from 'moment';
 
 function findCalendarElement(selector) {
   let target = find(selector);
-  return target.hasClass('ember-power-calendar') ? target : target.find('.ember-power-calendar');
+  if (target.hasClass('ember-power-calendar')) {
+    return target;
+  } else {
+    let $insideCalendar = target.find('.ember-power-calendar');
+    if ($insideCalendar.length) {
+      return $insideCalendar;
+    } else {
+      let $calendarPiece = target.find('[data-power-calendar-id]');
+      if ($calendarPiece.length) {
+        return $calendarPiece;
+      }
+    }
+  }
+}
+
+function findCalendarGuid(selector) {
+  let $maybeCalendar = findCalendarElement(selector);
+  if (!$maybeCalendar) {
+    return;
+  }
+  if ($maybeCalendar.hasClass('ember-power-calendar')) {
+    return $maybeCalendar.attr('id');
+  } else {
+    return $maybeCalendar.attr('data-power-calendar-id');
+  }
 }
 
 function findComponentInstance(app, selector) {
-  let calendarElement = findCalendarElement(selector);
-  assert(`Could not find a calendar using selector: "${selector}"`, calendarElement.length > 0);
-  let calendarId = calendarElement.attr('id');
-  let container = app.__container__;
-  // Warning. This is super-private.
-  let viewRegisty = container.lookup('-view-registry:main');
-  return viewRegisty[calendarId];
+  let calendarGuid = findCalendarGuid(selector);
+  assert(`Could not find a calendar using selector: "${selector}"`, calendarGuid);
+  let calendarService = app.__container__.lookup('service:power-calendar');
+  return calendarService._calendars[calendarGuid];
 }
 
 export default function() {

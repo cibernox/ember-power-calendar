@@ -30,7 +30,7 @@ export default CalendarComponent.extend({
     if (center) {
       return moment(center);
     }
-    return moment(this.get('selected.start') || this.get('clockService').getDate());
+    return moment(this.get('selected.start') || this.get('powerCalendarService').getDate());
   }),
 
   minRangeDuration: computed('minRange', function() {

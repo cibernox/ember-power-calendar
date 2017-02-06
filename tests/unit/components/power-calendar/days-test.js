@@ -2,7 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import moment from 'moment';
 
 moduleForComponent('power-calendar/days', 'Unit | Component | power calendar/days', {
-  needs: ['service:power-calendar-clock'],
+  needs: ['service:power-calendar'],
   unit: true
 });
 

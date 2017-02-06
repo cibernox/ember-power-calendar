@@ -20,8 +20,27 @@
   {{/power-calendar}}
 </div>
 
+<div class="calendar-center-4">
+  {{#power-calendar tagName='' center=center4 onCenterChange=(action (mut center4) value="date") as |calendar|}}
+    {{calendar.nav}}
+    {{calendar.days}}
+  {{/power-calendar}}
+</div>
+
 <div class="calendar-select-1">
   {{#power-calendar
+    center=center4
+    selected=selected4
+    onSelect=(action (mut selected4) value="date")
+    onCenterChange=(action (mut center4) value="date") as |calendar|}}
+    {{calendar.nav}}
+    {{calendar.days}}
+  {{/power-calendar}}
+</div>
+
+<div class="calendar-select-2">
+  {{#power-calendar
+    tagName=''
     center=center4
     selected=selected4
     onSelect=(action (mut selected4) value="date")
