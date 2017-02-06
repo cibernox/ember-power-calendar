@@ -25,6 +25,9 @@ export default Component.extend({
   classNames: ['ember-power-calendar-days'],
   weekdayFormat: 'short', // "min" | "short" | "long"
   clockService: service('power-calendar-clock'),
+  attributeBindings: [
+    'calendar.uniqueId:data-power-calendar-id'
+  ],
 
   // CPs
   weekdaysMin: computed('calendar.locale', function() {

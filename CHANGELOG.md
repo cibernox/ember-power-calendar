@@ -1,5 +1,10 @@
 ## Master
 
+- [ENHANCEMENT] Added `calendar.uniqueId` to the public API. The `{{cal.days}}` use it to display a `data-power-calendar-id`
+  attribute that reference the original calendar.
+- [ENHANCEMENT] The `calendarCenter` and `calendarSelect` test helpers now also work with tagless calendars,
+  thanks to the enhancement above.
+
 ## 0.2.4
 - [ENHANCEMENT] Add `maxLength` to the `{{cal.days}}` component of multiple selects. It determines the
   max number of day selections the user can make. Once that number is reached no more days can be selected, 

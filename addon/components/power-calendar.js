@@ -4,6 +4,7 @@ import computed from 'ember-computed';
 import moment from 'moment';
 import service from 'ember-service/inject';
 import { task } from 'ember-concurrency';
+import { guidFor } from 'ember-metal/utils';
 
 export default Component.extend({
   layout,
@@ -40,6 +41,7 @@ export default Component.extend({
 
   _publicAPI: computed('selected', 'currentCenter', 'locale', 'momentService.locale', 'changeCenterTask.isRunning', function() {
     return {
+      uniqueId: guidFor(this),
       selected: this.get('selected'),
       loading: this.get('changeCenterTask.isRunning'),
       center: this.get('currentCenter'),

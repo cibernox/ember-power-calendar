@@ -32,7 +32,7 @@ test('`calendarCenter` invokes the `onCenterChange` action of the target compone
   });
 });
 
-test('`calendarCenter` throws an error if callend on a calendar without `onCenterChange` action', function(assert) {
+test('`calendarCenter` throws an error if called on a calendar without `onCenterChange` action', function(assert) {
   assert.expect(2);
   visit('/helpers-testing');
 
@@ -52,6 +52,20 @@ test('`calendarCenter` throws an error it cannot find a calendar using the given
     calendarCenter('.non-exister-selector', new Date(2013, 8, 3)).catch((error) => {
       assert.equal(error.message, 'Assertion Failed: Could not find a calendar using selector: ".non-exister-selector"');
     });
+  });
+});
+
+test('`calendarCenter` works even if the calendar is tagless', function(assert) {
+  assert.expect(2);
+  visit('/helpers-testing');
+
+  andThen(function() {
+    calendarCenter('.calendar-center-4', new Date(2013, 8, 3));
+  });
+
+  andThen(function() {
+    assert.equal(find('.calendar-center-4 .ember-power-calendar-nav-title').text().trim(), 'September 2013', 'The nav component has updated');
+    assert.equal(find('.calendar-center-4 [data-date=2013-09-01]').length, 1, 'The days component has updated');
   });
 });
 
@@ -82,7 +96,7 @@ test('`calendarSelect` selects the given date changing the month center on the p
 
   andThen(function() {
     assert.equal(find('.calendar-select-1 .ember-power-calendar-nav-title').text().trim(), 'September 2013', 'The nav component has updated');
-    assert.equal(find('[data-date=2013-09-01]').length, 1, 'The days component has updated');
+    assert.equal(find('.calendar-select-1 [data-date=2013-09-01]').length, 1, 'The days component has updated');
     assert.ok(find('.calendar-select-1 [data-date=2013-09-03]').hasClass('ember-power-calendar-day--selected'), 'The 3rd of september is selected');
   });
 });
