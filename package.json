@@ -70,7 +70,7 @@
     "ember-cli-htmlbars": "^1.1.1",
     "ember-cli-moment-shim": "^2.1.0",
     "ember-concurrency": "^0.7.15",
-    "ember-moment": "^6.1.0"
+    "ember-moment": "^7.3.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
