@@ -26,10 +26,11 @@ export default Component.extend({
   weekdayFormat: 'short', // "min" | "short" | "long"
   powerCalendarService: service('power-calendar'),
   attributeBindings: [
-    'calendar.uniqueId:data-power-calendar-id'
+    'data-power-calendar-id'
   ],
 
   // CPs
+  'data-power-calendar-id': computed.oneWay('calendar.uniqueId'),
   weekdaysMin: computed('calendar.locale', function() {
     return withLocale(this.get('calendar.locale'), () => moment.weekdaysMin());
   }),

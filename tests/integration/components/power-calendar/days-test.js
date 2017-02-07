@@ -97,3 +97,10 @@ test('If it receives `showDaysAround=false` option, it doesn\'t show the days be
   assert.equal(this.$('.ember-power-calendar-week:eq(0)').data('missing-days'), 1, 'It has a special data-attribute');
   assert.equal(this.$('.ember-power-calendar-week:eq(4) .ember-power-calendar-day').length, 4, 'The last week has 4 days');
 });
+
+test('It can receive `data-power-calendar-id` and it is bound to an attribute', function(assert) {
+  assert.expect(1);
+  this.calendar = calendar;
+  this.render(hbs`{{power-calendar/days calendar=calendar data-power-calendar-id="foobar"}}`);
+  assert.equal(this.$('.ember-power-calendar-days').attr('data-power-calendar-id'), 'foobar', 'The attribute is bound');
+});

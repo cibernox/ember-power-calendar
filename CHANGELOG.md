@@ -1,5 +1,8 @@
 ## Master
 
+## 0.2.7
+- [ENHANCEMENT] `data-ember-power-calendar-id` can be bound from the outside
+
 ## 0.2.6
 - [ENHANCEMENT] Added an  `onInit` action that can be passed from the outside, and it called with the public API
   once.
