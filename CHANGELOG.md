@@ -1,5 +1,6 @@
 ## Master
 
+## 0.3.0
 - [BREAKING] `onSelect` and `onCenterAction` now receive the publicAPI of the component 
   as second argument and the event as third.
 
