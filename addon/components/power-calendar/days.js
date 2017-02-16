@@ -102,7 +102,7 @@ export default Component.extend({
       scheduleOnce('actions', this, this._updateFocused, null);
     },
 
-    onKeyDown(e) {
+    onKeyDown(calendar, e) {
       let focusedId = this.get('focusedId');
       if (focusedId) {
         let days = this.get('days');

@@ -48,7 +48,7 @@ export default CalendarComponent.extend({
 
   // Actions
   actions: {
-    select(day, e) {
+    select(day, calendar, e) {
       let range = this._buildRange(day);
       let { start, end } = range.moment;
       if (start && end) {
@@ -60,7 +60,7 @@ export default CalendarComponent.extend({
       }
       let action = this.get('onSelect');
       if (action) {
-        action(range, e);
+        action(range, calendar, e);
       }
     }
   },

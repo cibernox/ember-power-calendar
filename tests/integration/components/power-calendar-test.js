@@ -119,6 +119,24 @@ test('when the `onCenterChange` action changes the `center` attribute, the calen
   assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('March 2016') > -1, 'The calendar is now centered in the the next month');
 });
 
+test('the `onCenterChange` action receives the date/moment compound object, the calendar and the event', function(assert) {
+  assert.expect(3);
+  this.center = new Date(2016, 1, 5);
+  this.onCenterChange = function(obj, calendar, e) {
+    assert.ok(obj.hasOwnProperty('moment') && obj.hasOwnProperty('date'), 'The first argument is a compound moment/date object');
+    assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
+    assert.ok(e instanceof Event, 'The third argument is an event');
+  };
+  this.render(hbs`
+    {{#power-calendar center=center onCenterChange=onCenterChange as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+  `);
+
+  run(() => this.$('.ember-power-calendar-nav-control--next')[0].click());
+});
+
 test('when it receives a Date in the `selected` argument, it displays that month, and that day is marked as selected', function(assert) {
   assert.expect(4);
   this.selected = new Date(2016, 1, 5);
@@ -236,10 +254,11 @@ test('If a day is focused, it gets a special hasClass', function(assert) {
 });
 
 test('Clicking one day, triggers the `onSelect` action with that day (which is a object with some basic information)', function(assert) {
-  assert.expect(2);
-  this.didChange = function(day, e) {
+  assert.expect(3);
+  this.didChange = function(day, calendar, e) {
     assert.isDay(day, 'The first argument is a day object');
-    assert.ok(e instanceof Event, 'The second argument is an event');
+    assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
+    assert.ok(e instanceof Event, 'The third argument is an event');
   };
   this.render(hbs`
     {{#power-calendar onSelect=(action didChange) as |calendar|}}

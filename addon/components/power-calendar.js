@@ -18,10 +18,15 @@ export default Component.extend({
   // Lifecycle chooks
   init() {
     this._super(...arguments);
-    let changeCenter = (newCenter) => this.get('changeCenterTask').perform(moment(newCenter));
+    let changeCenter = (newCenter, calendar, e) => {
+      return this.get('changeCenterTask').perform(moment(newCenter), calendar, e);
+    };
     this.publicActions = {
       changeCenter,
-      moveCenter: (step, unit) => changeCenter(moment(this.get('center')).add(step, unit)),
+      moveCenter: (step, unit, calendar, e) => {
+        let newCenter = moment(this.get('center')).add(step, unit);
+        return changeCenter(newCenter, calendar, e);
+      },
       select: (...args) => this.send('select', ...args)
     };
     this.get('powerCalendarService').registerCalendar(this);
@@ -62,16 +67,20 @@ export default Component.extend({
 
   // Actions
   actions: {
-    select(day, e) {
+    select(day, calendar, e) {
       let action = this.get('onSelect');
       if (action) {
-        action(day, e);
+        action(day, calendar, e);
       }
     }
   },
 
   // Tasks
-  changeCenterTask: task(function* (newCenterMoment) {
-    yield this.get('onCenterChange')({ date: newCenterMoment.toDate(), moment: newCenterMoment });
+  changeCenterTask: task(function* (newCenterMoment, calendar, e) {
+    yield this.get('onCenterChange')(
+      { date: newCenterMoment.toDate(), moment: newCenterMoment },
+      calendar,
+      e
+    );
   })
 });

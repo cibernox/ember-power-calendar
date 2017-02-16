@@ -16,10 +16,10 @@ export default CalendarComponent.extend({
 
   // Actions
   actions: {
-    select(day, e) {
+    select(day, calendar, e) {
       let action = this.get('onSelect');
       if (action) {
-        action(this._buildCollection(day), e);
+        action(this._buildCollection(day), calendar, e);
       }
     }
   },

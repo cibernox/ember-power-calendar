@@ -1,5 +1,8 @@
 ## Master
 
+- [BREAKING] `onSelect` and `onCenterAction` now receive the publicAPI of the component 
+  as second argument and the event as third.
+
 ## 0.2.7
 - [ENHANCEMENT] `data-ember-power-calendar-id` can be bound from the outside
 

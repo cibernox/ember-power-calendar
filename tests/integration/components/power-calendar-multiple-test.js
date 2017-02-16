@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import { assertionInjector, assertionCleanup } from '../../assertions';
 import moment from 'moment';
 import getOwner from 'ember-owner/get';
 import run from 'ember-runloop';
@@ -9,6 +10,11 @@ moduleForComponent('power-calendar-multiple', 'Integration | Component | power c
   beforeEach() {
     let calendarService = getOwner(this).lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
+    assertionInjector(this);
+  },
+
+  afterEach() {
+    assertionCleanup(this);
   }
 });
 
@@ -31,7 +37,7 @@ test('When a multiple calendar receives an array of dates, those dates are marke
 
 test('When days are clicked in a multiple calendar, the `onSelect` action is called with the acumulated list of days, in the order they were clicked', function(assert) {
   let callsCount = 0;
-  this.didChange = (days, e) => {
+  this.didChange = (days, calendar, e) => {
     callsCount++;
     if (callsCount === 1) {
       assert.equal(days.date.length, 1);
@@ -50,7 +56,8 @@ test('When days are clicked in a multiple calendar, the `onSelect` action is cal
       assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
       assert.ok(days.moment[1].isSame(moment('2013-10-09'), 'day'));
     }
-    assert.ok(e instanceof Event, 'The second argument is an event');
+    assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
+    assert.ok(e instanceof Event, 'The third argument is an event');
     this.set('selected', days.date);
   };
 

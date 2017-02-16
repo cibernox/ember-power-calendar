@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import { assertionInjector, assertionCleanup } from '../../assertions';
 import getOwner from 'ember-owner/get';
 import run from 'ember-runloop';
 import moment from 'moment';
@@ -9,6 +10,11 @@ moduleForComponent('power-calendar-range', 'Integration | Component | power cale
   beforeEach() {
     let calendarService = getOwner(this).lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
+    assertionInjector(this);
+  },
+
+  afterEach() {
+    assertionCleanup(this);
   }
 });
 
@@ -35,7 +41,7 @@ test('when it receives a range in the `selected` argument containing `Date` obje
 test('In range calendars, clicking a day selects one end of the range, and clicking another closes the range', function(assert) {
   this.selected = null;
   let numberOfCalls = 0;
-  this.didChange = (range, e) => {
+  this.didChange = (range, calendar, e) => {
     numberOfCalls++;
     if (numberOfCalls === 1) {
       assert.ok(range.date.start, 'The start is present');
@@ -45,7 +51,8 @@ test('In range calendars, clicking a day selects one end of the range, and click
       assert.ok(range.date.end, 'The start is also present');
     }
     this.set('selected', range.date);
-    assert.ok(e instanceof Event, 'The second argument is an event');
+    assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
+    assert.ok(e instanceof Event, 'The third argument is an event');
   };
   this.render(hbs`
     {{#power-calendar-range selected=selected onSelect=(action didChange) as |calendar|}}
@@ -74,7 +81,7 @@ test('In range calendars, clicking a day selects one end of the range, and click
 test('In range calendars, clicking first the end of the range and then the start is not a problem', function(assert) {
   this.selected = null;
   let numberOfCalls = 0;
-  this.didChange = (range, e) => {
+  this.didChange = (range, calendar, e) => {
     numberOfCalls++;
     if (numberOfCalls === 1) {
       assert.ok(range.date.start, 'The start is present');
@@ -84,7 +91,8 @@ test('In range calendars, clicking first the end of the range and then the start
       assert.ok(range.date.end, 'The start is also present');
     }
     this.set('selected', range.date);
-    assert.ok(e instanceof Event, 'The second argument is an event');
+    assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
+    assert.ok(e instanceof Event, 'The third argument is an event');
   };
   this.render(hbs`
     {{#power-calendar-range selected=selected onSelect=(action didChange) as |calendar|}}
