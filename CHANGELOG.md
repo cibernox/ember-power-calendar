@@ -1,7 +1,10 @@
 ## Master
 
+## 0.3.1
+- [ENHANCEMENT] Added less support.
+
 ## 0.3.0
-- [BREAKING] `onSelect` and `onCenterAction` now receive the publicAPI of the component 
+- [BREAKING] `onSelect` and `onCenterAction` now receive the publicAPI of the component
   as second argument and the event as third.
 
 ## 0.2.7
@@ -21,7 +24,7 @@
 
 ## 0.2.4
 - [ENHANCEMENT] Add `maxLength` to the `{{cal.days}}` component of multiple selects. It determines the
-  max number of day selections the user can make. Once that number is reached no more days can be selected, 
+  max number of day selections the user can make. Once that number is reached no more days can be selected,
   but those selected can be unselected.  Defaults to `Infinity` so there is no limit by default.
 
 ## 0.2.3
@@ -32,7 +35,7 @@
 - [ENHANCEMENT] Improve default styles of calendar days.
 
 ## 0.2.1
-- [ENHANCEMENT] Make Sass mixin more configurable, by accepting more variables. The basic usage remains 
+- [ENHANCEMENT] Make Sass mixin more configurable, by accepting more variables. The basic usage remains
   the same, this is not breaking.
 ## 0.2.1
 - [BREAKING] The component no longer automatically gets a `ember-power-calendar--loading` when
