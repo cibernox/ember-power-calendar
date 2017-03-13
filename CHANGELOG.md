@@ -1,5 +1,8 @@
 ## Master
 
+## 0.3.2
+- [BUGFIX] Broken safari styles due to unnecesary flex position on days.
+
 ## 0.3.1
 - [ENHANCEMENT] Added less support.
 
