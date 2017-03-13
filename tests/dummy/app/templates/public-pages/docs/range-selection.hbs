@@ -23,9 +23,9 @@
   Lets see this in action.
 </p>
 
-{{#code-sample hbs="range-selection-1.hbs" js="range-selection-1-js.js" as |partialName|}}
+{{#code-example hbs="range-selection-1.hbs" js="range-selection-1-js.js" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}}
+{{/code-example}}
 
 <p>
   All the days in the range are selected, and the ends of the range have some special
@@ -36,9 +36,9 @@
   Let's see an example:
 </p>
 
-{{#code-sample hbs="range-selection-2.hbs" js="range-selection-1-js.js" as |partialName|}}
+{{#code-example hbs="range-selection-2.hbs" js="range-selection-1-js.js" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}}
+{{/code-example}}
 
 <p>Hey, I never said I was a brilliant designer! But you get the idea.</p>
 
@@ -58,9 +58,9 @@
 
 <p>If you want to force the user to pick a range of at least 3 days you can just pass a number:</p>
 
-{{#code-sample hbs="range-selection-3.hbs" as |partialName|}}
+{{#code-example hbs="range-selection-3.hbs" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}}
+{{/code-example}}
 
 <p>
   Notice that once you select one end of the range the days that cannot be selected are disabled automatically.
@@ -71,26 +71,26 @@
   Let's make the range be of at most one week.
 </p>
 
-{{#code-sample hbs="range-selection-4.hbs" as |partialName|}}
+{{#code-example hbs="range-selection-4.hbs" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}}
+{{/code-example}}
 
 <p>
   As you'd expect, you can also use the abbreviations accepted by <code>MomentJs</code> and
   combine <code>minRange</code> and <code>maxRange</code> as you want.
 </p>
 
-{{#code-sample hbs="range-selection-5.hbs" as |partialName|}}
+{{#code-example hbs="range-selection-5.hbs" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}}
+{{/code-example}}
 
 <p>
   If you want to allow ranges to begin and end on the same day, pass <code>minRange=0</code>.
 </p>
 
-{{#code-sample hbs="range-selection-6.hbs" as |partialName|}}
+{{#code-example hbs="range-selection-6.hbs" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}}
+{{/code-example}}
 
 <p>
   Now let's see how to select several non-consecutive dates.

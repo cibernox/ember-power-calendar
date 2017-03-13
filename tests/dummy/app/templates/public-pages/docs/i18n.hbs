@@ -10,18 +10,18 @@
   When the locale is updates not only the language changes but also the first day of the week and any other configuration.
 </p>
 
-{{#code-sample hbs="i18n-1.hbs" js="i18n-1-js.js" as |partialName|}}
+{{#code-example hbs="i18n-1.hbs" js="i18n-1-js.js" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}}
+{{/code-example}}
 
 <p>
   Also, you can override the global locale on a per-instance basis passing <code>locale="some-locale"</code>.
   The next calendar is going to be in russian no matter what the global locale is.
 </p>
 
-{{#code-sample hbs="i18n-2.hbs" as |partialName|}}
+{{#code-example hbs="i18n-2.hbs" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}}
+{{/code-example}}
 
 <p>
   In the next sections you are going to see how to customize the sub-components of

@@ -11,9 +11,9 @@
   but the one you probably care most about is named <code>days</code>.
 </p>
 
-{{#code-sample hbs="how-to-use-it-1.hbs" as |partialName|}}
+{{#code-example hbs="how-to-use-it-1.hbs" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}}
+{{/code-example}}
 
 <p>
   Nice, but not very interesting. The <code>calendar.days</code> component renders a grid of days, and it is smart enough to display
@@ -32,9 +32,9 @@
   Let's render October of 2013.
 </p>
 
-{{#code-sample hbs="how-to-use-it-2.hbs" js="how-to-use-it-2-js.js" as |partialName|}}
+{{#code-example hbs="how-to-use-it-2.hbs" js="how-to-use-it-2-js.js" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}}
+{{/code-example}}
 
 <p>
   The month above is November of 2013, but that's hard to know if there is nothing else telling us. The second
@@ -42,9 +42,9 @@
   This component displays the name of the month and, optionally, some actions to navigate to the previous/next month.
 </p>
 
-{{#code-sample hbs="how-to-use-it-3.hbs" js="how-to-use-it-3-js.js" as |partialName|}}
+{{#code-example hbs="how-to-use-it-3.hbs" js="how-to-use-it-3-js.js" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}}
+{{/code-example}}
 
 <p>
   Oh, and by the way, ember-power-calendar and all its sub-components speak native <code>Date</code> and <code>MomentJS</code>.
@@ -57,9 +57,9 @@
   Sometimes you want a day of the month to be highlighted. To do it pass <code>selected=someDate</code> to the component.
 </p>
 
-{{#code-sample hbs="how-to-use-it-4.hbs" js="how-to-use-it-4-js.js" as |partialName|}}
+{{#code-example hbs="how-to-use-it-4.hbs" js="how-to-use-it-4-js.js" as |partialName|}}
   {{partial partialName}}
-{{/code-sample}}
+{{/code-example}}
 
 <p>
   You can see that the calendar shows the selected date in blue. You may have also noticed that
