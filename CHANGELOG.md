@@ -1,5 +1,7 @@
 ## Master
 
+- [INTERNAL] Update to Babel 6
+
 ## 0.3.2
 - [BUGFIX] Broken safari styles due to unnecesary flex position on days.
 
