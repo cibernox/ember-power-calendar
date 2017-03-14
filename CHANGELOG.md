@@ -1,5 +1,6 @@
 ## Master
 
+## 0.4.0
 - [INTERNAL] Update to Babel 6
 
 ## 0.3.2
