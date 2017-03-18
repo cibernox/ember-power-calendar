@@ -1,6 +1,6 @@
 {{#basic-dropdown as |dropdown|}}
   <input type="text"
-    id="ember-basic-dropdown-trigger-{{dropdown.uniqueId}}"
+    data-ebd-id="{{dropdown.uniqueId}}-trigger"
     class="datepicker-demo-input"
     onclick={{dropdown.actions.toggle}}
     value={{if selected (moment-format selected 'DD-MM-YYYY')}}
