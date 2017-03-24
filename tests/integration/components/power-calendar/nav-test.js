@@ -4,6 +4,7 @@ import { assertionInjector, assertionCleanup } from '../../../assertions';
 import moment from 'moment';
 import run from 'ember-runloop';
 import getOwner from 'ember-owner/get';
+import { find } from 'ember-native-dom-helpers';
 
 let calendarService, momentService, calendar;
 moduleForComponent('power-calendar', 'Integration | Component | power-calendar/nav', {
@@ -32,14 +33,14 @@ test('[i18n] The name of the month respect the locale set in moment.js', functio
   assert.expect(1);
   run(() => momentService.changeLocale('pt'));
   this.render(hbs`{{#power-calendar as |cal|}}{{cal.nav}}{{/power-calendar}}`);
-  assert.equal(this.$('.ember-power-calendar-nav-title').text().trim(), 'Outubro 2013');
+  assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'Outubro 2013');
 });
 
 test('[i18n] If the user sets a different locale in the calendar, this setting overrides the locale set in moment.js', function(assert) {
   assert.expect(2);
   this.calendar = calendar;
   this.render(hbs`{{power-calendar/nav calendar=calendar}}`);
-  assert.equal(this.$('.ember-power-calendar-nav-title').text().trim(), 'October 2013');
+  assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'October 2013');
   run(() => this.set('calendar.locale', 'es'));
-  assert.equal(this.$('.ember-power-calendar-nav-title').text().trim(), 'octubre 2013');
+  assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'octubre 2013');
 });
