@@ -52,6 +52,7 @@
     "ember-export-application-global": "^1.0.5",
     "ember-href-to": "^1.11.1",
     "ember-load-initializers": "^0.6.0",
+    "ember-native-dom-helpers": "^0.3.4",
     "ember-pagefront": "0.11.2",
     "ember-power-select": "1.6.0-beta.0",
     "ember-resolver": "^3.0.0",

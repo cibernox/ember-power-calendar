@@ -4,6 +4,7 @@ import { assertionInjector, assertionCleanup } from '../../assertions';
 import moment from 'moment';
 import getOwner from 'ember-owner/get';
 import run from 'ember-runloop';
+import { find, click } from 'ember-native-dom-helpers';
 
 moduleForComponent('power-calendar-multiple', 'Integration | Component | power calendar multiple', {
   integration: true,
@@ -68,24 +69,24 @@ test('When days are clicked in a multiple calendar, the `onSelect` action is cal
     {{/power-calendar-multiple}}
   `);
 
-  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days are selected');
+  assert.notOk(find('.ember-power-calendar-day--selected'), 'No days are selected');
 
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-05"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
+  click('.ember-power-calendar-day[data-date="2013-10-05"]');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-05"]').classList.contains('ember-power-calendar-day--selected'));
 
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'));
+  click('.ember-power-calendar-day[data-date="2013-10-15"]');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-05"]').classList.contains('ember-power-calendar-day--selected'));
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--selected'));
 
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-09"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-09"]').hasClass('ember-power-calendar-day--selected'));
+  click('.ember-power-calendar-day[data-date="2013-10-09"]');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-05"]').classList.contains('ember-power-calendar-day--selected'));
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--selected'));
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-09"]').classList.contains('ember-power-calendar-day--selected'));
 
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-09"]').hasClass('ember-power-calendar-day--selected'));
+  click('.ember-power-calendar-day[data-date="2013-10-15"]');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-05"]').classList.contains('ember-power-calendar-day--selected'));
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--selected'));
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-09"]').classList.contains('ember-power-calendar-day--selected'));
 });
 
 test('Clicking on a day selects it, and clicking again on it unselects it', function(assert) {
@@ -96,30 +97,30 @@ test('Clicking on a day selects it, and clicking again on it unselects it', func
       {{calendar.days}}
     {{/power-calendar-multiple}}
   `);
-  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days are selected');
+  assert.notOk(find('.ember-power-calendar-day--selected'), 'No days are selected');
 
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-05"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
+  click('.ember-power-calendar-day[data-date="2013-10-05"]');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-05"]').classList.contains('ember-power-calendar-day--selected'));
 
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'));
+  click('.ember-power-calendar-day[data-date="2013-10-10"]');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-05"]').classList.contains('ember-power-calendar-day--selected'));
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-10"]').classList.contains('ember-power-calendar-day--selected'));
 
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-12"]').get(0).click());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-12"]').hasClass('ember-power-calendar-day--selected'));
+  click('.ember-power-calendar-day[data-date="2013-10-12"]');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-05"]').classList.contains('ember-power-calendar-day--selected'));
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-10"]').classList.contains('ember-power-calendar-day--selected'));
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-12"]').classList.contains('ember-power-calendar-day--selected'));
   assert.equal(this.get('selected')[0].format('YYYY-MM-DD'), '2013-10-05');
   assert.equal(this.get('selected')[1].format('YYYY-MM-DD'), '2013-10-10');
   assert.equal(this.get('selected')[2].format('YYYY-MM-DD'), '2013-10-12');
 
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-10"]').get(0).click());
+  click('.ember-power-calendar-day[data-date="2013-10-10"]');
   assert.equal(this.get('selected')[0].format('YYYY-MM-DD'), '2013-10-05');
   assert.equal(this.get('selected')[1].format('YYYY-MM-DD'), '2013-10-12');
 
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-12"]').get(0).click());
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-05"]').get(0).click());
-  assert.equal(this.$('.ember-power-calendar-day--selected').length, 0, 'No days are selected');
+  click('.ember-power-calendar-day[data-date="2013-10-12"]');
+  click('.ember-power-calendar-day[data-date="2013-10-05"]');
+  assert.notOk(find('.ember-power-calendar-day--selected'), 'No days are selected');
 });
 
 test('If the user passes `disabledDates=someDate` to multiple calendars, days on those days are disabled', function(assert) {
@@ -137,19 +138,19 @@ test('If the user passes `disabledDates=someDate` to multiple calendars, days on
     {{/power-calendar-multiple}}
   `);
 
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 14th is enabled');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The 15th is disabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 16th is enabled');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').prop('disabled'), 'The 17th is disabled');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-21"]').prop('disabled'), 'The 21st is disabled');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-23"]').prop('disabled'), 'The 23rd is disabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 14th is enabled');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The 15th is disabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 16th is enabled');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-17"]').disabled, 'The 17th is disabled');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-21"]').disabled, 'The 21st is disabled');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-23"]').disabled, 'The 23rd is disabled');
 
   run(() => this.set('disabledDates', [new Date(2013, 9, 22)]));
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 14th is enabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The 15th is enabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 16th is enabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').prop('disabled'), 'The 17th is enabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-21"]').prop('disabled'), 'The 21st is enabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-23"]').prop('disabled'), 'The 23rd is enabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-23"]').prop('disabled'), 'The 22nd is disabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 14th is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The 15th is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 16th is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-17"]').disabled, 'The 17th is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-21"]').disabled, 'The 21st is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-23"]').disabled, 'The 23rd is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-23"]').disabled, 'The 22nd is disabled');
 });

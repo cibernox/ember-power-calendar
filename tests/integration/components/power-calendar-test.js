@@ -4,25 +4,8 @@ import { assertionInjector, assertionCleanup } from '../../assertions';
 import moment from 'moment';
 import run from 'ember-runloop';
 import getOwner from 'ember-owner/get';
-import $ from 'jquery';
 import RSVP from 'rsvp';
-
-function triggerKeydown(domElement, k) {
-  let oEvent = document.createEvent('Events');
-  oEvent.initEvent('keydown', true, true);
-  $.extend(oEvent, {
-    view: window,
-    ctrlKey: false,
-    altKey: false,
-    shiftKey: false,
-    metaKey: false,
-    keyCode: k,
-    charCode: k
-  });
-  run(() => {
-    domElement.dispatchEvent(oEvent);
-  });
-}
+import { find, click, keyEvent } from 'ember-native-dom-helpers';
 
 let momentService;
 moduleForComponent('power-calendar', 'Integration | Component | Power Calendar', {
@@ -47,9 +30,9 @@ test('Rendered without any arguments, it displays the current month and has no m
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('October 2013') > -1, 'The calendar is centered in the present');
-  assert.equal(this.$('.ember-power-calendar-nav-control').length, 0, 'There is no controls to navigate months');
-  assert.equal(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').length, 1, 'The days in the calendar actually belong to the presnet month');
+  assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('October 2013') > -1, 'The calendar is centered in the present');
+  assert.notOk(find('.ember-power-calendar-nav-control'), 'There is no controls to navigate months');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-01"]'), 'The days in the calendar actually belong to the presnet month');
 });
 
 test('when it receives a Date in the `center` argument, it displays that month', function(assert) {
@@ -61,9 +44,9 @@ test('when it receives a Date in the `center` argument, it displays that month',
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
-  assert.equal(this.$('.ember-power-calendar-nav-control').length, 0, 'There is no controls to navigate months');
-  assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
+  assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
+  assert.notOk(find('.ember-power-calendar-nav-control'), 'There is no controls to navigate months');
+  assert.ok(find('.ember-power-calendar-day[data-date="2016-02-29"]'), 'The days in the calendar actually belong to the displayed month');
 });
 
 test('when it receives a `moment()` in the `center` argument, it displays that month', function(assert) {
@@ -75,9 +58,9 @@ test('when it receives a `moment()` in the `center` argument, it displays that m
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
-  assert.equal(this.$('.ember-power-calendar-nav-control').length, 0, 'There is no controls to navigate months');
-  assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
+  assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
+  assert.notOk(find('.ember-power-calendar-nav-control'), 'There is no controls to navigate months');
+  assert.ok(find('.ember-power-calendar-day[data-date="2016-02-29"]'), 'The days in the calendar actually belong to the displayed month');
 });
 
 test('when it receives a `center` and an `onCenterChange` action, it shows controls to go to the next & previous month and the action is called when they are clicked', function(assert) {
@@ -92,15 +75,15 @@ test('when it receives a `center` and an `onCenterChange` action, it shows contr
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
-  assert.equal(this.$('.ember-power-calendar-nav-control--previous').length, 1, 'There is a control to go to previous month');
-  assert.equal(this.$('.ember-power-calendar-nav-control--next').length, 1, 'There is a control to go to next month');
+  assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
+  assert.ok(find('.ember-power-calendar-nav-control--previous'), 'There is a control to go to previous month');
+  assert.ok(find('.ember-power-calendar-nav-control--next'), 'There is a control to go to next month');
 
-  run(() => this.$('.ember-power-calendar-nav-control--previous').click());
-  run(() => this.$('.ember-power-calendar-nav-control--next').click());
-  run(() => this.$('.ember-power-calendar-nav-control--next').click());
+  click('.ember-power-calendar-nav-control--previous');
+  click('.ember-power-calendar-nav-control--next');
+  click('.ember-power-calendar-nav-control--next');
 
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is still centered in the the passed month');
+  assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('February 2016') > -1, 'The calendar is still centered in the the passed month');
 });
 
 test('when the `onCenterChange` action changes the `center` attribute, the calendar shows the new month', function(assert) {
@@ -112,11 +95,11 @@ test('when the `onCenterChange` action changes the `center` attribute, the calen
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
+  assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('February 2016') > -1, 'The calendar is centered in the the passed month');
 
-  run(() => this.$('.ember-power-calendar-nav-control--next').click());
+  click('.ember-power-calendar-nav-control--next');
 
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('March 2016') > -1, 'The calendar is now centered in the the next month');
+  assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('March 2016') > -1, 'The calendar is now centered in the the next month');
 });
 
 test('the `onCenterChange` action receives the date/moment compound object, the calendar and the event', function(assert) {
@@ -134,7 +117,7 @@ test('the `onCenterChange` action receives the date/moment compound object, the 
     {{/power-calendar}}
   `);
 
-  run(() => this.$('.ember-power-calendar-nav-control--next')[0].click());
+  click('.ember-power-calendar-nav-control--next');
 });
 
 test('when it receives a Date in the `selected` argument, it displays that month, and that day is marked as selected', function(assert) {
@@ -146,10 +129,10 @@ test('when it receives a Date in the `selected` argument, it displays that month
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the selected date');
-  assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
-  assert.equal(this.$('.ember-power-calendar-day--selected').length, 1, 'There is one day marked as selected');
-  assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-02-05', 'The passed `selected` is the selected day');
+  assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the selected date');
+  assert.ok(find('.ember-power-calendar-day[data-date="2016-02-29"]'), 'The days in the calendar actually belong to the displayed month');
+  assert.ok(find('.ember-power-calendar-day--selected'), 'There is one day marked as selected');
+  assert.equal(find('.ember-power-calendar-day--selected').dataset.date, '2016-02-05', 'The passed `selected` is the selected day');
 });
 
 test('when it receives a `moment` in the `selected` argument, it displays that month, and that day is marked as selected', function(assert) {
@@ -161,10 +144,10 @@ test('when it receives a `moment` in the `selected` argument, it displays that m
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the selected date');
-  assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
-  assert.equal(this.$('.ember-power-calendar-day--selected').length, 1, 'There is one day marked as selected');
-  assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-02-05', 'The passed `selected` is the selected day');
+  assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the selected date');
+  assert.ok(find('.ember-power-calendar-day[data-date="2016-02-29"]'), 'The days in the calendar actually belong to the displayed month');
+  assert.ok(find('.ember-power-calendar-day--selected'), 'There is one day marked as selected');
+  assert.equal(find('.ember-power-calendar-day--selected').dataset.date, '2016-02-05', 'The passed `selected` is the selected day');
 });
 
 test('when it receives both `selected` and `center`, `center` trumps and that month is displayed', function(assert) {
@@ -177,10 +160,10 @@ test('when it receives both `selected` and `center`, `center` trumps and that mo
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the `center`, no on the `selected` date');
-  assert.equal(this.$('.ember-power-calendar-day[data-date="2016-02-29"]').length, 1, 'The days in the calendar actually belong to the displayed month');
-  assert.equal(this.$('.ember-power-calendar-day--selected').length, 1, 'There is one day marked as selected');
-  assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-03-05', 'The passed `selected` is the selected day');
+  assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('February 2016') > -1, 'The calendar is centered in the `center`, no on the `selected` date');
+  assert.ok(find('.ember-power-calendar-day[data-date="2016-02-29"]'), 'The days in the calendar actually belong to the displayed month');
+  assert.ok(find('.ember-power-calendar-day--selected'), 'There is one day marked as selected');
+  assert.equal(find('.ember-power-calendar-day--selected').dataset.date, '2016-03-05', 'The passed `selected` is the selected day');
 });
 
 test('The days that belong to the currently displayed month have a distintive class that the days belonging to the previous/next month don\'t', function(assert) {
@@ -191,10 +174,10 @@ test('The days that belong to the currently displayed month have a distintive cl
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').hasClass('ember-power-calendar-day--current-month'), 'Days of the current month have this class');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-31"]').hasClass('ember-power-calendar-day--current-month'), 'Days of the current month have this class');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-09-30"]').hasClass('ember-power-calendar-day--current-month'), 'Days of the previous month don\'t');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-11-01"]').hasClass('ember-power-calendar-day--current-month'), 'Days of the previous month don\'t');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-01"]').classList.contains('ember-power-calendar-day--current-month'), 'Days of the current month have this class');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-31"]').classList.contains('ember-power-calendar-day--current-month'), 'Days of the current month have this class');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-09-30"]').classList.contains('ember-power-calendar-day--current-month'), 'Days of the previous month don\'t');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-11-01"]').classList.contains('ember-power-calendar-day--current-month'), 'Days of the previous month don\'t');
 });
 
 test('The current day has a special class that other days don\'t', function(assert) {
@@ -205,9 +188,9 @@ test('The current day has a special class that other days don\'t', function(asse
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--today'), 'The current day has a special class');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-19"]').hasClass('ember-power-calendar-day--today'));
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').hasClass('ember-power-calendar-day--today'));
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-18"]').classList.contains('ember-power-calendar-day--today'), 'The current day has a special class');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-19"]').classList.contains('ember-power-calendar-day--today'));
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-17"]').classList.contains('ember-power-calendar-day--today'));
 });
 
 test('If there is no `onSelect` action, days cannot be focused', function(assert) {
@@ -218,9 +201,9 @@ test('If there is no `onSelect` action, days cannot be focused', function(assert
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]');
-  run(() => $dayElement.focus());
-  assert.notEqual(document.activeElement, $dayElement.get(0));
+  let dayElement = find('.ember-power-calendar-day[data-date="2013-10-18"]');
+  run(() => dayElement.focus());
+  assert.notEqual(document.activeElement, dayElement);
 });
 
 test('If there is an `onSelect` action, days can be focused', function(assert) {
@@ -231,9 +214,9 @@ test('If there is an `onSelect` action, days can be focused', function(assert) {
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]');
-  run(() => $dayElement.focus());
-  assert.equal(document.activeElement, $dayElement.get(0));
+  let dayElement = find('.ember-power-calendar-day[data-date="2013-10-18"]');
+  run(() => dayElement.focus());
+  assert.equal(document.activeElement, dayElement);
 });
 
 test('If a day is focused, it gets a special hasClass', function(assert) {
@@ -244,13 +227,13 @@ test('If a day is focused, it gets a special hasClass', function(assert) {
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]');
-  run(() => $dayElement.focus());
-  assert.ok($dayElement.hasClass('ember-power-calendar-day--focused'), 'The focused day gets a special class');
-  let $anotherDayElement = this.$('.ember-power-calendar-day[data-date="2013-10-21"]');
-  run(() => $anotherDayElement.focus());
-  assert.notOk($dayElement.hasClass('ember-power-calendar-day--focused'), 'The focused day gets a special class');
-  assert.ok($anotherDayElement.hasClass('ember-power-calendar-day--focused'), 'The focused day gets a special class');
+  let dayElement = find('.ember-power-calendar-day[data-date="2013-10-18"]');
+  run(() => dayElement.focus());
+  assert.ok(dayElement.classList.contains('ember-power-calendar-day--focused'), 'The focused day gets a special class');
+  let anotherDayElement = find('.ember-power-calendar-day[data-date="2013-10-21"]');
+  run(() => anotherDayElement.focus());
+  assert.notOk(dayElement.classList.contains('ember-power-calendar-day--focused'), 'The focused day gets a special class');
+  assert.ok(anotherDayElement.classList.contains('ember-power-calendar-day--focused'), 'The focused day gets a special class');
 });
 
 test('Clicking one day, triggers the `onSelect` action with that day (which is a object with some basic information)', function(assert) {
@@ -266,8 +249,7 @@ test('Clicking one day, triggers the `onSelect` action with that day (which is a
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  let dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0);
-  run(() => dayElement.click());
+  click('.ember-power-calendar-day[data-date="2013-10-18"]');
 });
 
 test('If the `onSelect` updates the selected value, it can work as a date-selector', function(assert) {
@@ -280,9 +262,9 @@ test('If the `onSelect` updates the selected value, it can work as a date-select
     {{/power-calendar}}
   `);
 
-  assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-02-05');
-  run(() => this.$('.ember-power-calendar-day[data-date="2016-02-21"]').click());
-  assert.equal(this.$('.ember-power-calendar-day--selected').data('date'), '2016-02-21');
+  assert.equal(find('.ember-power-calendar-day--selected').dataset.date, '2016-02-05');
+  click('.ember-power-calendar-day[data-date="2016-02-21"]');
+  assert.equal(find('.ember-power-calendar-day--selected').dataset.date, '2016-02-21');
 });
 
 test('If a day is focused, using left/right arrow keys focuses the previous/next day', function(assert) {
@@ -294,17 +276,17 @@ test('If a day is focused, using left/right arrow keys focuses the previous/next
     {{/power-calendar}}
   `);
 
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-18"]').focus());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
+  run(() => find('.ember-power-calendar-day[data-date="2013-10-18"]').focus());
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-18"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-18"]'));
 
-  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0), 37); // left arrow
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-17"]').get(0));
+  keyEvent('.ember-power-calendar-day[data-date="2013-10-18"]', 'keydown', 37); // left arrow
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-17"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-17"]'));
 
-  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').get(0), 39); // right arrow
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
+  keyEvent('.ember-power-calendar-day[data-date="2013-10-17"]', 'keydown', 39); // right arrow
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-18"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-18"]'));
 });
 
 test('If a day is focused, using up/down arrow keys focuses the same weekday of the previous/next week', function(assert) {
@@ -315,17 +297,17 @@ test('If a day is focused, using up/down arrow keys focuses the same weekday of 
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-18"]').focus());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
+  run(() => find('.ember-power-calendar-day[data-date="2013-10-18"]').focus());
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-18"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-18"]'));
 
-  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0), 38); // left arrow
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-11"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-11"]').get(0));
+  keyEvent('.ember-power-calendar-day[data-date="2013-10-18"]', 'keydown', 38); // left arrow
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-11"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-11"]'));
 
-  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').get(0), 40); // right arrow
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
+  keyEvent('.ember-power-calendar-day[data-date="2013-10-17"]', 'keydown', 40); // right arrow
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-18"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-18"]'));
 });
 
 test('If the `onCenterChange` action returns a `thenable`, the component enter loading state while that thenable resolves or rejects', function(assert) {
@@ -365,7 +347,7 @@ test('If the calendar without `onSelect` receives a block on the `days` componen
       {{/calendar.days}}
     {{/power-calendar}}
   `);
-  assert.equal(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').text().trim(), '1!', 'The block has been rendered');
+  assert.equal(find('.ember-power-calendar-day[data-date="2013-10-01"]').textContent.trim(), '1!', 'The block has been rendered');
 });
 
 test('If the calendar with `onSelect` receives a block on the `days` component, that block is used to render each one of the days of the cell', function(assert) {
@@ -377,7 +359,7 @@ test('If the calendar with `onSelect` receives a block on the `days` component, 
       {{/calendar.days}}
     {{/power-calendar}}
   `);
-  assert.equal(this.$('.ember-power-calendar-day[data-date="2013-10-01"]').text().trim(), '1!', 'The block has been rendered');
+  assert.equal(find('.ember-power-calendar-day[data-date="2013-10-01"]').textContent.trim(), '1!', 'The block has been rendered');
 });
 
 test('If the user passes `minDate=someDate` to single calendars, days before that one cannot be selected, but that day and those after can', function(assert) {
@@ -390,14 +372,14 @@ test('If the user passes `minDate=someDate` to single calendars, days before tha
     {{/power-calendar}}
   `);
 
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'Days before the minDate are disabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The minDate is selectable');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-16"]').prop('disabled'), 'Days after the minDate are selectable');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'Days before the minDate are disabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The minDate is selectable');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-16"]').disabled, 'Days after the minDate are selectable');
 
-  this.set('minDate', moment('2013-10-18'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'Days before the minDate are disabled');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').prop('disabled'), 'The minDate is selectable');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').prop('disabled'), 'Days after the minDate are selectable');
+  run(() => this.set('minDate', moment('2013-10-18')));
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'Days before the minDate are disabled');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-17"]').disabled, 'The minDate is selectable');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-18"]').disabled, 'Days after the minDate are selectable');
 });
 
 test('If the user passes `maxDate=someDate` to single calendars, days after that one cannot be selected, but that day and those days before can', function(assert) {
@@ -410,14 +392,14 @@ test('If the user passes `maxDate=someDate` to single calendars, days after that
     {{/power-calendar}}
   `);
 
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'Days before the minDate are selectable');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The maxDate is selectable');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-16"]').prop('disabled'), 'Days after the maxDate are disabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'Days before the minDate are selectable');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The maxDate is selectable');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-16"]').disabled, 'Days after the maxDate are disabled');
 
-  this.set('maxDate', moment('2013-10-18'));
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'Days before the minDate are selectable');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').prop('disabled'), 'The maxDate is selectable');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-19"]').prop('disabled'), 'Days after the maxDate are disabled');
+  run(() => this.set('maxDate', moment('2013-10-18')));
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'Days before the minDate are selectable');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-18"]').disabled, 'The maxDate is selectable');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-19"]').disabled, 'Days after the maxDate are disabled');
 });
 
 test('If the user passes `minDate=someDate` to range calendars, days before that one cannot be selected, but that day and those after can', function(assert) {
@@ -465,21 +447,21 @@ test('If the user passes `disabledDates=someDate` to single calendars, days on t
     {{/power-calendar}}
   `);
 
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 14th is enabled');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The 15th is disabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 16th is enabled');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').prop('disabled'), 'The 17th is disabled');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-21"]').prop('disabled'), 'The 21st is disabled');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-23"]').prop('disabled'), 'The 23rd is disabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 14th is enabled');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The 15th is disabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 16th is enabled');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-17"]').disabled, 'The 17th is disabled');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-21"]').disabled, 'The 21st is disabled');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-23"]').disabled, 'The 23rd is disabled');
 
   run(() => this.set('disabledDates', [new Date(2013, 9, 22)]));
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 14th is enabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The 15th is enabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'The 16th is enabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-17"]').prop('disabled'), 'The 17th is enabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-21"]').prop('disabled'), 'The 21st is enabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-23"]').prop('disabled'), 'The 23rd is enabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-23"]').prop('disabled'), 'The 22nd is disabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 14th is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The 15th is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 16th is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-17"]').disabled, 'The 17th is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-21"]').disabled, 'The 21st is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-23"]').disabled, 'The 23rd is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-23"]').disabled, 'The 22nd is disabled');
 });
 
 test('When the user tries to focus a disabled date with the left arrow key, the focus stays where it is', function(assert) {
@@ -492,14 +474,14 @@ test('When the user tries to focus a disabled date with the left arrow key, the 
     {{/power-calendar-range}}
   `);
 
-  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-15"]');
-  run(() => $dayElement.focus());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+  let dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-15"]');
+  run(() => dayElement.focus());
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-15"]'));
 
-  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0), 37); // left arrow
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+  keyEvent('.ember-power-calendar-day[data-date="2013-10-15"]', 'keydown', 37); // left arrow
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-15"]'));
 });
 
 test('When the user tries to focus a disabled date with the up arrow key, the focus goes to the latest selectable day', function(assert) {
@@ -512,14 +494,14 @@ test('When the user tries to focus a disabled date with the up arrow key, the fo
     {{/power-calendar-range}}
   `);
 
-  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-18"]');
-  run(() => $dayElement.focus());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0));
+  let dayElement = find('.ember-power-calendar-day[data-date="2013-10-18"]');
+  run(() => dayElement.focus());
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-18"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-18"]'));
 
-  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-18"]').get(0), 38); // up arrow
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+  keyEvent('.ember-power-calendar-day[data-date="2013-10-18"]', 'keydown', 38); // up arrow
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-15"]'));
 });
 
 test('When the user tries to focus a disabled date with the right arrow key, the focus stays where it is', function(assert) {
@@ -532,14 +514,14 @@ test('When the user tries to focus a disabled date with the right arrow key, the
     {{/power-calendar-range}}
   `);
 
-  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-15"]');
-  run(() => $dayElement.focus());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+  let dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-15"]');
+  run(() => dayElement.focus());
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-15"]'));
 
-  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0), 39); // right arrow
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+  keyEvent('.ember-power-calendar-day[data-date="2013-10-15"]', 'keydown', 39); // right arrow
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-15"]'));
 });
 
 test('When the user tries to focus a disabled date with the down arrow key, the focus goes to the latest selectable day', function(assert) {
@@ -552,14 +534,14 @@ test('When the user tries to focus a disabled date with the down arrow key, the 
     {{/power-calendar-range}}
   `);
 
-  let $dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-11"]');
-  run(() => $dayElement.focus());
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-11"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-11"]').get(0));
+  let dayElement = find('.ember-power-calendar-day[data-date="2013-10-11"]');
+  run(() => dayElement.focus());
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-11"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-11"]'));
 
-  triggerKeydown(this.$('.ember-power-calendar-day[data-date="2013-10-11"]').get(0), 40); // down arrow
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused'));
-  assert.equal(document.activeElement, this.$('.ember-power-calendar-day[data-date="2013-10-15"]').get(0));
+  keyEvent('.ember-power-calendar-day[data-date="2013-10-11"]', 'keydown', 40); // down arrow
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--focused'));
+  assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-15"]'));
 });
 
 test('[i18n] If the global locale in ember-moment changes, the calendar updates', function(assert) {
