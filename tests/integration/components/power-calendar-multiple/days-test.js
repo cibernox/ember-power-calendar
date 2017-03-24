@@ -1,9 +1,9 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import run from 'ember-runloop';
 import getOwner from 'ember-owner/get';
+import { find, click } from 'ember-native-dom-helpers';
 
-moduleForComponent('power-calendar-multiple/days', 'Integration | Component | power calendar multiple/days', {
+moduleForComponent('power-calendar-multiple/days', 'Integration | Component | power-calendar-multiple/days', {
   integration: true,
   beforeEach() {
     let calendarService = getOwner(this).lookup('service:power-calendar');
@@ -19,13 +19,13 @@ test('The maxLength property sets a maximum number of available days', function(
       {{calendar.days maxLength=1}}
     {{/power-calendar-multiple}}
   `);
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-05"]').get(0).click());
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').is(':disabled'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-06"]').is(':disabled'));
+  click('.ember-power-calendar-day[data-date="2013-10-05"]');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-05"]').disabled);
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
 
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-05"]').get(0).click());
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').is(':disabled'));
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-06"]').is(':disabled'));
+  click('.ember-power-calendar-day[data-date="2013-10-05"]');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-05"]').disabled);
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
 });
 
 test('the maxLength property can handle changing of the property', function(assert) {
@@ -37,12 +37,12 @@ test('the maxLength property can handle changing of the property', function(asse
       {{calendar.days maxLength=max}}
     {{/power-calendar-multiple}}
   `);
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-05"]').get(0).click());
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-05"]').is(':disabled'));
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-06"]').is(':disabled'));
+  click('.ember-power-calendar-day[data-date="2013-10-05"]');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-05"]').disabled);
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
 
   this.set('max', 2);
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-06"]').is(':disabled'));
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
 });
 
 test('maxLength can handle null for the selected days', function(assert) {
@@ -56,9 +56,9 @@ test('maxLength can handle null for the selected days', function(assert) {
       {{calendar.days maxLength=max}}
     {{/power-calendar-multiple}}
   `);
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-05"]').get(0).click());
+  click('.ember-power-calendar-day[data-date="2013-10-05"]');
   this.set('collection', null);
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-06"]').is(':disabled'));
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
 });
 
 test('maxLength can handle null for the maxLength property', function(assert) {
@@ -71,7 +71,7 @@ test('maxLength can handle null for the maxLength property', function(assert) {
       {{calendar.days maxLength=max}}
     {{/power-calendar-multiple}}
   `);
-  run(() => this.$('.ember-power-calendar-day[data-date="2013-10-05"]').get(0).click());
+  click('.ember-power-calendar-day[data-date="2013-10-05"]');
 
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-06"]').is(':disabled'));
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
 });
