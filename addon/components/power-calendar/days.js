@@ -26,13 +26,18 @@ export default Component.extend({
   weekdayFormat: 'short', // "min" | "short" | "long"
   powerCalendarService: service('power-calendar'),
   attributeBindings: [
-    'data-power-calendar-id'
+    'data-power-calendar-id',
+    'data-start-of-week'
   ],
 
   // CPs
   'data-power-calendar-id': computed.oneWay('calendar.uniqueId'),
   weekdaysMin: computed('calendar.locale', function() {
     return withLocale(this.get('calendar.locale'), () => moment.weekdaysMin());
+  }),
+
+  'data-start-of-week': computed('localeStartOfWeek', function() {
+    return withLocale(this.get('calendar.locale'), () => moment().startOf('week').format('ddd').toLowerCase());
   }),
 
   weekdaysShort: computed('calendar.locale', function() {
