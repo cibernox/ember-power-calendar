@@ -61,7 +61,8 @@
     "ember-truth-helpers": "^1.3.0",
     "eslint-plugin-ember-suave": "^1.0.0",
     "loader.js": "^4.0.10",
-    "memory-scroll": "0.2.0"
+    "memory-scroll": "0.2.0",
+    "phantomjs-prebuilt": "2"
   },
   "keywords": [
     "ember-addon",
