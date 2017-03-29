@@ -84,9 +84,6 @@ export default Component.extend({
     let i = 0;
     while (days[i]) {
       let daysOfWeek = days.slice(i, i + 7);
-      if (!showDaysAround) {
-        daysOfWeek = daysOfWeek.filter((d) => d.isCurrentMonth);
-      }
       weeks.push({
         id: days[i].moment.format('YYYY-w'),
         days: daysOfWeek,
@@ -165,15 +162,18 @@ export default Component.extend({
   buildDay(dayMoment, today, calendar) {
     let id = dayMoment.format('YYYY-MM-DD');
     let momentDate = dayMoment.clone();
+    let isCurrentMonth = momentDate.month() === calendar.center.month();
 
     return {
       id,
       number: momentDate.date(),
       date: momentDate._d,
       moment: momentDate,
+      dow: momentDate.format('ddd').toLowerCase(),
       isDisabled: this.dayIsDisabled(momentDate),
       isFocused: this.get('focusedId') === id,
-      isCurrentMonth: momentDate.month() === calendar.center.month(),
+      isCurrentMonth,
+      isVisible: isCurrentMonth || this.get('showDaysAround'),
       isToday: momentDate.isSame(today, 'day'),
       isSelected: this.dayIsSelected(momentDate, calendar)
     };

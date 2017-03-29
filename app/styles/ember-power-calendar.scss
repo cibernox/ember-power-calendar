@@ -1,3 +1,6 @@
+$cell-spacing: 2px;
+$row-spacing: 2px;
+
 .ember-power-calendar {
   box-sizing: border-box;
   position: relative;
@@ -24,6 +27,7 @@
 .ember-power-calendar-row {
   display: flex;
   justify-content: space-between;
+  margin: $row-spacing 0;
 }
 .ember-power-calendar-weekday {
   -webkit-appearance: none;
@@ -96,6 +100,9 @@
 .ember-power-calendar-day:not([disabled]):hover {
   background-color: #eee;
 }
+.ember-power-calendar-day.ember-power-calendar-day--blank:hover {
+  background-color: inherit;
+}
 .ember-power-calendar-day--other-month:not([disabled]):hover {
   color: #aaa;
 }
@@ -123,7 +130,7 @@
   $cell-size: null,
   $cell-width: $cell-size,
   $cell-height: $cell-size,
-  $cell-with-spacing-width: $cell-width + 2px,
+  $cell-with-spacing-width: $cell-width + $cell-spacing,
   $row-padding-top: 0,
   $row-padding-bottom: 0,
   $row-padding-left: 0,
@@ -132,49 +139,16 @@
 
   width: $row-width;
   .ember-power-calendar-week:first-child {
-    &[data-missing-days="1"] {
-      padding-left: $cell-with-spacing-width * 1;
-    }
-    &[data-missing-days="2"] {
-      padding-left: $cell-with-spacing-width * 2;
-    }
-    &[data-missing-days="3"] {
-      padding-left: $cell-with-spacing-width * 3;
-    }
-    &[data-missing-days="4"] {
-      padding-left: $cell-with-spacing-width * 4;
-    }
-    &[data-missing-days="5"] {
-      padding-left: $cell-with-spacing-width * 5;
-    }
-    &[data-missing-days="6"] {
-      padding-left: $cell-with-spacing-width * 6;
-    }
+    justify-content: flex-end;
   }
   .ember-power-calendar-week:last-child {
-    &[data-missing-days="1"] {
-      padding-right: $cell-with-spacing-width * 1;
-    }
-    &[data-missing-days="2"] {
-      padding-right: $cell-with-spacing-width * 2;
-    }
-    &[data-missing-days="3"] {
-      padding-right: $cell-with-spacing-width * 3;
-    }
-    &[data-missing-days="4"] {
-      padding-right: $cell-with-spacing-width * 4;
-    }
-    &[data-missing-days="5"] {
-      padding-right: $cell-with-spacing-width * 5;
-    }
-    &[data-missing-days="6"] {
-      padding-right: $cell-with-spacing-width * 6;
-    }
+    justify-content: flex-start;
   }
   .ember-power-calendar-day, .ember-power-calendar-weekday {
     max-width: $cell-width;
     max-height: $cell-height;
     width: $cell-width;
+    margin: 0 $cell-spacing;
     height: $cell-height;
   }
   .ember-power-calendar-weekdays, .ember-power-calendar-week {
