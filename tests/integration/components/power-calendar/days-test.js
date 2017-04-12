@@ -115,3 +115,19 @@ test('It can receive `data-power-calendar-id` and it is bound to an attribute', 
   this.render(hbs`{{power-calendar/days calendar=calendar data-power-calendar-id="foobar"}}`);
   assert.equal(find('.ember-power-calendar-days').dataset.powerCalendarId, 'foobar', 'The attribute is bound');
 });
+
+// test('[start-of-week] The DOM data attribute "start-of-week" respects the locale set in the moment service', function(assert) {
+//   assert.expect(1);
+//   run(() => momentService.changeLocale('pt'));
+//   this.render(hbs`{{#power-calendar as |cal|}}{{cal.days}}{{/power-calendar}}`);
+//   assert.equal(find('.ember-power-calendar-days').dataset['start-of-week'], 'seg');
+// });
+
+// test('[start-of-week] The DOM data attribute "start-of-week" responds to when a container passes in a locale value directly', function(assert) {
+//   assert.expect(2);
+//   this.calendar = calendar;
+//   this.render(hbs`{{power-calendar/days calendar=calendar}}`);
+//   assert.equal(find('.ember-power-calendar-days').dataset['start-of-week'], 'sun');
+//   run(() => this.set('calendar.locale', 'es'));
+//   assert.equal(find('.ember-power-calendar-days').dataset['start-of-week'], 'lun');
+// });
