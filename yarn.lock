@@ -2884,7 +2884,7 @@ ember-moment@^7.3.0:
     ember-cli-babel "^5.1.6"
     ember-macro-helpers "^0.4.0"
 
-ember-native-dom-helpers@^0.3.0, ember-native-dom-helpers@^0.3.4, ember-native-dom-helpers@^0.3.8:
+ember-native-dom-helpers@^0.3.0, ember-native-dom-helpers@^0.3.8, ember-native-dom-helpers@^0.3.9:
   version "0.3.9"
   resolved ember-native-dom-helpers-0.3.9.tgz#d6f3c8fe62cbf98430116f02339942331bcfa4b4
   dependencies:
