@@ -1,8 +1,8 @@
 import Test from 'ember-test';
-import run from 'ember-runloop';
 import { assert } from 'ember-metal/utils';
 import moment from 'moment';
 import { find, click } from 'ember-native-dom-helpers';
+import wait from 'ember-test-helpers/wait';
 
 function findCalendarElement(selector) {
   let target = find(selector);
@@ -35,26 +35,25 @@ function findComponentInstance(app, selector) {
 }
 
 export default function() {
-  Test.registerAsyncHelper('calendarCenter', function(app, selector, newCenter) {
+  Test.registerAsyncHelper('calendarCenter', async function(app, selector, newCenter) {
     assert('`calendarCenter` expect a Date or MomentJS object as second argument', newCenter);
     let calendarComponent = findComponentInstance(app, selector);
     let onCenterChange = calendarComponent.get('onCenterChange');
     assert('You cannot call `calendarCenter` on a component that doesn\'t has an `onCenterChange` action', !!onCenterChange);
-    let newCenterMoment = moment(newCenter);
-    return onCenterChange({ date: newCenterMoment._d, moment: newCenterMoment });
+    let publicAPI = calendarComponent.get('publicAPI');
+    await publicAPI.actions.changeCenter(newCenter, publicAPI);
+    return wait();
   });
 
-  Test.registerAsyncHelper('calendarSelect', function(app, selector, selected) {
+  Test.registerAsyncHelper('calendarSelect', async function(app, selector, selected) {
     assert('`calendarSelect` expect a Date or MomentJS object as second argument', selected);
     let selectedMoment = moment(selected);
     let calendarElement = findCalendarElement(selector);
     let daySelector = `${selector} [data-date="${selectedMoment.format('YYYY-MM-DD')}"]`;
     let dayElement = find(daySelector, calendarElement);
     if (!dayElement) {
-      run(() => calendarCenter(selector, selected));
+      await calendarCenter(selector, selected);
     }
-    andThen(function() {
-      click(daySelector);
-    });
+    return click(daySelector);
   });
 }
