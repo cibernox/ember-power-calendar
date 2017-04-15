@@ -29,11 +29,11 @@ test('When a multiple calendar receives an array of dates, those dates are marke
       {{calendar.days}}
     {{/power-calendar-multiple}}
   `);
-  assert.ok(this.$('.ember-power-calendar-nav').text().trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the first selected date');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2016-02-05"]').hasClass('ember-power-calendar-day--selected'), 'The first selected day is selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2016-02-09"]').hasClass('ember-power-calendar-day--selected'), 'The second selected day is selected');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2016-02-15"]').hasClass('ember-power-calendar-day--selected'), 'The third selected day is selected');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2016-02-08"]').hasClass('ember-power-calendar-day--selected'), 'The days in between those aren\'t day is selected');
+  assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('February 2016') > -1, 'The calendar is centered in the month of the first selected date');
+  assert.ok(find('.ember-power-calendar-day[data-date="2016-02-05"]').classList.contains('ember-power-calendar-day--selected'), 'The first selected day is selected');
+  assert.ok(find('.ember-power-calendar-day[data-date="2016-02-09"]').classList.contains('ember-power-calendar-day--selected'), 'The second selected day is selected');
+  assert.ok(find('.ember-power-calendar-day[data-date="2016-02-15"]').classList.contains('ember-power-calendar-day--selected'), 'The third selected day is selected');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2016-02-08"]').classList.contains('ember-power-calendar-day--selected'), 'The days in between those aren\'t day is selected');
 });
 
 test('When days are clicked in a multiple calendar, the `onSelect` action is called with the acumulated list of days, in the order they were clicked', function(assert) {
