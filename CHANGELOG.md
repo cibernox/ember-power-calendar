@@ -1,5 +1,9 @@
 ## Master
 
+- [INTERNAL] The addon is now jQuery free too.
+- [BREAKING] Allow the `ember-power-calendar` SASS/LESS mixin to take a lot more variables
+  to customize colors and more. Potentially breaking, but probably not for the big majority.
+
 ## 0.4.0
 - [INTERNAL] Update to Babel 6
 
