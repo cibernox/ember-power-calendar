@@ -10,7 +10,7 @@
       {{#each week.days key='id' as |day|}}
         {{#if day.isVisible}}
           <button type="button"
-            data-day-of-week="{{day.dow}}" 
+            data-day-of-week="{{day.dayOfWeek}}" 
             data-date="{{day.id}}"
             class="ember-power-calendar-day{{if onSelect ' ember-power-calendar-day--interactive'}} {{if day.isCurrentMonth 'ember-power-calendar-day--current-month' 'ember-power-calendar-day--other-month'}}{{if day.isSelected 'ember-power-calendar-day--selected'}} {{if day.isToday 'ember-power-calendar-day--today'}} {{if day.isFocused 'ember-power-calendar-day--focused'}} {{if day.isRangeStart ' ember-power-calendar-day--range-start'}}{{if day.isRangeEnd ' ember-power-calendar-day--range-end'}}"
             onclick={{action calendar.actions.select day calendar}}

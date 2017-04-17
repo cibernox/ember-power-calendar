@@ -79,7 +79,7 @@ export default Component.extend({
   }),
 
   weeks: computed('showDaysAround', 'days', function() {
-    let { showDaysAround, days } = this.getProperties('showDaysAround', 'days');
+    let { days } = this.getProperties('days');
     let weeks = [];
     let i = 0;
     while (days[i]) {
@@ -169,7 +169,7 @@ export default Component.extend({
       number: momentDate.date(),
       date: momentDate._d,
       moment: momentDate,
-      dow: momentDate.format('ddd').toLowerCase(),
+      dayOfWeek: momentDate.format('ddd').toLowerCase(),
       isDisabled: this.dayIsDisabled(momentDate),
       isFocused: this.get('focusedId') === id,
       isCurrentMonth,

@@ -70,7 +70,7 @@
     "component"
   ],
   "dependencies": {
-    "ember-assign-helper": "0.1.2",
+    "ember-assign-helper": "^0.1.2",
     "ember-cli-babel": "^6.0.0-beta.9",
     "ember-cli-htmlbars": "^1.1.1",
     "ember-cli-moment-shim": "^3.0.1",
