@@ -2288,12 +2288,6 @@ electron-to-chromium@^1.2.7:
   version "1.3.3"
   resolved electron-to-chromium-1.3.3.tgz#651eb63fe89f39db70ffc8dbd5d9b66958bc6a0e
 
-ember-ajax@^2.4.1:
-  version "2.5.6"
-  resolved ember-ajax-2.5.6.tgz#a75f743ccf1b95e979a5cf96013b3dba8fa625e4
-  dependencies:
-    ember-cli-babel "^5.1.5"
-
 ember-assign-helper@0.1.1:
   version "0.1.1"
   resolved ember-assign-helper-0.1.1.tgz#217f221f37781b64657bd371d9da911768c3fbd1
@@ -2868,7 +2862,7 @@ ember-macro-helpers@^0.4.0:
   dependencies:
     ember-cli-babel "^5.1.7"
 
-ember-maybe-import-regenerator@^0.1.5:
+ember-maybe-import-regenerator@^0.1.5, ember-maybe-import-regenerator@^0.1.6:
   version "0.1.6"
   resolved ember-maybe-import-regenerator-0.1.6.tgz#35d41828afa6d6a59bc0da3ce47f34c573d776ca
   dependencies:
@@ -2883,6 +2877,12 @@ ember-moment@^7.3.0:
   dependencies:
     ember-cli-babel "^5.1.6"
     ember-macro-helpers "^0.4.0"
+
+ember-native-dom-event-dispatcher@^0.5.4:
+  version "0.5.4"
+  resolved ember-native-dom-event-dispatcher-0.5.4.tgz#05e592ee56d299108ab7dcbf90d2bd0165431a3d
+  dependencies:
+    ember-cli-babel "^5.1.6"
 
 ember-native-dom-helpers@^0.3.0, ember-native-dom-helpers@^0.3.8, ember-native-dom-helpers@^0.3.9:
   version "0.3.9"

@@ -5,7 +5,7 @@ import moment from 'moment';
 import run from 'ember-runloop';
 import getOwner from 'ember-owner/get';
 import RSVP from 'rsvp';
-import { find, click, keyEvent } from 'ember-native-dom-helpers';
+import { find, findAll, click, keyEvent, focus } from 'ember-native-dom-helpers';
 
 let momentService;
 moduleForComponent('power-calendar', 'Integration | Component | Power Calendar', {
@@ -202,7 +202,7 @@ test('If there is no `onSelect` action, days cannot be focused', function(assert
     {{/power-calendar}}
   `);
   let dayElement = find('.ember-power-calendar-day[data-date="2013-10-18"]');
-  run(() => dayElement.focus());
+  focus(dayElement);
   assert.notEqual(document.activeElement, dayElement);
 });
 
@@ -215,7 +215,7 @@ test('If there is an `onSelect` action, days can be focused', function(assert) {
     {{/power-calendar}}
   `);
   let dayElement = find('.ember-power-calendar-day[data-date="2013-10-18"]');
-  run(() => dayElement.focus());
+  focus(dayElement);
   assert.equal(document.activeElement, dayElement);
 });
 
@@ -228,10 +228,10 @@ test('If a day is focused, it gets a special hasClass', function(assert) {
     {{/power-calendar}}
   `);
   let dayElement = find('.ember-power-calendar-day[data-date="2013-10-18"]');
-  run(() => dayElement.focus());
+  focus(dayElement);
   assert.ok(dayElement.classList.contains('ember-power-calendar-day--focused'), 'The focused day gets a special class');
   let anotherDayElement = find('.ember-power-calendar-day[data-date="2013-10-21"]');
-  run(() => anotherDayElement.focus());
+  focus(anotherDayElement);
   assert.notOk(dayElement.classList.contains('ember-power-calendar-day--focused'), 'The focused day gets a special class');
   assert.ok(anotherDayElement.classList.contains('ember-power-calendar-day--focused'), 'The focused day gets a special class');
 });
@@ -276,7 +276,7 @@ test('If a day is focused, using left/right arrow keys focuses the previous/next
     {{/power-calendar}}
   `);
 
-  run(() => find('.ember-power-calendar-day[data-date="2013-10-18"]').focus());
+  focus('.ember-power-calendar-day[data-date="2013-10-18"]');
   assert.ok(find('.ember-power-calendar-day[data-date="2013-10-18"]').classList.contains('ember-power-calendar-day--focused'));
   assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-18"]'));
 
@@ -297,7 +297,7 @@ test('If a day is focused, using up/down arrow keys focuses the same weekday of 
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  run(() => find('.ember-power-calendar-day[data-date="2013-10-18"]').focus());
+  focus('.ember-power-calendar-day[data-date="2013-10-18"]');
   assert.ok(find('.ember-power-calendar-day[data-date="2013-10-18"]').classList.contains('ember-power-calendar-day--focused'));
   assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-18"]'));
 
@@ -327,13 +327,13 @@ test('If the `onCenterChange` action returns a `thenable`, the component enter l
   `);
 
   setTimeout(function() {
-    assert.equal(this.$('.is-loading-yo').length, 1, 'The component is in a loading state');
+    assert.ok(find('.is-loading-yo'), 'The component is in a loading state');
   }, 100);
 
-  run(() => this.$('.ember-power-calendar-nav-control--next').click());
+  click('.ember-power-calendar-nav-control--next');
 
   setTimeout(function() {
-    assert.equal(this.$('.is-loading-yo').length, 0, 'The component is not in a loading state anymore');
+    assert.notOk(find('.is-loading-yo'), 'The component is not in a loading state anymore');
     done();
   }, 250);
 });
@@ -412,9 +412,9 @@ test('If the user passes `minDate=someDate` to range calendars, days before that
     {{/power-calendar-range}}
   `);
 
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'Days before the minDate are disabled');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The minDate is selectable');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-16"]').prop('disabled'), 'Days after the minDate are selectable');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'Days before the minDate are disabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The minDate is selectable');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-16"]').disabled, 'Days after the minDate are selectable');
 });
 
 test('If the user passes `maxDate=someDate` to range calendars, days after that one cannot be selected, but that day and those days before can', function(assert) {
@@ -427,9 +427,9 @@ test('If the user passes `maxDate=someDate` to range calendars, days after that 
     {{/power-calendar-range}}
   `);
 
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-14"]').prop('disabled'), 'Days before the minDate are selectable');
-  assert.notOk(this.$('.ember-power-calendar-day[data-date="2013-10-15"]').prop('disabled'), 'The maxDate is selectable');
-  assert.ok(this.$('.ember-power-calendar-day[data-date="2013-10-16"]').prop('disabled'), 'Days after the maxDate are disabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'Days before the minDate are selectable');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The maxDate is selectable');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-16"]').disabled, 'Days after the maxDate are disabled');
 });
 
 test('If the user passes `disabledDates=someDate` to single calendars, days on those days are disabled', function(assert) {
@@ -474,8 +474,7 @@ test('When the user tries to focus a disabled date with the left arrow key, the 
     {{/power-calendar-range}}
   `);
 
-  let dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-15"]');
-  run(() => dayElement.focus());
+  focus('.ember-power-calendar-day[data-date="2013-10-15"]');
   assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--focused'));
   assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-15"]'));
 
@@ -514,8 +513,7 @@ test('When the user tries to focus a disabled date with the right arrow key, the
     {{/power-calendar-range}}
   `);
 
-  let dayElement = this.$('.ember-power-calendar-day[data-date="2013-10-15"]');
-  run(() => dayElement.focus());
+  focus('.ember-power-calendar-day[data-date="2013-10-15"]');
   assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--focused'));
   assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-15"]'));
 
@@ -534,8 +532,7 @@ test('When the user tries to focus a disabled date with the down arrow key, the 
     {{/power-calendar-range}}
   `);
 
-  let dayElement = find('.ember-power-calendar-day[data-date="2013-10-11"]');
-  run(() => dayElement.focus());
+  focus('.ember-power-calendar-day[data-date="2013-10-11"]');
   assert.ok(find('.ember-power-calendar-day[data-date="2013-10-11"]').classList.contains('ember-power-calendar-day--focused'));
   assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-11"]'));
 
@@ -552,11 +549,11 @@ test('[i18n] If the global locale in ember-moment changes, the calendar updates'
       {{calendar.days}}
     {{/power-calendar}}
   `);
-  assert.equal(this.$('.ember-power-calendar-nav-title').text().trim(), 'October 2013');
-  assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Sun Mon Tue Wed Thu Fri Sat');
-  assert.equal(this.$('.ember-power-calendar-day:eq(0)').text().trim(), '29');
+  assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'October 2013');
+  assert.equal(find('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Sun Mon Tue Wed Thu Fri Sat');
+  assert.equal(findAll('.ember-power-calendar-day')[0].textContent.trim(), '29');
   run(() => momentService.changeLocale('pt'));
-  assert.equal(this.$('.ember-power-calendar-nav-title').text().trim(), 'Outubro 2013');
-  assert.equal(this.$('.ember-power-calendar-weekdays').text().replace(/\s+/g, ' ').trim(), 'Seg Ter Qua Qui Sex Sáb Dom');
-  assert.equal(this.$('.ember-power-calendar-day:eq(0)').text().trim(), '30');
+  assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'Outubro 2013');
+  assert.equal(find('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Seg Ter Qua Qui Sex Sáb Dom');
+  assert.equal(findAll('.ember-power-calendar-day')[0].textContent.trim(), '30');
 });
