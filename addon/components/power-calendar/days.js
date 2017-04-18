@@ -164,7 +164,7 @@ export default Component.extend({
     return {
       id,
       number: momentDate.date(),
-      date: momentDate._d,
+      date: momentDate.toDate(),
       moment: momentDate,
       isDisabled: this.dayIsDisabled(momentDate),
       isFocused: this.get('focusedId') === id,
