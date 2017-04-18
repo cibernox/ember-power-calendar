@@ -74,12 +74,12 @@ export default CalendarComponent.extend({
       if (startMoment.isAfter(day.moment)) {
         return {
           moment: { start: day.moment, end: startMoment },
-          date: {  start: day.date, end: startMoment._d }
+          date: {  start: day.date, end: startMoment.toDate() }
         };
       }  else {
         return {
           moment: { start: startMoment, end: day.moment },
-          date: {  start: startMoment._d, end: day.date }
+          date: {  start: startMoment.toDate(), end: day.date }
         };
       }
     } else {

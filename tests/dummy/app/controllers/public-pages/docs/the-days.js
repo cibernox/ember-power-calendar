@@ -23,7 +23,7 @@ export default Controller.extend({
       if (day.weekday() !== 1 && day.weekday() !== 3) { // Skip Mon/Wed
         let copy = day.clone();
         let isCurrentMonth = copy.month() === now.month();
-        days.push({ date: copy._d, moment: copy, isCurrentMonth });
+        days.push({ date: copy.toDate(), moment: copy, isCurrentMonth });
       }
       day.add(1, 'day');
     }
