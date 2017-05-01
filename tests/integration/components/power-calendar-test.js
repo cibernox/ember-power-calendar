@@ -35,6 +35,13 @@ test('Rendered without any arguments, it displays the current month and has no m
   assert.ok(find('.ember-power-calendar-day[data-date="2013-10-01"]'), 'The days in the calendar actually belong to the presnet month');
 });
 
+test('when rendered without a block, it renders the nav and days components', function(assert) {
+  assert.expect(2);
+  this.render(hbs`{{power-calendar}}`);
+  assert.ok(find('.ember-power-calendar-nav'));
+  assert.ok(find('.ember-power-calendar-day'));
+});
+
 test('when it receives a Date in the `center` argument, it displays that month', function(assert) {
   assert.expect(3);
   this.center = new Date(2016, 1, 5);
