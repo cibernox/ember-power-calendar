@@ -1,5 +1,9 @@
 ## Master
 
+## 0.5.0
+- [ENHANCEMENT] Allow invocation without block. It renders both nav and days.
+- [BUGFIX] Add `type="button"` to buttons in the nav so they are not implicitly considered
+  type submit, leading to submitting the enclosing form.
 - [INTERNAL] The addon is now jQuery free too.
 - [BREAKING] Allow the `ember-power-calendar` SASS/LESS mixin to take a lot more variables
   to customize colors and more. Potentially breaking, but probably not for the big majority.
