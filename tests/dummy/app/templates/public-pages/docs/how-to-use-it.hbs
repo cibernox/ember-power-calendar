@@ -51,6 +51,15 @@
   All options that are dates can take values in either format, and all actions that this component fires will contain dates in both formats too.
 </p>
 
+<p>
+  Most of the time however, you just want the <code>nav</code> and <code>days</code> components rendered. For this scenario, simply invoke <code>power-calendar</code>
+  without a block, like so:
+</p>
+
+{{#code-example hbs="how-to-use-it-5.hbs" as |partialName|}}
+  {{partial partialName}}
+{{/code-example}}
+
 <h3><code>selected</code></h3>
 
 <p>
