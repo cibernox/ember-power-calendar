@@ -440,7 +440,7 @@ test('If the user passes `maxDate=someDate` to range calendars, days after that 
 });
 
 test('If the user passes `disabledDates=someDate` to single calendars, days on those days are disabled', function(assert) {
-  assert.expect(13);
+  assert.expect(20);
   this.disabledDates = [
     new Date(2013, 9, 15),
     new Date(2013, 9, 17),
@@ -466,6 +466,15 @@ test('If the user passes `disabledDates=someDate` to single calendars, days on t
   assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The 15th is enabled');
   assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 16th is enabled');
   assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-17"]').disabled, 'The 17th is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-21"]').disabled, 'The 21st is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-23"]').disabled, 'The 23rd is enabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-23"]').disabled, 'The 22nd is disabled');
+
+  run(() => this.set('disabledDates', [new Date(2013, 9, 22), 2, 4, 7]));
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 14th is enabled');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The 15th is disabled');
+  assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 16th is enabled');
+  assert.ok(find('.ember-power-calendar-day[data-date="2013-10-17"]').disabled, 'The 17th is disabled');
   assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-21"]').disabled, 'The 21st is enabled');
   assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-23"]').disabled, 'The 23rd is enabled');
   assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-23"]').disabled, 'The 22nd is disabled');
