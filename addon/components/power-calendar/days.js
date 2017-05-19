@@ -18,7 +18,7 @@ function withLocale(locale, fn) {
   return returnValue;
 }
 
-const WEEK_DYAS = [
+const WEEK_DAYS = [
   'Mon',
   'Tue',
   'Wed',
@@ -209,7 +209,7 @@ export default Component.extend({
     }
 
     let disabledDates = this.get('disabledDates');
-    if (disabledDates && disabledDates.some((d) => momentDate.isSame(d, 'day') || (WEEK_DYAS.includes(d) && momentDate.format('ddd') === d))) {
+    if (disabledDates && disabledDates.some((d) => momentDate.isSame(d, 'day') || (WEEK_DAYS.includes(d) && momentDate.format('ddd') === d))) {
       return true;
     }
 
