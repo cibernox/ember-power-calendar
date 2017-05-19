@@ -4,7 +4,6 @@ import computed from 'ember-computed';
 import service from 'ember-service/inject';
 import { scheduleOnce } from 'ember-runloop';
 import moment from 'moment';
-import isInteger from '../../utils/is-integer';
 
 function withLocale(locale, fn) {
   let returnValue;
@@ -18,6 +17,16 @@ function withLocale(locale, fn) {
   }
   return returnValue;
 }
+
+const WEEK_DYAS = [
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat',
+  'Sun'
+];
 
 export default Component.extend({
   layout,
@@ -200,7 +209,7 @@ export default Component.extend({
     }
 
     let disabledDates = this.get('disabledDates');
-    if (disabledDates && disabledDates.some((d) => momentDate.isSame(d, 'day') || (isInteger(d) && momentDate.isoWeekday() === d))) {
+    if (disabledDates && disabledDates.some((d) => momentDate.isSame(d, 'day') || (WEEK_DYAS.includes(d) && momentDate.format('ddd') === d))) {
       return true;
     }
 

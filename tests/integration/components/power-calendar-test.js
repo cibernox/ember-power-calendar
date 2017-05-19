@@ -470,7 +470,7 @@ test('If the user passes `disabledDates=someDate` to single calendars, days on t
   assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-23"]').disabled, 'The 23rd is enabled');
   assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-23"]').disabled, 'The 22nd is disabled');
 
-  run(() => this.set('disabledDates', [new Date(2013, 9, 22), 2, 4, 7]));
+  run(() => this.set('disabledDates', [new Date(2013, 9, 22), 'Tue', 'Thu', 'Sun']));
   assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 14th is enabled');
   assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The 15th is disabled');
   assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'The 16th is enabled');
