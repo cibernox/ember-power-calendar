@@ -18,6 +18,16 @@ function withLocale(locale, fn) {
   return returnValue;
 }
 
+const WEEK_DAYS = [
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat',
+  'Sun'
+];
+
 export default Component.extend({
   layout,
   focusedId: null,
@@ -199,8 +209,17 @@ export default Component.extend({
     }
 
     let disabledDates = this.get('disabledDates');
-    if (disabledDates && disabledDates.some((d) => momentDate.isSame(d, 'day'))) {
-      return true;
+
+    if (disabledDates) {
+      let disabledInRange = disabledDates.some((d) => {
+        let isSame = momentDate.isSame(d, 'day');
+        let isWeekDayIncludes = WEEK_DAYS.indexOf(d) !== -1 && momentDate.format('ddd') === d;
+        return isSame || isWeekDayIncludes;
+      });
+
+      if (disabledInRange) {
+        return true;
+      }
     }
 
     return false;
