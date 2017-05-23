@@ -1,4 +1,4 @@
-# Ember Power Calendar
+# Ember Power Calendar [![Build Status](https://travis-ci.org/cibernox/ember-power-calendar.svg?branch=master)](https://travis-ci.org/cibernox/ember-power-calendar)
 
 Customizable Calendar Component for Ember.
 
