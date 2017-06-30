@@ -1,13 +1,13 @@
 import { assert } from 'ember-metal/utils';
-import findComponentInstance from './-utils/find-component-instance';
+import { findComponentInstance } from './calendar-test-service';
 import wait from 'ember-test-helpers/wait';
 
-let calendarCenter = async function(app, selector, newCenter) {
+let calendarCenter = async function(selector, newCenter) {
   assert(
     '`calendarCenter` expect a Date or MomentJS object as second argument',
     newCenter
   );
-  let calendarComponent = findComponentInstance(app, selector);
+  let calendarComponent = findComponentInstance(selector);
   let onCenterChange = calendarComponent.get('onCenterChange');
   assert(
     "You cannot call `calendarCenter` on a component that doesn't has an `onCenterChange` action",

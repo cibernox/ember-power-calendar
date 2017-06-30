@@ -3,10 +3,10 @@ import { calendarSelect, calendarCenter } from "ember-power-calendar/test-suppor
 
 export default function() {
   Test.registerAsyncHelper("calendarCenter", function(app, selector, newCenter) {
-    return calendarCenter(app, selector, newCenter);
+    return calendarCenter(selector, newCenter);
   });
 
   Test.registerAsyncHelper("calendarSelect", function(app, selector, selected) {
-    return calendarSelect(app, selector, selected);
+    return calendarSelect(selector, selected);
   });
 }
