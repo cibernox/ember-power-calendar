@@ -1,6 +1,9 @@
+import Ember from 'ember';
 import { assert } from 'ember-metal/utils';
-import { findComponentInstance } from './calendar-test-service';
 import wait from 'ember-test-helpers/wait';
+import { findComponentInstance } from './calendar-test-service';
+
+const { run } = Ember;
 
 let calendarCenter = async function(selector, newCenter) {
   assert(
@@ -14,7 +17,9 @@ let calendarCenter = async function(selector, newCenter) {
     !!onCenterChange
   );
   let publicAPI = calendarComponent.get('publicAPI');
-  await publicAPI.actions.changeCenter(newCenter, publicAPI);
+  run(async () => {
+    await publicAPI.actions.changeCenter(newCenter, publicAPI);
+  });
   return wait();
 };
 
