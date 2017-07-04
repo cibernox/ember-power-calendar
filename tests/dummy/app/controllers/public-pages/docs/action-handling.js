@@ -1,4 +1,4 @@
-import Controller from 'ember-controller';
+import Controller from '@ember/controller';
 import { task, timeout } from 'ember-concurrency';
 import moment from 'moment';
 

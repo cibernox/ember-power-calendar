@@ -1,16 +1,16 @@
-import layout from '../templates/components/power-calendar';
-import Component from 'ember-component';
-import computed from 'ember-computed';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
+import { inject } from '@ember/service';
 import moment from 'moment';
-import service from 'ember-service/inject';
 import { task } from 'ember-concurrency';
-import { guidFor } from 'ember-metal/utils';
+import layout from '../templates/components/power-calendar';
 
 export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],
-  powerCalendarService: service('power-calendar'),
-  momentService: service('moment'),
+  powerCalendarService: inject('power-calendar'),
+  momentService: inject('moment'),
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
   center: null,

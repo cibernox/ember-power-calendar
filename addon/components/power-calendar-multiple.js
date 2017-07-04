@@ -1,5 +1,5 @@
 import CalendarComponent from './power-calendar';
-import computed from 'ember-computed';
+import { computed } from '@ember/object';
 import moment from 'moment';
 
 export default CalendarComponent.extend({

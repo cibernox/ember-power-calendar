@@ -1,4 +1,4 @@
-import computed from 'ember-computed';
+import { computed } from '@ember/object';
 
 export default function(fallback) {
   return computed({

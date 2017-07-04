@@ -1,14 +1,10 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { later, scheduleOnce } from '@ember/runloop';
+import { inject } from '@ember/controller';
 import moment from 'moment';
 
-const {
-  Controller,
-  inject: { controller },
-  run
-} = Ember;
-
 export default Controller.extend({
-  applicationController: controller('application'),
+  applicationController: inject('application'),
   today: null,
   day: null,
 
@@ -32,10 +28,10 @@ export default Controller.extend({
       let parent = pageElement.parentNode;
       parent.insertBefore(clone, pageElement);
       this.set('day', this.get('day').clone().add(1, 'day'));
-      run.later(function() {
+      later(function() {
         parent.removeChild(clone);
       }, 400);
-      run.scheduleOnce('afterRender', function() {
+      scheduleOnce('afterRender', function() {
         pageElement.offsetLeft; // force layout
         pageElement.classList.add('run-animation');
       });

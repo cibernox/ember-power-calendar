@@ -1,4 +1,4 @@
-import Controller from 'ember-controller';
+import Controller from '@ember/controller';
 
 export default Controller.extend({
   center1: new Date(2013, 9, 18),

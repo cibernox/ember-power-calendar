@@ -1,6 +1,6 @@
-import Controller from 'ember-controller';
-import computed from 'ember-computed';
-import service from 'ember-service/inject';
+import Controller from '@ember/controller';
+import { computed } from '@ember/object';
+import { inject } from '@ember/service';
 
 const groupedSections = [
   {
@@ -44,7 +44,7 @@ const groupedSections = [
 ];
 
 export default Controller.extend({
-  routing: service('-routing'),
+  routing: inject('-routing'),
   groupedSections,
 
   currentSection: computed('routing.currentRouteName', function() {

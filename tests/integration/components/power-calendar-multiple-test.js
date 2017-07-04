@@ -1,9 +1,9 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
+import { getOwner } from '@ember/application';
+import { run } from '@ember/runloop';
 import moment from 'moment';
-import getOwner from 'ember-owner/get';
-import run from 'ember-runloop';
 import { find, click } from 'ember-native-dom-helpers';
 
 moduleForComponent('power-calendar-multiple', 'Integration | Component | power calendar multiple', {

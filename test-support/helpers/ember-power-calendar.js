@@ -1,5 +1,5 @@
 import Test from 'ember-test';
-import { assert } from 'ember-metal/utils';
+import { assert } from '@ember/debug';
 import moment from 'moment';
 import { find, click } from 'ember-native-dom-helpers';
 import wait from 'ember-test-helpers/wait';

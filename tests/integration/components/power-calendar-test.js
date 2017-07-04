@@ -2,8 +2,8 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import moment from 'moment';
-import run from 'ember-runloop';
-import getOwner from 'ember-owner/get';
+import { run, later } from '@ember/runloop';
+import { getOwner } from '@ember/application';
 import RSVP from 'rsvp';
 import { find, findAll, click, keyEvent, focus } from 'ember-native-dom-helpers';
 
@@ -322,7 +322,7 @@ test('If the `onCenterChange` action returns a `thenable`, the component enter l
   let done = assert.async();
   this.asyncAction = function() {
     return new RSVP.Promise(function(resolve) {
-      run.later(resolve, 200);
+      later(resolve, 200);
     });
   };
   this.render(hbs`

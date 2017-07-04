@@ -2,8 +2,8 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../../assertions';
 import moment from 'moment';
-import run from 'ember-runloop';
-import getOwner from 'ember-owner/get';
+import { run } from '@ember/runloop';
+import { getOwner } from '@ember/application';
 import { find, findAll } from 'ember-native-dom-helpers';
 
 let calendarService, momentService, calendar;

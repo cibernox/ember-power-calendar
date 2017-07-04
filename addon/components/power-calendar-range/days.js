@@ -1,5 +1,5 @@
+import { getProperties } from '@ember/object';
 import DaysComponent from '../power-calendar/days';
-import { getProperties } from 'ember-metal/get';
 
 export default DaysComponent.extend({
   // Methods
