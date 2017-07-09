@@ -1,7 +1,7 @@
-import Ember from 'ember';
-import { guidFor } from 'ember-metal/utils';
+import Service from '@ember/service';
+import { guidFor } from '@ember/object/internals';
 
-export default Ember.Service.extend({
+export default Service.extend({
   date: null,
 
   // Lifecycle hooks

@@ -1,8 +1,7 @@
-import CalendarComponent from './power-calendar';
-import computed from 'ember-computed';
+import { computed, getProperties } from '@ember/object';
+import { assign } from '@ember/polyfills';
 import moment from 'moment';
-import { getProperties } from 'ember-metal/get';
-import { assign } from 'ember-platform';
+import CalendarComponent from './power-calendar';
 import fallbackIfUndefined from '../utils/computed-fallback-if-undefined';
 
 function parseDuration(value) {

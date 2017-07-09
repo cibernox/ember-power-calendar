@@ -1,8 +1,8 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
-import getOwner from 'ember-owner/get';
-import run from 'ember-runloop';
+import { run } from '@ember/runloop';
+import { getOwner } from '@ember/application';
 import moment from 'moment';
 import { find, click } from 'ember-native-dom-helpers';
 

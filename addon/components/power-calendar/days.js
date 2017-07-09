@@ -1,8 +1,8 @@
-import Component from 'ember-component';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { scheduleOnce } from '@ember/runloop';
+import { inject } from '@ember/service';
 import layout from '../../templates/components/power-calendar/days';
-import computed from 'ember-computed';
-import service from 'ember-service/inject';
-import { scheduleOnce } from 'ember-runloop';
 import moment from 'moment';
 
 function withLocale(locale, fn) {
@@ -34,7 +34,7 @@ export default Component.extend({
   showDaysAround: true,
   classNames: ['ember-power-calendar-days'],
   weekdayFormat: 'short', // "min" | "short" | "long"
-  powerCalendarService: service('power-calendar'),
+  powerCalendarService: inject('power-calendar'),
   attributeBindings: [
     'data-power-calendar-id'
   ],

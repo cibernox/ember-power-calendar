@@ -1,9 +1,9 @@
-import Controller from 'ember-controller';
-import service from 'ember-service/inject';
+import Controller from '@ember/controller';
+import { inject } from '@ember/service';
 import moment from 'moment';
 
 export default Controller.extend({
-  moment: service(),
+  moment: inject(),
 
   init() {
     this._super(...arguments);
