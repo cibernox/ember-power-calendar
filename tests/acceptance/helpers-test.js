@@ -5,7 +5,7 @@ import { calendarSelect, calendarCenter, initCalendarHelpers } from 'ember-power
 
 moduleForAcceptance('Acceptance | helpers | calendarCenter', {
   beforeEach() {
-    initCalendarHelpers(this.application);
+    initCalendarHelpers(this.application.__container__);
   }
 });
 
@@ -73,7 +73,7 @@ test('`calendarCenter` works even if the calendar is tagless', async function(as
 
 moduleForAcceptance('Acceptance | helpers | calendarSelect', {
   beforeEach() {
-    initCalendarHelpers(this.application);
+    initCalendarHelpers(this.application.__container__);
   }
 });
 

@@ -9,7 +9,7 @@ export default function() {
       false,
       { id: 'ember-power-calendar.test-helpers.calendarCenter', until: '1.0.0' }
     );
-    initCalendarHelpers(app);
+    initCalendarHelpers(app.__container__);
     return calendarCenter(selector, newCenter);
   });
 
@@ -19,7 +19,7 @@ export default function() {
       false,
       { id: 'ember-power-calendar.test-helpers.calendarSelect', until: '1.0.0' }
     );
-    initCalendarHelpers(app);
+    initCalendarHelpers(app.__container__);
     return calendarSelect(selector, selected);
   });
 }
