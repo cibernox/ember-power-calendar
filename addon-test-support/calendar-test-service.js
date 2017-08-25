@@ -1,4 +1,4 @@
-import { assert } from 'ember-metal/utils';
+import { assert } from '@ember/debug';
 import { find } from 'ember-native-dom-helpers';
 
 class CalendarTestService {
@@ -8,10 +8,7 @@ class CalendarTestService {
 
   findComponentInstance(selector) {
     let calendarGuid = this.findCalendarGuid(selector);
-    assert(
-      `Could not find a calendar using selector: "${selector}"`,
-      calendarGuid
-    );
+    assert(`Could not find a calendar using selector: "${selector}"`, calendarGuid);
     return this.calendarService._calendars[calendarGuid];
   }
 
@@ -33,22 +30,15 @@ class CalendarTestService {
       if (target.classList.contains('ember-power-calendar')) {
         return target;
       } else {
-        return (
-          find('.ember-power-calendar', target)
-          || find('[data-power-calendar-id]', target)
-        );
+        return find('.ember-power-calendar', target) || find('[data-power-calendar-id]', target);
       }
     }
   }
 }
 
 let calendarService = new CalendarTestService();
-let findComponentInstance = calendarService.findComponentInstance.bind(
-  calendarService
-);
-let findCalendarElement = calendarService.findCalendarElement.bind(
-  calendarService
-);
+let findComponentInstance = calendarService.findComponentInstance.bind(calendarService);
+let findCalendarElement = calendarService.findCalendarElement.bind(calendarService);
 
 export { findComponentInstance, findCalendarElement };
 export default calendarService;

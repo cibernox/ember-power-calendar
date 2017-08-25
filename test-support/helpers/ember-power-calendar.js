@@ -1,5 +1,5 @@
 import Test from 'ember-test';
-import { deprecate } from '@ember/application/deprecations';
+import { deprecate } from '@ember/debug';
 import { calendarSelect, calendarCenter, initCalendarHelpers } from 'ember-power-calendar/test-support';
 
 export default function() {
