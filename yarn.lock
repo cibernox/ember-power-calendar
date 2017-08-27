@@ -2443,7 +2443,7 @@ ember-cli-deploy-display-revisions@0.1.0:
     ember-cli-deploy-plugin "0.2.0"
     moment "2.10.6"
 
-"ember-cli-deploy-gzip@github:pagefront/ember-cli-deploy-gzip#0a98e80768d089ea6488b36f2c9a79f95067d71d":
+ember-cli-deploy-gzip@pagefront/ember-cli-deploy-gzip#0a98e80768d089ea6488b36f2c9a79f95067d71d:
   version "0.1.0"
   resolved "https://codeload.github.com/pagefront/ember-cli-deploy-gzip/tar.gz/0a98e80768d089ea6488b36f2c9a79f95067d71d"
   dependencies:
@@ -2455,7 +2455,7 @@ ember-cli-deploy-display-revisions@0.1.0:
     redis "^0.12.1"
     rsvp "^3.0.18"
 
-"ember-cli-deploy-manifest@github:pagefront/ember-cli-deploy-manifest#d6fdaf9edb4ed23a5bf472317f1b46d9a4c3715c":
+ember-cli-deploy-manifest@pagefront/ember-cli-deploy-manifest#d6fdaf9edb4ed23a5bf472317f1b46d9a4c3715c:
   version "0.1.0"
   resolved "https://codeload.github.com/pagefront/ember-cli-deploy-manifest/tar.gz/d6fdaf9edb4ed23a5bf472317f1b46d9a4c3715c"
   dependencies:
@@ -6423,13 +6423,13 @@ source-map-url@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/source-map-url/-/source-map-url-0.3.0.tgz#7ecaf13b57bcd09da8a40c5d269db33799d4aaf9"
 
-source-map@0.1.32, source-map@~0.1.7:
+source-map@0.1.32, source-map@~0.1.31, source-map@~0.1.7:
   version "0.1.32"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.1.32.tgz#c8b6c167797ba4740a8ea33252162ff08591b266"
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@0.1.34, source-map@~0.1.30, source-map@~0.1.31:
+source-map@0.1.34, source-map@~0.1.30:
   version "0.1.34"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.1.34.tgz#a7cfe89aec7b1682c3b198d0acfb47d7d090566b"
   dependencies:
