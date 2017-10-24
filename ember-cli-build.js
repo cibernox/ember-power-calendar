@@ -3,7 +3,7 @@
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
-  let { project } = defaults;
+  let project = defaults.project;
   let options = {
     snippetPaths: ['tests/dummy/app/templates/snippets']
   };
