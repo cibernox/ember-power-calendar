@@ -569,7 +569,7 @@ test('[i18n] If the global locale in ember-moment changes, the calendar updates'
   assert.equal(find('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Sun Mon Tue Wed Thu Fri Sat');
   assert.equal(findAll('.ember-power-calendar-day')[0].textContent.trim(), '29');
   run(() => momentService.changeLocale('pt'));
-  assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'Outubro 2013');
+  assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'outubro 2013');
   assert.equal(find('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Seg Ter Qua Qui Sex Sáb Dom');
   assert.equal(findAll('.ember-power-calendar-day')[0].textContent.trim(), '30');
 });

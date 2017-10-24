@@ -33,7 +33,7 @@ test('[i18n] The name of the month respect the locale set in moment.js', functio
   assert.expect(1);
   run(() => momentService.changeLocale('pt'));
   this.render(hbs`{{#power-calendar as |cal|}}{{cal.nav}}{{/power-calendar}}`);
-  assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'Outubro 2013');
+  assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'outubro 2013');
 });
 
 test('[i18n] If the user sets a different locale in the calendar, this setting overrides the locale set in moment.js', function(assert) {
