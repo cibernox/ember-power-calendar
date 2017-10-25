@@ -3,7 +3,7 @@
     <div class="ember-power-calendar-weekday">{{wdn}}</div>
   {{/each}}
 </div>
-
+{{! template-lint-disable invalid-interactive }}
 <div class="ember-power-calendar-day-grid" onkeydown={{action "onKeyDown" calendar}}>
   {{#each weeks key='id' as |week|}}
     <div class="ember-power-calendar-row ember-power-calendar-week" data-missing-days={{week.missingDays}}>
