@@ -24,7 +24,7 @@ export default Component.extend({
     this.publicActions = {
       changeCenter,
       moveCenter: (step, unit, calendar, e) => {
-        let newCenter = moment(this.get('center')).add(step, unit);
+        let newCenter = moment(this.get('currentCenter')).add(step, unit);
         return changeCenter(newCenter, calendar, e);
       },
       select: (...args) => this.send('select', ...args)
