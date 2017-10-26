@@ -29,7 +29,7 @@ export default Component.extend({
       },
       select: (...args) => this.send('select', ...args)
     };
-    this.get('powerCalendarService').registerCalendar(this);
+    this.registerCalendar();
     let onInit = this.get('onInit');
     if (onInit) {
       onInit(this.get('publicAPI'));
@@ -38,7 +38,7 @@ export default Component.extend({
 
   willDestroy() {
     this._super(...arguments);
-    this.get('powerCalendarService').unregisterCalendar(this);
+    this.unregisterCalendar();
   },
 
   // CPs
@@ -82,5 +82,19 @@ export default Component.extend({
       calendar,
       e
     );
-  })
+  }),
+
+  // Methods
+  registerCalendar() {
+    if (window) {
+      window.__powerCalendars = window.__powerCalendars || {}; // TODO: weakmap??
+      window.__powerCalendars[guidFor(this)] = this;
+    }
+  },
+
+  unregisterCalendar() {
+    if (window) {
+      delete window.__powerCalendars[guidFor(this)];
+    }
+  }
 });
