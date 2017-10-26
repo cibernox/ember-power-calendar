@@ -26,16 +26,15 @@ function findCalendarGuid(selector) {
   }
 }
 
-function findComponentInstance(app, selector) {
+function findComponentInstance(selector) {
   let calendarGuid = findCalendarGuid(selector);
   assert(`Could not find a calendar using selector: "${selector}"`, calendarGuid);
-  let calendarService = app.__container__.lookup('service:power-calendar');
-  return calendarService._calendars[calendarGuid];
+  return window.__powerCalendars[calendarGuid];
 }
 
 export async function calendarCenter(selector, newCenter) {
   assert('`calendarCenter` expect a Date or MomentJS object as second argument', newCenter);
-  let calendarComponent = findComponentInstance(app, selector);
+  let calendarComponent = findComponentInstance(selector);
   let onCenterChange = calendarComponent.get('onCenterChange');
   assert('You cannot call `calendarCenter` on a component that doesn\'t has an `onCenterChange` action', !!onCenterChange);
   let publicAPI = calendarComponent.get('publicAPI');

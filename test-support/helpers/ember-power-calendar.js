@@ -1,5 +1,5 @@
 import { registerAsyncHelper } from '@ember/test';
-import { calendarCenter, calendarSelect } from 'ember-power-calendar/test-support/helpers';
+import { calendarCenter, calendarSelect } from 'ember-power-calendar/test-support';
 
 export default function() {
   registerAsyncHelper('calendarCenter', async function(app, selector, newCenter) {
