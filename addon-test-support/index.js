@@ -1,3 +1,4 @@
+import { run } from '@ember/runloop';
 import { assert } from '@ember/debug';
 import wait from 'ember-test-helpers/wait';
 import { find, click } from 'ember-native-dom-helpers';
@@ -38,7 +39,7 @@ export async function calendarCenter(selector, newCenter) {
   let onCenterChange = calendarComponent.get('onCenterChange');
   assert('You cannot call `calendarCenter` on a component that doesn\'t has an `onCenterChange` action', !!onCenterChange);
   let publicAPI = calendarComponent.get('publicAPI');
-  await publicAPI.actions.changeCenter(newCenter, publicAPI);
+  await run(() => publicAPI.actions.changeCenter(newCenter, publicAPI));
   return wait();
 }
 
