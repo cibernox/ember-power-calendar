@@ -1,5 +1,11 @@
 ## Master
 
+## 0.6.0
+- [ENHANCEMENT] Now the `calendarCenter` and `calendarSelect` helpers are importable from `ember-power-calendar/test-support`
+  and can be used in both integration and acceptance tests.
+- [ENHANCEMENT] When the `moveCenter` action was called with a `null`/`undefined` value it could cause
+  problems. Now doing that is perfectly legal and it will center the month in the current date.
+
 ## 0.5.0
 - [ENHANCEMENT] Allow invocation without block. It renders both nav and days.
 - [BUGFIX] Add `type="button"` to buttons in the nav so they are not implicitly considered
