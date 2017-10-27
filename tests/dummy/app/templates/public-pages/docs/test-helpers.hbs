@@ -17,7 +17,15 @@
   For that import the registration function and invoke it immedialty.
 </p>
 
+
 {{code-snippet name="test-helpers-1-js.js"}}
+
+<p>
+  <strong>Important note:</strong> Since version 0.6.0, all the test helpers can also be imported like
+  <code>import { calendarCenter, calendarSelect } 'ember-power-calendar/test-support';</code> and used
+  indistinctly in acceptance or integration tests, with or without async/away. If you use this approach
+  you don't need to register them as global helpers anymore.
+</p>
 
 <h3><code>calendarCenter(cssSelector, dateOrMoment)</code></h3>
 
@@ -46,6 +54,13 @@
 <p>
   <strong>Note:</strong> Remember to whitelist <code>calendarCenter</code> and <code>calendarSelect</code> in the list of allowed
   globals in your <code>tests/.jshintrc</code> or <code>tests/.eslintrc.js</code> manifest.
+</p>
+
+<h2>Integration Tests</h2>
+
+<p>
+  Just import the helpers like <code>import { calendarCenter, calendarSelect } 'ember-power-calendar/test-support';</code>
+  and use them as any other helper 😀
 </p>
 
 <div class="doc-page-nav">
