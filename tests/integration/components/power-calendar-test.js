@@ -58,6 +58,34 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.ok(find('.ember-power-calendar-day[data-date="2016-02-29"]'), 'The days in the calendar actually belong to the displayed month');
   });
 
+  test('when it receives null in the `center` argument, it displays the current month', async function(assert) {
+    assert.expect(3);
+    this.center = null;
+    await render(hbs`
+      {{#power-calendar center=center as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.days}}
+      {{/power-calendar}}
+    `);
+    assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('October 2013') > -1, 'The calendar is centered in the the current month');
+    assert.notOk(find('.ember-power-calendar-nav-control'), 'There is no controls to navigate months');
+    assert.ok(find('.ember-power-calendar-day[data-date="2013-10-26"]'), 'The days in the calendar actually belong to the displayed month');
+  });
+
+  test('when it receives undefined in the `center` argument, it displays the current month', async function(assert) {
+    assert.expect(3);
+    this.center = undefined;
+    await render(hbs`
+      {{#power-calendar center=center as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.days}}
+      {{/power-calendar}}
+    `);
+    assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('October 2013') > -1, 'The calendar is centered in the the current month');
+    assert.notOk(find('.ember-power-calendar-nav-control'), 'There is no controls to navigate months');
+    assert.ok(find('.ember-power-calendar-day[data-date="2013-10-26"]'), 'The days in the calendar actually belong to the displayed month');
+  });
+
   test('when it receives a `moment()` in the `center` argument, it displays that month', async function(assert) {
     assert.expect(3);
     this.center = moment('2016-02-05');
@@ -109,6 +137,22 @@ module('Integration | Component | Power Calendar', function(hooks) {
     click('.ember-power-calendar-nav-control--next');
 
     assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('March 2016') > -1, 'The calendar is now centered in the the next month');
+  });
+
+  test('when the `onCenterChange` action changes the `center` and the passed center was null, the calendar shows the new month', async function(assert) {
+    assert.expect(2);
+    this.center = null;
+    await render(hbs`
+      {{#power-calendar center=center onCenterChange=(action (mut center) value="date") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.days}}
+      {{/power-calendar}}
+    `);
+    assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('October 2013') > -1, 'The calendar is centered in the the current month');
+
+    click('.ember-power-calendar-nav-control--next');
+
+    assert.ok(find('.ember-power-calendar-nav').textContent.trim().indexOf('November 2013') > -1, 'The calendar is now centered in the the next month');
   });
 
   test('the `onCenterChange` action receives the date/moment compound object, the calendar and the event', async function(assert) {
