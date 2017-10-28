@@ -555,8 +555,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
       {{/power-calendar-range}}
     `);
 
-    let dayElement = find('.ember-power-calendar-day[data-date="2013-10-18"]');
-    run(() => dayElement.focus());
+    focus('.ember-power-calendar-day[data-date="2013-10-18"]');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-18"]').classList.contains('ember-power-calendar-day--focused'));
     assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-18"]'));
 
