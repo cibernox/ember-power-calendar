@@ -4685,11 +4685,11 @@ media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
 
-memory-scroll@0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/memory-scroll/-/memory-scroll-0.9.0.tgz#e4920881db541558928820f95d7ee031cf481e68"
+memory-scroll@0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/memory-scroll/-/memory-scroll-0.9.1.tgz#d96871acf0b5f1a6c9662eeda3d7670f150d2415"
   dependencies:
-    ember-cli-babel "^5.1.6"
+    ember-cli-babel "^6.8.2"
 
 memory-streams@^0.1.0:
   version "0.1.2"
