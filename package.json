@@ -52,7 +52,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-native-dom-event-dispatcher": "^0.6.3",
     "ember-native-dom-helpers": "^0.5.4",
-    "ember-power-select": "1.9.11",
+    "ember-power-select": "1.10.0",
     "ember-resolver": "^4.1.0",
     "ember-source": "~2.16.2",
     "ember-truth-helpers": "^2.0.0",
