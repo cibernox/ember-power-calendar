@@ -1892,11 +1892,11 @@ ember-assign-helper@0.1.2:
   dependencies:
     ember-cli-babel "^6.0.0-beta.9"
 
-ember-basic-dropdown@^0.33.8, ember-basic-dropdown@~0.33.8:
-  version "0.33.8"
-  resolved "https://registry.yarnpkg.com/ember-basic-dropdown/-/ember-basic-dropdown-0.33.8.tgz#a82f7eabdf43f626e5cb8534539b7914c05e61fe"
+ember-basic-dropdown@^0.33.9, ember-basic-dropdown@~0.33.9:
+  version "0.33.9"
+  resolved "https://registry.yarnpkg.com/ember-basic-dropdown/-/ember-basic-dropdown-0.33.9.tgz#09db10b1588845f0603fce0879edf5c0db9c6136"
   dependencies:
-    ember-cli-babel "^6.8.1"
+    ember-cli-babel "^6.8.2"
     ember-cli-htmlbars "^2.0.3"
     ember-native-dom-helpers "^0.5.4"
     ember-wormhole "^0.5.2"
@@ -2281,7 +2281,7 @@ ember-code-snippet@2.0.0:
     es6-promise "^1.0.0"
     glob "^4.0.4"
 
-ember-concurrency@^0.8.1, ember-concurrency@^0.8.10:
+ember-concurrency@^0.8.1, ember-concurrency@^0.8.12:
   version "0.8.12"
   resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-0.8.12.tgz#fb91180e5efeb1024cfa2cfb99d2fe6721930c91"
   dependencies:
@@ -2404,12 +2404,12 @@ ember-native-dom-helpers@^0.5.4:
     broccoli-funnel "^1.1.0"
     ember-cli-babel "^6.6.0"
 
-ember-power-select@1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/ember-power-select/-/ember-power-select-1.10.0.tgz#41df3f3b60fb8224c291480dab9489ca6920ad41"
+ember-power-select@^1.10.1:
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/ember-power-select/-/ember-power-select-1.10.1.tgz#c4978638b78a82a895a79e3231f1e7a25b18e86c"
   dependencies:
     bower "^1.8.2"
-    ember-basic-dropdown "^0.33.8"
+    ember-basic-dropdown "^0.33.9"
     ember-cli-babel "^6.8.2"
     ember-cli-htmlbars "^2.0.1"
     ember-concurrency "^0.8.1"
