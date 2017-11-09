@@ -2,7 +2,7 @@
 
 Customizable Calendar Component for Ember.
 
-## Disclayment
+## Disclaimer
 
 This addon is in very early days of development, so things might change fast over
 the next weeks. Use it with caution!
@@ -13,7 +13,7 @@ the next weeks. Use it with caution!
 
 ## Usage
 
-There is many possible ways to use it, for giving you just a taste of the API:
+There are many possible ways to use it, for giving you just a taste of the API:
 
 ```hbs
 {{#power-calendar selected=arrival onSelect=(action (mut arrival) value="moment") as |calendar|}}
@@ -22,4 +22,4 @@ There is many possible ways to use it, for giving you just a taste of the API:
 {{/power-calendar}}
 ```
 
-Check the full documentation in www.ember-power-calendar.com
+Check the full documentation at www.ember-power-calendar.com
