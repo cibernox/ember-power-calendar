@@ -39,7 +39,6 @@
     "ember-cli-qunit": "^4.1.0-beta.2",
     "ember-cli-release": "^0.2.9",
     "ember-cli-sass": "^7.0.0",
-    "ember-cli-shims": "^1.1.0",
     "ember-cli-template-lint": "0.7.5",
     "ember-cli-uglify": "^2.0.0",
     "ember-code-example-component": "0.2.0",
