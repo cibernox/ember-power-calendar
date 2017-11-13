@@ -36,7 +36,7 @@
     "ember-cli-eslint": "^4.2.1",
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
     "ember-cli-inject-live-reload": "^1.4.1",
-    "ember-cli-qunit": "^4.1.0-beta.2",
+    "ember-cli-qunit": "^4.1.1",
     "ember-cli-release": "^0.2.9",
     "ember-cli-sass": "^7.0.0",
     "ember-cli-template-lint": "0.7.5",
@@ -67,7 +67,7 @@
   ],
   "dependencies": {
     "ember-assign-helper": "0.1.2",
-    "ember-cli-babel": "^6.8.2",
+    "ember-cli-babel": "^6.9.0",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-moment-shim": "^3.5.0",
     "ember-concurrency": "^0.8.12",
