@@ -1,6 +1,6 @@
 {
   "name": "ember-power-calendar",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Powerful and customizable calendar component for Ember",
   "directories": {
     "doc": "doc",
@@ -23,6 +23,7 @@
   "files": [
     "addon/",
     "app/",
+    "addon-test-support/",
     "test-support/",
     "index.js"
   ],

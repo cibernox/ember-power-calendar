@@ -1,5 +1,8 @@
 ## Master
 
+## 0.6.1
+- [BUGFIX] Ensure `addon-test-support/` folder is not blacklisted in NPM
+
 ## 0.6.0
 - [ENHANCEMENT] Now the `calendarCenter` and `calendarSelect` helpers are importable from `ember-power-calendar/test-support`
   and can be used in both integration and acceptance tests.
