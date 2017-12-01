@@ -17,6 +17,7 @@ import {
   isSame,
   withLocale,
   normalizeCalendarDay,
+  normalizeDate,
   localeStartOfWeek,
   startOfWeek,
   endOfWeek
@@ -45,6 +46,16 @@ export default Component.extend({
 
   // CPs
   'data-power-calendar-id': computed.oneWay('calendar.uniqueId'),
+
+  center: computed('calendar.center', {
+    get() {
+      return this.get('calendar.center');
+    },
+    set(_, value) {
+      return value ? normalizeDate(value) : this.get('calendar.center');
+    }
+  }),
+
   weekdaysMin: computed('calendar.locale', function() {
     return withLocale(this.get("calendar.locale"), getWeekdaysMin);
   }),
@@ -75,8 +86,8 @@ export default Component.extend({
   days: computed('calendar', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
     let today = this.get('powerCalendarService').getDate();
     let calendar = this.get('calendar');
-    let lastDay = this.lastDay(calendar);
-    let day = this.firstDay(calendar);
+    let lastDay = this.lastDay();
+    let day = this.firstDay();
     let days = [];
     while (isBefore(day, lastDay)) {
       days.push(this.buildDay(day, today, calendar));
@@ -194,7 +205,7 @@ export default Component.extend({
       date: new Date(date),
       isDisabled: this.dayIsDisabled(date),
       isFocused: this.get('focusedId') === id,
-      isCurrentMonth: date.getMonth() === calendar.center.getMonth(),
+      isCurrentMonth: date.getMonth() === this.get('center').getMonth(),
       isToday: isSame(date, today, 'day'),
       isSelected: this.dayIsSelected(date, calendar)
     });
@@ -241,15 +252,15 @@ export default Component.extend({
     return false;
   },
 
-  firstDay(calendar) {
-    let firstDay = startOf(calendar.center, 'month');
+  firstDay() {
+    let firstDay = startOf(this.get('center'), 'month');
     return startOfWeek(firstDay, this.get('localeStartOfWeek'));
   },
 
-  lastDay(calendar) {
+  lastDay() {
     let localeStartOfWeek = this.get('localeStartOfWeek');
-    assert("The center of the calendar is an invalid date.", !isNaN(calendar.center.getTime()));
-    let lastDay = endOf(calendar.center, 'month')
+    assert("The center of the calendar is an invalid date.", !isNaN(this.get('center').getTime()));
+    let lastDay = endOf(this.get('center'), 'month')
     return endOfWeek(lastDay, localeStartOfWeek);
   },
 
@@ -278,4 +289,3 @@ export default Component.extend({
     }
   }
 });
-

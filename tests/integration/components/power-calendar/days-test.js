@@ -140,4 +140,23 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     await render(hbs`{{power-calendar/days calendar=calendar dayClass=classFn}}`);
     assert.dom('.ember-power-calendar-day').hasClass('some-computed-class');
   });
+
+  test('If it doesn\'t receive `center`, it uses calendar\'s center', async function(assert) {
+    assert.expect(1);
+    this.calendar = calendar;
+    await render(
+      hbs`{{power-calendar/days calendar=calendar}}`
+    );
+    assert.dom('[data-date="2013-10-15"]').exists({ count: 1 }, 'It displays month of the calendar center');
+  });
+
+  test('It can receive `center`', async function(assert) {
+    assert.expect(1);
+    this.calendar = calendar;
+    this.center = new Date(2017, 11, 1);
+    await render(
+      hbs`{{power-calendar/days calendar=calendar center=center}}`
+    );
+    assert.dom('[data-date="2017-12-15"]').exists({ count: 1 }, 'It displays month of the passed center');
+  });
 });
