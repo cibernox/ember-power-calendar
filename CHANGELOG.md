@@ -1,5 +1,8 @@
 ## Master
 
+## 0.7.1
+- [INTERNAL] Update some testing deps
+
 ## 0.7.0
 - [BREAKING] Require Ember >= 2.10
 
