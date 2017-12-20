@@ -1,5 +1,8 @@
 ## Master
 
+## 0.7.0
+- [BREAKING] Require Ember >= 2.10
+
 ## 0.6.1
 - [BUGFIX] Ensure `addon-test-support/` folder is not blacklisted in NPM
 
