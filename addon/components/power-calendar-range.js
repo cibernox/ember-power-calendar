@@ -81,7 +81,7 @@ export default CalendarComponent.extend({
     if (start && end) {
       let startMoment = moment(start);
       let endMoment = moment(end);
-      let changeStart = Math.abs(day.moment.diff(endMoment)) > Math.abs(day.moment.diff(startMoment));;
+      let changeStart = Math.abs(day.moment.diff(endMoment)) > Math.abs(day.moment.diff(startMoment));
 
       return {
         moment: { start: changeStart ? day.moment : startMoment, end: changeStart ? endMoment : day.moment },
@@ -94,7 +94,7 @@ export default CalendarComponent.extend({
         moment: { start: day.moment, end: null },
         date: { start: day.date, end: null }
       };
-    } 
+    }
 
     return this._buildDefaultRange(day, start, end);
   },
@@ -113,7 +113,7 @@ export default CalendarComponent.extend({
           date: { start: startMoment.toDate(), end: day.date }
         };
       }
-    } 
+    }
 
     return {
       moment: { start: day.moment, end: null },
