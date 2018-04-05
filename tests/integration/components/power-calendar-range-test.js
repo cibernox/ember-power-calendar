@@ -251,4 +251,31 @@ module('Integration | Component | power calendar range', function(hooks) {
     click('#select-valid-range-end');
     assert.notEqual(range, undefined, 'The actions has been called now');
   });
+
+  test('when is flagged as proximitySelection it changes range to closest date', async function(assert) {
+    assert.expect(7);
+    this.selected = { start: new Date(2016, 1, 5), end: new Date(2016, 1, 9) };
+    this.proximitySelection = true;
+
+    await render(hbs`
+      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") proximitySelection=true as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.days}}
+      {{/power-calendar-range}}
+    `);
+    let allDaysInRangeAreSelected = find('.ember-power-calendar-day[data-date="2016-02-05"]').classList.contains('ember-power-calendar-day--selected')
+      && find('.ember-power-calendar-day[data-date="2016-02-06"]').classList.contains('ember-power-calendar-day--selected')
+      && find('.ember-power-calendar-day[data-date="2016-02-07"]').classList.contains('ember-power-calendar-day--selected')
+      && find('.ember-power-calendar-day[data-date="2016-02-08"]').classList.contains('ember-power-calendar-day--selected')
+      && find('.ember-power-calendar-day[data-date="2016-02-09"]').classList.contains('ember-power-calendar-day--selected');
+    assert.ok(allDaysInRangeAreSelected, 'All days in range are selected');
+    assert.ok(find('.ember-power-calendar-day[data-date="2016-02-05"]').classList.contains('ember-power-calendar-day--range-start'), 'The start of the range has a special class');
+    assert.ok(find('.ember-power-calendar-day[data-date="2016-02-09"]').classList.contains('ember-power-calendar-day--range-end'), 'The end of the range has a special class');
+    click('.ember-power-calendar-day[data-date="2016-02-10"]');
+    assert.ok(find('.ember-power-calendar-day[data-date="2016-02-05"]').classList.contains('ember-power-calendar-day--range-start'), 'The start of the range has a special class');
+    assert.ok(find('.ember-power-calendar-day[data-date="2016-02-10"]').classList.contains('ember-power-calendar-day--range-end'), 'The end of the range has a special class');
+    click('.ember-power-calendar-day[data-date="2016-02-04"]');
+    assert.ok(find('.ember-power-calendar-day[data-date="2016-02-04"]').classList.contains('ember-power-calendar-day--range-start'), 'The start of the range has a special class');
+    assert.ok(find('.ember-power-calendar-day[data-date="2016-02-10"]').classList.contains('ember-power-calendar-day--range-end'), 'The end of the range has a special class');
+  });
 });

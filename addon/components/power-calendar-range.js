@@ -22,6 +22,7 @@ export default CalendarComponent.extend({
   daysComponent: 'power-calendar-range/days',
   minRange: fallbackIfUndefined(moment.duration(1, 'day')),
   maxRange: fallbackIfUndefined(null),
+  proximitySelection: fallbackIfUndefined(false),
 
   // CPs
   currentCenter: computed('center', function() {
@@ -68,24 +69,55 @@ export default CalendarComponent.extend({
   _buildRange(day) {
     let selected = this.get('publicAPI.selected') || { start: null, end: null };
     let { start, end } = getProperties(selected, 'start', 'end');
+
+    if (this.get('proximitySelection')) {
+      return this._buildRangeByProximity(day, start, end);
+    }
+
+    return this._buildDefaultRange(day, start, end);
+  },
+
+  _buildRangeByProximity(day, start, end) {
+    if (start && end) {
+      let startMoment = moment(start);
+      let endMoment = moment(end);
+      let changeStart = Math.abs(day.moment.diff(endMoment)) > Math.abs(day.moment.diff(startMoment));
+
+      return {
+        moment: { start: changeStart ? day.moment : startMoment, end: changeStart ? endMoment : day.moment },
+        date: { start: changeStart ? day.date : startMoment.toDate(), end: changeStart ? endMoment.toDate() : day.date }
+      };
+    }
+
+    if (day.moment.isBefore(moment(start))) {
+      return {
+        moment: { start: day.moment, end: null },
+        date: { start: day.date, end: null }
+      };
+    }
+
+    return this._buildDefaultRange(day, start, end);
+  },
+
+  _buildDefaultRange(day, start, end) {
     if (start && !end) {
       let startMoment = moment(start);
       if (startMoment.isAfter(day.moment)) {
         return {
           moment: { start: day.moment, end: startMoment },
-          date: {  start: day.date, end: startMoment.toDate() }
-        };
-      }  else {
-        return {
-          moment: { start: startMoment, end: day.moment },
-          date: {  start: startMoment.toDate(), end: day.date }
+          date: { start: day.date, end: startMoment.toDate() }
         };
       }
-    } else {
+
       return {
-        moment: { start: day.moment, end: null },
-        date: {  start: day.date, end: null }
+        moment: { start: startMoment, end: day.moment },
+        date: { start: startMoment.toDate(), end: day.date }
       };
     }
+
+    return {
+      moment: { start: day.moment, end: null },
+      date: { start: day.date, end: null }
+    };
   }
 });
