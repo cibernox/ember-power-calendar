@@ -107,12 +107,12 @@ export default CalendarComponent.extend({
           moment: { start: day.moment, end: startMoment },
           date: { start: day.date, end: startMoment.toDate() }
         };
-      } else {
-        return {
-          moment: { start: startMoment, end: day.moment },
-          date: { start: startMoment.toDate(), end: day.date }
-        };
       }
+
+      return {
+        moment: { start: startMoment, end: day.moment },
+        date: { start: startMoment.toDate(), end: day.date }
+      };
     }
 
     return {
