@@ -1,5 +1,8 @@
 ## Master
 
+## 0.7.2
+- [FEATURE] Add `proximitySelection` to `power-calendar-range`. When true (default is false) the clicking on the calendar after a range has been selected doesn't start a new range, but moves the closest extreme of the current range, expanding or narrowing it.
+
 ## 0.7.1
 - [INTERNAL] Update some testing deps
 
