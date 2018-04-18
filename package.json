@@ -69,7 +69,7 @@
     "ember-assign-helper": "0.1.2",
     "ember-cli-babel": "^6.11.0",
     "ember-cli-htmlbars": "^2.0.1",
-    "ember-cli-moment-shim": "^3.5.0",
+    "ember-cli-moment-shim": "3.5.0",
     "ember-concurrency": "^0.8.12",
     "ember-moment": "^7.5.0",
     "ember-native-dom-helpers": "^0.5.10"
