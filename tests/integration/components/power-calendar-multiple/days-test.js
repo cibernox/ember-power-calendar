@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { find, click } from 'ember-native-dom-helpers';
+import { find, findAll, click } from 'ember-native-dom-helpers';
 
 module(
   'Integration | Component | power-calendar-multiple/days',
@@ -77,6 +77,25 @@ module(
       click('.ember-power-calendar-day[data-date="2013-10-05"]');
 
       assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
+    });
+
+    test('If it receives `showDaysAround=false` option, it doesn\'t show the days before first or after last day of the month', async function(assert) {
+      assert.expect(3);
+
+      await render(hbs`
+        {{#power-calendar-multiple
+          showDaysAround=false
+          selected=collection
+          onSelect=(action (mut collection) value="moment") as |calendar|}}
+          {{calendar.days}}
+        {{/power-calendar-multiple}}
+      `);
+      click('.ember-power-calendar-day[data-date="2013-10-05"]');
+
+      let weeks = findAll('.ember-power-calendar-week');
+      assert.equal(findAll('.ember-power-calendar-day', weeks[0]).length, 6, 'The first week has 6 days');
+      assert.equal(weeks[0].dataset.missingDays, 1, 'It has a special data-attribute');
+      assert.equal(findAll('.ember-power-calendar-day', weeks[4]).length, 4, 'The last week has 4 days');
     });
   }
 );
