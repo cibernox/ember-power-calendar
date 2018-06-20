@@ -81,21 +81,21 @@ module(
 
     test('If it receives `showDaysAround=false` option, it doesn\'t show the days before first or after last day of the month', async function(assert) {
       assert.expect(3);
-
+      this.center = new Date(2013, 9, 1);
       await render(hbs`
         {{#power-calendar-multiple
-          showDaysAround=false
           selected=collection
+          center=center
           onSelect=(action (mut collection) value="moment") as |calendar|}}
-          {{calendar.days}}
+          {{calendar.days showDaysAround=false}}
         {{/power-calendar-multiple}}
       `);
-      click('.ember-power-calendar-day[data-date="2013-10-05"]');
+      await click('.ember-power-calendar-day[data-date="2013-10-05"]');
 
       let weeks = findAll('.ember-power-calendar-week');
-      assert.equal(findAll('.ember-power-calendar-day', weeks[0]).length, 6, 'The first week has 6 days');
-      assert.equal(weeks[0].dataset.missingDays, 1, 'It has a special data-attribute');
-      assert.equal(findAll('.ember-power-calendar-day', weeks[4]).length, 4, 'The last week has 4 days');
+      assert.equal(findAll('.ember-power-calendar-day', weeks[0]).length, 5, 'The first week has 6 days');
+      assert.equal(weeks[0].dataset.missingDays, '2', 'It has a special data-attribute');
+      assert.equal(findAll('.ember-power-calendar-day', weeks[4]).length, 5, 'The last week has 4 days');
     });
   }
 );
