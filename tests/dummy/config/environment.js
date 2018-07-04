@@ -1,4 +1,3 @@
-/* eslint-env node */
 'use strict';
 
 module.exports = function(environment) {
@@ -48,7 +47,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    // empty
   }
 
   return ENV;

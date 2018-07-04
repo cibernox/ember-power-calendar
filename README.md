@@ -23,3 +23,4 @@ There are many possible ways to use it, for giving you just a taste of the API:
 ```
 
 Check the full documentation at www.ember-power-calendar.com
+

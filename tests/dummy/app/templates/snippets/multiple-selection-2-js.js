@@ -24,4 +24,4 @@ export default Controller.extend({
       this.set('selectedPrimes', moments);
     }
   }
-});;
+});

@@ -2,24 +2,16 @@
   "name": "ember-power-calendar",
   "version": "0.7.2",
   "description": "Powerful and customizable calendar component for Ember",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
-  },
   "scripts": {
     "build": "ember build",
+    "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "ember try:each"
-  },
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/cibernox/ember-power-calendar.git"
+    "test": "ember test",
+    "test:all": "ember try:each"
   },
   "engines": {
-    "node": "^4.5 || 6.* || >= 7.*"
+    "node": "6.* || 8.* || >= 10.*"
   },
-  "author": "Miguel Camba",
-  "license": "MIT",
   "files": [
     "addon/",
     "app/",
@@ -28,16 +20,16 @@
     "index.js"
   ],
   "devDependencies": {
-    "broccoli-asset-rev": "^2.6.0",
+    "broccoli-asset-rev": "^2.7.0",
     "ember-basic-dropdown": "~1.0.0-beta.0",
-    "ember-cli": "~2.17.1",
+    "ember-cli": "~3.2.0",
     "ember-cli-app-version": "^3.0.0",
     "ember-cli-custom-assertions": "^0.1.0",
     "ember-cli-dependency-checker": "^2.0.0",
     "ember-cli-eslint": "^4.2.1",
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
     "ember-cli-inject-live-reload": "^1.4.1",
-    "ember-cli-qunit": "^4.2.1",
+    "ember-cli-qunit": "^4.3.2",
     "ember-cli-release": "^0.2.9",
     "ember-cli-sass": "^7.0.0",
     "ember-cli-template-lint": "0.7.5",
@@ -48,16 +40,19 @@
     "ember-disable-prototype-extensions": "^1.1.2",
     "ember-export-application-global": "^2.0.0",
     "ember-href-to": "^1.15.1",
-    "ember-load-initializers": "^1.0.0",
+    "ember-load-initializers": "^1.1.0",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-native-dom-event-dispatcher": "^0.6.3",
     "ember-power-select": "^1.10.1",
     "ember-resolver": "^4.0.0",
-    "ember-source": "~2.17.0",
+    "ember-source": "~3.2.0",
+    "ember-source-channel-url": "^1.0.1",
     "ember-truth-helpers": "^2.0.0",
-    "eslint-plugin-ember-suave": "^1.0.0",
+    "ember-try": "^0.2.23",
+    "eslint-plugin-ember": "^5.0.0",
+    "eslint-plugin-node": "^6.0.1",
     "loader.js": "^4.2.3",
-    "memory-scroll": "0.9.1"
+    "memory-scroll": "0.9.1",
+    "qunit-dom": "^0.6.2"
   },
   "keywords": [
     "ember-addon",
@@ -65,14 +60,23 @@
     "calendar",
     "component"
   ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/cibernox/ember-power-calendar.git"
+  },
+  "license": "MIT",
+  "author": "Miguel Camba",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
   "dependencies": {
     "ember-assign-helper": "0.1.2",
     "ember-cli-babel": "^6.11.0",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-moment-shim": "^3.5.0",
     "ember-concurrency": "^0.8.19",
-    "ember-moment": "^7.5.0",
-    "ember-native-dom-helpers": "^0.5.10"
+    "ember-moment": "^7.5.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
