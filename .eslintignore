@@ -14,3 +14,6 @@
 
 # ember-try
 /.node_modules.ember-try/
+
+# Snippets
+/tests/dummy/app/templates/snippets/**
