@@ -9,6 +9,7 @@ export default Controller.extend({
 
   // Lifecycle hooks
   init() {
+    this._super(...arguments);
     this.set('tomorrow', moment().add(1, 'day'));
     this.set('tomorrowDate', moment().add(1, 'day').toDate());
     this.set('pastMonth', moment().subtract(1, 'month'));

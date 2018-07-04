@@ -10,6 +10,7 @@ export default Controller.extend({
 
   // Lifecycle hooks
   init() {
+    this._super(...arguments);
     this.set('tenDaysAgo', moment().add(-10, 'day'));
     this.set('threeDaysAgo', moment().add(-3, 'day'));
     this.set('threeDaysFromNow', moment().add(3, 'day'));
