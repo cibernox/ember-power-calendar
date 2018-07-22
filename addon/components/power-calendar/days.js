@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 import { inject } from '@ember/service';
+import { assert } from '@ember/debug';
 import layout from '../../templates/components/power-calendar/days';
 import moment from 'moment';
 
@@ -236,6 +237,7 @@ export default Component.extend({
 
   lastDay(calendar) {
     let localeStartOfWeek = this.get('localeStartOfWeek');
+    assert('The center of the calendar is an invalid date.', calendar.center.isValid())
     let lastDay = calendar.center.clone().endOf('month');
     let localeEndOfWeek = (localeStartOfWeek + 6) % 7;
     while ((lastDay.isoWeekday() % 7) !== localeEndOfWeek) {
