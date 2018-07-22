@@ -1,5 +1,8 @@
 ## Master
 
+## 0.7.3
+- [ENHANCEMENT] Add helpful assertions when a calendar receives an invalid date as center and when the user tries to change the center of a calendar without an `onCenterChange` action.
+
 ## 0.7.2
 - [FEATURE] Add `proximitySelection` to `power-calendar-range`. When true (default is false) the clicking on the calendar after a range has been selected doesn't start a new range, but moves the closest extreme of the current range, expanding or narrowing it.
 
