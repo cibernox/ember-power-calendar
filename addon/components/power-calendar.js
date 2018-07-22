@@ -5,6 +5,7 @@ import { inject } from '@ember/service';
 import moment from 'moment';
 import { task } from 'ember-concurrency';
 import layout from '../templates/components/power-calendar';
+import { assert } from '@ember/debug';
 
 export default Component.extend({
   layout,
@@ -77,11 +78,10 @@ export default Component.extend({
 
   // Tasks
   changeCenterTask: task(function* (newCenterMoment, calendar, e) {
-    yield this.get('onCenterChange')(
-      { date: newCenterMoment.toDate(), moment: newCenterMoment },
-      calendar,
-      e
-    );
+    let action = this.get('onCenterChange');
+    assert('You attempted to move the center of a calendar that doesn\'t receive an `onCenterChange` action.', typeof action === 'function');
+    let value = { date: newCenterMoment.toDate(), moment: newCenterMoment };
+    yield action(value, calendar, e);
   }),
 
   // Methods
