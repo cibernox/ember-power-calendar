@@ -13,7 +13,7 @@
         {{! template-lint-disable invalid-interactive }}
         <div class="header-calendar" onclick={{action "flipPage"}}>
           <div class="header-calendar-page {{if (eq day today) '' 'run-animation'}}">
-            <sub class="calendar-page-number">{{moment-format day 'D'}}</sub>
+            <sub class="calendar-page-number">{{format-date day 'D'}}</sub>
             Calendar
           </div>
           <div class="header-calendar-ring left"></div>

@@ -4,15 +4,16 @@ import { scheduleOnce } from '@ember/runloop';
 import { inject } from '@ember/service';
 import { assert } from '@ember/debug';
 import layout from '../../templates/components/power-calendar/days';
-import moment from 'moment';
+import { startOf, formatDate } from 'ember-power-calendar/utils/date-utils';
+// import moment from 'moment';
 
 function withLocale(locale, fn) {
   let returnValue;
   if (locale) {
-    let previousLocale = moment.locale();
-    moment.locale(locale);
+    // let previousLocale = moment.locale();
+    // moment.locale(locale);
     returnValue = fn();
-    moment.locale(previousLocale);
+    // moment.locale(previousLocale);
   } else {
     returnValue = fn();
   }
@@ -60,7 +61,7 @@ export default Component.extend({
       return parseInt(forcedStartOfWeek, 10);
     }
     let now = this.get('powerCalendarService').getDate();
-    let dayAbbr = withLocale(this.get('calendar.locale'), () => moment(now).startOf('week').format('ddd'));
+    let dayAbbr = withLocale(this.get('calendar.locale'), () => formatDate(startOf(now, 'week'), 'ddd'));
     return this.get('weekdaysShort').indexOf(dayAbbr);
   }),
 

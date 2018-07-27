@@ -1,19 +1,18 @@
 import Controller from '@ember/controller';
-import { inject } from '@ember/service';
-import moment from 'moment';
+// import { inject } from '@ember/service';
 
 export default Controller.extend({
-  moment: inject(),
+  // moment: inject(),
 
   init() {
     this._super(...arguments);
-    this.set('locales', moment.locales());
+    // this.set('locales', moment.locales());
   },
 
   // actions
   actions: {
     changeAppWideLocale(locale) {
-      this.get('moment').changeLocale(locale);
+      // this.get('moment').changeLocale(locale);
     }
   }
 });

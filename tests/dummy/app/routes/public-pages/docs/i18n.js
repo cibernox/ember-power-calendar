@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
+// import { inject } from '@ember/service';
 
 export default Route.extend({
-  moment: inject(),
+  // moment: inject(),
 
   deactivate() {
     this._super(...arguments);
-    this.get('moment').changeLocale(false);
+    // this.get('moment').changeLocale(false);
   }
 });

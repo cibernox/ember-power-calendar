@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { inject } from '@ember/service';
-import moment from 'moment';
+// import moment from 'moment';
 import { task } from 'ember-concurrency';
 import layout from '../templates/components/power-calendar';
 import { assert } from '@ember/debug';
@@ -11,7 +11,7 @@ export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],
   powerCalendarService: inject('power-calendar'),
-  momentService: inject('moment'),
+  // momentService: inject('moment'),
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
   center: null,
@@ -46,9 +46,11 @@ export default Component.extend({
   currentCenter: computed('center', function() {
     let center = this.get('center');
     if (center) {
-      return moment(center);
+      // return moment(center);
+      return center;
     }
-    return moment(this.get('selected') || this.get('powerCalendarService').getDate());
+    // return moment(this.get('selected') || this.get('powerCalendarService').getDate());
+    return this.get('selected') || this.get('powerCalendarService').getDate()
   }),
 
   publicAPI: computed('_publicAPI', function() {
@@ -61,7 +63,10 @@ export default Component.extend({
       selected: this.get('selected'),
       loading: this.get('changeCenterTask.isRunning'),
       center: this.get('currentCenter'),
-      locale: this.get('locale') || this.get('momentService.locale') || moment.locale(),
+
+      locale: this.get('locale') || this.get('momentService.locale'),
+      // locale: this.get('locale') || this.get('momentService.locale') || moment.locale(),
+
       actions: this.get('publicActions')
     };
   }),

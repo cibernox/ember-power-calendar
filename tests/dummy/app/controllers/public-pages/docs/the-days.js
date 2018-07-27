@@ -1,21 +1,20 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import moment from 'moment';
 
 export default Controller.extend({
-  wedding: moment('2013-10-18'),
-  minDate: moment('2013-10-11'),
-  maxDate: moment('2013-10-21'),
-  center: moment('2013-10-15'),
+  wedding: new Date('2013-10-18'),
+  minDate: new Date('2013-10-11'),
+  maxDate: new Date('2013-10-21'),
+  center: new Date('2013-10-15'),
   disabledDates: [
-    moment('2013-10-18'),
-    moment('2013-10-21'),
-    moment('2013-10-22'),
-    moment('2013-10-28')
+    new Date('2013-10-18'),
+    new Date('2013-10-21'),
+    new Date('2013-10-22'),
+    new Date('2013-10-28')
   ],
 
   days: computed(function() {
-    let now = moment();
+    let now = new Date();
     let day = now.clone().startOf('month').startOf('isoWeek');
     let lastDay = now.clone().endOf('month').endOf('isoWeek');
     let days = [];

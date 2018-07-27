@@ -1,7 +1,6 @@
 import Controller from '@ember/controller';
 import { later, scheduleOnce } from '@ember/runloop';
 import { inject } from '@ember/controller';
-import moment from 'moment';
 
 export default Controller.extend({
   applicationController: inject('application'),
@@ -10,7 +9,7 @@ export default Controller.extend({
 
   init() {
     this._super(...arguments);
-    let now = moment();
+    let now = new Date();
     this.setProperties({ today: now, day: now });
   },
 
