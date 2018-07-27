@@ -37,7 +37,7 @@
     selected=selected as |calendar|}}
 
     {{#calendar.nav as |month|}}
-      {{moment-format month 'MMM YY'}}
+      {{format-date month 'MMM YY'}}
     {{/calendar.nav}}
     {{calendar.days}}
   {{/power-calendar}}
@@ -53,7 +53,7 @@
 
     {{calendar.nav}}
     {{#calendar.days as |day|}}
-      {{moment-format day.moment 'Do'}}
+      {{format-date day.moment 'Do'}}
     {{/calendar.days}}
   {{/power-calendar}}
 

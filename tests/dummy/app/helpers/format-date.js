@@ -5,4 +5,4 @@ export function formatDateHelper([date, format]) {
   return formatDate(date, format);
 }
 
-export default helper(formatDate)
+export default helper(formatDateHelper);

@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { later, scheduleOnce } from '@ember/runloop';
 import { inject } from '@ember/controller';
+import { add } from "ember-power-calendar/utils/date-utils";
 
 export default Controller.extend({
   applicationController: inject('application'),
@@ -26,7 +27,7 @@ export default Controller.extend({
       let clone = pageElement.cloneNode(true);
       let parent = pageElement.parentNode;
       parent.insertBefore(clone, pageElement);
-      this.set('day', this.get('day').clone().add(1, 'day'));
+      this.set('day', add(this.get('day'), 1, 'day'));
       later(function() {
         parent.removeChild(clone);
       }, 400);

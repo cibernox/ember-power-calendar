@@ -10,7 +10,7 @@
     <div class="ember-power-calendar-row ember-power-calendar-week">
       {{#each week.days as |day|}}
         <div class="ember-power-calendar-day {{if day.isCurrentMonth 'ember-power-calendar-day--current-month'}}">
-          {{moment-format day.date 'D'}}
+          {{format-date day.date 'D'}}
         </div>
       {{/each}}
     </div>

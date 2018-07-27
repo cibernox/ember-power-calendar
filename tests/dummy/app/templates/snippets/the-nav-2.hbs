@@ -6,7 +6,7 @@
     <button type="button" class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter -12 'month'}}>«</button>
     <button type="button" class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter -1 'month'}}>‹</button>
     <div class="ember-power-calendar-nav-title">
-      {{moment-format calendar.center 'MMMM YYYY'}}
+      {{format-date calendar.center 'MMMM YYYY'}}
     </div>
     <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter 1 'month'}}>›</button>
     <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter 12 'month'}}>»</button>
