@@ -8,7 +8,8 @@ import {
   startOf,
   endOf,
   getWeekdaysShort,
-  formatDate
+  formatDate,
+  isoWeekday
 } from "ember-power-calendar/utils/date-utils";
 // import moment from 'moment';
 
@@ -234,9 +235,9 @@ export default Component.extend({
   },
 
   firstDay(calendar) {
-    let firstDay = calendar.center.clone().startOf('month');
+    let firstDay = startOf(calendar.center, 'month');
     let localeStartOfWeek = this.get('localeStartOfWeek');
-    while ((firstDay.isoWeekday() % 7) !== localeStartOfWeek) {
+    while ((isoWeekday(firstDay) % 7) !== localeStartOfWeek) {
       firstDay.add(-1, 'day');
     }
     return firstDay;
@@ -246,10 +247,9 @@ export default Component.extend({
     let localeStartOfWeek = this.get('localeStartOfWeek');
     assert("The center of the calendar is an invalid date.", !isNaN(calendar.center.getTime()));
     let lastDay = endOf(calendar.center, 'month')
-    // calendar.center.clone().endOf('month');
     let localeEndOfWeek = (localeStartOfWeek + 6) % 7;
-    while ((lastDay.isoWeekday() % 7) !== localeEndOfWeek) {
-      lastDay.add(1, 'day');
+    while (isoWeekday(lastDay) % 7 !== localeEndOfWeek) {
+      lastDay.add(1, "day");
     }
     return lastDay;
   },

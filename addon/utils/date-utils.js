@@ -1,11 +1,14 @@
 const msPerUnit = {
+  millisecond: 1,
   second: 1000,
   minute: 60000,
   hour: 3600000,
   day: 86400000,
 };
 
-const singulars = {
+const aliases = {
+  ms: 'millisecond',
+  milliseconds: 'millisecond',
   seconds: 'second',
   minutes: 'minute',
   hours: 'hour',
@@ -14,8 +17,8 @@ const singulars = {
 
 const weekdaysShort = [];
 
-function singularizeUnits(units) {
-  return singulars[units] || units;
+function normalizeUnits(units) {
+  return aliases[units] || units;
 }
 
 function dayOfWeek(date) {
@@ -37,12 +40,12 @@ export function getWeekdaysShort() {
 }
 
 export function add(date, quantity, unit) {
-  return new Date(+date + quantity * msPerUnit[singularizeUnits(unit)]);
+  return new Date(+date + quantity * msPerUnit[normalizeUnits(unit)]);
 }
 
 export function startOf(date, unit) {
   let result = new Date(date);
-  unit = singularizeUnits(unit);
+  unit = normalizeUnits(unit);
   // the following switch intentionally omits break keywords
   // to utilize falling through the cases.
   switch (unit) {
@@ -87,7 +90,15 @@ export function startOf(date, unit) {
 }
 
 export function endOf(date, unit) {
-  throw new Error('endOf is not yet implemented');
+  unit = normalizeUnits(unit);
+  if (unit === undefined || unit === 'millisecond') {
+    return date;
+  }
+  return add(add(startOf(date, unit), 1, (unit === 'isoWeek' ? 'week' : unit)), -1, 'millisecond');
+}
+
+export function isoWeekday(date) {
+  throw new Error('isoWeekday is not yet implemented');
 }
 
 export function formatDate(date, format) {
