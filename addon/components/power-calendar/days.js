@@ -4,7 +4,12 @@ import { scheduleOnce } from '@ember/runloop';
 import { inject } from '@ember/service';
 import { assert } from '@ember/debug';
 import layout from '../../templates/components/power-calendar/days';
-import { startOf, formatDate } from 'ember-power-calendar/utils/date-utils';
+import {
+  startOf,
+  endOf,
+  getWeekdaysShort,
+  formatDate
+} from "ember-power-calendar/utils/date-utils";
 // import moment from 'moment';
 
 function withLocale(locale, fn) {
@@ -48,7 +53,8 @@ export default Component.extend({
   }),
 
   weekdaysShort: computed('calendar.locale', function() {
-    return withLocale(this.get('calendar.locale'), () => moment.weekdaysShort());
+    // return withLocale(this.get('calendar.locale'), () => moment.weekdaysShort());
+    return withLocale(this.get("calendar.locale"), () => getWeekdaysShort());
   }),
 
   weekdays: computed('calendar.locale', function() {
@@ -238,8 +244,9 @@ export default Component.extend({
 
   lastDay(calendar) {
     let localeStartOfWeek = this.get('localeStartOfWeek');
-    assert('The center of the calendar is an invalid date.', calendar.center.isValid())
-    let lastDay = calendar.center.clone().endOf('month');
+    assert("The center of the calendar is an invalid date.", !isNaN(calendar.center.getTime()));
+    let lastDay = endOf(calendar.center, 'month')
+    // calendar.center.clone().endOf('month');
     let localeEndOfWeek = (localeStartOfWeek + 6) % 7;
     while ((lastDay.isoWeekday() % 7) !== localeEndOfWeek) {
       lastDay.add(1, 'day');

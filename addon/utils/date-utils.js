@@ -9,13 +9,33 @@ const singulars = {
   seconds: 'second',
   minutes: 'minute',
   hours: 'hour',
-  day: 'day',
+  days: 'day',
 };
+
+const weekdaysShort = [];
 
 function singularizeUnits(units) {
   return singulars[units] || units;
-
 }
+
+function dayOfWeek(date) {
+  const js = new Date(date).getUTCDay();
+  return js === 0 ? 7 : js;
+}
+
+export function getWeekdaysShort() {
+  if (weekdaysShort.length === 0) {
+    let date = new Date(0);
+    date.setDate(4 + date.getDate());
+    let day = date.getDate();
+    for (let i = 0; i < 7; i++) {
+      date.setDate(day + i);
+      weekdaysShort.push(new Intl.DateTimeFormat(["en"], { weekday: "short" }).format(date));
+    }
+  }
+  return weekdaysShort;
+}
+
 export function add(date, quantity, unit) {
   return new Date(+date + quantity * msPerUnit[singularizeUnits(unit)]);
 }
@@ -51,8 +71,8 @@ export function startOf(date, unit) {
 
   // weeks are a special case
   if (unit === 'week') {
-    throw new Error('week unit not yet supported');
-    // this.weekday(0);
+    let dow = dayOfWeek(date);
+    result = add(result, -(dow - 1), 'days')
   }
   if (unit === 'isoWeek') {
     throw new Error("isoWeek unit not yet supported");
@@ -64,6 +84,10 @@ export function startOf(date, unit) {
   }
 
   return this;
+}
+
+export function endOf(date, unit) {
+  throw new Error('endOf is not yet implemented');
 }
 
 export function formatDate(date, format) {
