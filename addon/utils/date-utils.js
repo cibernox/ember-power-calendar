@@ -15,15 +15,20 @@ const aliases = {
   days: 'day',
 };
 
+const unitFunctions = {
+  millisecond: 'getMilliseconds',
+  second: 'getSeconds',
+  minute: 'getMinutes',
+  hour: 'getHours',
+  day: 'getDate',
+  month: 'getMonth',
+  year: 'getFullYear',
+};
+
 const weekdaysShort = [];
 
 function normalizeUnits(units) {
   return aliases[units] || units;
-}
-
-function dayOfWeek(date) {
-  const js = new Date(date).getUTCDay();
-  return js === 0 ? 7 : js;
 }
 
 export function getWeekdaysShort() {
@@ -40,7 +45,25 @@ export function getWeekdaysShort() {
 }
 
 export function add(date, quantity, unit) {
-  return new Date(+date + quantity * msPerUnit[normalizeUnits(unit)]);
+  unit = normalizeUnits(unit);
+  let ms = msPerUnit[unit];
+  if (ms) {
+    return new Date(+date + quantity * ms);
+  } else if (unit === 'month') {
+    let copy = new Date(date);
+    let monthIncrease = quantity % 12;
+    let month = date.getMonth() + monthIncrease;
+    let sign = quantity > 0 ? 1 : -1;
+    let yearIncrease = sign > 0 ? Math.floor(quantity / 12) : Math.ceil(quantity / 12);
+    let year = date.getFullYear();
+    if (month === 12) {
+      month = 0;
+    }
+    year += yearIncrease;
+    copy.setMonth(month);
+    copy.setFullYear(year);
+    return copy;
+  }
 }
 
 export function startOf(date, unit) {
@@ -74,7 +97,7 @@ export function startOf(date, unit) {
 
   // weeks are a special case
   if (unit === 'week') {
-    let dow = dayOfWeek(date);
+    let dow = weekday(date);
     result = add(result, -(dow - 1), 'days')
   }
   if (unit === 'isoWeek') {
@@ -86,7 +109,7 @@ export function startOf(date, unit) {
     throw new Error("quarter unit not yet supported");
   }
 
-  return this;
+  return result;
 }
 
 export function endOf(date, unit) {
@@ -98,9 +121,34 @@ export function endOf(date, unit) {
 }
 
 export function isoWeekday(date) {
-  throw new Error('isoWeekday is not yet implemented');
+  const js = new Date(date).getUTCDay();
+  return js === 0 ? 7 : js;
+}
+
+export function weekday(date) { // either this or the isoWeekday is wrong, IDK yet
+  const js = new Date(date).getUTCDay();
+  return js === 0 ? 7 : js;
+}
+
+export function isBefore(date1, date2) {
+  return +date1 < +date2;
+}
+
+export function isAfter(date1, date2) {
+  return +date1 > +date2;
+}
+
+export function isSame(date1, date2, unit) {
+  let fnName = unitFunctions[normalizeUnits(unit)];
+  return date1[fnName]() === date1[fnName]();
 }
 
 export function formatDate(date, format) {
-  return new Intl.DateTimeFormat("en-US", { day: "numeric" }).format(date);
+  let formatOptions = {};
+  if (format === 'ddd') {
+    formatOptions = { weekday: 'short' }
+  } if (format === 'YYYY-MM-DD') {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  }
+  return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
 }
