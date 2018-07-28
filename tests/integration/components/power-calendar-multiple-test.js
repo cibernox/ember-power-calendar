@@ -4,7 +4,8 @@ import { render } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run } from '@ember/runloop';
-import moment from 'moment';
+import { isSame } from 'ember-power-calendar/utils/date-utils';
+// import moment from 'moment';
 import { find, click } from 'ember-native-dom-helpers';
 
 module('Integration | Component | power calendar multiple', function(hooks) {
@@ -43,20 +44,20 @@ module('Integration | Component | power calendar multiple', function(hooks) {
       callsCount++;
       if (callsCount === 1) {
         assert.equal(days.date.length, 1);
-        assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
+        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
       } else if (callsCount === 2) {
         assert.equal(days.date.length, 2);
-        assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
-        assert.ok(days.moment[1].isSame(moment('2013-10-15'), 'day'));
+        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
+        assert.ok(isSame(days.date[1], new Date('2013-10-15'), 'day'));
       } else if (callsCount === 3) {
         assert.equal(days.date.length, 3);
-        assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
-        assert.ok(days.moment[1].isSame(moment('2013-10-15'), 'day'));
-        assert.ok(days.moment[2].isSame(moment('2013-10-09'), 'day'));
+        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
+        assert.ok(isSame(days.date[1], new Date('2013-10-15'), 'day'));
+        assert.ok(isSame(days.date[2], new Date('2013-10-09'), 'day'));
       } else {
         assert.equal(days.date.length, 2);
-        assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
-        assert.ok(days.moment[1].isSame(moment('2013-10-09'), 'day'));
+        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
+        assert.ok(isSame(days.date[1], new Date('2013-10-09'), 'day'));
       }
       assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
       assert.ok(e instanceof Event, 'The third argument is an event');

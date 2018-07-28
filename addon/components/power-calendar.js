@@ -2,11 +2,10 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { inject } from '@ember/service';
-// import moment from 'moment';
 import { task } from 'ember-concurrency';
 import layout from '../templates/components/power-calendar';
 import { assert } from '@ember/debug';
-
+import { add } from "ember-power-calendar/utils/date-utils";
 export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],
@@ -20,12 +19,12 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     let changeCenter = (newCenter, calendar, e) => {
-      return this.get('changeCenterTask').perform(moment(newCenter), calendar, e);
+      return this.get('changeCenterTask').perform(newCenter, calendar, e);
     };
     this.publicActions = {
       changeCenter,
       moveCenter: (step, unit, calendar, e) => {
-        let newCenter = moment(this.get('currentCenter')).add(step, unit);
+        let newCenter = add(this.get('currentCenter'), step, unit);
         return changeCenter(newCenter, calendar, e);
       },
       select: (...args) => this.send('select', ...args)
@@ -82,10 +81,13 @@ export default Component.extend({
   },
 
   // Tasks
-  changeCenterTask: task(function* (newCenterMoment, calendar, e) {
+  changeCenterTask: task(function* (newCenter, calendar, e) {
     let action = this.get('onCenterChange');
     assert('You attempted to move the center of a calendar that doesn\'t receive an `onCenterChange` action.', typeof action === 'function');
-    let value = { date: newCenterMoment.toDate(), moment: newCenterMoment };
+    let value = {
+      date: newCenter,
+      // moment: newCenter
+    };
     yield action(value, calendar, e);
   }),
 

@@ -3,7 +3,6 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../../assertions';
-import moment from 'moment';
 import { run } from '@ember/runloop';
 import { find, findAll } from 'ember-native-dom-helpers';
 
@@ -18,7 +17,7 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     calendarService.set('date', new Date(2013, 9, 18));
     momentService = this.owner.lookup('service:moment');
     calendar = {
-      center: moment(calendarService.getDate()),
+      center: calendarService.getDate(),
       locale: 'en',
       actions: {
         moveCenter: () => {},
@@ -39,18 +38,18 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     assert.equal(find('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Seg Ter Qua Qui Sex Sáb Dom');
   });
 
-  test('[i18n] The name of the weekdays respect the locale set in the `moment` global', async function(assert) {
-    assert.expect(2);
-    this.center = new Date(2016, 10, 15);
-    let originalLocale = moment.locale();
-    moment.locale('fr');
-    await render(
-      hbs`{{#power-calendar center=center as |cal|}}{{cal.days}}{{/power-calendar}}`
-    );
-    assert.equal(find('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'lun. mar. mer. jeu. ven. sam. dim.');
-    assert.equal(findAll('.ember-power-calendar-day')[0].dataset.date, '2016-10-31');
-    moment.locale(originalLocale);
-  });
+  // test('[i18n] The name of the weekdays respect the locale set in the `moment` global', async function(assert) {
+  //   assert.expect(2);
+  //   this.center = new Date(2016, 10, 15);
+  //   let originalLocale = moment.locale();
+  //   moment.locale('fr');
+  //   await render(
+  //     hbs`{{#power-calendar center=center as |cal|}}{{cal.days}}{{/power-calendar}}`
+  //   );
+  //   assert.equal(find('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'lun. mar. mer. jeu. ven. sam. dim.');
+  //   assert.equal(findAll('.ember-power-calendar-day')[0].dataset.date, '2016-10-31');
+  //   moment.locale(originalLocale);
+  // });
 
   test('[i18n] The user can force a different locale from the one set in moment.js passing `locale="some-locale"`', async function(assert) {
     assert.expect(2);

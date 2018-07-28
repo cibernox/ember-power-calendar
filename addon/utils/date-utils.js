@@ -42,13 +42,13 @@ export function add(date, quantity, unit) {
   } else if (unit === 'month') {
     let copy = new Date(date);
     let monthIncrease = quantity % 12;
+    let yearIncrease = quantity > 0 ? Math.floor(quantity / 12) : Math.ceil(quantity / 12);
     let month = date.getMonth() + monthIncrease;
-    let sign = quantity > 0 ? 1 : -1;
-    let yearIncrease = sign > 0 ? Math.floor(quantity / 12) : Math.ceil(quantity / 12);
-    let year = date.getFullYear();
-    if (month === 12) {
-      month = 0;
+    if (month > 11) {
+      yearIncrease += 1;
+      month = month % 12;
     }
+    let year = date.getFullYear();
     year += yearIncrease;
     copy.setMonth(month);
     copy.setFullYear(year);
@@ -136,19 +136,18 @@ export function isSame(date1, date2, unit) {
       throw new Error('isSame is not implemented for unit "week');
     case "millisecond":
       result = result && date1.getMilliseconds() === date2.getMilliseconds();
-    /* falls through */
+      /* falls through */
     case "second":
       result = result && date1.getSeconds() === date2.getSeconds();
-    /* falls through */
+      /* falls through */
     case "minute":
       result = result && date1.getMinutes() === date2.getMinutes();
-    /* falls through */
+      /* falls through */
     case "hour":
       result = result && date1.getHours() === date2.getHours();
-    /* falls through */
+      /* falls through */
     case "day":
       result = result && date1.getDate() === date2.getDate();
-    /* falls through */
       /* falls through */
     case "month":
       result = result && date1.getMonth() === date2.getMonth();

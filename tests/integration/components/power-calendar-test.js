@@ -3,7 +3,6 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
-import moment from 'moment';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
 import { find, findAll, click, keyEvent, focus } from 'ember-native-dom-helpers';
@@ -88,7 +87,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
 
   test('when it receives a `moment()` in the `center` argument, it displays that month', async function(assert) {
     assert.expect(3);
-    this.center = moment('2016-02-05');
+    this.center = new Date('2016-02-05');
     await render(hbs`
       {{#power-calendar center=center as |calendar|}}
         {{calendar.nav}}
@@ -190,7 +189,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
 
   test('when it receives a `moment` in the `selected` argument, it displays that month, and that day is marked as selected', async function(assert) {
     assert.expect(4);
-    this.selected = moment('2016-02-05');
+    this.selected = new Date('2016-02-05');
     await render(hbs`
       {{#power-calendar selected=selected as |calendar|}}
         {{calendar.nav}}
@@ -429,7 +428,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The minDate is selectable');
     assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-16"]').disabled, 'Days after the minDate are selectable');
 
-    run(() => this.set('minDate', moment('2013-10-18')));
+    run(() => this.set('minDate', new Date('2013-10-18')));
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'Days before the minDate are disabled');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-17"]').disabled, 'The minDate is selectable');
     assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-18"]').disabled, 'Days after the minDate are selectable');
@@ -449,7 +448,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The maxDate is selectable');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-16"]').disabled, 'Days after the maxDate are disabled');
 
-    run(() => this.set('maxDate', moment('2013-10-18')));
+    run(() => this.set('maxDate', new Date('2013-10-18')));
     assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'Days before the minDate are selectable');
     assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-18"]').disabled, 'The maxDate is selectable');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-19"]').disabled, 'Days after the maxDate are disabled');

@@ -182,8 +182,6 @@ export default Component.extend({
   // Methods
   buildDay(date, today, calendar) {
     let id = formatDate(date, 'YYYY-MM-DD')
-    // let id = dayMoment.format('YYYY-MM-DD');
-    // let momentDate = dayMoment.clone();
 
     return {
       id,

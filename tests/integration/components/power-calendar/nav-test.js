@@ -3,7 +3,6 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../../assertions';
-import moment from 'moment';
 import { run } from '@ember/runloop';
 import { find } from 'ember-native-dom-helpers';
 
@@ -18,7 +17,7 @@ module('Integration | Component | power-calendar/nav', function(hooks) {
     calendarService.set('date', new Date(2013, 9, 18));
     momentService = this.owner.lookup('service:moment');
     calendar = {
-      center: moment(calendarService.getDate()),
+      center: calendarService.getDate(),
       actions: {
         moveCenter: () => {},
         select: () => {}
