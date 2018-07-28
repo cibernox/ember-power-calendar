@@ -15,16 +15,6 @@ const aliases = {
   days: 'day',
 };
 
-const unitFunctions = {
-  millisecond: 'getMilliseconds',
-  second: 'getSeconds',
-  minute: 'getMinutes',
-  hour: 'getHours',
-  day: 'getDate',
-  month: 'getMonth',
-  year: 'getFullYear',
-};
-
 const weekdaysShort = [];
 
 function normalizeUnits(units) {
@@ -139,8 +129,34 @@ export function isAfter(date1, date2) {
 }
 
 export function isSame(date1, date2, unit) {
-  let fnName = unitFunctions[normalizeUnits(unit)];
-  return date1[fnName]() === date1[fnName]();
+  unit = normalizeUnits(unit);
+  let result = true;
+  switch (unit) {
+    case "week":
+      throw new Error('isSame is not implemented for unit "week');
+    case "millisecond":
+      result = result && date1.getMilliseconds() === date2.getMilliseconds();
+    /* falls through */
+    case "second":
+      result = result && date1.getSeconds() === date2.getSeconds();
+    /* falls through */
+    case "minute":
+      result = result && date1.getMinutes() === date2.getMinutes();
+    /* falls through */
+    case "hour":
+      result = result && date1.getHours() === date2.getHours();
+    /* falls through */
+    case "day":
+      result = result && date1.getDate() === date2.getDate();
+    /* falls through */
+      /* falls through */
+    case "month":
+      result = result && date1.getMonth() === date2.getMonth();
+      /* falls through */
+    case "year":
+      result = result && date1.getFullYear() === date2.getFullYear();
+  }
+  return result;
 }
 
 export function formatDate(date, format) {
@@ -149,6 +165,8 @@ export function formatDate(date, format) {
     formatOptions = { weekday: 'short' }
   } if (format === 'YYYY-MM-DD') {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  } else if (format === "MMMM YYYY") {
+    formatOptions = { month: "long", year: 'numeric' };
   }
   return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
 }
