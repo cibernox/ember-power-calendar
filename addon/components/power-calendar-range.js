@@ -3,7 +3,12 @@ import { assign } from '@ember/polyfills';
 import moment from 'moment';
 import CalendarComponent from './power-calendar';
 import fallbackIfUndefined from '../utils/computed-fallback-if-undefined';
-import { normalizeDate, diff, isAfter, isBefore } from "ember-power-calendar/utils/date-utils";
+import {
+  normalizeDate,
+  diff,
+  isAfter,
+  isBefore
+} from 'ember-power-calendar/utils/date-utils';
 
 function parseDuration(value) {
   if (value === null || moment.isDuration(value)) {
@@ -63,8 +68,8 @@ export default CalendarComponent.extend({
       let { start, end } = range.date;
       if (start && end) {
         let { minRange, maxRange } = this.get('publicAPI');
-        let diff = Math.abs(diff(end, start));
-        if (diff < minRange.as('ms') || maxRange && diff > maxRange.as('ms')) {
+        let diffInMs = Math.abs(diff(end, start));
+        if (diffInMs < minRange.as('ms') || maxRange && diffInMs > maxRange.as('ms')) {
           return;
         }
       }
@@ -110,7 +115,7 @@ export default CalendarComponent.extend({
   _buildDefaultRange(day, start, end) {
     if (start && !end) {
       // let startMoment = moment(start);
-      if (isAfter(start, day.moment)) {
+      if (isAfter(start, day.date)) {
         return {
           // moment: { start: day.moment, end: startMoment },
           date: { start: day.date, end: start }

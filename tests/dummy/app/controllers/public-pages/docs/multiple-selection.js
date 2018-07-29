@@ -7,21 +7,21 @@ export default Controller.extend({
   selectedPrimes: [],
 
   actions: {
-    selectClosestPrime(moments) {
-      let lastOne = moments[moments.length - 1];
-      let number = lastOne.date();
+    selectClosestPrime(dates) {
+      let lastOne = dates[dates.length - 1];
+      let number = lastOne.getDate();
       if (primes.indexOf(number) === -1) {
         let nextPrimeIndex = primes.findIndex((p) => p > number);
         let nextPrime = primes[nextPrimeIndex];
         let prevPrime = primes[nextPrimeIndex - 1];
         let closestPrime = nextPrime - number < number - prevPrime ? nextPrime : prevPrime;
-        if (moments.some((m) => m.date() === closestPrime)) {
-          moments.pop();
+        if (dates.some((m) => m.getDate() === closestPrime)) {
+          dates.pop();
         } else {
-          lastOne.date(closestPrime);
+          lastOne.setDate(closestPrime);
         }
       }
-      this.set('selectedPrimes', moments);
+      this.set('selectedPrimes', dates);
     }
   }
 });

@@ -346,6 +346,10 @@ export function getWeekdaysShort() {
   return moment.weekdaysShort();
 }
 
+export function isAfter(date1, date2) {
+  return moment(date1).isAfter(date2);
+}
+
 export function isBefore(date1, date2) {
   return moment(date1).isBefore(date2);
 }
