@@ -3,6 +3,7 @@ import { assign } from '@ember/polyfills';
 import moment from 'moment';
 import CalendarComponent from './power-calendar';
 import fallbackIfUndefined from '../utils/computed-fallback-if-undefined';
+import { normalizeDate, diff, isAfter, isBefore } from "ember-power-calendar/utils/date-utils";
 
 function parseDuration(value) {
   if (value === null || moment.isDuration(value)) {
@@ -25,12 +26,21 @@ export default CalendarComponent.extend({
   proximitySelection: fallbackIfUndefined(false),
 
   // CPs
+  selected: computed({
+    get() {
+      return { start: undefined, end: undefined };
+    },
+    set(_, v = {}) {
+      return { start: normalizeDate(v.start), end: normalizeDate(v.end) };
+    }
+  }),
+
   currentCenter: computed('center', function() {
     let center = this.get('center');
     if (center) {
-      return moment(center);
+      return center;
     }
-    return moment(this.get('selected.start') || this.get('powerCalendarService').getDate());
+    return this.get('selected.start') || this.get('powerCalendarService').getDate();
   }),
 
   minRangeDuration: computed('minRange', function() {
@@ -50,10 +60,10 @@ export default CalendarComponent.extend({
   actions: {
     select(day, calendar, e) {
       let range = this._buildRange(day);
-      let { start, end } = range.moment;
+      let { start, end } = range.date;
       if (start && end) {
         let { minRange, maxRange } = this.get('publicAPI');
-        let diff = Math.abs(end.diff(start));
+        let diff = Math.abs(diff(end, start));
         if (diff < minRange.as('ms') || maxRange && diff > maxRange.as('ms')) {
           return;
         }
@@ -79,19 +89,17 @@ export default CalendarComponent.extend({
 
   _buildRangeByProximity(day, start, end) {
     if (start && end) {
-      let startMoment = moment(start);
-      let endMoment = moment(end);
-      let changeStart = Math.abs(day.moment.diff(endMoment)) > Math.abs(day.moment.diff(startMoment));
+      let changeStart = Math.abs(diff(day.date, end)) > Math.abs(diff(day.date, start));
 
       return {
-        moment: { start: changeStart ? day.moment : startMoment, end: changeStart ? endMoment : day.moment },
-        date: { start: changeStart ? day.date : startMoment.toDate(), end: changeStart ? endMoment.toDate() : day.date }
+        // moment: { start: changeStart ? day.moment : startMoment, end: changeStart ? endMoment : day.moment },
+        date: { start: changeStart ? day.date : start, end: changeStart ? end : day.date }
       };
     }
 
-    if (day.moment.isBefore(moment(start))) {
+    if (isBefore(day.date, start)) {
       return {
-        moment: { start: day.moment, end: null },
+        // moment: { start: day.moment, end: null },
         date: { start: day.date, end: null }
       };
     }
@@ -101,22 +109,22 @@ export default CalendarComponent.extend({
 
   _buildDefaultRange(day, start, end) {
     if (start && !end) {
-      let startMoment = moment(start);
-      if (startMoment.isAfter(day.moment)) {
+      // let startMoment = moment(start);
+      if (isAfter(start, day.moment)) {
         return {
-          moment: { start: day.moment, end: startMoment },
-          date: { start: day.date, end: startMoment.toDate() }
+          // moment: { start: day.moment, end: startMoment },
+          date: { start: day.date, end: start }
         };
       }
 
       return {
-        moment: { start: startMoment, end: day.moment },
-        date: { start: startMoment.toDate(), end: day.date }
+        // moment: { start: startMoment, end: day.moment },
+        date: { start: start, end: day.date }
       };
     }
 
     return {
-      moment: { start: day.moment, end: null },
+      // moment: { start: day.moment, end: null },
       date: { start: day.date, end: null }
     };
   }

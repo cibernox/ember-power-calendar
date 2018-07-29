@@ -5,7 +5,7 @@ import { inject } from '@ember/service';
 import { task } from 'ember-concurrency';
 import layout from '../templates/components/power-calendar';
 import { assert } from '@ember/debug';
-import { add } from "ember-power-calendar/utils/date-utils";
+import { add, normalizeDate } from "ember-power-calendar/utils/date-utils";
 export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],
@@ -42,13 +42,20 @@ export default Component.extend({
   },
 
   // CPs
+  selected: computed({
+    get() {
+      return undefined;
+    },
+    set(_, v) {
+      return normalizeDate(v);
+    }
+  }),
+
   currentCenter: computed('center', function() {
     let center = this.get('center');
     if (center) {
-      // return moment(center);
       return center;
     }
-    // return moment(this.get('selected') || this.get('powerCalendarService').getDate());
     return this.get('selected') || this.get('powerCalendarService').getDate()
   }),
 
@@ -63,7 +70,6 @@ export default Component.extend({
       loading: this.get('changeCenterTask.isRunning'),
       center: this.get('currentCenter'),
 
-      locale: this.get('locale') || this.get('momentService.locale'),
       // locale: this.get('locale') || this.get('momentService.locale') || moment.locale(),
 
       actions: this.get('publicActions')
