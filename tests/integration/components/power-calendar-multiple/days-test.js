@@ -18,7 +18,7 @@ module(
       await render(hbs`
         {{#power-calendar-multiple
           selected=collection
-          onSelect=(action (mut collection) value="moment") as |calendar|}}
+          onSelect=(action (mut collection) value="date") as |calendar|}}
           {{calendar.days maxLength=1}}
         {{/power-calendar-multiple}}
       `);
@@ -36,7 +36,7 @@ module(
       await render(hbs`
         {{#power-calendar-multiple
           selected=collection
-          onSelect=(action (mut collection) value="moment") as |calendar|}}
+          onSelect=(action (mut collection) value="date") as |calendar|}}
           {{calendar.days maxLength=max}}
         {{/power-calendar-multiple}}
       `);

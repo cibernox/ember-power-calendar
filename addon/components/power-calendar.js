@@ -69,9 +69,7 @@ export default Component.extend({
       selected: this.get('selected'),
       loading: this.get('changeCenterTask.isRunning'),
       center: this.get('currentCenter'),
-
-      // locale: this.get('locale') || this.get('momentService.locale') || moment.locale(),
-
+      locale: this.get('locale'), // || this.get('momentService.locale') || moment.locale(),
       actions: this.get('publicActions')
     };
   }),

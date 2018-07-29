@@ -326,8 +326,12 @@ export function add(date, quantity, unit) {
   return moment(date).add(quantity, unit).toDate();
 }
 
-export function formatDate(date, format) {
-  return moment(date).format(format);
+export function formatDate(date, format, locale = null) {
+  if (locale) {
+    return withLocale(locale, () => moment(date).format(format));
+  } else {
+    return moment(date).format(format);
+  }
 }
 
 export function startOf(date, unit) {
@@ -344,6 +348,14 @@ export function isoWeekday(date) {
 
 export function getWeekdaysShort() {
   return moment.weekdaysShort();
+}
+
+export function getWeekdaysMin() {
+  return moment.weekdaysMin();
+}
+
+export function getWeekdays() {
+  return moment.weekdays();
 }
 
 export function isAfter(date1, date2) {
@@ -372,4 +384,17 @@ export function normalizeDate(dateOrMoment) {
   } else {
     return dateOrMoment.toDate();
   }
+}
+
+export function withLocale(locale, fn) {
+  let returnValue;
+  if (locale) {
+    let previousLocale = moment.locale();
+    moment.locale(locale);
+    returnValue = fn();
+    moment.locale(previousLocale);
+  } else {
+    returnValue = fn();
+  }
+  return returnValue;
 }

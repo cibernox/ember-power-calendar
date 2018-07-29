@@ -8,27 +8,16 @@ import {
   add,
   startOf,
   endOf,
+  getWeekdays,
+  getWeekdaysMin,
   getWeekdaysShort,
   formatDate,
   isoWeekday,
   isBefore,
   isAfter,
-  isSame
+  isSame,
+  withLocale
 } from "ember-power-calendar/utils/date-utils";
-// import moment from 'moment';
-
-function withLocale(locale, fn) {
-  let returnValue;
-  if (locale) {
-    // let previousLocale = moment.locale();
-    // moment.locale(locale);
-    returnValue = fn();
-    // moment.locale(previousLocale);
-  } else {
-    returnValue = fn();
-  }
-  return returnValue;
-}
 
 const WEEK_DAYS = [
   'Mon',
@@ -54,16 +43,16 @@ export default Component.extend({
   // CPs
   'data-power-calendar-id': computed.oneWay('calendar.uniqueId'),
   weekdaysMin: computed('calendar.locale', function() {
-    return withLocale(this.get('calendar.locale'), () => moment.weekdaysMin());
+    return withLocale(this.get("calendar.locale"), getWeekdaysMin);
   }),
 
   weekdaysShort: computed('calendar.locale', function() {
     // return withLocale(this.get('calendar.locale'), () => moment.weekdaysShort());
-    return withLocale(this.get("calendar.locale"), () => getWeekdaysShort());
+    return withLocale(this.get("calendar.locale"), getWeekdaysShort);
   }),
 
   weekdays: computed('calendar.locale', function() {
-    return withLocale(this.get('calendar.locale'), () => moment.weekdays());
+    return withLocale(this.get("calendar.locale"), getWeekdays);
   }),
 
   localeStartOfWeek: computed('weekdaysShort', 'startOfWeek', function() {
@@ -224,9 +213,9 @@ export default Component.extend({
 
     if (disabledDates) {
       let disabledInRange = disabledDates.some((d) => {
-        let isSame = isSame(date, d, 'day');
+        let isSameDay = isSame(date, d, 'day');
         let isWeekDayIncludes = WEEK_DAYS.indexOf(d) !== -1 && formatDate(date, 'ddd') === d;
-        return isSame || isWeekDayIncludes;
+        return isSameDay || isWeekDayIncludes;
       });
 
       if (disabledInRange) {
