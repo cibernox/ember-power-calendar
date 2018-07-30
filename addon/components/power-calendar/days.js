@@ -10,7 +10,7 @@ function withLocale(locale, fn) {
   let returnValue;
   if (locale) {
     let previousLocale = moment.locale();
-    moment.locale(locale);
+    Array.isArray(locale) ? moment.locale(...locale) : moment.locale(locale);
     returnValue = fn();
     moment.locale(previousLocale);
   } else {
