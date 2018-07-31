@@ -63,10 +63,10 @@ module('Integration | Component | power calendar range', function(hooks) {
     `);
 
     assert.notOk(find('.ember-power-calendar-day--selected'), 'No days have been selected');
-    click('.ember-power-calendar-day[data-date="2013-10-10"]');
+    await click('.ember-power-calendar-day[data-date="2013-10-10"]');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-10"]').classList.contains('ember-power-calendar-day--selected'), 'The clicked date is selected');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-10"]').classList.contains('ember-power-calendar-day--range-start'), 'The clicked date is the start of the range');
-    click('.ember-power-calendar-day[data-date="2013-10-15"]');
+    await click('.ember-power-calendar-day[data-date="2013-10-15"]');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-10"]').classList.contains('ember-power-calendar-day--selected'), 'The first clicked date is still selected');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-10"]').classList.contains('ember-power-calendar-day--range-start'), 'The first clicked date is still the start of the range');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--selected'), 'The clicked date is selected');
@@ -172,17 +172,17 @@ module('Integration | Component | power calendar range', function(hooks) {
     assert.expect(4);
     await render(hbs`
       {{#power-calendar-range minRange=minRange as |calendar|}}
-        <div class="formatted-min-range">{{moment-duration calendar.minRange}}</div>
+        <div class="formatted-min-range">{{calendar.minRange}}</div>
       {{/power-calendar-range}}
     `);
 
-    assert.equal(find('.formatted-min-range').textContent.trim(), 'a day', 'the default minRange is one day');
+    assert.equal(find('.formatted-min-range').textContent.trim(), '86400000', 'the default minRange is one day');
     run(() => this.set('minRange', 3));
-    assert.equal(find('.formatted-min-range').textContent.trim(), '3 days', 'when passed a number, it is interpreted as number of days');
+    assert.equal(find('.formatted-min-range').textContent.trim(), '259200000', 'when passed a number, it is interpreted as number of days');
     run(() => this.set('minRange', '1 week'));
-    assert.equal(find('.formatted-min-range').textContent.trim(), '7 days', 'it can regognize humanized durations');
+    assert.equal(find(".formatted-min-range").textContent.trim(), "604800000", "it can regognize humanized durations");
     run(() => this.set('minRange', '1m'));
-    assert.equal(find('.formatted-min-range').textContent.trim(), 'a minute', 'it can regognize humanized durations that use abbreviations');
+    assert.equal(find('.formatted-min-range').textContent.trim(), '60000', 'it can regognize humanized durations that use abbreviations');
   });
 
   test('Passing `maxRange` allows to determine the minimum length of a range (in days)', async function(assert) {

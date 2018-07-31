@@ -1,41 +1,51 @@
 import { computed, getProperties } from '@ember/object';
 import { assign } from '@ember/polyfills';
-import moment from 'moment';
 import CalendarComponent from './power-calendar';
 import fallbackIfUndefined from '../utils/computed-fallback-if-undefined';
 import {
   normalizeDate,
+  normalizeRangeActionValue,
   diff,
   isAfter,
-  isBefore
+  isBefore,
+  normalizeDuration
 } from 'ember-power-calendar/utils/date-utils';
-
-function parseDuration(value) {
-  if (value === null || moment.isDuration(value)) {
-    return value;
-  }
-  if (typeof value === 'number') {
-    return moment.duration(value, 'days');
-  }
-  if (typeof value === 'string') {
-    let [, quantity, units] = value.match(/(\d+)(.*)/);
-    units = units.trim() || 'days';
-    return moment.duration(parseInt(quantity, 10), units);
-  }
-}
 
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-range/days',
-  minRange: fallbackIfUndefined(moment.duration(1, 'day')),
-  maxRange: fallbackIfUndefined(null),
   proximitySelection: fallbackIfUndefined(false),
 
   // CPs
+  minRange: computed({
+    get() {
+      return 86400000;
+    },
+    set(_, v) {
+      if (typeof v === 'number') {
+        return v * 86400000;
+      }
+      return normalizeDuration(v === undefined ? 86400000 : v);
+    }
+  }),
+  maxRange: computed({
+    get() {
+      return null;
+    },
+    set(_, v) {
+      if (typeof v === 'number') {
+        return v * 86400000;
+      }
+      return normalizeDuration(v === undefined ? 86400000 : v);
+    }
+  }),
   selected: computed({
     get() {
       return { start: undefined, end: undefined };
     },
-    set(_, v = {}) {
+    set(_, v) {
+      if (v === undefined || v === null) {
+        v = {};
+      }
       return { start: normalizeDate(v.start), end: normalizeDate(v.end) };
     }
   }),
@@ -48,16 +58,8 @@ export default CalendarComponent.extend({
     return this.get('selected.start') || this.get('powerCalendarService').getDate();
   }),
 
-  minRangeDuration: computed('minRange', function() {
-    return parseDuration(this.get('minRange'));
-  }),
-
-  maxRangeDuration: computed('maxRange', function() {
-    return parseDuration(this.get('maxRange'));
-  }),
-
-  publicAPI: computed('_publicAPI', 'minRangeDuration', 'maxRangeDuration', function() {
-    let rangeOnlyAPI = { minRange: this.get('minRangeDuration'), maxRange: this.get('maxRangeDuration') };
+  publicAPI: computed('_publicAPI', 'minRange', 'maxRange', function() {
+    let rangeOnlyAPI = this.getProperties('minRange', 'maxRange');
     return assign(rangeOnlyAPI, this.get('_publicAPI'));
   }),
 
@@ -69,7 +71,7 @@ export default CalendarComponent.extend({
       if (start && end) {
         let { minRange, maxRange } = this.get('publicAPI');
         let diffInMs = Math.abs(diff(end, start));
-        if (diffInMs < minRange.as('ms') || maxRange && diffInMs > maxRange.as('ms')) {
+        if (diffInMs < minRange || maxRange && diffInMs > maxRange) {
           return;
         }
       }
@@ -96,17 +98,16 @@ export default CalendarComponent.extend({
     if (start && end) {
       let changeStart = Math.abs(diff(day.date, end)) > Math.abs(diff(day.date, start));
 
-      return {
-        // moment: { start: changeStart ? day.moment : startMoment, end: changeStart ? endMoment : day.moment },
-        date: { start: changeStart ? day.date : start, end: changeStart ? end : day.date }
-      };
+      return normalizeRangeActionValue({
+        date: {
+          start: changeStart ? day.date : start,
+          end: changeStart ? end : day.date
+        }
+      });
     }
 
     if (isBefore(day.date, start)) {
-      return {
-        // moment: { start: day.moment, end: null },
-        date: { start: day.date, end: null }
-      };
+      return normalizeRangeActionValue({ date: { start: day.date, end: null } });
     }
 
     return this._buildDefaultRange(day, start, end);
@@ -114,23 +115,12 @@ export default CalendarComponent.extend({
 
   _buildDefaultRange(day, start, end) {
     if (start && !end) {
-      // let startMoment = moment(start);
       if (isAfter(start, day.date)) {
-        return {
-          // moment: { start: day.moment, end: startMoment },
-          date: { start: day.date, end: start }
-        };
+        return normalizeRangeActionValue({ date: { start: day.date, end: start } });
       }
-
-      return {
-        // moment: { start: startMoment, end: day.moment },
-        date: { start: start, end: day.date }
-      };
+      return normalizeRangeActionValue({ date: { start: start, end: day.date } });
     }
 
-    return {
-      // moment: { start: day.moment, end: null },
-      date: { start: day.date, end: null }
-    };
+    return normalizeRangeActionValue({ date: { start: day.date, end: null } });
   }
 });

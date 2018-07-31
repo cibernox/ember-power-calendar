@@ -386,6 +386,10 @@ export function normalizeDate(dateOrMoment) {
   }
 }
 
+export function normalizeRangeActionValue(range) {
+  return { date: range.date, moment: { start: range.date.start ? moment(range.date.start) : range.date.start, end: range.date.end ? moment(range.date.end) : range.date.end } };
+}
+
 export function withLocale(locale, fn) {
   let returnValue;
   if (locale) {
@@ -397,4 +401,22 @@ export function withLocale(locale, fn) {
     returnValue = fn();
   }
   return returnValue;
+}
+
+export function normalizeCalendarValue(value) {
+  return { date: value.date, moment: (value ? moment(value) : undefined) };
+}
+
+export function normalizeDuration(value) {
+  if (value === null || moment.isDuration(value)) {
+    return value.asMilliseconds();
+  }
+  if (typeof value === "number") {
+    return value;
+  }
+  if (typeof value === "string") {
+    let [, quantity, units] = value.match(/(\d+)(.*)/);
+    units = units.trim() || "days";
+    return moment.duration(parseInt(quantity, 10), units).asMilliseconds()
+  }
 }

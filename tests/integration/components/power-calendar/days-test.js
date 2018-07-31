@@ -1,13 +1,13 @@
-import { module, test, skip } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../../assertions';
 import { run } from '@ember/runloop';
 import { find, findAll } from 'ember-native-dom-helpers';
+import moment from 'moment';
 
 let calendarService;
-// let momentService;
 let calendar;
 
 module('Integration | Component | power-calendar/days', function(hooks) {
@@ -17,7 +17,6 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     assertionInjector(this);
     calendarService = this.owner.lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
-    // momentService = this.owner.lookup('service:moment');
     calendar = {
       center: calendarService.getDate(),
       locale: 'en',
@@ -29,18 +28,10 @@ module('Integration | Component | power-calendar/days', function(hooks) {
   });
 
   hooks.afterEach(function() {
-    // run(() => momentService.changeLocale('en-US'));
     assertionCleanup(this);
   });
 
-  skip('[i18n] The name of the weekdays respect the locale set in the moment service', async function(assert) {
-    assert.expect(1);
-    run(() => momentService.changeLocale('pt'));
-    await render(hbs`{{#power-calendar as |cal|}}{{cal.days}}{{/power-calendar}}`);
-    assert.equal(find('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Seg Ter Qua Qui Sex Sáb Dom');
-  });
-
-  skip('[i18n] The name of the weekdays respect the locale set in the `moment` global', async function(assert) {
+  test('[i18n] The name of the weekdays respect the locale set in the `moment` global', async function(assert) {
     assert.expect(2);
     this.center = new Date(2016, 10, 15);
     let originalLocale = moment.locale();

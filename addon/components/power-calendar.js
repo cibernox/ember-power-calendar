@@ -5,7 +5,11 @@ import { inject } from '@ember/service';
 import { task } from 'ember-concurrency';
 import layout from '../templates/components/power-calendar';
 import { assert } from '@ember/debug';
-import { add, normalizeDate } from "ember-power-calendar/utils/date-utils";
+import {
+  add,
+  normalizeDate,
+  normalizeCalendarValue
+} from "ember-power-calendar/utils/date-utils";
 export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],
@@ -88,10 +92,7 @@ export default Component.extend({
   changeCenterTask: task(function* (newCenter, calendar, e) {
     let action = this.get('onCenterChange');
     assert('You attempted to move the center of a calendar that doesn\'t receive an `onCenterChange` action.', typeof action === 'function');
-    let value = {
-      date: newCenter,
-      // moment: newCenter
-    };
+    let value = normalizeCalendarValue({ date: newCenter });
     yield action(value, calendar, e);
   }),
 

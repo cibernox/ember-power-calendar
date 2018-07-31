@@ -19,8 +19,8 @@ export default DaysComponent.extend({
         day.isRangeStart = day.isSelected = isSame(date, start, 'day');
         if (!day.isDisabled) {
           let diffInMs = Math.abs(diff(day.date, start));
-          day.isDisabled = diffInMs < calendar.minRange.as('ms')
-            || calendar.maxRange !== null && diffInMs > calendar.maxRange.as('ms');
+          day.isDisabled = diffInMs < calendar.minRange
+            || calendar.maxRange !== null && diffInMs > calendar.maxRange;
         }
       }
     }

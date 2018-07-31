@@ -5,9 +5,7 @@ import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
-import { find, findAll, click, keyEvent, focus } from 'ember-native-dom-helpers';
-
-let momentService;
+import { find, click, keyEvent, focus } from 'ember-native-dom-helpers';
 
 module('Integration | Component | Power Calendar', function(hooks) {
   setupRenderingTest(hooks);
@@ -16,7 +14,6 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assertionInjector(this);
     let calendarService = this.owner.lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
-    momentService = this.owner.lookup('service:moment');
   });
 
   hooks.afterEach(function() {
@@ -599,22 +596,5 @@ module('Integration | Component | Power Calendar', function(hooks) {
     keyEvent('.ember-power-calendar-day[data-date="2013-10-11"]', 'keydown', 40); // down arrow
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--focused'));
     assert.equal(document.activeElement, find('.ember-power-calendar-day[data-date="2013-10-15"]'));
-  });
-
-  test('[i18n] If the global locale in ember-moment changes, the calendar updates', async function(assert) {
-    assert.expect(6);
-    await render(hbs`
-      {{#power-calendar as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.days}}
-      {{/power-calendar}}
-    `);
-    assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'October 2013');
-    assert.equal(find('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Sun Mon Tue Wed Thu Fri Sat');
-    assert.equal(findAll('.ember-power-calendar-day')[0].textContent.trim(), '29');
-    run(() => momentService.changeLocale('pt'));
-    assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'outubro 2013');
-    assert.equal(find('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Seg Ter Qua Qui Sex Sáb Dom');
-    assert.equal(findAll('.ember-power-calendar-day')[0].textContent.trim(), '30');
   });
 });
