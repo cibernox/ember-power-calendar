@@ -425,7 +425,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-15"]').disabled, 'The minDate is selectable');
     assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-16"]').disabled, 'Days after the minDate are selectable');
 
-    run(() => this.set('minDate', new Date('2013-10-18')));
+    run(() => this.set('minDate', new Date(2013, 9, 18)));
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-14"]').disabled, 'Days before the minDate are disabled');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-17"]').disabled, 'The minDate is selectable');
     assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-18"]').disabled, 'Days after the minDate are selectable');
