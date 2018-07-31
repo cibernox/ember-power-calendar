@@ -16,7 +16,8 @@ import {
   isBefore,
   isAfter,
   isSame,
-  withLocale
+  withLocale,
+  normalizeCalendarDay
 } from "ember-power-calendar/utils/date-utils";
 
 const WEEK_DAYS = [
@@ -47,7 +48,6 @@ export default Component.extend({
   }),
 
   weekdaysShort: computed('calendar.locale', function() {
-    // return withLocale(this.get('calendar.locale'), () => moment.weekdaysShort());
     return withLocale(this.get("calendar.locale"), getWeekdaysShort);
   }),
 
@@ -172,17 +172,16 @@ export default Component.extend({
   buildDay(date, today, calendar) {
     let id = formatDate(date, 'YYYY-MM-DD')
 
-    return {
+    return normalizeCalendarDay({
       id,
       number: date.getDate(),
       date: new Date(date),
-      // moment: momentDate,
       isDisabled: this.dayIsDisabled(date),
       isFocused: this.get('focusedId') === id,
       isCurrentMonth: date.getMonth() === calendar.center.getMonth(),
       isToday: isSame(date, today, 'day'),
       isSelected: this.dayIsSelected(date, calendar)
-    };
+    });
   },
 
   buildonSelectValue(day) {

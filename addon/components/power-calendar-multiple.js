@@ -1,7 +1,10 @@
 import CalendarComponent from './power-calendar';
 import { computed } from '@ember/object';
-import { normalizeDate, isSame } from 'ember-power-calendar/utils/date-utils';
-// import moment from 'moment';
+import {
+  normalizeDate,
+  isSame,
+  normalizeMultipleActionValue
+} from 'ember-power-calendar/utils/date-utils';
 
 export default CalendarComponent.extend({
   daysComponent: "power-calendar-multiple/days",
@@ -49,10 +52,6 @@ export default CalendarComponent.extend({
     } else {
       values = selected.slice(0, index).concat(selected.slice(index + 1));
     }
-    // let moments = values.map(d => moment(d));
-    return {
-      // moment: moments,
-      date: values
-    };
+    return normalizeMultipleActionValue({ date: values });
   }
 });

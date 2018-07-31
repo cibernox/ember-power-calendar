@@ -14,7 +14,6 @@ export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],
   powerCalendarService: inject('power-calendar'),
-  // momentService: inject('moment'),
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
   center: null,
@@ -67,13 +66,13 @@ export default Component.extend({
     return this.get('_publicAPI');
   }),
 
-  _publicAPI: computed('selected', 'currentCenter', 'locale', 'momentService.locale', 'changeCenterTask.isRunning', function() {
+  _publicAPI: computed('selected', 'currentCenter', 'locale', 'changeCenterTask.isRunning', function() {
     return {
       uniqueId: guidFor(this),
       selected: this.get('selected'),
       loading: this.get('changeCenterTask.isRunning'),
       center: this.get('currentCenter'),
-      locale: this.get('locale'), // || this.get('momentService.locale') || moment.locale(),
+      locale: this.get('locale'), // || moment.locale(),
       actions: this.get('publicActions')
     };
   }),
