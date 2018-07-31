@@ -44,7 +44,7 @@ export async function calendarCenter(selector, newCenter) {
 }
 
 export async function calendarSelect(selector, selected) {
-  assert('`calendarSelect` expect a Date or MomentJS object as second argument', selected);
+  assert('`calendarSelect` expect a Date object as second argument', selected);
   let calendarElement = findCalendarElement(selector);
   let daySelector = `${selector} [data-date="${formatDate(selected, 'YYYY-MM-DD')}"]`;
   let dayElement = find(daySelector, calendarElement);

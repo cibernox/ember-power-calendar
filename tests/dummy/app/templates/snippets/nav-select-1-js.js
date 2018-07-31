@@ -1,8 +1,20 @@
 import Controller from '@ember/controller';
-import moment from 'moment';
 
 export default Controller.extend({
-  months: moment.months(),
+  months: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
   years: Array(...Array(80)).map((_, i) => `${i + 1940}`),
 
   actions: {

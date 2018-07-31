@@ -3,7 +3,7 @@
     data-ebd-id="{{dropdown.uniqueId}}-trigger"
     class="datepicker-demo-input"
     onclick={{dropdown.actions.toggle}}
-    value={{if selected (moment-format selected 'DD-MM-YYYY')}}
+    value={{if selected (format-date selected 'DD-MM-YYYY')}}
     readonly>
 
   {{#dropdown.content class="datepicker-demo-dropdown"}}

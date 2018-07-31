@@ -20,6 +20,10 @@ export function endOf(date, unit) {
   return moment(date).endOf(unit).toDate();
 }
 
+export function weekday(date) {
+  return moment(date).weekday();
+}
+
 export function isoWeekday(date) {
   return moment(date).isoWeekday();
 }
@@ -109,4 +113,8 @@ export function normalizeDuration(value) {
     units = units.trim() || "days";
     return moment.duration(parseInt(quantity, 10), units).asMilliseconds()
   }
+}
+
+export function getDefaultLocale() {
+  return moment.locale();
 }

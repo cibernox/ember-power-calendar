@@ -66,13 +66,13 @@ export default Component.extend({
     return this.get('_publicAPI');
   }),
 
-  _publicAPI: computed('selected', 'currentCenter', 'locale', 'changeCenterTask.isRunning', function() {
+  _publicAPI: computed('selected', 'currentCenter', 'locale', 'powerCalendarService.locale', 'changeCenterTask.isRunning', function() {
     return {
       uniqueId: guidFor(this),
       selected: this.get('selected'),
       loading: this.get('changeCenterTask.isRunning'),
       center: this.get('currentCenter'),
-      locale: this.get('locale'), // || moment.locale(),
+      locale: this.get('locale') || this.get('powerCalendarService.locale'),
       actions: this.get('publicActions')
     };
   }),
