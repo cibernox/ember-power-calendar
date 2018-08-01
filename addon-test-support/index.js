@@ -1,16 +1,16 @@
 import { run } from '@ember/runloop';
 import { assert } from '@ember/debug';
-import wait from 'ember-test-helpers/wait';
-import { find, click } from 'ember-native-dom-helpers';
+import { getContext, click, settled } from '@ember/test-helpers';
 import { formatDate } from 'ember-power-calendar/utils/date-utils';
 
 function findCalendarElement(selector) {
-  let target = find(selector);
+  let { element } = getContext();
+  let target = element.querySelector(selector);
   if (target) {
     if (target.classList.contains('ember-power-calendar')) {
       return target;
     } else {
-      return find('.ember-power-calendar', target) || find('[data-power-calendar-id]', target);
+      return target.querySelector('.ember-power-calendar') || target.querySelector('[data-power-calendar-id]');
     }
   }
 }
@@ -40,14 +40,14 @@ export async function calendarCenter(selector, newCenter) {
   assert('You cannot call `calendarCenter` on a component that doesn\'t has an `onCenterChange` action', !!onCenterChange);
   let publicAPI = calendarComponent.get('publicAPI');
   await run(() => publicAPI.actions.changeCenter(newCenter, publicAPI));
-  return wait();
+  return settled();
 }
 
 export async function calendarSelect(selector, selected) {
   assert('`calendarSelect` expect a Date object as second argument', selected);
   let calendarElement = findCalendarElement(selector);
   let daySelector = `${selector} [data-date="${formatDate(selected, 'YYYY-MM-DD')}"]`;
-  let dayElement = find(daySelector, calendarElement);
+  let dayElement = calendarElement.querySelector(daySelector);
   if (!dayElement) {
     await calendarCenter(selector, selected);
   }
