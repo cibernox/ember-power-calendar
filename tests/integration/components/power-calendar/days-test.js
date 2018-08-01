@@ -3,11 +3,11 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../../assertions';
-import moment from 'moment';
 import { run } from '@ember/runloop';
 import { find, findAll } from 'ember-native-dom-helpers';
 
-let calendarService, momentService, calendar;
+let calendarService;
+let calendar;
 
 module('Integration | Component | power-calendar/days', function(hooks) {
   setupRenderingTest(hooks);
@@ -16,9 +16,8 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     assertionInjector(this);
     calendarService = this.owner.lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
-    momentService = this.owner.lookup('service:moment');
     calendar = {
-      center: moment(calendarService.getDate()),
+      center: calendarService.getDate(),
       locale: 'en',
       actions: {
         moveCenter: () => {},
@@ -28,31 +27,21 @@ module('Integration | Component | power-calendar/days', function(hooks) {
   });
 
   hooks.afterEach(function() {
-    run(() => momentService.changeLocale('en-US'));
     assertionCleanup(this);
   });
 
-  test('[i18n] The name of the weekdays respect the locale set in the moment service', async function(assert) {
-    assert.expect(1);
-    run(() => momentService.changeLocale('pt'));
-    await render(hbs`{{#power-calendar as |cal|}}{{cal.days}}{{/power-calendar}}`);
-    assert.equal(find('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Seg Ter Qua Qui Sex Sáb Dom');
-  });
-
-  test('[i18n] The name of the weekdays respect the locale set in the `moment` global', async function(assert) {
+  test('[i18n] The name of the weekdays respect the locale set in the calendar service', async function(assert) {
     assert.expect(2);
     this.center = new Date(2016, 10, 15);
-    let originalLocale = moment.locale();
-    moment.locale('fr');
+    calendarService.set('locale', 'fr');
     await render(
       hbs`{{#power-calendar center=center as |cal|}}{{cal.days}}{{/power-calendar}}`
     );
     assert.equal(find('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'lun. mar. mer. jeu. ven. sam. dim.');
     assert.equal(findAll('.ember-power-calendar-day')[0].dataset.date, '2016-10-31');
-    moment.locale(originalLocale);
   });
 
-  test('[i18n] The user can force a different locale from the one set in moment.js passing `locale="some-locale"`', async function(assert) {
+  test('[i18n] The user can force a different locale from the one set the calendar service passing `locale="some-locale"`', async function(assert) {
     assert.expect(2);
     this.calendar = calendar;
     await render(hbs`{{power-calendar/days calendar=calendar}}`);

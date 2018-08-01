@@ -16,7 +16,7 @@ the next weeks. Use it with caution!
 There are many possible ways to use it, for giving you just a taste of the API:
 
 ```hbs
-{{#power-calendar selected=arrival onSelect=(action (mut arrival) value="moment") as |calendar|}}
+{{#power-calendar selected=arrival onSelect=(action (mut arrival) value="date") as |calendar|}}
   {{calendar.nav}}
   {{calendar.days}}
 {{/power-calendar}}

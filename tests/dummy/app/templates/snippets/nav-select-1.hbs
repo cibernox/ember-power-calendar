@@ -4,7 +4,7 @@
 
   {{#calendar.nav}}
     <span class="with-invisible-select">
-      {{#with (moment-format calendar.center 'MMMM') as |currentMonth|}}
+      {{#with (format-date calendar.center 'MMMM') as |currentMonth|}}
         {{currentMonth}}
         <select onchange={{action "changeCenter" "month" calendar}}>
           {{#each months as |month|}}
@@ -14,7 +14,7 @@
       {{/with}}
     </span>
     <span class="with-invisible-select">
-      {{#with (moment-format calendar.center 'YYYY') as |currentYear|}}
+      {{#with (format-date calendar.center 'YYYY') as |currentYear|}}
         {{currentYear}}
         <select onchange={{action "changeCenter" "year" calendar}}>
           {{#each years as |year|}}

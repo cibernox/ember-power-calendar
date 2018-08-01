@@ -4,7 +4,6 @@ import { render } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run } from '@ember/runloop';
-import moment from 'moment';
 import { find, click } from 'ember-native-dom-helpers';
 
 module('Integration | Component | power calendar range', function(hooks) {
@@ -64,10 +63,10 @@ module('Integration | Component | power calendar range', function(hooks) {
     `);
 
     assert.notOk(find('.ember-power-calendar-day--selected'), 'No days have been selected');
-    click('.ember-power-calendar-day[data-date="2013-10-10"]');
+    await click('.ember-power-calendar-day[data-date="2013-10-10"]');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-10"]').classList.contains('ember-power-calendar-day--selected'), 'The clicked date is selected');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-10"]').classList.contains('ember-power-calendar-day--range-start'), 'The clicked date is the start of the range');
-    click('.ember-power-calendar-day[data-date="2013-10-15"]');
+    await click('.ember-power-calendar-day[data-date="2013-10-15"]');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-10"]').classList.contains('ember-power-calendar-day--selected'), 'The first clicked date is still selected');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-10"]').classList.contains('ember-power-calendar-day--range-start'), 'The first clicked date is still the start of the range');
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--selected'), 'The clicked date is selected');
@@ -173,17 +172,17 @@ module('Integration | Component | power calendar range', function(hooks) {
     assert.expect(4);
     await render(hbs`
       {{#power-calendar-range minRange=minRange as |calendar|}}
-        <div class="formatted-min-range">{{moment-duration calendar.minRange}}</div>
+        <div class="formatted-min-range">{{calendar.minRange}}</div>
       {{/power-calendar-range}}
     `);
 
-    assert.equal(find('.formatted-min-range').textContent.trim(), 'a day', 'the default minRange is one day');
+    assert.equal(find('.formatted-min-range').textContent.trim(), '86400000', 'the default minRange is one day');
     run(() => this.set('minRange', 3));
-    assert.equal(find('.formatted-min-range').textContent.trim(), '3 days', 'when passed a number, it is interpreted as number of days');
+    assert.equal(find('.formatted-min-range').textContent.trim(), '259200000', 'when passed a number, it is interpreted as number of days');
     run(() => this.set('minRange', '1 week'));
-    assert.equal(find('.formatted-min-range').textContent.trim(), '7 days', 'it can regognize humanized durations');
+    assert.equal(find(".formatted-min-range").textContent.trim(), "604800000", "it can regognize humanized durations");
     run(() => this.set('minRange', '1m'));
-    assert.equal(find('.formatted-min-range').textContent.trim(), 'a minute', 'it can regognize humanized durations that use abbreviations');
+    assert.equal(find('.formatted-min-range').textContent.trim(), '60000', 'it can regognize humanized durations that use abbreviations');
   });
 
   test('Passing `maxRange` allows to determine the minimum length of a range (in days)', async function(assert) {
@@ -213,8 +212,8 @@ module('Integration | Component | power calendar range', function(hooks) {
   test('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is smaller than the minRange', async function(assert) {
     assert.expect(2);
     this.selected = { start: new Date(2016, 1, 5), end: null };
-    this.invalidDay = { date: new Date(2016, 1, 6), moment: moment(new Date(2016, 1, 6)) };
-    this.validDay = { date: new Date(2016, 1, 8), moment: moment(new Date(2016, 1, 8)) };
+    this.invalidDay = { date: new Date(2016, 1, 6), };
+    this.validDay = { date: new Date(2016, 1, 8), };
     let range;
     this.didSelect = function(r) {
       range = r;
@@ -234,12 +233,10 @@ module('Integration | Component | power calendar range', function(hooks) {
   test('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is bigger than the maxRange', async function(assert) {
     assert.expect(2);
     this.selected = { start: new Date(2016, 1, 5), end: null };
-    this.validDay = { date: new Date(2016, 1, 6), moment: moment(new Date(2016, 1, 6)) };
-    this.invalidDay = { date: new Date(2016, 1, 8), moment: moment(new Date(2016, 1, 8)) };
+    this.validDay = { date: new Date(2016, 1, 6) };
+    this.invalidDay = { date: new Date(2016, 1, 8) };
     let range;
-    this.didSelect = function(r) {
-      range = r;
-    };
+    this.didSelect = function(r) { range = r; };
     await render(hbs`
       {{#power-calendar-range selected=selected onSelect=didSelect maxRange=2 as |cal|}}
         <button id="select-invalid-range-end" onclick={{action cal.actions.select invalidDay}}>Select invalid date</button>

@@ -1,20 +1,20 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import moment from 'moment';
+import { add, isBefore, startOf, endOf, weekday } from 'ember-power-calendar/utils/date-utils';
 
 export default Component.extend({
   days: computed(function() {
-    let now = moment();
-    let day = now.clone().startOf('month').startOf('isoWeek');
-    let lastDay = now.clone().endOf('month').endOf('isoWeek');
+    let now = new Date();
+    let day = startOf(startOf(now, 'month'), 'isoWeek');
+    let lastDay = endOf(endOf(now, 'month'), 'isoWeek');
     let days = [];
-    while (day.isBefore(lastDay)) {
-      if (day.weekday() !== 1 && day.weekday() !== 3) { // Skip Mon/Wed
-        let copy = day.clone();
-        let isCurrentMonth = copy.month() === now.month();
-        days.push({ date: copy.toDate(), moment: copy, isCurrentMonth });
+    while (isBefore(day, lastDay)) {
+      if (weekday(day) !== 1 && weekday(day) !== 3) { // Skip Mon/Wed
+        let copy = new Date(day)
+        let isCurrentMonth = copy.getMonth() === now.getMonth();
+        days.push({ date: copy, isCurrentMonth });
       }
-      day.add(1, 'day');
+      day = add(day, 1, 'day');
     }
     return days;
   }),

@@ -1,4 +1,4 @@
-{{#power-select triggerClass="i18n-select-demo" options=locales selected=moment.locale onchange=(action "changeAppWideLocale") as |locale|}}
+{{#power-select triggerClass="i18n-select-demo" options=locales selected=calendarService.locale onchange=(action "changeAppWideLocale") as |locale|}}
   {{locale}}
 {{/power-select}}
 <br>

@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
-import moment from 'moment';
+import { add } from 'ember-power-select/utils/date-utils';
+
 export default Controller.extend({
   tomorrow: null,
   tomorrowDate: null,
@@ -11,15 +12,15 @@ export default Controller.extend({
   // Lifecycle hooks
   init() {
     this._super(...arguments);
-    this.set('tenDaysAgo', moment().add(-10, 'day'));
-    this.set('threeDaysAgo', moment().add(-3, 'day'));
-    this.set('threeDaysFromNow', moment().add(3, 'day'));
-    this.set('tomorrow', moment().add(1, 'day'));
-    this.set('tomorrowDate', moment().add(1, 'day').toDate());
-    this.set('pastMonth', moment().subtract(1, 'month'));
-    this.set('nextMonth', moment().add(1, 'month'));
-    this.set('februaryNextYear', moment().year(2017).month('february'));
-    this.set('selected', moment().add(-15, 'day'));
-    this.set('range', { start: moment().add(2, 'day'), end: moment().add(7, 'day') });
+    this.set('tenDaysAgo', add(new Date(), -10, 'day'));
+    this.set('threeDaysAgo', add(new Date(), -3, 'day'));
+    this.set('threeDaysFromNow', add(new Date(), 3, 'day'));
+    this.set('tomorrow', add(new Date(), 1, 'day'));
+    this.set('tomorrowDate', add(new Date(), 1, 'day').toDate());
+    this.set('pastMonth', add(new Date(), -1, 'month'));
+    this.set('nextMonth', add(new Date(), 1, 'month'));
+    this.set('februaryNextYear', new Date(2017, 1, 5));
+    this.set('selected', add(new Date(), -15, 'day'));
+    this.set('range', { start: add(new Date(), 2, 'day'), end: add(new Date(), 7, 'day') });
   }
 });

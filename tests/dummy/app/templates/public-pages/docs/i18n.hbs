@@ -1,9 +1,9 @@
 <h1 class="doc-page-title">I18n</h1>
 
 <p>
-  Ember Power Calendar uses ember-moment to format dates in the appropriate locale and updates
-  if it changes. For more information check the docs of <a href="https://github.com/stefanpenner/ember-moment#i18n-support">ember-moment</a>
-  about how to use the <code>service:moment</code> to set application wide locales.
+  Ember Power Calendar uses exposes a `power-calendar` service that has a locale property and
+  uses that locale to format dates. If you want to change the locale for all your calendars, set the
+  <code>locale</code> property on that service and every calendar will update.
 </p>
 
 <p>

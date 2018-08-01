@@ -1,20 +1,19 @@
 import Controller from '@ember/controller';
+import { add } from 'ember-power-calendar/utils/date-utils';
 import moment from 'moment';
+moment.locale('en');
+
 export default Controller.extend({
   tomorrow: null,
-  tomorrowDate: null,
   pastMonth: null,
   nextMonth: null,
-  februaryNextYear: null,
 
   // Lifecycle hooks
   init() {
     this._super(...arguments);
-    this.set('tomorrow', moment().add(1, 'day'));
-    this.set('tomorrowDate', moment().add(1, 'day').toDate());
-    this.set('pastMonth', moment().subtract(1, 'month'));
-    this.set('nextMonth', moment().add(1, 'month'));
-    this.set('februaryNextYear', moment().year(2017).month('february'));
-    this.set('selected', moment().add(1, 'day'));
+    this.set('tomorrow', add(new Date(), 1, 'day'));
+    this.set('pastMonth', add(new Date(), -1, 'month'));
+    this.set('nextMonth', add(new Date(), 1, 'month'));
+    this.set('selected', add(new Date(), 1, 'day'));
   }
 });

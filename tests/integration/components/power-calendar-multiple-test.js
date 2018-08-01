@@ -4,7 +4,7 @@ import { render } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run } from '@ember/runloop';
-import moment from 'moment';
+import { isSame, formatDate } from 'ember-power-calendar/utils/date-utils';
 import { find, click } from 'ember-native-dom-helpers';
 
 module('Integration | Component | power calendar multiple', function(hooks) {
@@ -43,20 +43,20 @@ module('Integration | Component | power calendar multiple', function(hooks) {
       callsCount++;
       if (callsCount === 1) {
         assert.equal(days.date.length, 1);
-        assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
+        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
       } else if (callsCount === 2) {
         assert.equal(days.date.length, 2);
-        assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
-        assert.ok(days.moment[1].isSame(moment('2013-10-15'), 'day'));
+        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
+        assert.ok(isSame(days.date[1], new Date('2013-10-15'), 'day'));
       } else if (callsCount === 3) {
         assert.equal(days.date.length, 3);
-        assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
-        assert.ok(days.moment[1].isSame(moment('2013-10-15'), 'day'));
-        assert.ok(days.moment[2].isSame(moment('2013-10-09'), 'day'));
+        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
+        assert.ok(isSame(days.date[1], new Date('2013-10-15'), 'day'));
+        assert.ok(isSame(days.date[2], new Date('2013-10-09'), 'day'));
       } else {
         assert.equal(days.date.length, 2);
-        assert.ok(days.moment[0].isSame(moment('2013-10-05'), 'day'));
-        assert.ok(days.moment[1].isSame(moment('2013-10-09'), 'day'));
+        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
+        assert.ok(isSame(days.date[1], new Date('2013-10-09'), 'day'));
       }
       assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
       assert.ok(e instanceof Event, 'The third argument is an event');
@@ -93,7 +93,7 @@ module('Integration | Component | power calendar multiple', function(hooks) {
   test('Clicking on a day selects it, and clicking again on it unselects it', async function(assert) {
     assert.expect(13);
     await render(hbs`
-      {{#power-calendar-multiple selected=selected onSelect=(action (mut selected) value="moment") as |calendar|}}
+      {{#power-calendar-multiple selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
         {{calendar.nav}}
         {{calendar.days}}
       {{/power-calendar-multiple}}
@@ -111,13 +111,13 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-05"]').classList.contains('ember-power-calendar-day--selected'));
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-10"]').classList.contains('ember-power-calendar-day--selected'));
     assert.ok(find('.ember-power-calendar-day[data-date="2013-10-12"]').classList.contains('ember-power-calendar-day--selected'));
-    assert.equal(this.get('selected')[0].format('YYYY-MM-DD'), '2013-10-05');
-    assert.equal(this.get('selected')[1].format('YYYY-MM-DD'), '2013-10-10');
-    assert.equal(this.get('selected')[2].format('YYYY-MM-DD'), '2013-10-12');
+    assert.equal(formatDate(this.get('selected')[0], 'YYYY-MM-DD'), '2013-10-05');
+    assert.equal(formatDate(this.get('selected')[1], 'YYYY-MM-DD'), '2013-10-10');
+    assert.equal(formatDate(this.get('selected')[2], 'YYYY-MM-DD'), '2013-10-12');
 
     click('.ember-power-calendar-day[data-date="2013-10-10"]');
-    assert.equal(this.get('selected')[0].format('YYYY-MM-DD'), '2013-10-05');
-    assert.equal(this.get('selected')[1].format('YYYY-MM-DD'), '2013-10-12');
+    assert.equal(formatDate(this.get('selected')[0], 'YYYY-MM-DD'), '2013-10-05');
+    assert.equal(formatDate(this.get('selected')[1], 'YYYY-MM-DD'), '2013-10-12');
 
     click('.ember-power-calendar-day[data-date="2013-10-12"]');
     click('.ember-power-calendar-day[data-date="2013-10-05"]');

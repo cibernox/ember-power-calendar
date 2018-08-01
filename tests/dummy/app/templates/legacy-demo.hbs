@@ -37,7 +37,7 @@
     selected=selected as |calendar|}}
 
     {{#calendar.nav as |month|}}
-      {{moment-format month 'MMM YY'}}
+      {{format-date month 'MMM YY'}}
     {{/calendar.nav}}
     {{calendar.days}}
   {{/power-calendar}}
@@ -53,7 +53,7 @@
 
     {{calendar.nav}}
     {{#calendar.days as |day|}}
-      {{moment-format day.moment 'Do'}}
+      {{format-date day.date 'Do'}}
     {{/calendar.days}}
   {{/power-calendar}}
 
@@ -62,7 +62,7 @@
   {{#power-calendar
     class="demo-calendar-medium"
     selected=selected
-    onSelect=(action (mut selected) value="moment") as |calendar|}}
+    onSelect=(action (mut selected) value="date") as |calendar|}}
     {{calendar.nav}}
     {{calendar.days minDate=tenDaysAgo maxDate=threeDaysFromNow}}
   {{/power-calendar}}
@@ -72,7 +72,7 @@
   {{#power-calendar
     class="demo-calendar-big"
     selected=selected
-    onSelect=(action (mut selected) value="moment") as |calendar|}}
+    onSelect=(action (mut selected) value="date") as |calendar|}}
     {{calendar.nav}}
     {{calendar.days}}
   {{/power-calendar}}
@@ -84,7 +84,7 @@
     center=foo
     onCenterChange=(action (mut foo) value="date")
     selected=range
-    onSelect=(action (mut range) value="moment") as |calendar|}}
+    onSelect=(action (mut range) value="date") as |calendar|}}
     {{calendar.nav}}
     {{calendar.days}}
   {{/power-calendar-range}}

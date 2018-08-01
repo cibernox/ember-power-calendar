@@ -4,20 +4,21 @@ import { scheduleOnce } from '@ember/runloop';
 import { inject } from '@ember/service';
 import { assert } from '@ember/debug';
 import layout from '../../templates/components/power-calendar/days';
-import moment from 'moment';
-
-function withLocale(locale, fn) {
-  let returnValue;
-  if (locale) {
-    let previousLocale = moment.locale();
-    moment.locale(locale);
-    returnValue = fn();
-    moment.locale(previousLocale);
-  } else {
-    returnValue = fn();
-  }
-  return returnValue;
-}
+import {
+  add,
+  startOf,
+  endOf,
+  getWeekdays,
+  getWeekdaysMin,
+  getWeekdaysShort,
+  formatDate,
+  isoWeekday,
+  isBefore,
+  isAfter,
+  isSame,
+  withLocale,
+  normalizeCalendarDay
+} from "ember-power-calendar/utils/date-utils";
 
 const WEEK_DAYS = [
   'Mon',
@@ -43,15 +44,15 @@ export default Component.extend({
   // CPs
   'data-power-calendar-id': computed.oneWay('calendar.uniqueId'),
   weekdaysMin: computed('calendar.locale', function() {
-    return withLocale(this.get('calendar.locale'), () => moment.weekdaysMin());
+    return withLocale(this.get("calendar.locale"), getWeekdaysMin);
   }),
 
   weekdaysShort: computed('calendar.locale', function() {
-    return withLocale(this.get('calendar.locale'), () => moment.weekdaysShort());
+    return withLocale(this.get("calendar.locale"), getWeekdaysShort);
   }),
 
   weekdays: computed('calendar.locale', function() {
-    return withLocale(this.get('calendar.locale'), () => moment.weekdays());
+    return withLocale(this.get("calendar.locale"), getWeekdays);
   }),
 
   localeStartOfWeek: computed('weekdaysShort', 'startOfWeek', function() {
@@ -60,7 +61,7 @@ export default Component.extend({
       return parseInt(forcedStartOfWeek, 10);
     }
     let now = this.get('powerCalendarService').getDate();
-    let dayAbbr = withLocale(this.get('calendar.locale'), () => moment(now).startOf('week').format('ddd'));
+    let dayAbbr = withLocale(this.get('calendar.locale'), () => formatDate(startOf(now, 'week'), 'ddd'));
     return this.get('weekdaysShort').indexOf(dayAbbr);
   }),
 
@@ -75,11 +76,11 @@ export default Component.extend({
     let today = this.get('powerCalendarService').getDate();
     let calendar = this.get('calendar');
     let lastDay = this.lastDay(calendar);
-    let currentMoment = this.firstDay(calendar);
+    let day = this.firstDay(calendar);
     let days = [];
-    while (currentMoment.isBefore(lastDay)) {
-      days.push(this.buildDay(currentMoment, today, calendar));
-      currentMoment.add(1, 'day');
+    while (isBefore(day, lastDay)) {
+      days.push(this.buildDay(day, today, calendar));
+      day = add(day, 1, "day");
     }
     return days;
   }),
@@ -94,7 +95,7 @@ export default Component.extend({
         daysOfWeek = daysOfWeek.filter((d) => d.isCurrentMonth);
       }
       weeks.push({
-        id: days[i].moment.format('YYYY-w'),
+        id: `week-of-${daysOfWeek[0].id}`,
         days: daysOfWeek,
         missingDays: 7 - daysOfWeek.length
       });
@@ -168,44 +169,42 @@ export default Component.extend({
   },
 
   // Methods
-  buildDay(dayMoment, today, calendar) {
-    let id = dayMoment.format('YYYY-MM-DD');
-    let momentDate = dayMoment.clone();
+  buildDay(date, today, calendar) {
+    let id = formatDate(date, 'YYYY-MM-DD')
 
-    return {
+    return normalizeCalendarDay({
       id,
-      number: momentDate.date(),
-      date: momentDate.toDate(),
-      moment: momentDate,
-      isDisabled: this.dayIsDisabled(momentDate),
+      number: date.getDate(),
+      date: new Date(date),
+      isDisabled: this.dayIsDisabled(date),
       isFocused: this.get('focusedId') === id,
-      isCurrentMonth: momentDate.month() === calendar.center.month(),
-      isToday: momentDate.isSame(today, 'day'),
-      isSelected: this.dayIsSelected(momentDate, calendar)
-    };
+      isCurrentMonth: date.getMonth() === calendar.center.getMonth(),
+      isToday: isSame(date, today, 'day'),
+      isSelected: this.dayIsSelected(date, calendar)
+    });
   },
 
   buildonSelectValue(day) {
     return day;
   },
 
-  dayIsSelected(dayMoment, calendar = this.get('calendar')) {
-    return calendar.selected ? dayMoment.isSame(calendar.selected, 'day') : false;
+  dayIsSelected(date, calendar = this.get('calendar')) {
+    return calendar.selected ? isSame(date, calendar.selected, 'day') : false;
   },
 
-  dayIsDisabled(momentDate) {
+  dayIsDisabled(date) {
     let isDisabled = !this.get('onSelect');
     if (isDisabled) {
       return true;
     }
 
     let minDate = this.get('minDate');
-    if (minDate && momentDate.isBefore(minDate)) {
+    if (minDate && isBefore(date, minDate)) {
       return true;
     }
 
     let maxDate = this.get('maxDate');
-    if (maxDate && momentDate.isAfter(maxDate)) {
+    if (maxDate && isAfter(date, maxDate)) {
       return true;
     }
 
@@ -213,9 +212,9 @@ export default Component.extend({
 
     if (disabledDates) {
       let disabledInRange = disabledDates.some((d) => {
-        let isSame = momentDate.isSame(d, 'day');
-        let isWeekDayIncludes = WEEK_DAYS.indexOf(d) !== -1 && momentDate.format('ddd') === d;
-        return isSame || isWeekDayIncludes;
+        let isSameDay = isSame(date, d, 'day');
+        let isWeekDayIncludes = WEEK_DAYS.indexOf(d) !== -1 && formatDate(date, 'ddd') === d;
+        return isSameDay || isWeekDayIncludes;
       });
 
       if (disabledInRange) {
@@ -227,21 +226,21 @@ export default Component.extend({
   },
 
   firstDay(calendar) {
-    let firstDay = calendar.center.clone().startOf('month');
+    let firstDay = startOf(calendar.center, 'month');
     let localeStartOfWeek = this.get('localeStartOfWeek');
-    while ((firstDay.isoWeekday() % 7) !== localeStartOfWeek) {
-      firstDay.add(-1, 'day');
+    while ((isoWeekday(firstDay) % 7) !== localeStartOfWeek) {
+      firstDay = add(firstDay, -1, "day");
     }
     return firstDay;
   },
 
   lastDay(calendar) {
     let localeStartOfWeek = this.get('localeStartOfWeek');
-    assert('The center of the calendar is an invalid date.', calendar.center.isValid())
-    let lastDay = calendar.center.clone().endOf('month');
+    assert("The center of the calendar is an invalid date.", !isNaN(calendar.center.getTime()));
+    let lastDay = endOf(calendar.center, 'month')
     let localeEndOfWeek = (localeStartOfWeek + 6) % 7;
-    while ((lastDay.isoWeekday() % 7) !== localeEndOfWeek) {
-      lastDay.add(1, 'day');
+    while (isoWeekday(lastDay) % 7 !== localeEndOfWeek) {
+      lastDay = add(lastDay, 1, 'day');
     }
     return lastDay;
   },

@@ -1,23 +1,35 @@
 import CalendarComponent from './power-calendar';
 import { computed } from '@ember/object';
-import moment from 'moment';
+import {
+  normalizeDate,
+  isSame,
+  normalizeMultipleActionValue
+} from 'ember-power-calendar/utils/date-utils';
 
 export default CalendarComponent.extend({
-  daysComponent: 'power-calendar-multiple/days',
+  daysComponent: "power-calendar-multiple/days",
 
   // CPs
+  selected: computed({
+    get() {
+      return undefined;
+    },
+    set(_, v) {
+      return Array.isArray(v) ? v.map(normalizeDate) : v;
+    }
+  }),
   currentCenter: computed('center', function() {
     let center = this.get('center');
-    if (center) {
-      return moment(center);
+    if (!center) {
+      center = (this.get('selected') || [])[0] || this.get('powerCalendarService').getDate();
     }
-    return moment((this.get('selected') || [])[0] || this.get('powerCalendarService').getDate());
+    return normalizeDate(center);
   }),
 
   // Actions
   actions: {
     select(day, calendar, e) {
-      let action = this.get('onSelect');
+      let action = this.get("onSelect");
       if (action) {
         action(this._buildCollection(day), calendar, e);
       }
@@ -26,24 +38,20 @@ export default CalendarComponent.extend({
 
   // Methods
   _buildCollection(day) {
-    let selected = this.get('publicAPI.selected') || [];
+    let selected = this.get("publicAPI.selected") || [];
     let values = [];
     let index = -1;
     for (let i = 0; i < selected.length; i++) {
-      if (day.moment.isSame(selected[i], 'day')) {
+      if (isSame(day.date, selected[i], "day")) {
         index = i;
         break;
       }
     }
     if (index === -1) {
-      values = [...selected, day.moment];
+      values = [...selected, day.date];
     } else {
       values = selected.slice(0, index).concat(selected.slice(index + 1));
     }
-    let moments = values.map((d) => moment(d));
-    return {
-      moment: moments,
-      date: moments.map((m) => m.toDate())
-    };
+    return normalizeMultipleActionValue({ date: values });
   }
 });

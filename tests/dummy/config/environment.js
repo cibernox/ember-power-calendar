@@ -16,9 +16,8 @@ module.exports = function(environment) {
         Date: false
       }
     },
-
     moment: {
-      includeLocales: true
+      includeLocales: ['es', 'ru', 'fr', 'pt']
     },
 
     APP: {

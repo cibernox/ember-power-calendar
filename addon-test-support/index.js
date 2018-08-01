@@ -2,7 +2,7 @@ import { run } from '@ember/runloop';
 import { assert } from '@ember/debug';
 import wait from 'ember-test-helpers/wait';
 import { find, click } from 'ember-native-dom-helpers';
-import moment from 'moment';
+import { formatDate } from 'ember-power-calendar/utils/date-utils';
 
 function findCalendarElement(selector) {
   let target = find(selector);
@@ -34,7 +34,7 @@ function findComponentInstance(selector) {
 }
 
 export async function calendarCenter(selector, newCenter) {
-  assert('`calendarCenter` expect a Date or MomentJS object as second argument', newCenter);
+  assert('`calendarCenter` expect a Date object as second argument', newCenter instanceof Date);
   let calendarComponent = findComponentInstance(selector);
   let onCenterChange = calendarComponent.get('onCenterChange');
   assert('You cannot call `calendarCenter` on a component that doesn\'t has an `onCenterChange` action', !!onCenterChange);
@@ -44,10 +44,9 @@ export async function calendarCenter(selector, newCenter) {
 }
 
 export async function calendarSelect(selector, selected) {
-  assert('`calendarSelect` expect a Date or MomentJS object as second argument', selected);
-  let selectedMoment = moment(selected);
+  assert('`calendarSelect` expect a Date object as second argument', selected);
   let calendarElement = findCalendarElement(selector);
-  let daySelector = `${selector} [data-date="${selectedMoment.format('YYYY-MM-DD')}"]`;
+  let daySelector = `${selector} [data-date="${formatDate(selected, 'YYYY-MM-DD')}"]`;
   let dayElement = find(daySelector, calendarElement);
   if (!dayElement) {
     await calendarCenter(selector, selected);
