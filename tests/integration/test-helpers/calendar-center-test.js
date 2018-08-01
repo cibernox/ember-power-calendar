@@ -3,7 +3,6 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { calendarCenter } from 'ember-power-calendar/test-support';
-import { find } from 'ember-native-dom-helpers';
 
 module('Test Support | Helper | calendarCenter', function(hooks) {
   setupRenderingTest(hooks);
@@ -20,11 +19,11 @@ module('Test Support | Helper | calendarCenter', function(hooks) {
         {{/power-calendar}}
       </div>
     `);
-    assert.equal(find('.calendar-center-1 .ember-power-calendar-nav-title').textContent.trim(), 'October 2013');
+    assert.dom('.calendar-center-1 .ember-power-calendar-nav-title').hasText('October 2013');
 
     await calendarCenter('.calendar-center-1', new Date(2013, 8, 3));
-    assert.equal(find('.calendar-center-1 .ember-power-calendar-nav-title').textContent.trim(), 'September 2013', 'The nav component has updated');
-    assert.ok(find('.calendar-center-1 [data-date="2013-09-01"]'), 'The days component has updated');
+    assert.dom('.calendar-center-1 .ember-power-calendar-nav-title').hasText('September 2013', 'The nav component has updated');
+    assert.dom('.calendar-center-1 [data-date="2013-09-01"]').exists('The days component has updated');
   });
 
   test('`calendarCenter` throws an error it cannot find a calendar using the given selector', async function(assert) {
