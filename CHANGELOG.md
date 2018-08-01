@@ -1,5 +1,8 @@
 ## Master
 
+- [BREAKING] Require the new testing API based on `setupTest`/`setupRenderingTest`/`setupApplicationTest` that
+  comes with `ember-qunit` 3.2+.
+
 ## 0.8.0-beta.1
 - [BREAKING] This addon no longer depends on `ember-moment`, only in `ember-cli-moment-shim`, which
   means it no longer attempts to read the locale from the `service:moment`. You can now set the locale
