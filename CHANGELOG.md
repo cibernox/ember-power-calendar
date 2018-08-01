@@ -1,5 +1,16 @@
 ## Master
 
+## 0.8.0-beta.1
+- [BREAKING] This addon no longer depends on `ember-moment`, only in `ember-cli-moment-shim`, which
+  means it no longer attempts to read the locale from the `service:moment`. You can now set the locale
+  (if different from the global moment.js locale) in the `service:power-calendar`.
+
+- [HUGE REFACTOR] The addon is pretty decoupled from moment.js, with the plan of allowing using it
+  with luxon.js, or other libraries (maybe without any library!) in the next version.
+  It should not be a breaking change, but since it was a very big refactor, update it with care.
+  Due to this refactor and the drop of ember-moment, the addon is ~28kb (~4.5kb min+gzip) smaller
+  than before.
+
 ## 0.7.3
 - [ENHANCEMENT] Add helpful assertions when a calendar receives an invalid date as center and when the user tries to change the center of a calendar without an `onCenterChange` action.
 
