@@ -18,6 +18,7 @@ module('Integration | Component | power-calendar/nav', function(hooks) {
     calendarService.set('date', new Date(2013, 9, 18));
     calendar = {
       center: calendarService.getDate(),
+      locale: 'en',
       actions: {
         moveCenter: () => {},
         select: () => {}
@@ -29,7 +30,7 @@ module('Integration | Component | power-calendar/nav', function(hooks) {
     assertionCleanup(this);
   });
 
-  test('[i18n] If the user sets a different locale in the calendar, this setting overrides the locale set in moment.js', async function(assert) {
+  test('[i18n] If the user sets a different locale in the calendar, this setting overrides the locale set in the calendar service', async function(assert) {
     assert.expect(2);
     this.calendar = calendar;
     await render(hbs`{{power-calendar/nav calendar=calendar}}`);
