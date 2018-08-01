@@ -1,8 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from 'ember-test-helpers';
+import { render, click } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { find, findAll, click } from 'ember-native-dom-helpers';
 
 module(
   'Integration | Component | power-calendar-multiple/days',
@@ -22,13 +21,13 @@ module(
           {{calendar.days maxLength=1}}
         {{/power-calendar-multiple}}
       `);
-      click('.ember-power-calendar-day[data-date="2013-10-05"]');
-      assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-05"]').disabled);
-      assert.ok(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
+      await click('.ember-power-calendar-day[data-date="2013-10-05"]');
+      assert.dom('.ember-power-calendar-day[data-date="2013-10-05"]').isNotDisabled();
+      assert.dom('.ember-power-calendar-day[data-date="2013-10-06"]').isDisabled();
 
-      click('.ember-power-calendar-day[data-date="2013-10-05"]');
-      assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-05"]').disabled);
-      assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
+      await click('.ember-power-calendar-day[data-date="2013-10-05"]');
+      assert.dom('.ember-power-calendar-day[data-date="2013-10-05"]').isNotDisabled();
+      assert.dom('.ember-power-calendar-day[data-date="2013-10-06"]').isNotDisabled();
     });
 
     test('the maxLength property can handle changing of the property', async function(assert) {
@@ -40,12 +39,12 @@ module(
           {{calendar.days maxLength=max}}
         {{/power-calendar-multiple}}
       `);
-      click('.ember-power-calendar-day[data-date="2013-10-05"]');
-      assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-05"]').disabled);
-      assert.ok(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
+      await click('.ember-power-calendar-day[data-date="2013-10-05"]');
+      assert.dom('.ember-power-calendar-day[data-date="2013-10-05"]').isNotDisabled();
+      assert.dom('.ember-power-calendar-day[data-date="2013-10-06"]').isDisabled();
 
       this.set('max', 2);
-      assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
+      assert.dom('.ember-power-calendar-day[data-date="2013-10-06"]').isNotDisabled();
     });
 
     test('maxLength can handle null for the selected days', async function(assert) {
@@ -59,9 +58,9 @@ module(
           {{calendar.days maxLength=max}}
         {{/power-calendar-multiple}}
       `);
-      click('.ember-power-calendar-day[data-date="2013-10-05"]');
+      await click('.ember-power-calendar-day[data-date="2013-10-05"]');
       this.set('collection', null);
-      assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
+      assert.dom('.ember-power-calendar-day[data-date="2013-10-06"]').isNotDisabled();
     });
 
     test('maxLength can handle null for the maxLength property', async function(assert) {
@@ -74,9 +73,9 @@ module(
           {{calendar.days maxLength=max}}
         {{/power-calendar-multiple}}
       `);
-      click('.ember-power-calendar-day[data-date="2013-10-05"]');
+      await click('.ember-power-calendar-day[data-date="2013-10-05"]');
 
-      assert.notOk(find('.ember-power-calendar-day[data-date="2013-10-06"]').disabled);
+      assert.dom('.ember-power-calendar-day[data-date="2013-10-06"]').isNotDisabled();
     });
 
     test('If it receives `showDaysAround=false` option, it doesn\'t show the days before first or after last day of the month', async function(assert) {
@@ -92,10 +91,10 @@ module(
       `);
       await click('.ember-power-calendar-day[data-date="2013-10-05"]');
 
-      let weeks = findAll('.ember-power-calendar-week');
-      assert.equal(findAll('.ember-power-calendar-day', weeks[0]).length, 5, 'The first week has 6 days');
+      let weeks = this.element.querySelectorAll('.ember-power-calendar-week');
+      assert.dom('.ember-power-calendar-day', weeks[0]).exists({ count: 5 }, 'The first week has 6 days');
       assert.equal(weeks[0].dataset.missingDays, '2', 'It has a special data-attribute');
-      assert.equal(findAll('.ember-power-calendar-day', weeks[4]).length, 5, 'The last week has 4 days');
+      assert.dom('.ember-power-calendar-day', weeks[4]).exists({ count: 5 }, 'The last week has 4 days');
     });
   }
 );

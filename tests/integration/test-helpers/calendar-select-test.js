@@ -3,7 +3,6 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { calendarSelect } from 'ember-power-calendar/test-support';
-import { find } from 'ember-native-dom-helpers';
 
 module('Test Support | Helper | calendarSelect', function(hooks) {
   setupRenderingTest(hooks);
@@ -24,11 +23,11 @@ module('Test Support | Helper | calendarSelect', function(hooks) {
       </div>
     `);
 
-    assert.equal(find('.calendar-select-1 .ember-power-calendar-nav-title').textContent.trim(), 'October 2013');
-    assert.ok(find('.calendar-select-1 [data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--selected'), 'The 15th is selected');
+    assert.dom('.calendar-select-1 .ember-power-calendar-nav-title').hasText('October 2013');
+    assert.dom('.calendar-select-1 [data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected', 'The 15th is selected');
     await calendarSelect('.calendar-select-1', new Date(2013, 9, 11));
 
-    assert.ok(find('.calendar-select-1 [data-date="2013-10-11"]').classList.contains('ember-power-calendar-day--selected'), 'The 11th of October is selected');
+    assert.dom('.calendar-select-1 [data-date="2013-10-11"]').hasClass('ember-power-calendar-day--selected', 'The 11th of October is selected');
   });
 
   test('`calendarSelect` selects the given date changing the month center on the process', async function(assert) {
@@ -47,12 +46,12 @@ module('Test Support | Helper | calendarSelect', function(hooks) {
       </div>
     `);
 
-    assert.equal(find('.calendar-select-1 .ember-power-calendar-nav-title').textContent.trim(), 'October 2013');
-    assert.ok(find('.calendar-select-1 [data-date="2013-10-15"]').classList.contains('ember-power-calendar-day--selected'), 'The 15th is selected');
+    assert.dom('.calendar-select-1 .ember-power-calendar-nav-title').hasText('October 2013');
+    assert.dom('.calendar-select-1 [data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected', 'The 15th is selected');
     await calendarSelect('.calendar-select-1', new Date(2013, 8, 3));
 
-    assert.equal(find('.calendar-select-1 .ember-power-calendar-nav-title').textContent.trim(), 'September 2013', 'The nav component has updated');
-    assert.ok(find('.calendar-select-1 [data-date="2013-09-01"]'), 'The days component has updated');
-    assert.ok(find('.calendar-select-1 [data-date="2013-09-03"]').classList.contains('ember-power-calendar-day--selected'), 'The 3rd of september is selected');
+    assert.dom('.calendar-select-1 .ember-power-calendar-nav-title').hasText('September 2013', 'The nav component has updated');
+    assert.dom('.calendar-select-1 [data-date="2013-09-01"]').exists('The days component has updated');
+    assert.dom('.calendar-select-1 [data-date="2013-09-03"]').hasClass('ember-power-calendar-day--selected', 'The 3rd of september is selected');
   });
 });

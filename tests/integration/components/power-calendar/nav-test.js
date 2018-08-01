@@ -4,7 +4,6 @@ import { render } from 'ember-test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../../assertions';
 import { run } from '@ember/runloop';
-import { find } from 'ember-native-dom-helpers';
 
 let calendarService;
 let calendar;
@@ -34,8 +33,8 @@ module('Integration | Component | power-calendar/nav', function(hooks) {
     assert.expect(2);
     this.calendar = calendar;
     await render(hbs`{{power-calendar/nav calendar=calendar}}`);
-    assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'October 2013');
+    assert.dom('.ember-power-calendar-nav-title').hasText('October 2013');
     run(() => this.set('calendar.locale', 'es'));
-    assert.equal(find('.ember-power-calendar-nav-title').textContent.trim(), 'octubre 2013');
+    assert.dom('.ember-power-calendar-nav-title').hasText('octubre 2013');
   });
 });

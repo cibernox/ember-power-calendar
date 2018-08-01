@@ -1,7 +1,5 @@
 import Controller from '@ember/controller';
 import { add } from 'ember-power-calendar/utils/date-utils';
-import moment from 'moment';
-moment.locale('en');
 
 export default Controller.extend({
   tomorrow: null,
