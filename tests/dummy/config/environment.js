@@ -16,6 +16,9 @@ module.exports = function(environment) {
         Date: false
       }
     },
+    moment: {
+      includeLocales: ['es', 'ru', 'fr', 'pt']
+    },
 
     APP: {
       // Here you can pass flags/options to your application instance
