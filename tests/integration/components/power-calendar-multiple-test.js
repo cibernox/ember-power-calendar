@@ -5,7 +5,6 @@ import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run } from '@ember/runloop';
 import { isSame, formatDate } from 'ember-power-calendar/utils/date-utils';
-// import moment from 'moment';
 import { find, click } from 'ember-native-dom-helpers';
 
 module('Integration | Component | power calendar multiple', function(hooks) {

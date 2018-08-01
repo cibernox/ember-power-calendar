@@ -1,12 +1,11 @@
 import Controller from '@ember/controller';
-import moment from 'moment';
 
 export default Controller.extend({
-  center: moment('2013-10-15'),
+  center: new Date(2013, 0, 15),
   disabledDates: [
-    moment('2013-10-18'),
-    moment('2013-10-21'),
-    moment('2013-10-22'),
-    moment('2013-10-28')
+    new Date(2013, 0, 18),
+    new Date(2013, 0, 21),
+    new Date(2013, 0, 22),
+    new Date(2013, 0, 28)
   ]
 });

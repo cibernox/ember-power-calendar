@@ -6,6 +6,7 @@ import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
 import { find, click, keyEvent, focus } from 'ember-native-dom-helpers';
+import moment from 'moment';
 
 module('Integration | Component | Power Calendar', function(hooks) {
   setupRenderingTest(hooks);
@@ -84,7 +85,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
 
   test('when it receives a `moment()` in the `center` argument, it displays that month', async function(assert) {
     assert.expect(3);
-    this.center = new Date('2016-02-05');
+    this.center = moment('2016-02-05');
     await render(hbs`
       {{#power-calendar center=center as |calendar|}}
         {{calendar.nav}}
@@ -186,7 +187,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
 
   test('when it receives a `moment` in the `selected` argument, it displays that month, and that day is marked as selected', async function(assert) {
     assert.expect(4);
-    this.selected = new Date('2016-02-05');
+    this.selected = moment('2016-02-05');
     await render(hbs`
       {{#power-calendar selected=selected as |calendar|}}
         {{calendar.nav}}

@@ -52,10 +52,10 @@ export default CalendarComponent.extend({
 
   currentCenter: computed('center', function() {
     let center = this.get('center');
-    if (center) {
-      return center;
+    if (!center) {
+      center = this.get('selected.start') || this.get('powerCalendarService').getDate();
     }
-    return this.get('selected.start') || this.get('powerCalendarService').getDate();
+    return normalizeDate(center);
   }),
 
   publicAPI: computed('_publicAPI', 'minRange', 'maxRange', function() {

@@ -1,3 +1,3 @@
 fillIn('.username', 'Tomster');
-calendarCenter('.events-calendar', moment().add(1, 'week'));
+calendarCenter('.events-calendar', nextWeek);
 // ...

@@ -56,10 +56,10 @@ export default Component.extend({
 
   currentCenter: computed('center', function() {
     let center = this.get('center');
-    if (center) {
-      return center;
+    if (!center) {
+      center = this.get('selected') || this.get('powerCalendarService').getDate()
     }
-    return this.get('selected') || this.get('powerCalendarService').getDate()
+    return normalizeDate(center);
   }),
 
   publicAPI: computed('_publicAPI', function() {

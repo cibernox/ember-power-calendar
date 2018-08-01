@@ -18,12 +18,12 @@ export default CalendarComponent.extend({
       return Array.isArray(v) ? v.map(normalizeDate) : v;
     }
   }),
-  currentCenter: computed("center", function() {
-    let center = this.get("center");
-    if (center) {
-      return center;
+  currentCenter: computed('center', function() {
+    let center = this.get('center');
+    if (!center) {
+      center = (this.get('selected') || [])[0] || this.get('powerCalendarService').getDate();
     }
-    return (this.get("selected") || [])[0] || this.get("powerCalendarService").getDate();
+    return normalizeDate(center);
   }),
 
   // Actions

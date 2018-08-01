@@ -212,14 +212,8 @@ module('Integration | Component | power calendar range', function(hooks) {
   test('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is smaller than the minRange', async function(assert) {
     assert.expect(2);
     this.selected = { start: new Date(2016, 1, 5), end: null };
-    this.invalidDay = {
-      date: new Date(2016, 1, 6),
-      // moment: moment(new Date(2016, 1, 6))
-    };
-    this.validDay = {
-      date: new Date(2016, 1, 8),
-      // moment: moment(new Date(2016, 1, 8))
-    };
+    this.invalidDay = { date: new Date(2016, 1, 6), };
+    this.validDay = { date: new Date(2016, 1, 8), };
     let range;
     this.didSelect = function(r) {
       range = r;
@@ -239,18 +233,10 @@ module('Integration | Component | power calendar range', function(hooks) {
   test('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is bigger than the maxRange', async function(assert) {
     assert.expect(2);
     this.selected = { start: new Date(2016, 1, 5), end: null };
-    this.validDay = {
-      date: new Date(2016, 1, 6),
-      // moment: moment(new Date(2016, 1, 6))
-    };
-    this.invalidDay = {
-      date: new Date(2016, 1, 8),
-      // moment: moment(new Date(2016, 1, 8))
-    };
+    this.validDay = { date: new Date(2016, 1, 6) };
+    this.invalidDay = { date: new Date(2016, 1, 8) };
     let range;
-    this.didSelect = function(r) {
-      range = r;
-    };
+    this.didSelect = function(r) { range = r; };
     await render(hbs`
       {{#power-calendar-range selected=selected onSelect=didSelect maxRange=2 as |cal|}}
         <button id="select-invalid-range-end" onclick={{action cal.actions.select invalidDay}}>Select invalid date</button>
