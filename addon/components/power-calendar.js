@@ -9,7 +9,8 @@ import {
   add,
   normalizeDate,
   normalizeCalendarValue
-} from "ember-power-calendar/utils/date-utils";
+} from '../utils/date-utils';
+
 export default Component.extend({
   layout,
   classNames: ['ember-power-calendar'],

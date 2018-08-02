@@ -18,7 +18,7 @@ import {
   isSame,
   withLocale,
   normalizeCalendarDay
-} from "ember-power-calendar/utils/date-utils";
+} from '../../utils/date-utils';
 
 const WEEK_DAYS = [
   'Mon',
