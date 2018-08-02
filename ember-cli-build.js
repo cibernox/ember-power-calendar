@@ -1,14 +1,16 @@
 'use strict';
 
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
+const VersionChecker = require('ember-cli-version-checker'); // eslint-disable-line
 
 module.exports = function(defaults) {
-  let project = defaults.project;
+  let checker = new VersionChecker(defaults);
+  let emberChecker = checker.forEmber();
   let options = {
     snippetPaths: ['tests/dummy/app/templates/snippets']
   };
 
-  if (project.findAddonByName('ember-native-dom-event-dispatcher')) {
+  if (emberChecker.isAbove('2.14.0')) {
     options.vendorFiles = { 'jquery.js': null, 'app-shims.js': null };
   }
 
