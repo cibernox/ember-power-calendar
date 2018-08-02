@@ -1,120 +1,87 @@
-import moment from 'moment';
-
 export function add(date, quantity, unit) {
-  return moment(date).add(quantity, unit).toDate();
+  throw new Error('Not implemented');
 }
 
 export function formatDate(date, format, locale = null) {
-  if (locale) {
-    return withLocale(locale, () => moment(date).format(format));
-  } else {
-    return moment(date).format(format);
-  }
+  throw new Error("Not implemented");
 }
 
 export function startOf(date, unit) {
-  return moment(date).startOf(unit).toDate();
+  throw new Error('Not implemented');
 }
 
 export function endOf(date, unit) {
-  return moment(date).endOf(unit).toDate();
+  throw new Error('Not implemented');
 }
 
 export function weekday(date) {
-  return moment(date).weekday();
+  throw new Error('Not implemented');
 }
 
 export function isoWeekday(date) {
-  return moment(date).isoWeekday();
+  throw new Error('Not implemented');
 }
 
 export function getWeekdaysShort() {
-  return moment.weekdaysShort();
+  throw new Error('Not implemented');
 }
 
 export function getWeekdaysMin() {
-  return moment.weekdaysMin();
+  throw new Error('Not implemented');
 }
 
 export function getWeekdays() {
-  return moment.weekdays();
+  throw new Error('Not implemented');
 }
 
 export function isAfter(date1, date2) {
-  return moment(date1).isAfter(date2);
+  throw new Error('Not implemented');
 }
 
 export function isBefore(date1, date2) {
-  return moment(date1).isBefore(date2);
+  throw new Error('Not implemented');
 }
 
 export function isSame(date1, date2, unit) {
-  return moment(date1).isSame(date2, unit);
+  throw new Error('Not implemented');
 }
 
 export function isBetween(date, start, end, unit, inclusivity) {
-  return moment(date).isBetween(start, end, unit, inclusivity);
+  throw new Error('Not implemented');
 }
 
 export function diff(date1, date2) {
-  return moment(date1).diff(date2);
+  throw new Error('Not implemented');
 }
 
 export function normalizeDate(dateOrMoment) {
-  if (dateOrMoment === undefined || dateOrMoment === null || dateOrMoment instanceof Date) {
-    return dateOrMoment;
-  } else {
-    return dateOrMoment.toDate();
-  }
+  throw new Error("Not implemented");
 }
 
 export function normalizeRangeActionValue(val) {
-  return { date: val.date, moment: { start: val.date.start ? moment(val.date.start) : val.date.start, end: val.date.end ? moment(val.date.end) : val.date.end } };
+  throw new Error("Not implemented");
 }
 
 export function normalizeMultipleActionValue(val) {
-  return {
-    date: val.date,
-    moment: val.date ? val.date.map(e => moment(e)) : val.date
-  };
+  throw new Error("Not implemented");
 }
 
 export function normalizeCalendarDay(day) {
-  day.moment = moment(day.date)
-  return day;
+  throw new Error("Not implemented");
 }
 
 export function withLocale(locale, fn) {
-  let returnValue;
-  if (locale) {
-    let previousLocale = moment.locale();
-    moment.locale(locale);
-    returnValue = fn();
-    moment.locale(previousLocale);
-  } else {
-    returnValue = fn();
-  }
-  return returnValue;
+  throw new Error("Not implemented");;
 }
 
 export function normalizeCalendarValue(value) {
-  return { date: value.date, moment: (value ? moment(value) : undefined) };
+  throw new Error("Not implemented");
 }
 
 export function normalizeDuration(value) {
-  if (value === null || moment.isDuration(value)) {
-    return value.asMilliseconds();
-  }
-  if (typeof value === "number") {
-    return value;
-  }
-  if (typeof value === "string") {
-    let [, quantity, units] = value.match(/(\d+)(.*)/);
-    units = units.trim() || "days";
-    return moment.duration(parseInt(quantity, 10), units).asMilliseconds()
-  }
+  throw new Error("Not implemented");
 }
 
 export function getDefaultLocale() {
-  return moment.locale();
+  throw new Error("Not implemented");
 }
