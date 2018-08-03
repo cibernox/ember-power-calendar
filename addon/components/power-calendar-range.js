@@ -9,7 +9,7 @@ import {
   isAfter,
   isBefore,
   normalizeDuration
-} from '../utils/date-utils';
+} from 'ember-power-calendar-utils';
 
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-range/days',

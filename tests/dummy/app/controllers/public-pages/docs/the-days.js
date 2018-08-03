@@ -6,7 +6,7 @@ import {
   startOf,
   endOf,
   weekday
-} from "ember-power-calendar/utils/date-utils";
+} from 'ember-power-calendar-utils';
 
 export default Controller.extend({
   wedding: new Date('2013-10-18'),

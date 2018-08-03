@@ -1,6 +1,6 @@
 import DaysComponent from '../power-calendar/days';
 import fallbackIfUndefined from '../../utils/computed-fallback-if-undefined';
-import { isSame } from '../../utils/date-utils';
+import { isSame } from 'ember-power-calendar-utils';
 
 export default DaysComponent.extend({
   maxLength: fallbackIfUndefined(Infinity),
