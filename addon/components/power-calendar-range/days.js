@@ -1,6 +1,6 @@
 import { getProperties } from '@ember/object';
 import DaysComponent from '../power-calendar/days';
-import { isBetween, isSame, diff } from 'ember-power-calendar-moment';
+import { isBetween, isSame, diff } from 'ember-power-calendar-utils';
 
 export default DaysComponent.extend({
   // Methods

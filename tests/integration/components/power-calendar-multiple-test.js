@@ -4,7 +4,7 @@ import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run } from '@ember/runloop';
-import { isSame, formatDate } from 'ember-power-calendar-moment';
+import { isSame, formatDate } from 'ember-power-calendar-utils';
 
 module('Integration | Component | power calendar multiple', function(hooks) {
   setupRenderingTest(hooks);
