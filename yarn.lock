@@ -2981,7 +2981,7 @@ ember-native-dom-helpers@^0.5.4:
     broccoli-funnel "^1.1.0"
     ember-cli-babel "^6.6.0"
 
-ember-power-calendar-moment@^0.0.12:
+ember-power-calendar-moment@^0.1.0:
   version "0.0.12"
   resolved "https://registry.yarnpkg.com/ember-power-calendar-moment/-/ember-power-calendar-moment-0.0.12.tgz#cf9c535e16cbe337e9c739f2d6f40179e5aa5906"
   dependencies:
