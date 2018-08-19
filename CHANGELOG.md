@@ -1,5 +1,12 @@
 ## Master
 
+## 0.8.0-beta.3
+- [CHORE] 🎉🎉**BIG CHANGE**🎉🎉 Now the utility functions don't live on this addon but on another addon
+  named `ember-power-calendar-moment`, that for the time being is a runtime dependency so it shouldn't
+  be breaking. In an upcoming version it will be removed from the runtime dependencies so user will have
+  to explicitly install that other addon.
+
+## 0.8.0-beta.2
 - [BREAKING] Require the new testing API based on `setupTest`/`setupRenderingTest`/`setupApplicationTest` that
   comes with `ember-qunit` 3.2+.
 

@@ -4,7 +4,7 @@ import {
   normalizeDate,
   isSame,
   normalizeMultipleActionValue
-} from '../utils/date-utils';
+} from 'ember-power-calendar-utils';
 
 export default CalendarComponent.extend({
   daysComponent: "power-calendar-multiple/days",
