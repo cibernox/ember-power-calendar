@@ -6,7 +6,7 @@ import {
   startOf,
   endOf,
   weekday
-} from 'ember-power-calendar-utils';
+} from 'ember-power-calendar-moment';
 
 export default Controller.extend({
   days: computed(function() {

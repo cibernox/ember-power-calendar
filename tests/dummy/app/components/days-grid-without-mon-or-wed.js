@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { add, isBefore, startOf, endOf, weekday } from 'ember-power-calendar-utils';
+import { add, isBefore, startOf, endOf, weekday } from 'ember-power-calendar-moment';
 
 export default Component.extend({
   days: computed(function() {

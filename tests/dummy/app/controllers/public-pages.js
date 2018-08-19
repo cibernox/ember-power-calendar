@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { later, scheduleOnce } from '@ember/runloop';
 import { inject } from '@ember/controller';
-import { add } from 'ember-power-calendar-utils';
+import { add } from 'ember-power-calendar-moment';
 
 export default Controller.extend({
   applicationController: inject('application'),

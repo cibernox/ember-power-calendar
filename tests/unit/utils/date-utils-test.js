@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { add } from 'ember-power-calendar-utils';
+import { add } from 'ember-power-calendar-moment';
 
 module('Unit | Utility | date-utils', function() {
   module('#add', function() {

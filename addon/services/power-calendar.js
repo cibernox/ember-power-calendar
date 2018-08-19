@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 import { computed } from '@ember/object';
-import { getDefaultLocale } from 'ember-power-calendar-utils';
+import { getDefaultLocale } from 'ember-power-calendar-moment';
 
 export default Service.extend({
   date: null,
