@@ -6,7 +6,7 @@ module.exports = {
   included() {
     let { registry: { availablePlugins } } = this._findHost()
     this._super.included.apply(this, arguments);
-    if (['ember-power-calendar-moment', 'ember-power-calendar-moment'].includes(this.project.name())) {
+    if (['ember-power-calendar-moment', 'ember-power-calendar-luxon'].includes(this.project.name())) {
       return;
     }
     if (!availablePlugins.hasOwnProperty('ember-power-calendar-moment') && !availablePlugins.hasOwnProperty('ember-power-calendar-luxon')) {
