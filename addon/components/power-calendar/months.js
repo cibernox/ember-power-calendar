@@ -6,193 +6,142 @@ import { assert } from '@ember/debug';
 import layout from '../../templates/components/power-calendar/months';
 import {
   add,
-  startOf,
   endOf,
-  getWeekdays,
-  getWeekdaysMin,
-  getWeekdaysShort,
   formatDate,
-  isoWeekday,
-  isBefore,
   isAfter,
+  isBefore,
   isSame,
-  withLocale,
-  normalizeCalendarDay
+  normalizeCalendarDay,
+  startOf
 } from 'ember-power-calendar-utils';
-
-const WEEK_DAYS = [
-  'Mon',
-  'Tue',
-  'Wed',
-  'Thu',
-  'Fri',
-  'Sat',
-  'Sun'
-];
 
 export default Component.extend({
   layout,
   focusedId: null,
   showDaysAround: true,
-  classNames: ['ember-power-calendar-days'],
-  weekdayFormat: 'short', // "min" | "short" | "long"
+  rowWidth: 3,
+  classNames: ['ember-power-calendar-months'],
   powerCalendarService: inject('power-calendar'),
   attributeBindings: [
     'data-power-calendar-id'
   ],
 
   // CPs
-  'data-power-calendar-id': computed.oneWay('calendar.uniqueId'),
-  weekdaysMin: computed('calendar.locale', function() {
-    return withLocale(this.get("calendar.locale"), getWeekdaysMin);
-  }),
-
-  weekdaysShort: computed('calendar.locale', function() {
-    return withLocale(this.get("calendar.locale"), getWeekdaysShort);
-  }),
-
-  weekdays: computed('calendar.locale', function() {
-    return withLocale(this.get("calendar.locale"), getWeekdays);
-  }),
-
-  localeStartOfWeek: computed('weekdaysShort', 'startOfWeek', function() {
-    let forcedStartOfWeek = this.get('startOfWeek');
-    if (forcedStartOfWeek) {
-      return parseInt(forcedStartOfWeek, 10);
-    }
-    let now = this.get('powerCalendarService').getDate();
-    let dayAbbr = withLocale(this.get('calendar.locale'), () => formatDate(startOf(now, 'week'), 'ddd'));
-    return this.get('weekdaysShort').indexOf(dayAbbr);
-  }),
-
-  weekdaysNames: computed('localeStartOfWeek', 'weekdayFormat', 'calendar.locale', function() {
-    let { localeStartOfWeek, weekdayFormat } = this.getProperties('localeStartOfWeek', 'weekdayFormat');
-    let format = `weekdays${weekdayFormat === 'long' ? '' : (weekdayFormat === 'min' ? 'Min' : 'Short')}`;
-    let weekdaysNames = this.get(format);
-    return weekdaysNames.slice(localeStartOfWeek).concat(weekdaysNames.slice(0, localeStartOfWeek));
-  }),
-
-  days: computed('calendar', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
-    let today = this.get('powerCalendarService').getDate();
+  months: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
+    let thisMonth = this.get('powerCalendarService').getDate();
     let calendar = this.get('calendar');
-    let lastDay = this.lastDay(calendar);
-    let day = this.firstDay(calendar);
-    let days = [];
-    while (isBefore(day, lastDay)) {
-      days.push(this.buildDay(day, today, calendar));
-      day = add(day, 1, "day");
-    }
-    return days;
-  }),
+    let lastMonth = this.lastMonth(calendar);
+    let month = this.firstMonth(calendar);
 
-  weeks: computed('showDaysAround', 'days', function() {
-    let { showDaysAround, days } = this.getProperties('showDaysAround', 'days');
-    let weeks = [];
-    let i = 0;
-    while (days[i]) {
-      let daysOfWeek = days.slice(i, i + 7);
-      if (!showDaysAround) {
-        daysOfWeek = daysOfWeek.filter((d) => d.isCurrentMonth);
-      }
-      weeks.push({
-        id: `week-of-${daysOfWeek[0].id}`,
-        days: daysOfWeek,
-        missingDays: 7 - daysOfWeek.length
-      });
-      i += 7;
+    let months = [];
+    while (isBefore(month, lastMonth)) {
+      months.push(this.buildMonth(month, thisMonth, calendar));
+      month = add(month, 1, 'month');
     }
-    return weeks;
+    
+    return months;
   }),
 
   // Actions
   actions: {
-    onFocusDay(day) {
-      scheduleOnce('actions', this, this._updateFocused, day.id);
+    onFocusMonth(month) {
+      scheduleOnce('actions', this, this._updateFocused, month.id);
     },
 
-    onBlurDay() {
+    onBlurMonth() {
       scheduleOnce('actions', this, this._updateFocused, null);
     },
 
     onKeyDown(calendar, e) {
       let focusedId = this.get('focusedId');
+      let rowWidth = this.get('rowWidth');
       if (focusedId) {
-        let days = this.get('days');
-        let day, index;
-        for (let i = 0; i < days.length; i++) {
-          if (days[i].id === focusedId) {
+
+        // find the month
+        let months = this.get('months');
+        let month, index;
+        for (let i = 0; i < months.length; i++) {
+          if (months[i].id === focusedId) {
             index = i;
             break;
           }
         }
+
+        // up arrow
         if (e.keyCode === 38) {
           e.preventDefault();
-          let newIndex = Math.max(index - 7, 0);
-          day = days[newIndex];
-          if (day.isDisabled) {
+          let newIndex = Math.max(index - rowWidth, 0);
+          month = months[newIndex];
+          if (month.isDisabled) {
             for (let i = newIndex + 1; i <= index; i++) {
-              day = days[i];
-              if (!day.isDisabled) {
+              month = months[i];
+              if (!month.isDisabled) {
                 break;
               }
             }
           }
+        
+        // down arrow
         } else if (e.keyCode === 40) {
           e.preventDefault();
-          let newIndex = Math.min(index + 7, days.length - 1);
-          day = days[newIndex];
-          if (day.isDisabled) {
+          let newIndex = Math.min(index + rowWidth, months.length - 1);
+          month = months[newIndex];
+          if (month.isDisabled) {
             for (let i = newIndex - 1; i >= index; i--) {
-              day = days[i];
-              if (!day.isDisabled) {
+              month = months[i];
+              if (!month.isDisabled) {
                 break;
               }
             }
           }
+
+        // left arrow
         } else if (e.keyCode === 37) {
-          day = days[Math.max(index - 1, 0)];
-          if (day.isDisabled) {
+          month = months[Math.max(index - 1, 0)];
+          if (month.isDisabled) {
             return;
           }
+
+        // right arrow
         } else if (e.keyCode === 39) {
-          day = days[Math.min(index + 1, days.length - 1)];
-          if (day.isDisabled) {
+          month = months[Math.min(index + 1, months.length - 1)];
+          if (month.isDisabled) {
             return;
           }
         } else {
           return;
         }
-        this.set('focusedId', day.id);
-        scheduleOnce('afterRender', this, '_focusDate', day.id);
+        this.set('focusedId', month.id);
+        scheduleOnce('afterRender', this, '_focusDate', month.id);
       }
     }
   },
 
   // Methods
-  buildDay(date, today, calendar) {
-    let id = formatDate(date, 'YYYY-MM-DD')
+  buildMonth(date, thisMonth, calendar) {
+    let id = formatDate(date, 'YYYY-MM')
 
     return normalizeCalendarDay({
-      id,
-      number: date.getDate(),
       date: new Date(date),
-      isDisabled: this.dayIsDisabled(date),
+      id,
+      isCurrentMonth: isSame(date, thisMonth, 'month'),
+      isCurrentYear: date.getFullYear() === calendar.center.getFullYear(),
+      isDisabled: this.monthIsDisabled(date),
       isFocused: this.get('focusedId') === id,
-      isCurrentMonth: date.getMonth() === calendar.center.getMonth(),
-      isToday: isSame(date, today, 'day'),
-      isSelected: this.dayIsSelected(date, calendar)
+      isSelected: this.monthIsSelected(date, calendar),
+      number: date.getDate()
     });
   },
 
-  buildonSelectValue(day) {
-    return day;
+  buildonSelectValue(month) {
+    return month;
   },
 
-  dayIsSelected(date, calendar = this.get('calendar')) {
-    return calendar.selected ? isSame(date, calendar.selected, 'day') : false;
+  monthIsSelected(date, calendar = this.get('calendar')) {
+    return calendar.selected ? isSame(date, calendar.selected, 'month') : false;
   },
 
-  dayIsDisabled(date) {
+  monthIsDisabled(date) {
     let isDisabled = !this.get('onSelect');
     if (isDisabled) {
       return true;
@@ -212,9 +161,8 @@ export default Component.extend({
 
     if (disabledDates) {
       let disabledInRange = disabledDates.some((d) => {
-        let isSameDay = isSame(date, d, 'day');
-        let isWeekDayIncludes = WEEK_DAYS.indexOf(d) !== -1 && formatDate(date, 'ddd') === d;
-        return isSameDay || isWeekDayIncludes;
+        let isSameMonth = isSame(date, d, 'month');
+        return isSameMonth;
       });
 
       if (disabledInRange) {
@@ -225,24 +173,16 @@ export default Component.extend({
     return false;
   },
 
-  firstDay(calendar) {
-    let firstDay = startOf(calendar.center, 'month');
-    let localeStartOfWeek = this.get('localeStartOfWeek');
-    while ((isoWeekday(firstDay) % 7) !== localeStartOfWeek) {
-      firstDay = add(firstDay, -1, "day");
-    }
-    return firstDay;
+  firstMonth(calendar) {
+    assert("The center of the calendar is an invalid date.", !isNaN(calendar.center.getTime()));
+
+    return startOf(calendar.center, 'year');
   },
 
-  lastDay(calendar) {
-    let localeStartOfWeek = this.get('localeStartOfWeek');
+  lastMonth(calendar) {
     assert("The center of the calendar is an invalid date.", !isNaN(calendar.center.getTime()));
-    let lastDay = endOf(calendar.center, 'month')
-    let localeEndOfWeek = (localeStartOfWeek + 6) % 7;
-    while (isoWeekday(lastDay) % 7 !== localeEndOfWeek) {
-      lastDay = add(lastDay, 1, 'day');
-    }
-    return lastDay;
+
+    return startOf(endOf(calendar.center, 'year'), 'month');
   },
 
   _updateFocused(id) {
@@ -250,9 +190,9 @@ export default Component.extend({
   },
 
   _focusDate(id) {
-    let dayElement = this.element.querySelector(`[data-date="${id}"]`);
-    if (dayElement) {
-      dayElement.focus();
+    let monthElement = this.element.querySelector(`[data-date="${id}"]`);
+    if (monthElement) {
+      monthElement.focus();
     }
   }
 });
