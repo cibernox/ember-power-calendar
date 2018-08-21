@@ -8,6 +8,7 @@ import {
 
 export default CalendarComponent.extend({
   daysComponent: "power-calendar-multiple/days",
+  monthsComponent: "power-calendar-multiple/months",
 
   // CPs
   selected: computed({

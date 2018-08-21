@@ -16,6 +16,7 @@ export default Component.extend({
   powerCalendarService: inject('power-calendar'),
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
+  monthsComponent: 'power-calendar/months',
   center: null,
 
   // Lifecycle chooks
