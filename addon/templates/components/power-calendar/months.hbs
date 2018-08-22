@@ -1,24 +1,21 @@
-<div class="ember-power-calendar-row ember-power-calendar-weekdays">
-  {{#each weekdaysNames as |wdn|}}
-    <div class="ember-power-calendar-weekday">{{wdn}}</div>
-  {{/each}}
-</div>
 {{! template-lint-disable invalid-interactive }}
-<div class="ember-power-calendar-day-grid" onkeydown={{action "onKeyDown" calendar}}>
-  {{#each weeks key='id' as |week|}}
-    <div class="ember-power-calendar-row ember-power-calendar-week" data-missing-days={{week.missingDays}}>
-      {{#each week.days key='id' as |day|}}
+<div class="ember-power-calendar-month-grid" onkeydown={{action "onKeyDown" calendar}}>
+  {{log quarters}}
+  {{#each quarters key='id' as |quarter|}}
+    {{log quarter}}
+    <div class="ember-power-calendar-row ember-power-calendar-quarter" data-missing-months={{month.missingmonths}}>
+      {{#each quarter key='id' as |month|}}
         <button type="button"
-          data-date="{{day.id}}"
-          class="ember-power-calendar-day {{if onSelect 'ember-power-calendar-day--interactive'}} {{if day.isCurrentMonth 'ember-power-calendar-day--current-month' 'ember-power-calendar-day--other-month'}} {{if day.isSelected 'ember-power-calendar-day--selected'}} {{if day.isToday 'ember-power-calendar-day--today'}} {{if day.isFocused 'ember-power-calendar-day--focused'}} {{if day.isRangeStart 'ember-power-calendar-day--range-start'}} {{if day.isRangeEnd 'ember-power-calendar-day--range-end'}}"
-          onclick={{action calendar.actions.select day calendar}}
-          onfocus={{action 'onFocusDay' day}}
-          onblur={{action 'onBlurDay'}}
-          disabled={{day.isDisabled}}>
+          data-date="{{month.id}}"
+          class="ember-power-calendar-month {{if onSelect 'ember-power-calendar-month--interactive'}} {{if month.isSelected 'ember-power-calendar-month--selected'}} {{if month.isCurrentMonth 'ember-power-calendar-month--current-month'}} {{if month.isFocused 'ember-power-calendar-month--focused'}} {{if month.isRangeStart 'ember-power-calendar-month--range-start'}} {{if month.isRangeEnd 'ember-power-calendar-month--range-end'}}"
+          onclick={{action calendar.actions.select month calendar}}
+          onfocus={{action 'onFocusMonth' month}}
+          onblur={{action 'onBlurMonth'}}
+          disabled={{month.isDisabled}}>
           {{#if hasBlock}}
-            {{yield day publicAPI}}
+            {{yield month publicAPI}}
           {{else}}
-            {{day.number}}
+            {{month.monthName}}
           {{/if}}
         </button>
       {{/each}}

@@ -27,19 +27,24 @@ export default Component.extend({
   ],
 
   // CPs
-  months: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
+  quarters: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
     let thisMonth = this.get('powerCalendarService').getDate();
     let calendar = this.get('calendar');
     let lastMonth = this.lastMonth(calendar);
     let month = this.firstMonth(calendar);
+    let rowWidth = this.rowWidth;
 
     let months = [];
-    while (isBefore(month, lastMonth)) {
+    while (isBefore(month, lastMonth) || isSame(month, lastMonth)) {
       months.push(this.buildMonth(month, thisMonth, calendar));
       month = add(month, 1, 'month');
     }
     
-    return months;
+    assert(months.length === 12, 'there should be 12 months in every year');
+
+    const rows = Math.ceil(months.length / rowWidth);
+
+    return [...Array(rows).keys()].map(q => months.slice(rowWidth*q, rowWidth*(q + 1)));
   }),
 
   // Actions
@@ -121,15 +126,15 @@ export default Component.extend({
   buildMonth(date, thisMonth, calendar) {
     let id = formatDate(date, 'YYYY-MM')
 
+    console.log(thisMonth, date, isSame(date, thisMonth, 'month'))
     return normalizeCalendarDay({
       date: new Date(date),
       id,
       isCurrentMonth: isSame(date, thisMonth, 'month'),
-      isCurrentYear: date.getFullYear() === calendar.center.getFullYear(),
       isDisabled: this.monthIsDisabled(date),
       isFocused: this.get('focusedId') === id,
       isSelected: this.monthIsSelected(date, calendar),
-      number: date.getDate()
+      monthName: formatDate(date, 'MMM')
     });
   },
 

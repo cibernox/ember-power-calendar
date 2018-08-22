@@ -54,6 +54,20 @@
   justify-content: center;
   padding: 0;
 }
+.ember-power-calendar-month {
+  -webkit-appearance: none;
+  align-items: center;
+  background-color: initial;
+  background-color: transparent;
+  border: initial;
+  border: none;
+  flex: 1 1 100%;
+  font-size: inherit;
+  justify-content: center;
+  outline: initial;
+  outline: none;
+  padding: 0;
+}
 .ember-power-calendar-nav-control {
   -webkit-appearance: none;
   background-color: transparent;
@@ -99,6 +113,7 @@
   $row-padding-left: 0,
   $row-padding-right: 0,
   $row-width: $cell-with-spacing-width * 7 - 2px + $row-padding-left + $row-padding-right,
+  $quarter-cell-width: $row-width / 3 - 1.5px,
   $primary-color: #0078c9,
   $nav-button-color: $primary-color,
   $nav-button-color--focus: lighten($nav-button-color, 10%),
@@ -163,12 +178,18 @@
     }
   }
   .ember-power-calendar-day, .ember-power-calendar-weekday {
-    max-width: $cell-width;
-    max-height: $cell-height;
-    width: $cell-width;
     height: $cell-height;
+    max-height: $cell-height;
+    max-width: $cell-width;
+    width: $cell-width;
   }
-  .ember-power-calendar-weekdays, .ember-power-calendar-week {
+  .ember-power-calendar-month {
+    height: $cell-height;
+    max-height: $cell-height;
+    max-width: $quarter-cell-width;
+    width: $quarter-cell-width;
+  }
+  .ember-power-calendar-weekdays, .ember-power-calendar-week, .ember-power-calendar-quarter {
     height: $cell-height + 2px;
     padding-left: $row-padding-left;
     padding-right: $row-padding-right;
@@ -185,11 +206,17 @@
       color: lighten($nav-button-color--focus, 10%);
     }
   }
-  .ember-power-calendar-day--current-month {
+  .ember-power-calendar-day--current-month, .ember-power-calendar-month {
     color: $day-current-month-text-color;
     background-color: $day-current-month-color;
   }
   .ember-power-calendar-day--today {
+    background-color: $day-today-color;
+  }
+  .ember-power-calendar-month--current-month {
+    background-color: $day-today-color;
+  }
+  .ember-power-calendar-month--current-year {
     background-color: $day-today-color;
   }
   .ember-power-calendar-day:not([disabled]):hover {
