@@ -26,6 +26,13 @@ export default Component.extend({
     'data-power-calendar-id'
   ],
 
+  quarterMap: computed(() => ({
+    0: '2nd',
+    1: '3rd',
+    2: '4th',
+    3: '1st'
+  })),
+
   // CPs
   quarters: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
     let thisMonth = this.get('powerCalendarService').getDate();
@@ -126,15 +133,13 @@ export default Component.extend({
   buildMonth(date, thisMonth, calendar) {
     let id = formatDate(date, 'YYYY-MM')
 
-    console.log(thisMonth, date, isSame(date, thisMonth, 'month'))
     return normalizeCalendarDay({
       date: new Date(date),
       id,
       isCurrentMonth: isSame(date, thisMonth, 'month'),
       isDisabled: this.monthIsDisabled(date),
       isFocused: this.get('focusedId') === id,
-      isSelected: this.monthIsSelected(date, calendar),
-      monthName: formatDate(date, 'MMM')
+      isSelected: this.monthIsSelected(date, calendar)
     });
   },
 

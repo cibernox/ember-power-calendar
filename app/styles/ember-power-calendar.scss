@@ -25,7 +25,31 @@
   display: flex;
   justify-content: space-between;
 }
+
+.ember-power-calendar-months {
+  display: flex;
+}
+
+.ember-power-calendar-month-grid {
+  flex: 1 1 auto;
+}
+
 .ember-power-calendar-weekday {
+  -webkit-appearance: none;
+  flex: 1 1 100%;
+  padding: 0;
+  background-color: transparent;
+  background-color: initial;
+  border: none;
+  border: initial;
+  outline: none;
+  outline: initial;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+.ember-power-calendar-year-cell {
   -webkit-appearance: none;
   flex: 1 1 100%;
   padding: 0;
@@ -113,7 +137,8 @@
   $row-padding-left: 0,
   $row-padding-right: 0,
   $row-width: $cell-with-spacing-width * 7 - 2px + $row-padding-left + $row-padding-right,
-  $quarter-cell-width: $row-width / 3 - 1.5px,
+  $quarter-row-width: $row-width - $cell-width,
+  $quarter-cell-width: $quarter-row-width / 3 - 1.5px,
   $primary-color: #0078c9,
   $nav-button-color: $primary-color,
   $nav-button-color--focus: lighten($nav-button-color, 10%),
@@ -182,6 +207,23 @@
     max-height: $cell-height;
     max-width: $cell-width;
     width: $cell-width;
+  }
+  .ember-power-calendar-quarters {
+    flex: 0 0 auto;
+    max-width: $cell-width;
+    width: $cell-width;
+    margin-right: 2px;
+  }
+  .ember-power-calendar-quarter-header {
+    height: $cell-height;
+    line-height: $cell-height;
+    max-height: $cell-height;
+    margin-bottom: 2px;
+    text-align: center;
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
   }
   .ember-power-calendar-month {
     height: $cell-height;

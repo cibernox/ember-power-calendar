@@ -1,13 +1,26 @@
 {{! template-lint-disable invalid-interactive }}
+<div class="ember-power-calendar-quarters">
+  {{#each quarters key='id' as |quarter idx|}}
+    <div class="ember-power-calendar-quarter-header">
+      {{get quarterMap idx}}
+    </div>
+  {{/each}}
+</div>
 <div class="ember-power-calendar-month-grid" onkeydown={{action "onKeyDown" calendar}}>
-  {{log quarters}}
   {{#each quarters key='id' as |quarter|}}
-    {{log quarter}}
     <div class="ember-power-calendar-row ember-power-calendar-quarter" data-missing-months={{month.missingmonths}}>
       {{#each quarter key='id' as |month|}}
         <button type="button"
           data-date="{{month.id}}"
-          class="ember-power-calendar-month {{if onSelect 'ember-power-calendar-month--interactive'}} {{if month.isSelected 'ember-power-calendar-month--selected'}} {{if month.isCurrentMonth 'ember-power-calendar-month--current-month'}} {{if month.isFocused 'ember-power-calendar-month--focused'}} {{if month.isRangeStart 'ember-power-calendar-month--range-start'}} {{if month.isRangeEnd 'ember-power-calendar-month--range-end'}}"
+          class="
+            ember-power-calendar-month 
+            {{if onSelect 'ember-power-calendar-month--interactive'}} 
+            {{if month.isSelected 'ember-power-calendar-month--selected'}} 
+            {{if month.isCurrentMonth 'ember-power-calendar-month--current-month'}} 
+            {{if month.isFocused 'ember-power-calendar-month--focused'}} 
+            {{if month.isRangeStart 'ember-power-calendar-month--range-start'}} 
+            {{if month.isRangeEnd 'ember-power-calendar-month--range-end'}}
+          "
           onclick={{action calendar.actions.select month calendar}}
           onfocus={{action 'onFocusMonth' month}}
           onblur={{action 'onBlurMonth'}}
@@ -15,7 +28,7 @@
           {{#if hasBlock}}
             {{yield month publicAPI}}
           {{else}}
-            {{month.monthName}}
+            {{power-calendar-format-date month.date 'MMM' locale=calendar.locale}}
           {{/if}}
         </button>
       {{/each}}
