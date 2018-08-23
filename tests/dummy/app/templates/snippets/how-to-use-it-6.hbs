@@ -1,4 +1,10 @@
-{{#power-calendar selected=selected center=center onCenterChange=(action (mut center) value="date") onSelect=(action (mut selected) value="date")  as |calendar|}}
+{{#power-calendar 
+  selected=selected 
+  center=center 
+  onCenterChange=(action (mut center) value="date") 
+  onSelect=(action (mut selected) value="date")  
+  as |calendar|}}
   {{calendar.nav by="year"}}
-  {{calendar.months}}
+  {{calendar.months
+  firstQuarter=1}}
 {{/power-calendar}}

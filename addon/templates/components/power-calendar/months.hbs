@@ -2,7 +2,7 @@
 <div class="ember-power-calendar-quarters">
   {{#each quarters key='id' as |quarter idx|}}
     <div class="ember-power-calendar-quarter-header">
-      {{get quarterMap idx}}
+      {{quarter.label}}
     </div>
   {{/each}}
 </div>

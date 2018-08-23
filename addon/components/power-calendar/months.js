@@ -26,12 +26,7 @@ export default Component.extend({
     'data-power-calendar-id'
   ],
 
-  quarterMap: computed(() => ({
-    0: 'Q1',
-    1: 'Q2',
-    2: 'Q3',
-    3: 'Q4'
-  })),
+  firstQuarter: 1,
 
   // CPs
   quarters: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
@@ -47,12 +42,13 @@ export default Component.extend({
       month = add(month, 1, 'month');
     }
     
-    assert(months.length === 12, 'there should be 12 months in every year');
+    assert('there should be 12 months in every year', months.length === 12);
 
     const rows = Math.ceil(months.length / rowWidth);
     const quartersArray = [...Array(rows).keys()].map(q => months.slice(rowWidth*q, rowWidth*(q + 1)));
     const quartersObjects = quartersArray.map((months, idx) => ({
-      id: `${months[0].date.getFullYear()}-${this.get('quarterMap')[idx]}`,
+      id: `${months[0].date.getFullYear()}-${this._renderQuarter(idx)}`,
+      label: this._renderQuarter(idx),
       months
     }));
 
@@ -198,6 +194,14 @@ export default Component.extend({
     assert("The center of the calendar is an invalid date.", !isNaN(calendar.center.getTime()));
 
     return startOf(endOf(calendar.center, 'year'), 'month');
+  },
+
+  _renderQuarter(quarterIdx) {
+    const firstQuarter = this.get('firstQuarter');
+    assert('firstQuarter must be between 1 and 4', firstQuarter >= 1 && firstQuarter <= 4);
+
+    const firstQuarterIdx = firstQuarter - 1;
+    return `Q${(4 + quarterIdx - firstQuarterIdx) % 4 + 1}`
   },
 
   _updateFocused(id) {
