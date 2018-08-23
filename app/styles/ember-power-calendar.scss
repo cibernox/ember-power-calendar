@@ -261,7 +261,8 @@
   .ember-power-calendar-month--current-month {
     background-color: $day-today-color;
   }
-  .ember-power-calendar-day:not([disabled]):hover {
+  .ember-power-calendar-day:not([disabled]):hover,
+  .ember-power-calendar-month:not([disabled]):hover {
     background-color: $day-color--hover;
   }
   .ember-power-calendar-day--focused,
