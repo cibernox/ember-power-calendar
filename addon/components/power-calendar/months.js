@@ -27,10 +27,10 @@ export default Component.extend({
   ],
 
   quarterMap: computed(() => ({
-    0: '2nd',
-    1: '3rd',
-    2: '4th',
-    3: '1st'
+    0: 'Q1',
+    1: 'Q2',
+    2: 'Q3',
+    3: 'Q4'
   })),
 
   // CPs
