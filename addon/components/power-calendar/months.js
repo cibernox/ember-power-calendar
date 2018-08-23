@@ -71,53 +71,50 @@ export default Component.extend({
       if (focusedId) {
 
         // find the month
-        let months = this.get('months');
-        let month, index;
-        for (let i = 0; i < months.length; i++) {
-          if (months[i].id === focusedId) {
-            index = i;
-            break;
+        let quarters = this.get('quarters');
+        let month, qIdx, mIdx;
+
+        for (qIdx = 0; qIdx < quarters.length; qIdx++) {
+          let done = false;
+          for(mIdx = 0; mIdx < quarters[qIdx].months.length; mIdx++) {
+            if (quarters[qIdx].months[mIdx].id === focusedId) {
+              done = true;
+              break;
+            }
           }
+          if (done) break;
         }
 
         // up arrow
         if (e.keyCode === 38) {
           e.preventDefault();
-          let newIndex = Math.max(index - rowWidth, 0);
-          month = months[newIndex];
-          if (month.isDisabled) {
-            for (let i = newIndex + 1; i <= index; i++) {
-              month = months[i];
-              if (!month.isDisabled) {
-                break;
-              }
-            }
+          let newQuarterIdx = Math.max(qIdx - 1, 0);
+          for (let i = rowWidth*newQuarterIdx + mIdx; i <= rowWidth*qIdx + mIdx; i++) {
+            month = quarters[Math.floor(i/rowWidth)].months[i%rowWidth];
+
+            if (!month.isDisabled) break;
           }
         
         // down arrow
         } else if (e.keyCode === 40) {
           e.preventDefault();
-          let newIndex = Math.min(index + rowWidth, months.length - 1);
-          month = months[newIndex];
-          if (month.isDisabled) {
-            for (let i = newIndex - 1; i >= index; i--) {
-              month = months[i];
-              if (!month.isDisabled) {
-                break;
-              }
-            }
+          let newQuarterIdx = Math.min(qIdx + 1, quarters.length - 1);
+          for (let i = rowWidth*newQuarterIdx + mIdx; i >= rowWidth*qIdx + mIdx; i--) {
+            month = quarters[Math.floor(i/rowWidth)].months[i%rowWidth];
+
+            if (!month.isDisabled) break;
           }
 
         // left arrow
         } else if (e.keyCode === 37) {
-          month = months[Math.max(index - 1, 0)];
+          month = quarters[qIdx].months[Math.max(mIdx - 1, 0)];
           if (month.isDisabled) {
             return;
           }
 
         // right arrow
         } else if (e.keyCode === 39) {
-          month = months[Math.min(index + 1, months.length - 1)];
+          month = quarters[qIdx].months[Math.min(mIdx + 1, rowWidth - 1)];
           if (month.isDisabled) {
             return;
           }

@@ -218,10 +218,11 @@
     margin-right: 2px;
   }
   .ember-power-calendar-quarter-header {
+    background-color: #eee;
     height: $cell-height;
     line-height: $cell-height;
-    max-height: $cell-height;
     margin-bottom: 2px;
+    max-height: $cell-height;
     text-align: center;
 
     &:last-child {
