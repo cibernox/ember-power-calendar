@@ -119,11 +119,14 @@
   }
 }
 .ember-power-calendar-day--selected,
-.ember-power-calendar-day--selected:not([disabled]):hover {
+.ember-power-calendar-day--selected:not([disabled]):hover, 
+.ember-power-calendar-month--selected,
+.ember-power-calendar-month--selected:not([disabled]):hover {
   font-weight: bold;
 }
 
-.ember-power-calendar-day--interactive[disabled] {
+.ember-power-calendar-day--interactive[disabled],
+.ember-power-calendar-month--interactive[disabled] {
   opacity: 0.4;
 }
 
@@ -258,32 +261,34 @@
   .ember-power-calendar-month--current-month {
     background-color: $day-today-color;
   }
-  .ember-power-calendar-month--current-year {
-    background-color: $day-today-color;
-  }
   .ember-power-calendar-day:not([disabled]):hover {
     background-color: $day-color--hover;
   }
-  .ember-power-calendar-day--focused {
+  .ember-power-calendar-day--focused,
+  .ember-power-calendar-month--focused {
     box-shadow: inset 0px -2px 0px 0px $day-focus-shadow-color;
   }
-  .ember-power-calendar-day--selected.ember-power-calendar-day--range-start {
+  .ember-power-calendar-day--selected.ember-power-calendar-day--range-start,
+  .ember-power-calendar-month--selected.ember-power-calendar-month--range-start {
     background-color: $day-range-start-background-color;
     &:hover {
       background-color: $day-range-start-background-color--hover;
     }
   }
-  .ember-power-calendar-day--selected.ember-power-calendar-day--range-end {
+  .ember-power-calendar-day--selected.ember-power-calendar-day--range-end, 
+  .ember-power-calendar-month--selected.ember-power-calendar-month--range-end {
     background-color: $day-range-end-background-color;
     &:hover {
       background-color: $day-range-end-background-color--hover;
     }
   }
-  .ember-power-calendar-day--selected {
+  .ember-power-calendar-day--selected,
+  .ember-power-calendar-month--selected {
     background-color: $day-selected-color;
     color: $day-selected-text-color;
   }
-  .ember-power-calendar-day--selected:not([disabled]):hover {
+  .ember-power-calendar-day--selected:not([disabled]):hover,
+  .ember-power-calendar-month--selected:not([disabled]):hover {
     background-color: $day-selected-color--hover;
     color: $day-selected-text-color--hover;
   }
