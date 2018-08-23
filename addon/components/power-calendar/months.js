@@ -50,8 +50,13 @@ export default Component.extend({
     assert(months.length === 12, 'there should be 12 months in every year');
 
     const rows = Math.ceil(months.length / rowWidth);
+    const quartersArray = [...Array(rows).keys()].map(q => months.slice(rowWidth*q, rowWidth*(q + 1)));
+    const quartersObjects = quartersArray.map((months, idx) => ({
+      id: `${months[0].date.getFullYear()}-${this.get('quarterMap')[idx]}`,
+      months
+    }));
 
-    return [...Array(rows).keys()].map(q => months.slice(rowWidth*q, rowWidth*(q + 1)));
+    return quartersObjects;
   }),
 
   // Actions

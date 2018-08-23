@@ -4,30 +4,30 @@ import { isBetween, isSame, diff } from 'ember-power-calendar-utils';
 
 export default MonthsComponent.extend({
   // Methods
-  buildDay(date, today, calendar) {
-    let day = this._super(...arguments);
+  buildMonth(date, thisMonth, calendar) {
+    let month = this._super(...arguments);
     let { start, end } = getProperties(calendar.selected || { start: null, end: null }, 'start', 'end');
     if (start && end) {
-      day.isSelected = isBetween(date, start, end, 'day', '[]');
-      day.isRangeStart = day.isSelected && isSame(date, start, 'day');
-      day.isRangeEnd = day.isSelected && isSame(date, end, 'day');
+      month.isSelected = isBetween(date, start, end, 'month', '[]');
+      month.isRangeStart = month.isSelected && isSame(date, start, 'month');
+      month.isRangeEnd = month.isSelected && isSame(date, end, 'month');
     } else {
-      day.isRangeEnd = false;
+      month.isRangeEnd = false;
       if (!start) {
-        day.isRangeStart = false;
+        month.isRangeStart = false;
       } else {
-        day.isRangeStart = day.isSelected = isSame(date, start, 'day');
-        if (!day.isDisabled) {
-          let diffInMs = Math.abs(diff(day.date, start));
-          day.isDisabled = diffInMs < calendar.minRange
+        month.isRangeStart = month.isSelected = isSame(date, start, 'month');
+        if (!month.isDisabled) {
+          let diffInMs = Math.abs(diff(month.date, start));
+          month.isDisabled = diffInMs < calendar.minRange
             || calendar.maxRange !== null && diffInMs > calendar.maxRange;
         }
       }
     }
-    return day;
+    return month;
   },
 
-  dayIsSelected() {
+  monthIsSelected() {
     return false;
   }
 });
