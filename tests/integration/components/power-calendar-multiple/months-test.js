@@ -4,7 +4,7 @@ import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module(
-  'Integration | Component | power-calendar-multiple/days',
+  'Integration | Component | power-calendar-multiple/months',
   function(hooks) {
     setupRenderingTest(hooks);
 
@@ -39,15 +39,15 @@ module(
           {{calendar.months maxLength=max}}
         {{/power-calendar-multiple}}
       `);
-      await click('.ember-power-calendar-day[data-date="2013-05"]');
-      assert.dom('.ember-power-calendar-day[data-date="2013-05"]').isNotDisabled();
-      assert.dom('.ember-power-calendar-day[data-date="2013-06"]').isDisabled();
+      await click('.ember-power-calendar-month[data-date="2013-05"]');
+      assert.dom('.ember-power-calendar-month[data-date="2013-05"]').isNotDisabled();
+      assert.dom('.ember-power-calendar-month[data-date="2013-06"]').isDisabled();
 
       this.set('max', 2);
-      assert.dom('.ember-power-calendar-day[data-date="2013-06"]').isNotDisabled();
+      assert.dom('.ember-power-calendar-month[data-date="2013-06"]').isNotDisabled();
     });
 
-    test('maxLength can handle null for the selected days', async function(assert) {
+    test('maxLength can handle null for the selected months', async function(assert) {
       this.set('max', 1);
       this.set('collection', null);
 
@@ -55,12 +55,12 @@ module(
         {{#power-calendar-multiple
           selected=collection
           onSelect=(action (mut collection) value="date") as |calendar|}}
-          {{calendar.month maxLength=max}}
+          {{calendar.months maxLength=max}}
         {{/power-calendar-multiple}}
       `);
-      await click('.ember-power-calendar-day[data-date="2013-05"]');
+      await click('.ember-power-calendar-month[data-date="2013-05"]');
       this.set('collection', null);
-      assert.dom('.ember-power-calendar-day[data-date="2013-06"]').isNotDisabled();
+      assert.dom('.ember-power-calendar-month[data-date="2013-06"]').isNotDisabled();
     });
 
     test('maxLength can handle null for the maxLength property', async function(assert) {
@@ -73,9 +73,9 @@ module(
           {{calendar.months maxLength=max}}
         {{/power-calendar-multiple}}
       `);
-      await click('.ember-power-calendar-day[data-date="2013-05"]');
+      await click('.ember-power-calendar-month[data-date="2013-05"]');
 
-      assert.dom('.ember-power-calendar-day[data-date="2013-06"]').isNotDisabled();
+      assert.dom('.ember-power-calendar-month[data-date="2013-06"]').isNotDisabled();
     });
   }
 );
