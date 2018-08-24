@@ -1,10 +1,11 @@
-{{#power-calendar 
+{{#power-calendar-range 
   selected=selected 
   center=center 
+  maxRange="6 months"
   onCenterChange=(action (mut center) value="date") 
   onSelect=(action (mut selected) value="date")  
   as |calendar|}}
   {{calendar.nav by="year"}}
   {{calendar.months
-  firstQuarter=1}}
-{{/power-calendar}}
+  firstQuarter=1 monthFormat="MMMM"}}
+{{/power-calendar-range}}

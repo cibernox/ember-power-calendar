@@ -16,17 +16,18 @@ import {
 } from 'ember-power-calendar-utils';
 
 export default Component.extend({
-  layout,
-  focusedId: null,
-  showDaysAround: true,
-  rowWidth: 3,
   classNames: ['ember-power-calendar-months'],
+  firstQuarter: 1,
+  focusedId: null,
+  layout,
+  monthFormat: 'MMM',
   powerCalendarService: inject('power-calendar'),
+  rowWidth: 3,
+  showDaysAround: true,
   attributeBindings: [
     'data-power-calendar-id'
   ],
 
-  firstQuarter: 1,
 
   // CPs
   quarters: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {

@@ -28,7 +28,7 @@
           {{#if hasBlock}}
             {{yield month publicAPI}}
           {{else}}
-            {{power-calendar-format-date month.date 'MMM' locale=calendar.locale}}
+            {{power-calendar-format-date month.date monthFormat locale=calendar.locale}}
           {{/if}}
         </button>
       {{/each}}
