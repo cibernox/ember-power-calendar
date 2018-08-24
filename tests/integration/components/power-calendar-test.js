@@ -540,7 +540,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-23"]').isNotDisabled('The 22nd is disabled');
   });
 
-  test('When the user tries to focus a disabled date with the left arrow key, the focus stays where it is', async function(assert) {
+  test('When the user tries to focus a disabled day date with the left arrow key, the focus stays where it is', async function(assert) {
     assert.expect(4);
     this.minDate = new Date(2013, 9, 15);
     await render(hbs`
@@ -614,5 +614,81 @@ module('Integration | Component | Power Calendar', function(hooks) {
     await triggerKeyEvent('.ember-power-calendar-day[data-date="2013-10-11"]', 'keydown', 40); // down arrow
     assert.dom('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused');
     assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-15"]'));
+  });
+
+  test('When the user tries to focus a disabled month date with the left arrow key, the focus stays where it is', async function(assert) {
+    assert.expect(4);
+    this.minDate = new Date(2013, 9);
+    await render(hbs`
+      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months minDate=minDate}}
+      {{/power-calendar-range}}
+    `);
+
+    await focus('.ember-power-calendar-month[data-date="2013-10"]');
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+
+    await triggerKeyEvent('.ember-power-calendar-month[data-date="2013-10"]', 'keydown', 37); // left arrow
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+  });
+
+  test('When the user tries to focus a disabled month date with the left arrow key, the focus stays where it is', async function(assert) {
+    assert.expect(4);
+    this.minDate = new Date(2013, 9);
+    await render(hbs`
+      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months minDate=minDate}}
+      {{/power-calendar-range}}
+    `);
+
+    await focus('.ember-power-calendar-month[data-date="2013-10"]');
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+
+    await triggerKeyEvent('.ember-power-calendar-month[data-date="2013-10"]', 'keydown', 38); // up arrow
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+  });
+
+  test('When the user tries to focus a disabled month date with the left arrow key, the focus stays where it is', async function(assert) {
+    assert.expect(4);
+    this.maxDate = new Date(2013, 9);
+    await render(hbs`
+      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months maxDate=maxDate}}
+      {{/power-calendar-range}}
+    `);
+
+    await focus('.ember-power-calendar-month[data-date="2013-10"]');
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+
+    await triggerKeyEvent('.ember-power-calendar-month[data-date="2013-10"]', 'keydown', 39); // right arrow
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+  });
+
+  test('When the user tries to focus a disabled month date with the left arrow key, the focus stays where it is', async function(assert) {
+    assert.expect(4);
+    this.maxDate = new Date(2013, 9);
+    await render(hbs`
+      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months maxDate=maxDate}}
+      {{/power-calendar-range}}
+    `);
+
+    await focus('.ember-power-calendar-month[data-date="2013-10"]');
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+
+    await triggerKeyEvent('.ember-power-calendar-month[data-date="2013-10"]', 'keydown', 40); // down arrow
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
   });
 });
