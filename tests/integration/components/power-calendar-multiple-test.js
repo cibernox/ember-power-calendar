@@ -20,7 +20,7 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     assertionCleanup(this);
   });
 
-  test('When a multiple calendar receives an array of dates, those dates are marked as selected', async function(assert) {
+  test('When a multiple calendar receives an array of day dates, those days are marked as selected', async function(assert) {
     assert.expect(5);
     this.selected = [new Date(2016, 1, 5), new Date(2016, 1, 9), new Date(2016, 1, 15)];
 
@@ -40,6 +40,35 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2016-02-08"]').hasNoClass(
       'ember-power-calendar-day--selected',
       'The days in between those aren\'t day is selected'
+    );
+  });
+
+  test('When a multiple calendar receives an array of month dates, those months are marked as selected', async function(assert) {
+    assert.expect(5);
+    this.selected = [new Date(2016, 2), new Date(2016, 4), new Date(2016, 10)];
+
+    await render(hbs`
+      {{#power-calendar-multiple selected=selected as |calendar|}}
+        {{calendar.nav by='month'}}
+        {{calendar.months}}
+      {{/power-calendar-multiple}}
+    `);
+    assert.dom('.ember-power-calendar-nav').containsText('2016', 'The calendar is centered in the year of the first selected date');
+    assert.dom('.ember-power-calendar-month[data-date="2016-03"]').hasClass(
+      'ember-power-calendar-month--selected', 
+      'The first selected month is selected'
+    );
+    assert.dom('.ember-power-calendar-month[data-date="2016-05"]').hasClass(
+      'ember-power-calendar-month--selected',
+      'The second selected month is selected'
+    );
+    assert.dom('.ember-power-calendar-month[data-date="2016-11"]').hasClass(
+      'ember-power-calendar-month--selected', 
+      'The third selected month is selected'
+    );
+    assert.dom('.ember-power-calendar-month[data-date="2016-08"]').hasNoClass(
+      'ember-power-calendar-month--selected',
+      'The months in between those aren\'t month is selected'
     );
   });
 
