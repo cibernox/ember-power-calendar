@@ -156,12 +156,12 @@ export default Component.extend({
     }
 
     let minDate = this.get('minDate');
-    if (minDate && isBefore(date, minDate)) {
+    if (minDate && isBefore(date, minDate) && !isSame(date, minDate, 'month')) {
       return true;
     }
 
     let maxDate = this.get('maxDate');
-    if (maxDate && isAfter(date, maxDate)) {
+    if (maxDate && isAfter(date, maxDate) && !isSame(date, maxDate, 'month')) {
       return true;
     }
 

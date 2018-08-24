@@ -286,13 +286,13 @@ module('Integration | Component | Power Calendar', function(hooks) {
       {{/power-calendar}}
     `);
     let dayElement = this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-18"]');
-    await focus(dayElement);
+    await click(dayElement);
     assert.dom(dayElement).hasClass(
       'ember-power-calendar-day--focused',
       'The focused day gets a special class'
     );
     let anotherDayElement = this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-21"]');
-    await focus(anotherDayElement);
+    await click(anotherDayElement);
     assert.dom(dayElement).hasNoClass(
       'ember-power-calendar-day--focused',
       'The focused day gets a special class'
@@ -451,7 +451,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
 
   test('If the user passes `maxDate=someDate` to single calendars, days after that one cannot be selected, but that day and those days before can', async function(assert) {
     assert.expect(6);
-    this.maxDate = new Date(2013, 9, 15);
+    this.maxDate = moment('2013-10-15');
     await render(hbs`
       {{#power-calendar selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
         {{calendar.nav}}
@@ -463,7 +463,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-15"]').isNotDisabled('The maxDate is selectable');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-16"]').isDisabled('Days after the maxDate are disabled');
 
-    run(() => this.set('maxDate', new Date('2013-10-18')));
+    run(() => this.set('maxDate', moment('2013-10-18')));
     assert.dom('.ember-power-calendar-day[data-date="2013-10-14"]').isNotDisabled('Days before the minDate are selectable');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-18"]').isNotDisabled('The maxDate is selectable');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-19"]').isDisabled('Days after the maxDate are disabled');

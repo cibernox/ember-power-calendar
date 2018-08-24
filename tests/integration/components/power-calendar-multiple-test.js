@@ -5,6 +5,7 @@ import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run } from '@ember/runloop';
 import { isSame, formatDate } from 'ember-power-calendar-utils';
+import moment from 'moment';
 
 module('Integration | Component | power calendar multiple', function(hooks) {
   setupRenderingTest(hooks);
@@ -47,21 +48,21 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     this.didChange = (days, calendar, e) => {
       callsCount++;
       if (callsCount === 1) {
-        assert.equal(days.date.length, 1);
-        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
+        assert.equal(days.date.length, 1, 'one is selected');
+        assert.ok(isSame(days.date[0], moment('2013-10-05'), 'day'), '2013-10-05 is selected');
       } else if (callsCount === 2) {
-        assert.equal(days.date.length, 2);
-        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
-        assert.ok(isSame(days.date[1], new Date('2013-10-15'), 'day'));
+        assert.equal(days.date.length, 2, 'two are selected');
+        assert.ok(isSame(days.date[0], moment('2013-10-05'), 'day'), '2013-10-05 is selected');
+        assert.ok(isSame(days.date[1], moment('2013-10-15'), 'day'), '2013-10-15 is selected');
       } else if (callsCount === 3) {
-        assert.equal(days.date.length, 3);
-        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
-        assert.ok(isSame(days.date[1], new Date('2013-10-15'), 'day'));
-        assert.ok(isSame(days.date[2], new Date('2013-10-09'), 'day'));
+        assert.equal(days.date.length, 3, 'three are selected');
+        assert.ok(isSame(days.date[0], moment('2013-10-05'), 'day'), '2013-10-05 is selected');
+        assert.ok(isSame(days.date[1], moment('2013-10-15'), 'day'), '2013-10-15 is selected');
+        assert.ok(isSame(days.date[2], moment('2013-10-09'), 'day'), '2013-10-09 is selected');
       } else {
-        assert.equal(days.date.length, 2);
-        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
-        assert.ok(isSame(days.date[1], new Date('2013-10-09'), 'day'));
+        assert.equal(days.date.length, 2, 'two are selected');
+        assert.ok(isSame(days.date[0], moment('2013-10-05'), 'day'), '2013-10-05 is selected');
+        assert.ok(isSame(days.date[1], moment('2013-10-09'), 'day'), '2013-10-15 is selected');
       }
       assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
       assert.ok(e instanceof Event, 'The third argument is an event');
@@ -132,10 +133,10 @@ module('Integration | Component | power calendar multiple', function(hooks) {
   test('If the user passes `disabledDates=someDate` to multiple calendars, days on those days are disabled', async function(assert) {
     assert.expect(13);
     this.disabledDates = [
-      new Date(2013, 9, 15),
-      new Date(2013, 9, 17),
-      new Date(2013, 9, 21),
-      new Date(2013, 9, 23)
+      moment('2013-10-15'),
+      moment('2013-10-17'),
+      moment('2013-10-21'),
+      moment('2013-10-23')
     ];
     await render(hbs`
       {{#power-calendar-multiple selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
