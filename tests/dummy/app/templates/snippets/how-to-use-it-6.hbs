@@ -1,10 +1,12 @@
 {{#power-calendar-range
   selected=selected 
   center=center
+  minRange=0
   onCenterChange=(action (mut center) value="date") 
-  onSelect=(action (mut selected) value="date")  
-  proximitySelection=true
+  onSelect=(action (mut selected) value="date") 
   as |calendar|}}
   {{calendar.nav by="year"}}
   {{calendar.months}}
+  {{calendar.nav by="month"}}
+  {{calendar.days}}
 {{/power-calendar-range}}
