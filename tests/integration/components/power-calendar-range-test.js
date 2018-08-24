@@ -44,6 +44,31 @@ module('Integration | Component | power calendar range', function(hooks) {
     );
   });
 
+  test('when it receives a range in the `selected` argument containing `Date` objects, the range in months is highlighted', async function(assert) {
+    assert.expect(4);
+    this.selected = { start: new Date(2016, 1), end: new Date(2016, 4) };
+    await render(hbs`
+      {{#power-calendar-range selected=selected as |calendar|}}
+        {{calendar.nav by="year"}}
+        {{calendar.months}}
+      {{/power-calendar-range}}
+    `);
+    assert.dom('.ember-power-calendar-nav').containsText('2016', 'The calendar is centered in the month of the selected date');
+    let allDaysInRangeAreSelected = this.element.querySelector('.ember-power-calendar-month[data-date="2016-02"]').classList.contains('ember-power-calendar-month--selected')
+      && this.element.querySelector('.ember-power-calendar-month[data-date="2016-03"]').classList.contains('ember-power-calendar-month--selected')
+      && this.element.querySelector('.ember-power-calendar-month[data-date="2016-04"]').classList.contains('ember-power-calendar-month--selected')
+      && this.element.querySelector('.ember-power-calendar-month[data-date="2016-05"]').classList.contains('ember-power-calendar-month--selected');
+    assert.ok(allDaysInRangeAreSelected, 'All months in range are selected');
+    assert.dom('.ember-power-calendar-month[data-date="2016-02"]').hasClass(
+      'ember-power-calendar-month--range-start',
+      'The start of the range has a special class'
+    );
+    assert.dom('.ember-power-calendar-month[data-date="2016-05"]').hasClass(
+      'ember-power-calendar-month--range-end',
+      'The end of the range has a special class'
+    );
+  });
+
   test('In range calendars, clicking a day selects one end of the range, and clicking another closes the range', async function(assert) {
     this.selected = null;
     let numberOfCalls = 0;

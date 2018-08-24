@@ -49,7 +49,7 @@ module('Integration | Component | power calendar multiple', function(hooks) {
 
     await render(hbs`
       {{#power-calendar-multiple selected=selected as |calendar|}}
-        {{calendar.nav by='month'}}
+        {{calendar.nav by='year'}}
         {{calendar.months}}
       {{/power-calendar-multiple}}
     `);
