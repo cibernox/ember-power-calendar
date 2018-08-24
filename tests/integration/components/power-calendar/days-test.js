@@ -15,9 +15,10 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     assertionInjector(this);
     calendarService = this.owner.lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
+    calendarService.set('locale', 'en-US');
     calendar = {
       center: calendarService.getDate(),
-      locale: 'en',
+      locale: calendarService.get('locale'),
       actions: {
         moveCenter: () => {},
         select: () => {}
@@ -74,7 +75,7 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     assert.dom(days[days.length - 1]).hasText('31', 'The last day of the last week is the 31th of October');
 
     run(() => this.set('calendar.locale', 'pt'));
-    assert.dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0]).hasText('Sex', 'The week starts on Sexta Feira');
+    assert.dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0]).hasText('sex', 'The week starts on Sexta Feira');
     days = this.element.querySelectorAll('.ember-power-calendar-day');
     assert.dom(days[0]).hasText('27', 'The first day of the first week is the 25th of September');
     assert.dom(days[days.length - 1]).hasText('31', 'The last day of the last week is the 31th of October');

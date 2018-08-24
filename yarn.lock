@@ -2955,9 +2955,9 @@ ember-maybe-in-element@^0.1.3:
   dependencies:
     ember-cli-babel "^6.11.0"
 
-ember-power-calendar-luxon@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/ember-power-calendar-luxon/-/ember-power-calendar-luxon-0.1.1.tgz#58914525f94bd2b1a70bce4b2e74d6bed2136571"
+ember-power-calendar-luxon@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/ember-power-calendar-luxon/-/ember-power-calendar-luxon-0.1.2.tgz#6588a9d9cb0e0f5bd589b9a7e386fc561580091b"
   dependencies:
     broccoli-funnel "^2.0.1"
     ember-auto-import "^1.2.10"
