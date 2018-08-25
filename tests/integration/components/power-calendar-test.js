@@ -85,7 +85,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
   });
 
   if (dateLibrary === 'moment') {
-    let moment = require('moment');
+    let moment = require('moment').default;
     test('when it receives a `moment()` in the `center` argument, it displays that month', async function(assert) {
       assert.expect(3);
       this.center = moment('2016-02-05');
