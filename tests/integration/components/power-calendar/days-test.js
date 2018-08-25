@@ -4,7 +4,9 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../../assertions';
 import { run } from '@ember/runloop';
+import require from "require";
 
+const dateLibrary = require.has("luxon") ? "luxon" : "moment";
 let calendarService;
 let calendar;
 
@@ -88,7 +90,11 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     run(() => this.set('weekdayFormat', 'long'));
     assert.equal(this.element.querySelector('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Sunday Monday Tuesday Wednesday Thursday Friday Saturday');
     run(() => this.set('weekdayFormat', 'min'));
-    assert.equal(this.element.querySelector('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Su Mo Tu We Th Fr Sa');
+    if (dateLibrary === 'luxon') {
+      assert.equal(this.element.querySelector('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'S M T W T F S');
+    } else {
+      assert.equal(this.element.querySelector('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Su Mo Tu We Th Fr Sa');
+    }
   });
 
   test('If it receives `showDaysAround=false` option, it doesn\'t show the days before or after the first day of the month', async function(assert) {

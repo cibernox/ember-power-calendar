@@ -67,7 +67,7 @@ module.exports = function() {
             devDependencies: {
               'ember-source': urls[0],
               'ember-power-calendar-moment': null,
-              'ember-power-calendar-luxon': "^0.1.0"
+              'ember-power-calendar-luxon': "^0.1.2"
             }
           }
         }
