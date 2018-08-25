@@ -4,6 +4,8 @@ import { scheduleOnce } from '@ember/runloop';
 import { inject } from '@ember/service';
 import { assert } from '@ember/debug';
 import layout from '../../templates/components/power-calendar/months';
+import fallbackIfUndefined from '../../utils/computed-fallback-if-undefined';
+
 import {
   add,
   endOf,
@@ -17,20 +19,20 @@ import {
 
 export default Component.extend({
   classNames: ['ember-power-calendar-months'],
-  firstQuarter: 1,
+  firstQuarter: fallbackIfUndefined(1),
   focusedId: null,
   layout,
-  monthFormat: 'MMM',
+  monthFormat: fallbackIfUndefined('MMM'),
   powerCalendarService: inject('power-calendar'),
   rowWidth: 3,
-  showDaysAround: true,
+  showQuarterLabels: fallbackIfUndefined(true),
   attributeBindings: [
     'data-power-calendar-id'
   ],
 
 
   // CPs
-  quarters: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
+  quarters: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', 'firstQuarter', function() {
     let thisMonth = this.get('powerCalendarService').getDate();
     let calendar = this.get('calendar');
     let lastMonth = this.lastMonth(calendar);

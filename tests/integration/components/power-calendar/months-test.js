@@ -61,7 +61,6 @@ module('Integration | Component | power-calendar/months', function(hooks) {
   test('The format of the months can be changed passing `monthFormat="<format string>"`', async function(assert) {
     this.calendar = calendar;
     
-    run(() => this.set('monthFormat', 'MMM'));
     await render(hbs`{{power-calendar/months calendar=calendar monthFormat=monthFormat}}`);
     assert.equal(
       this.element.querySelector('.ember-power-calendar-month-grid').textContent.replace(/\s+/g, ' ').trim(), 

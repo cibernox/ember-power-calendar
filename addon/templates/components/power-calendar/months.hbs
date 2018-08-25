@@ -1,11 +1,13 @@
 {{! template-lint-disable invalid-interactive }}
-<div class="ember-power-calendar-quarters">
-  {{#each quarters key='id' as |quarter idx|}}
-    <div class="ember-power-calendar-quarter-header">
-      {{quarter.label}}
-    </div>
-  {{/each}}
-</div>
+{{#if showQuarterLabels}}
+  <div class="ember-power-calendar-quarters">
+    {{#each quarters key='id' as |quarter idx|}}
+      <div class="ember-power-calendar-quarter-header">
+        {{quarter.label}}
+      </div>
+    {{/each}}
+  </div>
+{{/if}}
 <div class="ember-power-calendar-month-grid" onkeydown={{action "onKeyDown" calendar}}>
   {{#each quarters key='id' as |quarter|}}
     <div class="ember-power-calendar-row ember-power-calendar-quarter">
