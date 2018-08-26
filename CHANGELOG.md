@@ -1,5 +1,13 @@
 ## Master
 
+## 0.9.0
+- [BREAKING] Now this addon requires the user to install either `ember-power-calendar-moment` or `ember-power-calendar-luxon`
+  to work. However, once installed it should either of those, it should behave the same (obviously you won't ve able to pass
+  moment object if you choose the luxon addon)
+
+## 0.8.1
+- [BUGFIX] Update minimum version of `ember-power-calendar-moment` to fix some bugs.
+
 ## 0.8.0
 - [CHORE] 🎉🎉**BIG CHANGE**🎉🎉 Now the utility functions don't live on this addon but on another addon
   named `ember-power-calendar-moment`, that for the time being is a runtime dependency so it shouldn't
