@@ -15,8 +15,14 @@
 </p>
 
 <p>
-  Every time you select a day, the <code>onSelect</code> action is called with the <code>Date</code> and <code>MomentJS</code>
-  lists of days clicked so far. It's worth noticing that clicking on a selected day unselects it and that the days are passed in the
+  Every time you select a day, the <code>onSelect</code> action is called not with the date, but with an object.
+  That object has a <code>date</code> property, containing the selected value as a native Javascript date, and
+  if you have decided to use <strong>Moment.js</strong>, a <code>moment</code> property containing the same dates
+  as a moment object, or a <code>datetime</code> property containing the array Luxon.DateTime if you are using Luxon.
+</p>
+
+<p>
+  It's worth noticing that clicking on a selected day unselects it and that the days are passed in the
   order they are clicked.
 </p>
 
