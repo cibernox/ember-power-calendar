@@ -11,7 +11,10 @@
 <div class="ember-power-calendar-month-grid" onkeydown={{action "onKeyDown" calendar}}>
   {{#each quarters key='id' as |quarter|}}
     <div class="ember-power-calendar-row ember-power-calendar-quarter">
-      {{#each quarter.months key='id' as |month|}}
+      {{#each quarter.months key='id' as |month idx|}}
+        {{#if idx}}
+          <div class="ember-power-calendar-month-spacer"></div>
+        {{/if}}
         <button type="button"
           data-date="{{month.id}}"
           class="

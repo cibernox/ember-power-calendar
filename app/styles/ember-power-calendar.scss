@@ -91,6 +91,10 @@
   outline: initial;
   outline: none;
   padding: 0;
+  margin-right: 2px;
+  &:last-child {
+    margin-right: 0;
+  }
 }
 .ember-power-calendar-nav-control {
   -webkit-appearance: none;
@@ -140,8 +144,6 @@
   $row-padding-left: 0,
   $row-padding-right: 0,
   $row-width: $cell-with-spacing-width * 7 - 2px + $row-padding-left + $row-padding-right,
-  $quarter-row-width: $row-width - $cell-width,
-  $quarter-cell-width: $quarter-row-width / 3 - 1.5px,
   $primary-color: #0078c9,
   $nav-button-color: $primary-color,
   $nav-button-color--focus: lighten($nav-button-color, 10%),
@@ -232,8 +234,6 @@
   .ember-power-calendar-month {
     height: $cell-height;
     max-height: $cell-height;
-    max-width: $quarter-cell-width;
-    width: $quarter-cell-width;
   }
   .ember-power-calendar-weekdays, .ember-power-calendar-week, .ember-power-calendar-quarter {
     height: $cell-height + 2px;

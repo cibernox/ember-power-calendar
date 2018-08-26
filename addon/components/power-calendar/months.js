@@ -25,7 +25,7 @@ export default Component.extend({
   monthFormat: fallbackIfUndefined('MMM'),
   powerCalendarService: inject('power-calendar'),
   rowWidth: 3,
-  showQuarterLabels: fallbackIfUndefined(true),
+  showQuarterLabels: true,
   attributeBindings: [
     'data-power-calendar-id'
   ],

@@ -6,7 +6,7 @@
   onSelect=(action (mut selected) value="date") 
   as |calendar|}}
   {{calendar.nav by="year"}}
-  {{calendar.months}}
+  {{calendar.months showQuarterLabels=true}}
   {{calendar.nav by="month"}}
   {{calendar.days}}
 {{/power-calendar-range}}
