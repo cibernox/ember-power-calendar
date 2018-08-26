@@ -1,7 +1,12 @@
-// import moment from "moment";
+import require from "require";
+
+const dateLibrary = require.has("luxon") ? "luxon" : "moment";
 
 export default {
   initialize() {
-    // moment.locale("en");
+    if (dateLibrary === 'moment') {
+      let moment = require('moment').default;
+      moment.locale("en");
+    }
   }
 }

@@ -5,7 +5,9 @@ import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
-import moment from 'moment';
+import require from 'require';
+
+const dateLibrary = require.has('luxon') ? 'luxon' : 'moment';
 
 module('Integration | Component | Power Calendar', function(hooks) {
   setupRenderingTest(hooks);
@@ -82,19 +84,103 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-26"]').exists('The days in the calendar actually belong to the displayed month');
   });
 
-  test('when it receives a `moment()` in the `center` argument, it displays that month', async function(assert) {
-    assert.expect(3);
-    this.center = moment('2016-02-05');
-    await render(hbs`
-      {{#power-calendar center=center as |calendar|}}
+  if (dateLibrary === 'moment') {
+    let moment = require('moment').default;
+    test('when it receives a `moment()` in the `center` argument, it displays that month', async function(assert) {
+      assert.expect(3);
+      this.center = moment('2016-02-05');
+      await render(hbs`
+        {{#power-calendar center=center as |calendar|}}
+          {{calendar.nav}}
+          {{calendar.days}}
+        {{/power-calendar}}
+      `);
+      assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in passed month');
+      assert.dom('.ember-power-calendar-nav-control').doesNotExist('There is no controls to navigate months');
+      assert.dom('.ember-power-calendar-day[data-date="2016-02-29"]').exists('The days in the calendar actually belong to the displayed month');
+    });
+
+    test('the `onCenterChange` action receives the date/moment compound object, the calendar and the event', async function (assert) {
+      assert.expect(3);
+      this.center = new Date(2016, 1, 5);
+      this.onCenterChange = function (obj, calendar, e) {
+        assert.ok(obj.hasOwnProperty('moment') && obj.hasOwnProperty('date'), 'The first argument is a compound moment/date object');
+        assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
+        assert.ok(e instanceof Event, 'The third argument is an event');
+      };
+      await render(hbs`
+      {{#power-calendar center=center onCenterChange=onCenterChange as |calendar|}}
         {{calendar.nav}}
         {{calendar.days}}
       {{/power-calendar}}
     `);
-    assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in passed month');
-    assert.dom('.ember-power-calendar-nav-control').doesNotExist('There is no controls to navigate months');
-    assert.dom('.ember-power-calendar-day[data-date="2016-02-29"]').exists('The days in the calendar actually belong to the displayed month');
-  });
+
+      await click('.ember-power-calendar-nav-control--next');
+    });
+
+    test('when it receives a `moment` in the `selected` argument, it displays that month, and that day is marked as selected', async function (assert) {
+      assert.expect(4);
+      this.selected = moment('2016-02-05');
+      await render(hbs`
+      {{#power-calendar selected=selected as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.days}}
+      {{/power-calendar}}
+    `);
+      assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in the month of the selected date');
+      assert.dom('.ember-power-calendar-day[data-date="2016-02-29"]').exists('The days in the calendar actually belong to the displayed month');
+      assert.dom('.ember-power-calendar-day--selected').exists('There is one day marked as selected');
+      assert.dom('.ember-power-calendar-day--selected').hasAttribute('data-date', '2016-02-05', 'The passed `selected` is the selected day');
+    });
+  } else if (dateLibrary === 'luxon') {
+    let { DateTime } = require('luxon');
+    test('when it receives a DateTime in the `center` argument, it displays that month', async function (assert) {
+      assert.expect(3);
+      this.center = DateTime.fromObject({ year: 2016, month: 2, day: 5 });
+      await render(hbs`
+        {{#power-calendar center=center as |calendar|}}
+          {{calendar.nav}}
+          {{calendar.days}}
+        {{/power-calendar}}
+      `);
+      assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in passed month');
+      assert.dom('.ember-power-calendar-nav-control').doesNotExist('There is no controls to navigate months');
+      assert.dom('.ember-power-calendar-day[data-date="2016-02-29"]').exists('The days in the calendar actually belong to the displayed month');
+    });
+
+    test('the `onCenterChange` action receives the date/datetime compound object, the calendar and the event', async function (assert) {
+      assert.expect(3);
+      this.center = new Date(2016, 1, 5);
+      this.onCenterChange = function (obj, calendar, e) {
+        assert.ok(obj.hasOwnProperty('datetime') && obj.hasOwnProperty('date'), 'The first argument is a compound date/datetime object');
+        assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
+        assert.ok(e instanceof Event, 'The third argument is an event');
+      };
+      await render(hbs`
+      {{#power-calendar center=center onCenterChange=onCenterChange as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.days}}
+      {{/power-calendar}}
+    `);
+
+      await click('.ember-power-calendar-nav-control--next');
+    });
+
+    test('when it receives a DateTime in the `selected` argument, it displays that month, and that day is marked as selected', async function (assert) {
+      assert.expect(4);
+      this.selected = DateTime.fromObject({ year: 2016, month: 2, day: 5 });
+      await render(hbs`
+      {{#power-calendar selected=selected as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.days}}
+      {{/power-calendar}}
+    `);
+      assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in the month of the selected date');
+      assert.dom('.ember-power-calendar-day[data-date="2016-02-29"]').exists('The days in the calendar actually belong to the displayed month');
+      assert.dom('.ember-power-calendar-day--selected').exists('There is one day marked as selected');
+      assert.dom('.ember-power-calendar-day--selected').hasAttribute('data-date', '2016-02-05', 'The passed `selected` is the selected day');
+    });
+  }
 
   test('when it receives a `center` and an `onCenterChange` action, it shows controls to go to the next & previous month and the action is called when they are clicked', async function(assert) {
     assert.expect(7);
@@ -148,42 +234,9 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.dom('.ember-power-calendar-nav').containsText('November 2013', 'The calendar is centered in the next month');
   });
 
-  test('the `onCenterChange` action receives the date/moment compound object, the calendar and the event', async function(assert) {
-    assert.expect(3);
-    this.center = new Date(2016, 1, 5);
-    this.onCenterChange = function(obj, calendar, e) {
-      assert.ok(obj.hasOwnProperty('moment') && obj.hasOwnProperty('date'), 'The first argument is a compound moment/date object');
-      assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
-      assert.ok(e instanceof Event, 'The third argument is an event');
-    };
-    await render(hbs`
-      {{#power-calendar center=center onCenterChange=onCenterChange as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.days}}
-      {{/power-calendar}}
-    `);
-
-    await click('.ember-power-calendar-nav-control--next');
-  });
-
   test('when it receives a Date in the `selected` argument, it displays that month, and that day is marked as selected', async function(assert) {
     assert.expect(4);
     this.selected = new Date(2016, 1, 5);
-    await render(hbs`
-      {{#power-calendar selected=selected as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.days}}
-      {{/power-calendar}}
-    `);
-    assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in the month of the selected date');
-    assert.dom('.ember-power-calendar-day[data-date="2016-02-29"]').exists('The days in the calendar actually belong to the displayed month');
-    assert.dom('.ember-power-calendar-day--selected').exists('There is one day marked as selected');
-    assert.dom('.ember-power-calendar-day--selected').hasAttribute('data-date', '2016-02-05', 'The passed `selected` is the selected day');
-  });
-
-  test('when it receives a `moment` in the `selected` argument, it displays that month, and that day is marked as selected', async function(assert) {
-    assert.expect(4);
-    this.selected = moment('2016-02-05');
     await render(hbs`
       {{#power-calendar selected=selected as |calendar|}}
         {{calendar.nav}}

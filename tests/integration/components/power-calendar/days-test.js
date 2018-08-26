@@ -4,7 +4,9 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../../assertions';
 import { run } from '@ember/runloop';
+import require from "require";
 
+const dateLibrary = require.has("luxon") ? "luxon" : "moment";
 let calendarService;
 let calendar;
 
@@ -15,9 +17,10 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     assertionInjector(this);
     calendarService = this.owner.lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
+    calendarService.set('locale', 'en-US');
     calendar = {
       center: calendarService.getDate(),
-      locale: 'en',
+      locale: calendarService.get('locale'),
       actions: {
         moveCenter: () => {},
         select: () => {}
@@ -74,7 +77,11 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     assert.dom(days[days.length - 1]).hasText('31', 'The last day of the last week is the 31th of October');
 
     run(() => this.set('calendar.locale', 'pt'));
-    assert.dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0]).hasText('Sex', 'The week starts on Sexta Feira');
+    if (dateLibrary === 'luxon') {
+      assert.dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0]).hasText('sex', 'The week starts on Sexta Feira');
+    } else {
+      assert.dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0]).hasText('Sex', 'The week starts on Sexta Feira');
+    }
     days = this.element.querySelectorAll('.ember-power-calendar-day');
     assert.dom(days[0]).hasText('27', 'The first day of the first week is the 25th of September');
     assert.dom(days[days.length - 1]).hasText('31', 'The last day of the last week is the 31th of October');
@@ -87,7 +94,11 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     run(() => this.set('weekdayFormat', 'long'));
     assert.equal(this.element.querySelector('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Sunday Monday Tuesday Wednesday Thursday Friday Saturday');
     run(() => this.set('weekdayFormat', 'min'));
-    assert.equal(this.element.querySelector('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Su Mo Tu We Th Fr Sa');
+    if (dateLibrary === 'luxon') {
+      assert.equal(this.element.querySelector('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'S M T W T F S');
+    } else {
+      assert.equal(this.element.querySelector('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'Su Mo Tu We Th Fr Sa');
+    }
   });
 
   test('If it receives `showDaysAround=false` option, it doesn\'t show the days before or after the first day of the month', async function(assert) {
