@@ -15,8 +15,9 @@
 
 <p>
   The same <code>onSelect</code> action used in the previous chapter to select one date,
-  is now used to select a range. The object that this action receives has a <code>date</code> and <code>moment</code>
-  properties, each one containing a range with the dates in native Date objects or in momentJS objects.
+  is now used to select a range. The object that this action receives has a <code>date</code> and
+  either <code>moment</code> or <code>datetime</code> properties, each one containing a range with the
+  dates in native Date objects or in momentJS/Luxon.DateTime objects.
 </p>
 
 <p>
@@ -51,7 +52,8 @@
 </p>
 
 <p>
-  Those options accept a <code>moment.duration</code> object, a <code>number</code> or a <code>string</code>.
+  Those options accept a <code>number</code> and a <code>string</code>. If you are using Moment, it can also
+  take a <code>moment.Duration</code> object, and if you are using Luxon a <code>Luxon.Duration</code> one.
   The default minimum range is one day, so the range has to start in a different date from where it begins and
   there is no maximum range.
 </p>
