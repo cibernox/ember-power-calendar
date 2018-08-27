@@ -6,6 +6,7 @@
         onclick={{action calendar.actions.selectQuarter quarter calendar}} 
         class="
           ember-power-calendar-quarter-header
+          {{if onSelectQuarter 'ember-power-calendar-quarter--interactive'}}
           {{if quarter.isSelected 'ember-power-calendar-quarter--selected'}}
         "
       >

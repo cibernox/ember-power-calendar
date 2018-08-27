@@ -146,7 +146,8 @@
 }
 
 .ember-power-calendar-day--interactive[disabled],
-.ember-power-calendar-month--interactive[disabled] {
+.ember-power-calendar-month--interactive[disabled],
+.ember-power-calendar-quarter--interactive[disabled] {
   opacity: 0.4;
 }
 
@@ -248,7 +249,7 @@
       margin-bottom: 0px;
     }
 
-    &:hover {
+    &.ember-power-calendar-quarter--interactive:hover {
       background-color: $day-current-month-color;
     }
   }
