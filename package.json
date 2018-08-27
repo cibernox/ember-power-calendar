@@ -21,7 +21,6 @@
   ],
   "devDependencies": {
     "broccoli-asset-rev": "^2.7.0",
-    "ember-auto-import": "^1.2.12",
     "ember-basic-dropdown": "^1.0.0",
     "ember-cli": "~3.3.0",
     "ember-cli-app-version": "^3.0.0",
@@ -76,8 +75,6 @@
     "ember-assign-helper": "0.1.2",
     "ember-cli-babel": "^6.11.0",
     "ember-cli-htmlbars": "^2.0.1",
-    "lodash": "^4.17.10",
-    "lodash-es": "^4.17.10",
     "ember-concurrency": "^0.8.19"
   },
   "ember-addon": {
