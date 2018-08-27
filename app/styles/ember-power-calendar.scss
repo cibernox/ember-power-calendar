@@ -234,7 +234,7 @@
     margin-right: 2px;
   }
   .ember-power-calendar-quarter-header {
-    background-color: #eee;
+    background-color: $day-color--hover;
     height: $cell-height;
     line-height: $cell-height;
     margin-bottom: 2px;
@@ -243,6 +243,10 @@
 
     &:last-child {
       margin-bottom: 0px;
+    }
+
+    &:hover {
+      background-color: $day-current-month-color;
     }
   }
   .ember-power-calendar-month {
