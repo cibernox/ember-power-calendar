@@ -109,4 +109,16 @@ module('Integration | Component | power-calendar/months', function(hooks) {
     this.set('firstQuarter', 4);
     assert.dom('.ember-power-calendar-quarters').hasText('Q4 Q1 Q2 Q3');
   });
+
+  test('It can renders interactive quarters iff onSelectQuarter is set', async function(assert) {
+    assert.expect(2);
+    this.calendar = calendar;
+
+    await render(hbs`{{power-calendar/months calendar=calendar}}`);
+    assert.dom('.ember-power-calendar-quarter.ember-power-calendar-quarter--interactive').doesNotExist();
+
+    this.set('handleQuarter', () => {});
+    await render(hbs`{{power-calendar/months calendar=calendar onSelectQuarter=handleQuarter}}`);
+    assert.dom('.ember-power-calendar-quarter.ember-power-calendar-quarter--interactive').exists();
+  });
 });
