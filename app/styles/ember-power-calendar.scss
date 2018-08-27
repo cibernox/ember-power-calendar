@@ -78,7 +78,7 @@
   justify-content: center;
   padding: 0;
 }
-.ember-power-calendar-quarter-header {
+.ember-power-calendar-quarter {
   -webkit-appearance: none;
   background-color: transparent;
   background-color: initial;
@@ -237,7 +237,7 @@
     width: $cell-width;
     margin-right: 2px;
   }
-  .ember-power-calendar-quarter-header {
+  .ember-power-calendar-quarter {
     background-color: $day-color--hover;
     height: $cell-height;
     line-height: $cell-height;
