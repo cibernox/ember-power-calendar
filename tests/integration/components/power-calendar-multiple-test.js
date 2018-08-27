@@ -189,4 +189,32 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-23"]').isNotDisabled('The 23rd is enabled');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-23"]').isNotDisabled('The 22nd is disabled');
   });
+
+  test('It renders quarter selected if any date contained by the quarter is selected', async function(assert) {
+    assert.expect(10);
+
+    await render(hbs`
+      {{#power-calendar-multiple selected=selected as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months}}
+      {{/power-calendar-multiple}}
+    `);
+
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').doesNotExist();
+
+    this.set('selected', [new Date(2013, 1, 5)]);
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').exists();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').doesNotExist();
+
+    this.set('selected', [new Date(2013, 1, 5), new Date(2013, 7, 5)]);
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').exists();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').doesNotExist();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q3"].ember-power-calendar-quarter--selected').exists();
+
+    this.set('selected', [new Date(2013, 1, 1), new Date(2013, 2, 1)]);
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').exists();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').doesNotExist();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q3"].ember-power-calendar-quarter--selected').doesNotExist();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q4"].ember-power-calendar-quarter--selected').doesNotExist();
+  });
 });

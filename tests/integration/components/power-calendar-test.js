@@ -744,4 +744,25 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
     assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
   });
+
+  test('It renders quarters selected if any date inside the month is selected', async function(assert) {
+    assert.expect(5);
+
+    await render(hbs`
+      {{#power-calendar selected=selected as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months}}
+      {{/power-calendar}}
+    `);
+
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').doesNotExist();
+
+    this.set('selected', new Date(2013, 1, 5));
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').exists();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').doesNotExist();
+
+    this.set('selected', new Date(2013, 5, 2));
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').exists();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').doesNotExist();
+  });
 });

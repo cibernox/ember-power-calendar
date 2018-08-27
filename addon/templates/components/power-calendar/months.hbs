@@ -3,6 +3,7 @@
   <div class="ember-power-calendar-quarters">
     {{#each quarters key='id' as |quarter|}}
       <button 
+        data-date="{{quarter.id}}"
         onclick={{action calendar.actions.selectQuarter quarter calendar}} 
         class="
           ember-power-calendar-quarter

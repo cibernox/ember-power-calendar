@@ -362,4 +362,32 @@ module('Integration | Component | power calendar range', function(hooks) {
       'The end of the range has a special class'
     );
   });
+
+  test('It renders quarter selected if any range intersecting the quarter is selected', async function(assert) {
+    assert.expect(10);
+
+    await render(hbs`
+      {{#power-calendar-range selected=selected as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months}}
+      {{/power-calendar-range}}
+    `);
+
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').doesNotExist();
+
+    this.set('selected', { start: new Date(2013, 1, 5), end: new Date(2013, 1, 5) });
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').exists();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').doesNotExist();
+
+    this.set('selected', { start: new Date(2013, 1, 5), end: new Date(2013, 5, 5)  });
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').exists();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').exists();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q3"].ember-power-calendar-quarter--selected').doesNotExist();
+
+    this.set('selected', { start: new Date(2013, 11, 5), end: new Date(2013, 11, 5) });
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').doesNotExist();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').doesNotExist();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q3"].ember-power-calendar-quarter--selected').doesNotExist();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q4"].ember-power-calendar-quarter--selected').exists();
+  });
 });
