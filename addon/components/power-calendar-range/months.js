@@ -8,7 +8,6 @@ export default MonthsComponent.extend({
     let month = this._super(...arguments);
     let { start, end } = getProperties(calendar.selected || { start: null, end: null }, 'start', 'end');
     if (start && end) {
-      month.isSelected = isBetween(date, start, end, 'month', '[]');
       month.isRangeStart = month.isSelected && isSame(date, start, 'month');
       month.isRangeEnd = month.isSelected && isSame(date, end, 'month');
     } else {
@@ -27,7 +26,13 @@ export default MonthsComponent.extend({
     return month;
   },
 
-  monthIsSelected() {
-    return false;
+  monthIsSelected(date, calendar = this.get('calendar')) {
+    let { start, end } = getProperties(calendar.selected || { start: null, end: null }, 'start', 'end');
+
+    return start && (
+      isSame(date, start, 'month') || end && (
+        isSame(date, end, 'month') || isBetween(date, start, end, 'month', '[]')
+      )
+    );
   }
 });
