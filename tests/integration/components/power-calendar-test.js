@@ -765,4 +765,23 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').exists();
     assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').doesNotExist();
   });
+
+  test('Clicking a quarter with onSelectQuarter set will return expected args', async function(assert) {    
+    assert.expect(4);
+    this.didChange = function(quarter, calendar, e) {
+      assert.isQuarter(quarter, 'The first argument is a quarter object');
+      assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
+      assert.ok(e instanceof Event, 'The third argument is an event');
+      assert.equal(quarter.id, '2013-Q2', 'id matches the clicked quarter');
+    };
+
+    await render(hbs`
+      {{#power-calendar onSelectQuarter=(action didChange) as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months}}
+      {{/power-calendar}}
+    `);
+
+    await click('.ember-power-calendar-quarter[data-date="2013-Q2"]');
+  });
 });
