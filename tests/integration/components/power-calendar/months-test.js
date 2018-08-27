@@ -87,4 +87,26 @@ module('Integration | Component | power-calendar/months', function(hooks) {
     );
     assert.dom('.ember-power-calendar-months').hasAttribute('data-power-calendar-id', 'foobar', 'The attribute is bound');
   });
+
+  test('It can render without quarter labels', async function(assert) {
+    assert.expect(1);
+    this.calendar = calendar;
+    await render(hbs`{{power-calendar/months calendar=calendar showQuarterLabels=false}}`);
+
+    assert.dom('.ember-power-calendar-quarters').doesNotExist();
+  });
+
+  test('It can change the first quarter', async function(assert) {
+    assert.expect(4);
+    this.calendar = calendar;
+    await render(hbs`{{power-calendar/months calendar=calendar firstQuarter=firstQuarter}}`);
+
+    assert.dom('.ember-power-calendar-quarters').hasText('Q1 Q2 Q3 Q4');
+    this.set('firstQuarter', 2);
+    assert.dom('.ember-power-calendar-quarters').hasText('Q2 Q3 Q4 Q1');
+    this.set('firstQuarter', 3);
+    assert.dom('.ember-power-calendar-quarters').hasText('Q3 Q4 Q1 Q2');
+    this.set('firstQuarter', 4);
+    assert.dom('.ember-power-calendar-quarters').hasText('Q4 Q1 Q2 Q3');
+  });
 });

@@ -213,7 +213,7 @@ export default Component.extend({
     assert('firstQuarter must be between 1 and 4', firstQuarter >= 1 && firstQuarter <= 4);
 
     const firstQuarterIdx = firstQuarter - 1;
-    return `Q${(4 + quarterIdx - firstQuarterIdx) % 4 + 1}`
+    return `Q${(quarterIdx + firstQuarterIdx) % 4 + 1}`
   },
 
   _updateFocused(id) {
