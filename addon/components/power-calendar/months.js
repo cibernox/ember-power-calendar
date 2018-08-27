@@ -49,13 +49,7 @@ export default Component.extend({
 
     const rows = Math.ceil(months.length / rowWidth);
     const quartersArray = [...Array(rows).keys()].map(q => months.slice(rowWidth*q, rowWidth*(q + 1)));
-    const quartersObjects = quartersArray.map((months, idx) => ({
-      id: `${months[0].date.getFullYear()}-${this._renderQuarter(idx)}`,
-      label: this._renderQuarter(idx),
-      months,
-      period: 'quarter',
-      date: months[0].date
-    }));
+    const quartersObjects = quartersArray.map((months, idx) => this.buildQuarter(months, idx, calendar));
 
     return quartersObjects;
   }),
@@ -145,6 +139,21 @@ export default Component.extend({
       isSelected: this.monthIsSelected(date, calendar),
       period: 'month',
     });
+  },
+
+  buildQuarter(months, idx, calendar) {
+    return {
+      id: `${months[0].date.getFullYear()}-${this._renderQuarter(idx)}`,
+      label: this._renderQuarter(idx),
+      isSelected: this.quarterIsSelected(months, calendar),
+      months,
+      period: 'quarter',
+      date: months[0].date
+    };
+  },
+
+  quarterIsSelected(months, calendar) {
+    return months.some(m => this.monthIsSelected(m.date, calendar));
   },
 
   buildonSelectValue(month) {

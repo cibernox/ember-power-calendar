@@ -139,7 +139,8 @@
 .ember-power-calendar-day--selected,
 .ember-power-calendar-day--selected:not([disabled]):hover, 
 .ember-power-calendar-month--selected,
-.ember-power-calendar-month--selected:not([disabled]):hover {
+.ember-power-calendar-month--selected:not([disabled]):hover,
+.ember-power-calendar-quarter--selected {
   font-weight: bold;
 }
 
@@ -177,7 +178,8 @@
   $day-selected-color: lighten($primary-color, 50%),
   $day-selected-color--hover: $day-selected-color,
   $day-selected-text-color: #656D78,
-  $day-selected-text-color--hover: $day-selected-text-color
+  $day-selected-text-color--hover: $day-selected-text-color,
+  $quarter-selected-color: lighten($primary-color, 40%)
 ) {
 
   width: $row-width;
@@ -305,6 +307,10 @@
   .ember-power-calendar-day--selected,
   .ember-power-calendar-month--selected {
     background-color: $day-selected-color;
+    color: $day-selected-text-color;
+  }
+  .ember-power-calendar-quarter--selected {
+    background-color: $quarter-selected-color;
     color: $day-selected-text-color;
   }
   .ember-power-calendar-day--selected:not([disabled]):hover,
