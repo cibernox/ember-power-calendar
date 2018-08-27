@@ -47,7 +47,8 @@ export default CalendarComponent.extend({
   },
 
   // Methods
-  _buildCollection({ date: selected = [] } = {}, { date }) {
+  _buildCollection({ date: _selected } = {}, { date }) {
+    let selected = _selected || [];
     let values = [];
     let index = -1;
     for (let i = 0; i < selected.length; i++) {

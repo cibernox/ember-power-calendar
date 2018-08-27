@@ -20,7 +20,8 @@ module('Integration | Component | power-calendar/months', function(hooks) {
       locale: 'en',
       actions: {
         moveCenter: () => {},
-        select: () => {}
+        select: () => {},
+        selectQuarter: () => {}
       }
     };
   });
