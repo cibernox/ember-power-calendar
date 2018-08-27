@@ -173,14 +173,15 @@ export default Component.extend({
     let id = formatDate(date, 'YYYY-MM-DD')
 
     return normalizeCalendarDay({
-      id,
-      number: date.getDate(),
       date: new Date(date),
+      id,
+      isCurrentMonth: date.getMonth() === calendar.center.getMonth(),
       isDisabled: this.dayIsDisabled(date),
       isFocused: this.get('focusedId') === id,
-      isCurrentMonth: date.getMonth() === calendar.center.getMonth(),
+      isSelected: this.dayIsSelected(date, calendar),
       isToday: isSame(date, today, 'day'),
-      isSelected: this.dayIsSelected(date, calendar)
+      number: date.getDate(),
+      period: 'day'
     });
   },
 

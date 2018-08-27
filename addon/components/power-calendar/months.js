@@ -52,7 +52,9 @@ export default Component.extend({
     const quartersObjects = quartersArray.map((months, idx) => ({
       id: `${months[0].date.getFullYear()}-${this._renderQuarter(idx)}`,
       label: this._renderQuarter(idx),
-      months
+      months,
+      period: 'quarter',
+      date: months[0].date
     }));
 
     return quartersObjects;
@@ -140,7 +142,8 @@ export default Component.extend({
       isCurrentMonth: isSame(date, thisMonth, 'month'),
       isDisabled: this.monthIsDisabled(date),
       isFocused: this.get('focusedId') === id,
-      isSelected: this.monthIsSelected(date, calendar)
+      isSelected: this.monthIsSelected(date, calendar),
+      period: 'month',
     });
   },
 

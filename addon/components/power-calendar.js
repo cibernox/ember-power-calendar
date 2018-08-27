@@ -31,7 +31,8 @@ export default Component.extend({
         let newCenter = add(this.get('currentCenter'), step, unit);
         return changeCenter(newCenter, calendar, e);
       },
-      select: (...args) => this.send('select', ...args)
+      select: (...args) => this.send('select', ...args),
+      selectQuarter: (...args) => this.send('selectQuarter', ...args)
     };
     this.registerCalendar();
     let onInit = this.get('onInit');
@@ -85,6 +86,11 @@ export default Component.extend({
       if (action) {
         action(day, calendar, e);
       }
+    },
+
+    selectQuarter(quarter, calendar, e) {
+      let action = this.get('onSelectQuarter');
+      if (action) action(quarter, calendar, e);
     }
   },
 
