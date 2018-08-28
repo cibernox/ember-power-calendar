@@ -257,7 +257,7 @@
     height: $cell-height;
     max-height: $cell-height;
   }
-  .ember-power-calendar-weekdays, .ember-power-calendar-week, .ember-power-calendar-quarter {
+  .ember-power-calendar-weekdays, .ember-power-calendar-week, .ember-power-calendar-row--quarter {
     height: $cell-height + 2px;
     padding-left: $row-padding-left;
     padding-right: $row-padding-right;
