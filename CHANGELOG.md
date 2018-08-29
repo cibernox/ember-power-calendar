@@ -1,5 +1,8 @@
 ## Master
 
+## 0.9.1
+- [BREAKING] Prevent infinite loop rendering the days component
+
 ## 0.9.0
 - [BREAKING] Now this addon requires the user to install either `ember-power-calendar-moment` or `ember-power-calendar-luxon`
   to work. However, once installed it should either of those, it should behave the same (obviously you won't ve able to pass
