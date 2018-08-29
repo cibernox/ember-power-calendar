@@ -61,8 +61,9 @@ export default Component.extend({
       return parseInt(forcedStartOfWeek, 10);
     }
     let now = this.get('powerCalendarService').getDate();
-    let dayAbbr = withLocale(this.get('calendar.locale'), () => formatDate(startOf(now, 'week'), 'ddd'));
-    return this.get('weekdaysShort').indexOf(dayAbbr);
+    let day = withLocale(this.get('calendar.locale'), () => formatDate(startOf(now, 'week'), 'dddd'));
+    let idx = this.get('weekdays').indexOf(day);
+    return idx >= 0 ? idx : 0;
   }),
 
   weekdaysNames: computed('localeStartOfWeek', 'weekdayFormat', 'calendar.locale', function() {
