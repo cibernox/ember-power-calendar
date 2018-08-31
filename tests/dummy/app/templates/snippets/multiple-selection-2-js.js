@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 
-const primes = [1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31];
+const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31];
 export default Controller.extend({
   center: new Date('2016-05-17'),
   selectedPrimes: [],
