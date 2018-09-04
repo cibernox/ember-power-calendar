@@ -174,14 +174,15 @@ export default Component.extend({
     let id = formatDate(date, 'YYYY-MM-DD')
 
     return normalizeCalendarDay({
-      id,
-      number: date.getDate(),
       date: new Date(date),
+      id,
+      isCurrentMonth: date.getMonth() === calendar.center.getMonth(),
       isDisabled: this.dayIsDisabled(date),
       isFocused: this.get('focusedId') === id,
-      isCurrentMonth: date.getMonth() === calendar.center.getMonth(),
+      isSelected: this.dayIsSelected(date, calendar),
       isToday: isSame(date, today, 'day'),
-      isSelected: this.dayIsSelected(date, calendar)
+      number: date.getDate(),
+      period: 'day'
     });
   },
 
@@ -200,12 +201,12 @@ export default Component.extend({
     }
 
     let minDate = this.get('minDate');
-    if (minDate && isBefore(date, minDate)) {
+    if (minDate && isBefore(date, minDate) && !isSame(date, minDate, 'day')) {
       return true;
     }
 
     let maxDate = this.get('maxDate');
-    if (maxDate && isAfter(date, maxDate)) {
+    if (maxDate && isAfter(date, maxDate) && !isSame(date, maxDate, 'day')) {
       return true;
     }
 

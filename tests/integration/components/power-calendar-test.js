@@ -339,13 +339,13 @@ module('Integration | Component | Power Calendar', function(hooks) {
       {{/power-calendar}}
     `);
     let dayElement = this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-18"]');
-    await focus(dayElement);
+    await click(dayElement);
     assert.dom(dayElement).hasClass(
       'ember-power-calendar-day--focused',
       'The focused day gets a special class'
     );
     let anotherDayElement = this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-21"]');
-    await focus(anotherDayElement);
+    await click(anotherDayElement);
     assert.dom(dayElement).hasNoClass(
       'ember-power-calendar-day--focused',
       'The focused day gets a special class'
@@ -516,7 +516,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-15"]').isNotDisabled('The maxDate is selectable');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-16"]').isDisabled('Days after the maxDate are disabled');
 
-    run(() => this.set('maxDate', new Date('2013-10-18')));
+    run(() => this.set('maxDate', new Date(2013, 9, 18)));
     assert.dom('.ember-power-calendar-day[data-date="2013-10-14"]').isNotDisabled('Days before the minDate are selectable');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-18"]').isNotDisabled('The maxDate is selectable');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-19"]').isDisabled('Days after the maxDate are disabled');
@@ -593,7 +593,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-23"]').isNotDisabled('The 22nd is disabled');
   });
 
-  test('When the user tries to focus a disabled date with the left arrow key, the focus stays where it is', async function(assert) {
+  test('When the user tries to focus a disabled day date with the left arrow key, the focus stays where it is', async function(assert) {
     assert.expect(4);
     this.minDate = new Date(2013, 9, 15);
     await render(hbs`
@@ -667,5 +667,121 @@ module('Integration | Component | Power Calendar', function(hooks) {
     await triggerKeyEvent('.ember-power-calendar-day[data-date="2013-10-11"]', 'keydown', 40); // down arrow
     assert.dom('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--focused');
     assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-15"]'));
+  });
+
+  test('When the user tries to focus a disabled month date with the left arrow key, the focus stays where it is', async function(assert) {
+    assert.expect(4);
+    this.minDate = new Date(2013, 9);
+    await render(hbs`
+      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months minDate=minDate}}
+      {{/power-calendar-range}}
+    `);
+
+    await focus('.ember-power-calendar-month[data-date="2013-10"]');
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+
+    await triggerKeyEvent('.ember-power-calendar-month[data-date="2013-10"]', 'keydown', 37); // left arrow
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+  });
+
+  test('When the user tries to focus a disabled month date with the left arrow key, the focus stays where it is', async function(assert) {
+    assert.expect(4);
+    this.minDate = new Date(2013, 9);
+    await render(hbs`
+      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months minDate=minDate}}
+      {{/power-calendar-range}}
+    `);
+
+    await focus('.ember-power-calendar-month[data-date="2013-10"]');
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+
+    await triggerKeyEvent('.ember-power-calendar-month[data-date="2013-10"]', 'keydown', 38); // up arrow
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+  });
+
+  test('When the user tries to focus a disabled month date with the left arrow key, the focus stays where it is', async function(assert) {
+    assert.expect(4);
+    this.maxDate = new Date(2013, 9);
+    await render(hbs`
+      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months maxDate=maxDate}}
+      {{/power-calendar-range}}
+    `);
+
+    await focus('.ember-power-calendar-month[data-date="2013-10"]');
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+
+    await triggerKeyEvent('.ember-power-calendar-month[data-date="2013-10"]', 'keydown', 39); // right arrow
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+  });
+
+  test('When the user tries to focus a disabled month date with the left arrow key, the focus stays where it is', async function(assert) {
+    assert.expect(4);
+    this.maxDate = new Date(2013, 9);
+    await render(hbs`
+      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months maxDate=maxDate}}
+      {{/power-calendar-range}}
+    `);
+
+    await focus('.ember-power-calendar-month[data-date="2013-10"]');
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+
+    await triggerKeyEvent('.ember-power-calendar-month[data-date="2013-10"]', 'keydown', 40); // down arrow
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').hasClass('ember-power-calendar-month--focused');
+    assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-month[data-date="2013-10"]'));
+  });
+
+  test('It renders quarters selected if any date inside the month is selected', async function(assert) {
+    assert.expect(5);
+
+    await render(hbs`
+      {{#power-calendar selected=selected as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months}}
+      {{/power-calendar}}
+    `);
+
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').doesNotExist();
+
+    this.set('selected', new Date(2013, 1, 5));
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').exists();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').doesNotExist();
+
+    this.set('selected', new Date(2013, 5, 2));
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').exists();
+    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').doesNotExist();
+  });
+
+  test('Clicking a quarter with onSelectQuarter set will return expected args', async function(assert) {    
+    assert.expect(4);
+    this.didChange = function(quarter, calendar, e) {
+      assert.isQuarter(quarter, 'The first argument is a quarter object');
+      assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
+      assert.ok(e instanceof Event, 'The third argument is an event');
+      assert.equal(quarter.id, '2013-Q2', 'id matches the clicked quarter');
+    };
+
+    await render(hbs`
+      {{#power-calendar onSelectQuarter=(action didChange) as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months}}
+      {{/power-calendar}}
+    `);
+
+    await click('.ember-power-calendar-quarter[data-date="2013-Q2"]');
   });
 });

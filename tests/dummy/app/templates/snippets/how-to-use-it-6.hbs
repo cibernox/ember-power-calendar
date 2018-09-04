@@ -1,0 +1,13 @@
+{{#power-calendar-range
+  selected=selected 
+  center=center
+  minRange=0
+  onCenterChange=(action (mut center) value="date") 
+  onSelect=(action (mut selected) value="date") 
+  onSelectQuarter=(action (mut selected) value="date") 
+  as |calendar|}}
+  {{calendar.nav by="year"}}
+  {{calendar.months showQuarterLabels=true}}
+  {{calendar.nav by="month"}}
+  {{calendar.days}}
+{{/power-calendar-range}}
