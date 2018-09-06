@@ -17,6 +17,7 @@ export default Component.extend({
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
   monthsComponent: 'power-calendar/months',
+  yearsComponent: 'power-calendar/years',
   center: null,
 
   // Lifecycle chooks
