@@ -42,7 +42,7 @@ export default Component.extend({
 
     let months = [];
     while (isBefore(month, lastMonth) || isSame(month, lastMonth)) {
-      months.push(this.buildMonth(month, thisMonth, calendar));
+      months.push(this.buildPeriod(month, thisMonth, calendar));
       month = add(month, 1, this.get('period'));
     }
     
@@ -128,7 +128,7 @@ export default Component.extend({
   },
 
   // Methods
-  buildMonth(date, thisMonth, calendar) {
+  buildPeriod(date, thisMonth, calendar) {
     const id = formatDate(date, 'YYYY-MM');
     const period = this.get('period');
 

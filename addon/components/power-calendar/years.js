@@ -37,7 +37,7 @@ export default Component.extend({
 
     let years = [];
     while (isBefore(year, lastYear) || isSame(year, lastYear)) {
-      years.push(this.buildYear(year, thisYear, calendar));
+      years.push(this.buildPeriod(year, thisYear, calendar));
       year = add(year, 1, this.get('period'));
     }
 
@@ -108,7 +108,7 @@ export default Component.extend({
   },
 
   // Methods
-  buildYear(date, thisYear, calendar) {
+  buildPeriod(date, thisYear, calendar) {
     const id = formatDate(date, 'YYYY');
     const period = this.get('period');
 

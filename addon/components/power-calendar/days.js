@@ -80,7 +80,7 @@ export default Component.extend({
     let day = this.firstDay(calendar);
     let days = [];
     while (isBefore(day, lastDay)) {
-      days.push(this.buildDay(day, today, calendar));
+      days.push(this.buildPeriod(day, today, calendar));
       day = add(day, 1, "day");
     }
     return days;
@@ -170,7 +170,7 @@ export default Component.extend({
   },
 
   // Methods
-  buildDay(date, today, calendar) {
+  buildPeriod(date, today, calendar) {
     const id = formatDate(date, 'YYYY-MM-DD');
     const period = this.get('period');
 
