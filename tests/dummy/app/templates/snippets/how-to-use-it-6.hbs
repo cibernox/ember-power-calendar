@@ -1,11 +1,12 @@
-{{#power-calendar
+{{#power-calendar-multiple
   selected=selected 
   center=center
   minRange=0
   onCenterChange=(action (mut center) value="date") 
   onSelect=(action (mut selected) value="date") 
-  onSelectQuarter=(action (mut selected) value="date") 
   as |calendar|}}
   {{calendar.nav by="decade"}}
   {{calendar.years}}
-{{/power-calendar}}
+  {{calendar.months}}
+  {{calendar.days}}
+{{/power-calendar-multiple}}

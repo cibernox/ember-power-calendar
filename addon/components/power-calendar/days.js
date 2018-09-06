@@ -37,6 +37,7 @@ export default Component.extend({
   classNames: ['ember-power-calendar-days'],
   weekdayFormat: 'short', // "min" | "short" | "long"
   powerCalendarService: inject('power-calendar'),
+  period: 'day',
   attributeBindings: [
     'data-power-calendar-id'
   ],
@@ -170,18 +171,19 @@ export default Component.extend({
 
   // Methods
   buildDay(date, today, calendar) {
-    let id = formatDate(date, 'YYYY-MM-DD')
+    const id = formatDate(date, 'YYYY-MM-DD');
+    const period = this.get('period');
 
     return normalizeCalendarDay({
       date: new Date(date),
       id,
       isCurrentMonth: date.getMonth() === calendar.center.getMonth(),
-      isDisabled: this.dayIsDisabled(date),
+      isDisabled: this.isDisabled(date),
       isFocused: this.get('focusedId') === id,
-      isSelected: this.dayIsSelected(date, calendar),
-      isToday: isSame(date, today, 'day'),
+      isSelected: this.isSelected(date, calendar),
+      isToday: isSame(date, today, period),
       number: date.getDate(),
-      period: 'day'
+      period: period
     });
   },
 
@@ -189,23 +191,25 @@ export default Component.extend({
     return day;
   },
 
-  dayIsSelected(date, calendar = this.get('calendar')) {
-    return calendar.selected ? isSame(date, calendar.selected, 'day') : false;
+  isSelected(date, calendar = this.get('calendar')) {
+    return calendar.selected ? isSame(date, calendar.selected, this.get('period')) : false;
   },
 
-  dayIsDisabled(date) {
-    let isDisabled = !this.get('onSelect');
+  isDisabled(date) {
+    const isDisabled = !this.get('onSelect');
+    const period = this.get('period');
+
     if (isDisabled) {
       return true;
     }
 
     let minDate = this.get('minDate');
-    if (minDate && isBefore(date, minDate) && !isSame(date, minDate, 'day')) {
+    if (minDate && isBefore(date, minDate) && !isSame(date, minDate, period)) {
       return true;
     }
 
     let maxDate = this.get('maxDate');
-    if (maxDate && isAfter(date, maxDate) && !isSame(date, maxDate, 'day')) {
+    if (maxDate && isAfter(date, maxDate) && !isSame(date, maxDate, period)) {
       return true;
     }
 
@@ -213,7 +217,7 @@ export default Component.extend({
 
     if (disabledDates) {
       let disabledInRange = disabledDates.some((d) => {
-        let isSameDay = isSame(date, d, 'day');
+        let isSameDay = isSame(date, d, period);
         let isWeekDayIncludes = WEEK_DAYS.indexOf(d) !== -1 && formatDate(date, 'ddd') === d;
         return isSameDay || isWeekDayIncludes;
       });
@@ -241,7 +245,7 @@ export default Component.extend({
     let lastDay = endOf(calendar.center, 'month')
     let localeEndOfWeek = (localeStartOfWeek + 6) % 7;
     while (isoWeekday(lastDay) % 7 !== localeEndOfWeek) {
-      lastDay = add(lastDay, 1, 'day');
+      lastDay = add(lastDay, 1, this.get('period'));
     }
     return lastDay;
   },

@@ -90,10 +90,10 @@ export default Component.extend({
 
   // Actions
   actions: {
-    select(day, calendar, e) {
+    select(dateObj, calendar, e) {
       let action = this.get('onSelect');
       if (action) {
-        action(day, calendar, e);
+        action(dateObj, calendar, e);
       }
     },
 

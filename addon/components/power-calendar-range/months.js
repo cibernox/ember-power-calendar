@@ -26,7 +26,7 @@ export default MonthsComponent.extend({
     return month;
   },
 
-  monthIsSelected(date, calendar = this.get('calendar')) {
+  isSelected(date, calendar = this.get('calendar')) {
     let { start, end } = getProperties(calendar.selected || { start: null, end: null }, 'start', 'end');
 
     return start && (

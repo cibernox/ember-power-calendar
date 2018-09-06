@@ -17,17 +17,16 @@ import {
 
 export default Component.extend({
   classNames: ['ember-power-calendar-months'],
+  attributeBindings: ['data-power-calendar-id'],
+
   firstQuarter: fallbackIfUndefined(1),
   focusedId: null,
   layout,
-  yearFormat: fallbackIfUndefined('YYYY'),
+  period: 'year',
   powerCalendarService: inject('power-calendar'),
-  showQuarterLabels: true,
   rowWidth: 3,
-  attributeBindings: [
-    'data-power-calendar-id'
-  ],
-
+  showQuarterLabels: true,
+  yearFormat: fallbackIfUndefined('YYYY'),
 
   // CPs
   years: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
@@ -39,7 +38,7 @@ export default Component.extend({
     let years = [];
     while (isBefore(year, lastYear) || isSame(year, lastYear)) {
       years.push(this.buildYear(year, thisYear, calendar));
-      year = add(year, 1, 'year');
+      year = add(year, 1, this.get('period'));
     }
 
     assert('there should be 12 years', years.length === 12);
@@ -48,11 +47,11 @@ export default Component.extend({
 
   // Actions
   actions: {
-    onFocusMonth(month) {
-      scheduleOnce('actions', this, this._updateFocused, month.id);
+    onFocusYear(year) {
+      scheduleOnce('actions', this, this._updateFocused, year.id);
     },
 
-    onBlurMonth() {
+    onBlurYear() {
       scheduleOnce('actions', this, this._updateFocused, null);
     },
 
@@ -110,17 +109,18 @@ export default Component.extend({
 
   // Methods
   buildYear(date, thisYear, calendar) {
-    let id = formatDate(date, 'YYYY')
+    const id = formatDate(date, 'YYYY');
+    const period = this.get('period');
 
     return normalizeCalendarDay({
       date: new Date(date),
       id,
-      isCurrentYear: isSame(date, thisYear, 'year'),
+      isCurrentYear: isSame(date, thisYear, period),
       isCurrentDecade: this._getDecade(date) !== this._getDecade(calendar.center),
-      isDisabled: this.yearIsDisabled(date),
+      isDisabled: this.isDisabled(date),
       isFocused: this.get('focusedId') === id,
-      isSelected: this.yearIsSelected(date, calendar),
-      period: 'year',
+      isSelected: this.isSelected(date, calendar),
+      period: period,
     });
   },
 
@@ -128,23 +128,25 @@ export default Component.extend({
     return month;
   },
 
-  yearIsSelected(date, calendar = this.get('calendar')) {
-    return calendar.selected ? isSame(date, calendar.selected, 'year') : false;
+  isSelected(date, calendar = this.get('calendar')) {
+    return calendar.selected ? isSame(date, calendar.selected, this.get('period')) : false;
   },
 
-  yearIsDisabled(date) {
-    let isDisabled = !this.get('onSelect');
+  isDisabled(date) {
+    const isDisabled = !this.get('onSelect');
+    const period = this.get('period');
+
     if (isDisabled) {
       return true;
     }
 
     let minDate = this.get('minDate');
-    if (minDate && isBefore(date, minDate) && !isSame(date, minDate, 'year')) {
+    if (minDate && isBefore(date, minDate) && !isSame(date, minDate, period)) {
       return true;
     }
 
     let maxDate = this.get('maxDate');
-    if (maxDate && isAfter(date, maxDate) && !isSame(date, maxDate, 'year')) {
+    if (maxDate && isAfter(date, maxDate) && !isSame(date, maxDate, period)) {
       return true;
     }
 
@@ -152,7 +154,7 @@ export default Component.extend({
 
     if (disabledDates) {
       let disabledInRange = disabledDates.some((d) => {
-        return isSame(date, d, 'year');
+        return isSame(date, d, period);
       });
 
       if (disabledInRange) {

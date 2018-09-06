@@ -23,13 +23,14 @@ export default Component.extend({
   focusedId: null,
   layout,
   monthFormat: fallbackIfUndefined('MMM'),
+  period: 'month',
   powerCalendarService: inject('power-calendar'),
   rowWidth: 3,
   showQuarterLabels: true,
+
   attributeBindings: [
     'data-power-calendar-id'
   ],
-
 
   // CPs
   quarters: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', 'firstQuarter', function() {
@@ -42,7 +43,7 @@ export default Component.extend({
     let months = [];
     while (isBefore(month, lastMonth) || isSame(month, lastMonth)) {
       months.push(this.buildMonth(month, thisMonth, calendar));
-      month = add(month, 1, 'month');
+      month = add(month, 1, this.get('period'));
     }
     
     assert('there should be 12 months in every year', months.length === 12);
@@ -128,16 +129,17 @@ export default Component.extend({
 
   // Methods
   buildMonth(date, thisMonth, calendar) {
-    let id = formatDate(date, 'YYYY-MM')
+    const id = formatDate(date, 'YYYY-MM');
+    const period = this.get('period');
 
     return normalizeCalendarDay({
       date: new Date(date),
       id,
-      isCurrentMonth: isSame(date, thisMonth, 'month'),
-      isDisabled: this.monthIsDisabled(date),
+      isCurrentMonth: isSame(date, thisMonth, period),
+      isDisabled: this.isDisabled(date),
       isFocused: this.get('focusedId') === id,
-      isSelected: this.monthIsSelected(date, calendar),
-      period: 'month',
+      isSelected: this.isSelected(date, calendar),
+      period: period,
     });
   },
 
@@ -153,30 +155,32 @@ export default Component.extend({
   },
 
   quarterIsSelected(months, calendar) {
-    return months.some(m => this.monthIsSelected(m.date, calendar));
+    return months.some(m => this.isSelected(m.date, calendar));
   },
 
   buildonSelectValue(month) {
     return month;
   },
 
-  monthIsSelected(date, calendar = this.get('calendar')) {
-    return calendar.selected ? isSame(date, calendar.selected, 'month') : false;
+  isSelected(date, calendar = this.get('calendar')) {
+    return calendar.selected ? isSame(date, calendar.selected, this.get('period')) : false;
   },
 
-  monthIsDisabled(date) {
-    let isDisabled = !this.get('onSelect');
+  isDisabled(date) {
+    const isDisabled = !this.get('onSelect');
+    const period = this.get('period');
+
     if (isDisabled) {
       return true;
     }
 
     let minDate = this.get('minDate');
-    if (minDate && isBefore(date, minDate) && !isSame(date, minDate, 'month')) {
+    if (minDate && isBefore(date, minDate) && !isSame(date, minDate, period)) {
       return true;
     }
 
     let maxDate = this.get('maxDate');
-    if (maxDate && isAfter(date, maxDate) && !isSame(date, maxDate, 'month')) {
+    if (maxDate && isAfter(date, maxDate) && !isSame(date, maxDate, period)) {
       return true;
     }
 
@@ -184,7 +188,7 @@ export default Component.extend({
 
     if (disabledDates) {
       let disabledInRange = disabledDates.some((d) => {
-        let isSameMonth = isSame(date, d, 'month');
+        let isSameMonth = isSame(date, d, period);
         return isSameMonth;
       });
 
@@ -205,7 +209,7 @@ export default Component.extend({
   lastMonth(calendar) {
     assert("The center of the calendar is an invalid date.", !isNaN(calendar.center.getTime()));
 
-    return startOf(endOf(calendar.center, 'year'), 'month');
+    return startOf(endOf(calendar.center, 'year'), this.get('period'));
   },
 
   _renderQuarter(quarterIdx) {

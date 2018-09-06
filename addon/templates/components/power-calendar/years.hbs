@@ -15,8 +15,8 @@
         {{if year.isRangeEnd 'ember-power-calendar-year--range-end'}}
       "
       onclick={{action calendar.actions.select year calendar}}
-      onfocus={{action 'onFocusMonth' year}}
-      onblur={{action 'onBlurMonth'}}
+      onfocus={{action 'onFocusYear' year}}
+      onblur={{action 'onBlurYear'}}
       disabled={{year.isDisabled}}>
 
       {{#if hasBlock}}
