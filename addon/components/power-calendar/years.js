@@ -23,6 +23,7 @@ export default Component.extend({
   yearFormat: fallbackIfUndefined('YYYY'),
   powerCalendarService: inject('power-calendar'),
   showQuarterLabels: true,
+  rowWidth: 3,
   attributeBindings: [
     'data-power-calendar-id'
   ],
@@ -60,59 +61,49 @@ export default Component.extend({
       let rowWidth = this.get('rowWidth');
       if (focusedId) {
 
-        // find the month
-        let quarters = this.get('quarters');
-        let month, qIdx, mIdx;
+        // find the year
+        let years = this.get('years');
+        let year, idx;
 
-        for (qIdx = 0; qIdx < quarters.length; qIdx++) {
-          let done = false;
-          for(mIdx = 0; mIdx < quarters[qIdx].months.length; mIdx++) {
-            if (quarters[qIdx].months[mIdx].id === focusedId) {
-              done = true;
-              break;
-            }
-          }
-          if (done) break;
+        for (idx = 0; idx < years.length; idx++) {
+          if (years[idx].id === focusedId) break;
         }
 
         // up arrow
         if (e.keyCode === 38) {
           e.preventDefault();
-          let newQuarterIdx = Math.max(qIdx - 1, 0);
-          for (let i = rowWidth*newQuarterIdx + mIdx; i <= rowWidth*qIdx + mIdx; i++) {
-            month = quarters[Math.floor(i/rowWidth)].months[i%rowWidth];
+          let newYearIdx = Math.max(idx - rowWidth, 0);
+          for (let i = newYearIdx; i <= idx; i++) {
+            year = years[i];
 
-            if (!month.isDisabled) break;
+            if (!year.isDisabled) break;
           }
         
         // down arrow
         } else if (e.keyCode === 40) {
           e.preventDefault();
-          let newQuarterIdx = Math.min(qIdx + 1, quarters.length - 1);
-          for (let i = rowWidth*newQuarterIdx + mIdx; i >= rowWidth*qIdx + mIdx; i--) {
-            month = quarters[Math.floor(i/rowWidth)].months[i%rowWidth];
+          let newYearIdx = Math.min(idx + rowWidth, years.length - 1);
+          for (let i = newYearIdx; i >= idx; i--) {
+            year = years[i];
 
-            if (!month.isDisabled) break;
+            if (!year.isDisabled) break;
           }
 
         // left arrow
         } else if (e.keyCode === 37) {
-          month = quarters[qIdx].months[Math.max(mIdx - 1, 0)];
-          if (month.isDisabled) {
-            return;
-          }
+          year = years[Math.max(idx - 1, 0)];
+          if (year.isDisabled) return;
 
         // right arrow
         } else if (e.keyCode === 39) {
-          month = quarters[qIdx].months[Math.min(mIdx + 1, rowWidth - 1)];
-          if (month.isDisabled) {
-            return;
-          }
+          year = years[Math.min(idx + 1, years.length - 1)];
+          if (year.isDisabled) return;
+
         } else {
           return;
         }
-        this.set('focusedId', month.id);
-        scheduleOnce('afterRender', this, '_focusDate', month.id);
+        this.set('focusedId', year.id);
+        scheduleOnce('afterRender', this, '_focusDate', year.id);
       }
     }
   },
