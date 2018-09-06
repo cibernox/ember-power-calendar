@@ -8,13 +8,11 @@ import fallbackIfUndefined from '../../utils/computed-fallback-if-undefined';
 
 import {
   add,
-  endOf,
   formatDate,
   isAfter,
   isBefore,
   isSame,
-  normalizeCalendarDay,
-  startOf
+  normalizeCalendarDay
 } from 'ember-power-calendar-utils';
 
 export default Component.extend({
@@ -24,7 +22,6 @@ export default Component.extend({
   layout,
   monthFormat: fallbackIfUndefined('MMM'),
   powerCalendarService: inject('power-calendar'),
-  rowWidth: 3,
   showQuarterLabels: true,
   attributeBindings: [
     'data-power-calendar-id'
@@ -32,26 +29,20 @@ export default Component.extend({
 
 
   // CPs
-  quarters: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', 'firstQuarter', function() {
-    let thisMonth = this.get('powerCalendarService').getDate();
+  years: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
+    let thisYear = this.get('powerCalendarService').getDate();
     let calendar = this.get('calendar');
-    let lastMonth = this.lastMonth(calendar);
-    let month = this.firstMonth(calendar);
-    let rowWidth = this.rowWidth;
+    let lastYear = this.lastYear(calendar);
+    let year = this.firstYear(calendar);
 
-    let months = [];
-    while (isBefore(month, lastMonth) || isSame(month, lastMonth)) {
-      months.push(this.buildMonth(month, thisMonth, calendar));
-      month = add(month, 1, 'month');
+    let years = [];
+    while (isBefore(year, lastYear) || isSame(year, lastYear)) {
+      years.push(this.buildYear(year, thisYear, calendar));
+      year = add(year, 1, 'year');
     }
-    
-    assert('there should be 12 months in every year', months.length === 12);
 
-    const rows = Math.ceil(months.length / rowWidth);
-    const quartersArray = [...Array(rows).keys()].map(q => months.slice(rowWidth*q, rowWidth*(q + 1)));
-    const quartersObjects = quartersArray.map((months, idx) => this.buildQuarter(months, idx, calendar));
-
-    return quartersObjects;
+    assert('there should be 12 years', years.length === 12);
+    return years;
   }),
 
   // Actions
@@ -127,56 +118,42 @@ export default Component.extend({
   },
 
   // Methods
-  buildMonth(date, thisMonth, calendar) {
-    let id = formatDate(date, 'YYYY-MM')
+  buildYear(date, thisYear, calendar) {
+    let id = formatDate(date, 'YYYY')
 
     return normalizeCalendarDay({
       date: new Date(date),
       id,
-      isCurrentMonth: isSame(date, thisMonth, 'month'),
-      isDisabled: this.monthIsDisabled(date),
+      isCurrentYear: isSame(date, thisYear, 'year'),
+      isCurrentDecade: this._getDecade(date) !== this._getDecade(calendar.center),
+      isDisabled: this.yearIsDisabled(date),
       isFocused: this.get('focusedId') === id,
-      isSelected: this.monthIsSelected(date, calendar),
-      period: 'month',
+      isSelected: this.yearIsSelected(date, calendar),
+      period: 'year',
     });
-  },
-
-  buildQuarter(months, idx, calendar) {
-    return {
-      id: `${months[0].date.getFullYear()}-${this._renderQuarter(idx)}`,
-      label: this._renderQuarter(idx),
-      isSelected: this.quarterIsSelected(months, calendar),
-      months,
-      period: 'quarter',
-      date: months[0].date
-    };
-  },
-
-  quarterIsSelected(months, calendar) {
-    return months.some(m => this.monthIsSelected(m.date, calendar));
   },
 
   buildonSelectValue(month) {
     return month;
   },
 
-  monthIsSelected(date, calendar = this.get('calendar')) {
-    return calendar.selected ? isSame(date, calendar.selected, 'month') : false;
+  yearIsSelected(date, calendar = this.get('calendar')) {
+    return calendar.selected ? isSame(date, calendar.selected, 'year') : false;
   },
 
-  monthIsDisabled(date) {
+  yearIsDisabled(date) {
     let isDisabled = !this.get('onSelect');
     if (isDisabled) {
       return true;
     }
 
     let minDate = this.get('minDate');
-    if (minDate && isBefore(date, minDate) && !isSame(date, minDate, 'month')) {
+    if (minDate && isBefore(date, minDate) && !isSame(date, minDate, 'year')) {
       return true;
     }
 
     let maxDate = this.get('maxDate');
-    if (maxDate && isAfter(date, maxDate) && !isSame(date, maxDate, 'month')) {
+    if (maxDate && isAfter(date, maxDate) && !isSame(date, maxDate, 'year')) {
       return true;
     }
 
@@ -184,8 +161,7 @@ export default Component.extend({
 
     if (disabledDates) {
       let disabledInRange = disabledDates.some((d) => {
-        let isSameMonth = isSame(date, d, 'month');
-        return isSameMonth;
+        return isSame(date, d, 'year');
       });
 
       if (disabledInRange) {
@@ -196,24 +172,21 @@ export default Component.extend({
     return false;
   },
 
-  firstMonth(calendar) {
+  firstYear(calendar) {
     assert("The center of the calendar is an invalid date.", !isNaN(calendar.center.getTime()));
 
-    return startOf(calendar.center, 'year');
+    return new Date(this._getDecade(calendar.center) - 1, 0);
   },
 
-  lastMonth(calendar) {
+  lastYear(calendar) {
     assert("The center of the calendar is an invalid date.", !isNaN(calendar.center.getTime()));
 
-    return startOf(endOf(calendar.center, 'year'), 'month');
+    return new Date(this._getDecade(calendar.center) + 10, 0);
   },
 
-  _renderQuarter(quarterIdx) {
-    const firstQuarter = this.get('firstQuarter');
-    assert('firstQuarter must be between 1 and 4', firstQuarter >= 1 && firstQuarter <= 4);
-
-    const firstQuarterIdx = firstQuarter - 1;
-    return `Q${(quarterIdx + firstQuarterIdx) % 4 + 1}`
+  _getDecade(date) {
+    const year = date.getFullYear();
+    return year - year % 10;
   },
 
   _updateFocused(id) {
