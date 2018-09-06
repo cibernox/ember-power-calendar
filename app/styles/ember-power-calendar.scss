@@ -285,7 +285,8 @@
     padding-left: $row-padding-left;
     padding-right: $row-padding-right;
   }
-  .ember-power-calendar-day {
+  .ember-power-calendar-day,
+  .ember-power-calendar-year {
     color: $day-default-text-color;
   }
   .ember-power-calendar-weekdays {
