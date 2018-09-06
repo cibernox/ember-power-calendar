@@ -29,7 +29,15 @@ export default Component.extend({
     this.publicActions = {
       changeCenter,
       moveCenter: (step, unit, calendar, e) => {
-        let newCenter = add(this.get('currentCenter'), step, unit);
+        const center = this.get('currentCenter');
+        let newCenter;
+
+        if (unit === 'decade') {
+          newCenter = add(center, 10 * step, 'year');
+        } else {
+          newCenter = add(center, step, unit);
+        }
+
         return changeCenter(newCenter, calendar, e);
       },
       select: (...args) => this.send('select', ...args),

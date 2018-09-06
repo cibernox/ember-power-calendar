@@ -14,5 +14,13 @@ export default Component.extend({
 
   dateTemplate: computed('by', function() {
     return templateMap[this.get('by')];
+  }),
+
+  decade: computed('calendar.center', function() {
+    const center = this.get('calendar.center');
+    const year = center.getFullYear();
+    const decade = year - year % 10;
+
+    return decade.toString();
   })
 });

@@ -6,7 +6,11 @@
     {{#if hasBlock}}
       {{yield calendar}}
     {{else}}
-      {{power-calendar-format-date calendar.center dateTemplate locale=calendar.locale}}
+      {{#if (eq by "decade")}}
+        {{decade}}'s
+      {{else}}
+        {{power-calendar-format-date calendar.center dateTemplate locale=calendar.locale}}
+      {{/if}}
     {{/if}}
   </div>
   {{#if onCenterChange}}
