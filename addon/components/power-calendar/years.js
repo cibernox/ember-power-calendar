@@ -20,7 +20,7 @@ export default Component.extend({
   firstQuarter: fallbackIfUndefined(1),
   focusedId: null,
   layout,
-  monthFormat: fallbackIfUndefined('MMM'),
+  yearFormat: fallbackIfUndefined('YYYY'),
   powerCalendarService: inject('power-calendar'),
   showQuarterLabels: true,
   attributeBindings: [
