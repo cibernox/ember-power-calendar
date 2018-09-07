@@ -53,18 +53,44 @@ module('Integration | Component | power calendar range', function(hooks) {
         {{calendar.months}}
       {{/power-calendar-range}}
     `);
-    assert.dom('.ember-power-calendar-nav').containsText('2016', 'The calendar is centered in the month of the selected date');
-    let allDaysInRangeAreSelected = this.element.querySelector('.ember-power-calendar-month[data-date="2016-02"]').classList.contains('ember-power-calendar-month--selected')
+    assert.dom('.ember-power-calendar-nav').containsText('2016', 'The calendar is centered in the year of the selected date');
+    let allMonthsInRangeAreSelected = this.element.querySelector('.ember-power-calendar-month[data-date="2016-02"]').classList.contains('ember-power-calendar-month--selected')
       && this.element.querySelector('.ember-power-calendar-month[data-date="2016-03"]').classList.contains('ember-power-calendar-month--selected')
       && this.element.querySelector('.ember-power-calendar-month[data-date="2016-04"]').classList.contains('ember-power-calendar-month--selected')
       && this.element.querySelector('.ember-power-calendar-month[data-date="2016-05"]').classList.contains('ember-power-calendar-month--selected');
-    assert.ok(allDaysInRangeAreSelected, 'All months in range are selected');
+    assert.ok(allMonthsInRangeAreSelected, 'All months in range are selected');
     assert.dom('.ember-power-calendar-month[data-date="2016-02"]').hasClass(
       'ember-power-calendar-month--range-start',
       'The start of the range has a special class'
     );
     assert.dom('.ember-power-calendar-month[data-date="2016-05"]').hasClass(
       'ember-power-calendar-month--range-end',
+      'The end of the range has a special class'
+    );
+  });
+
+  test('when it receives a range in the `selected` argument containing `Date` objects, the range in years is highlighted', async function(assert) {
+    assert.expect(4);
+    this.selected = { start: new Date(2016, 0), end: new Date(2020, 0) };
+    await render(hbs`
+      {{#power-calendar-range selected=selected as |calendar|}}
+        {{calendar.nav by="decade"}}
+        {{calendar.years}}
+      {{/power-calendar-range}}
+    `);
+    assert.dom('.ember-power-calendar-nav').containsText('2010\'s', 'The calendar is centered in the decade of the selected date');
+    let allYearsInRangeAreSelected = this.element.querySelector('.ember-power-calendar-year[data-date="2016"]').classList.contains('ember-power-calendar-year--selected')
+      && this.element.querySelector('.ember-power-calendar-year[data-date="2017"]').classList.contains('ember-power-calendar-year--selected')
+      && this.element.querySelector('.ember-power-calendar-year[data-date="2018"]').classList.contains('ember-power-calendar-year--selected')
+      && this.element.querySelector('.ember-power-calendar-year[data-date="2019"]').classList.contains('ember-power-calendar-year--selected')
+      && this.element.querySelector('.ember-power-calendar-year[data-date="2020"]').classList.contains('ember-power-calendar-year--selected');
+    assert.ok(allYearsInRangeAreSelected, 'All years in range are selected');
+    assert.dom('.ember-power-calendar-year[data-date="2016"]').hasClass(
+      'ember-power-calendar-year--range-start',
+      'The start of the range has a special class'
+    );
+    assert.dom('.ember-power-calendar-year[data-date="2020"]').hasClass(
+      'ember-power-calendar-year--range-end',
       'The end of the range has a special class'
     );
   });
