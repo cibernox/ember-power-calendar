@@ -552,7 +552,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-16"]').isDisabled('Days after the maxDate are disabled');
   });
 
-  test('If the user passes `disabledDates=someDate` to single calendars, days on those days are disabled', async function(assert) {
+  test('If the user passes `disabledDates=someDate` to single calendars, days on those dates are disabled', async function(assert) {
     assert.expect(20);
     this.disabledDates = [
       new Date(2013, 9, 15),
@@ -591,6 +591,58 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-21"]').isNotDisabled('The 21st is enabled');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-22"]').isDisabled('The 22nd is disabled');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-23"]').isNotDisabled('The 23rd is enabled');
+  });
+
+  test('If the user passes `disabledDates=someDate` to single calendars, months on those dates are disabled', async function(assert) {
+    assert.expect(8);
+    this.disabledDates = [
+      new Date(2013, 8),
+      new Date(2013, 9)
+    ];
+
+    await render(hbs`
+      {{#power-calendar selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.months disabledDates=disabledDates}}
+      {{/power-calendar}}
+    `);
+
+    assert.dom('.ember-power-calendar-month[data-date="2013-01"]').isNotDisabled('2013-01 is enabled');
+    assert.dom('.ember-power-calendar-month[data-date="2013-08"]').isNotDisabled('2013-08 is enabled');
+    assert.dom('.ember-power-calendar-month[data-date="2013-09"]').isDisabled('2013-09 is disabled');
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').isDisabled('2013-10 is disabled');
+
+    run(() => this.set('disabledDates', [new Date(2013, 0)]));
+    assert.dom('.ember-power-calendar-month[data-date="2013-01"]').isDisabled('2013-01 is disabled');
+    assert.dom('.ember-power-calendar-month[data-date="2013-08"]').isNotDisabled('2013-08 is enabled');
+    assert.dom('.ember-power-calendar-month[data-date="2013-09"]').isNotDisabled('2013-09 is enabled');
+    assert.dom('.ember-power-calendar-month[data-date="2013-10"]').isNotDisabled('2013-10 is enabled');
+  });
+
+  test('If the user passes `disabledDates=someDate` to single calendars, years on those dates are disabled', async function(assert) {
+    assert.expect(8);
+    this.disabledDates = [
+      new Date(2015, 0),
+      new Date(2016, 0)
+    ];
+
+    await render(hbs`
+      {{#power-calendar selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.years disabledDates=disabledDates}}
+      {{/power-calendar}}
+    `);
+
+    assert.dom('.ember-power-calendar-year[data-date="2010"]').isNotDisabled('2010 is enabled');
+    assert.dom('.ember-power-calendar-year[data-date="2014"]').isNotDisabled('2014 is enabled');
+    assert.dom('.ember-power-calendar-year[data-date="2015"]').isDisabled('2015 is disabled');
+    assert.dom('.ember-power-calendar-year[data-date="2016"]').isDisabled('2016 is disabled');
+
+    run(() => this.set('disabledDates', [new Date(2010, 0)]));
+    assert.dom('.ember-power-calendar-year[data-date="2010"]').isDisabled('2010 is disabled');
+    assert.dom('.ember-power-calendar-year[data-date="2014"]').isNotDisabled('2014 is enabled');
+    assert.dom('.ember-power-calendar-year[data-date="2015"]').isNotDisabled('2015 is enabled');
+    assert.dom('.ember-power-calendar-year[data-date="2016"]').isNotDisabled('2016 is enabled');
   });
 
   test('When the user tries to focus a disabled day date with the left arrow key, the focus stays where it is', async function(assert) {
