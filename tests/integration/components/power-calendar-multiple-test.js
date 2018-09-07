@@ -175,7 +175,7 @@ module('Integration | Component | power calendar multiple', function(hooks) {
 
     assert.dom('.ember-power-calendar-day[data-date="2013-10-14"]').isNotDisabled('The 14th is enabled');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-15"]').isDisabled('The 15th is disabled');
-    assert.dom('.ember-power-calendar-day[data-date="2013-10-14"]').isNotDisabled('The 16th is enabled');
+    assert.dom('.ember-power-calendar-day[data-date="2013-10-16"]').isNotDisabled('The 16th is enabled');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-17"]').isDisabled('The 17th is disabled');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-21"]').isDisabled('The 21st is disabled');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-23"]').isDisabled('The 23rd is disabled');
@@ -187,7 +187,7 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-17"]').isNotDisabled('The 17th is enabled');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-21"]').isNotDisabled('The 21st is enabled');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-23"]').isNotDisabled('The 23rd is enabled');
-    assert.dom('.ember-power-calendar-day[data-date="2013-10-23"]').isNotDisabled('The 22nd is disabled');
+    assert.dom('.ember-power-calendar-day[data-date="2013-10-22"]').isDisabled('The 22nd is disabled');
   });
 
   test('It renders quarter selected if any date contained by the quarter is selected', async function(assert) {
