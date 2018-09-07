@@ -71,6 +71,35 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     );
   });
 
+  test('When a multiple calendar receives an array of month dates, those years are marked as selected', async function(assert) {
+    assert.expect(5);
+    this.selected = [new Date(2016, 0), new Date(2017, 0), new Date(2020, 0)];
+
+    await render(hbs`
+      {{#power-calendar-multiple selected=selected as |calendar|}}
+        {{calendar.nav by='decade'}}
+        {{calendar.years}}
+      {{/power-calendar-multiple}}
+    `);
+    assert.dom('.ember-power-calendar-nav').containsText('2010\'s', 'The calendar is centered in the decade of the first selected date');
+    assert.dom('.ember-power-calendar-year[data-date="2016"]').hasClass(
+      'ember-power-calendar-year--selected', 
+      'The first selected year is selected'
+    );
+    assert.dom('.ember-power-calendar-year[data-date="2017"]').hasClass(
+      'ember-power-calendar-year--selected',
+      'The second selected year is selected'
+    );
+    assert.dom('.ember-power-calendar-year[data-date="2018"]').hasNoClass(
+      'ember-power-calendar-year--selected', 
+      'The third selected year is selected'
+    );
+    assert.dom('.ember-power-calendar-year[data-date="2020"]').hasClass(
+      'ember-power-calendar-year--selected',
+      'The years in between those aren\'t year is selected'
+    );
+  });
+
   test('When days are clicked in a multiple calendar, the `onSelect` action is called with the acumulated list of days, in the order they were clicked', async function(assert) {
     let callsCount = 0;
     this.didChange = (days, calendar, e) => {
