@@ -18,7 +18,9 @@ import {
 } from 'ember-power-calendar-utils';
 
 export default Component.extend({
+  attributeBindings: ['data-power-calendar-id'],
   classNames: ['ember-power-calendar-months'],
+
   firstQuarter: fallbackIfUndefined(1),
   focusedId: null,
   layout,
@@ -28,11 +30,10 @@ export default Component.extend({
   rowWidth: 3,
   showQuarterLabels: true,
 
-  attributeBindings: [
-    'data-power-calendar-id'
-  ],
 
   // CPs
+  'data-power-calendar-id': computed.oneWay('calendar.uniqueId'),
+
   quarters: computed('calendar', 'focusedId', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', 'firstQuarter', function() {
     let thisMonth = this.get('powerCalendarService').getDate();
     let calendar = this.get('calendar');
