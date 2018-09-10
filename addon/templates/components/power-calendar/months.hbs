@@ -1,0 +1,47 @@
+{{! template-lint-disable invalid-interactive }}
+{{#if showQuarterLabels}}
+  <div class="ember-power-calendar-quarters">
+    {{#each quarters key='id' as |quarter|}}
+      <button 
+        data-date="{{quarter.id}}"
+        onclick={{action calendar.actions.selectQuarter quarter calendar}} 
+        class="
+          ember-power-calendar-quarter
+          {{if onSelectQuarter 'ember-power-calendar-quarter--interactive'}}
+          {{if quarter.isSelected 'ember-power-calendar-quarter--selected'}}
+        "
+      >
+        {{quarter.label}}
+      </button>
+    {{/each}}
+  </div>
+{{/if}}
+<div class="ember-power-calendar-month-grid" onkeydown={{action "onKeyDown" calendar}}>
+  {{#each quarters key='id' as |quarter|}}
+    <div class="ember-power-calendar-row ember-power-calendar-row--quarter">
+      {{#each quarter.months key='id' as |month|}}
+        <button type="button"
+          data-date="{{month.id}}"
+          class="
+            ember-power-calendar-month
+            {{if onSelect 'ember-power-calendar-month--interactive'}}
+            {{if month.isSelected 'ember-power-calendar-month--selected'}}
+            {{if month.isCurrentMonth 'ember-power-calendar-month--current-month'}}
+            {{if month.isFocused 'ember-power-calendar-month--focused'}}
+            {{if month.isRangeStart 'ember-power-calendar-month--range-start'}}
+            {{if month.isRangeEnd 'ember-power-calendar-month--range-end'}}
+          "
+          onclick={{action calendar.actions.select month calendar}}
+          onfocus={{action 'onFocusMonth' month}}
+          onblur={{action 'onBlurMonth'}}
+          disabled={{month.isDisabled}}>
+          {{#if hasBlock}}
+            {{yield month publicAPI}}
+          {{else}}
+            {{power-calendar-format-date month.date monthFormat locale=calendar.locale}}
+          {{/if}}
+        </button>
+      {{/each}}
+    </div>
+  {{/each}}
+</div>
