@@ -14,7 +14,6 @@ import {
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-range/days',
   monthsComponent: 'power-calendar-range/months',
-  yearsComponent: 'power-calendar-range/years',
   proximitySelection: fallbackIfUndefined(false),
 
   // CPs
