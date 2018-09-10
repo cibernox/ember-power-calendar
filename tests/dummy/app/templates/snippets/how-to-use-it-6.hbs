@@ -1,0 +1,14 @@
+{{#power-calendar-multiple
+  selected=selected 
+  center=center
+  minRange=0
+  onCenterChange=(action (mut center) value="date") 
+  onSelect=(action (mut selected) value="date") 
+  as |calendar|}}
+  {{calendar.nav by="decade"}}
+  {{calendar.nav by="year"}}
+  {{calendar.nav by="month"}}
+  {{calendar.years maxLength=1}}
+  {{calendar.months}}
+  {{calendar.days}}
+{{/power-calendar-multiple}}
