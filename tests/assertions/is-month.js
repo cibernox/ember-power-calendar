@@ -1,12 +1,12 @@
-export default function isMonth(context, day, message = 'Is a valid day object') {
-  let result = typeof day.isCurrentMonth === 'boolean'
-    && typeof day.isSelected === 'boolean'
-    && typeof day.isFocused === 'boolean'
-    && typeof day.isCurrentMonth === 'boolean'
-    && typeof day.isDisabled === 'boolean'
-    && typeof day.id === 'string'
-    && day.date instanceof Date
-    && day.period === 'month';
+export default function isMonth(context, month, message = 'Is a valid day object') {
+  let result = typeof month.isCurrentMonth === 'boolean'
+    && typeof month.isSelected === 'boolean'
+    && typeof month.isFocused === 'boolean'
+    && typeof month.isCurrentMonth === 'boolean'
+    && typeof month.isDisabled === 'boolean'
+    && typeof month.id === 'string'
+    && month.date instanceof Date
+    && month.period === 'month';
 
   this.pushResult({
     result,

@@ -1,13 +1,12 @@
-export default function isYear(context, day, message = 'Is a valid day object') {
-  let result = typeof day.isCurrentMonth === 'boolean'
-    && typeof day.isSelected === 'boolean'
-    && typeof day.isFocused === 'boolean'
-    && typeof day.isCurrentYear === 'boolean'
-    && typeof day.isCurrentDecade === 'boolean'
-    && typeof day.isDisabled === 'boolean'
-    && typeof day.id === 'string'
-    && day.date instanceof Date
-    && day.period === 'year';
+export default function isYear(context, year, message = 'Is a valid day object') {
+  let result = typeof year.isSelected === 'boolean'
+    && typeof year.isFocused === 'boolean'
+    && typeof year.isCurrentYear === 'boolean'
+    && typeof year.isCurrentDecade === 'boolean'
+    && typeof year.isDisabled === 'boolean'
+    && typeof year.id === 'string'
+    && year.date instanceof Date
+    && year.period === 'year';
 
   this.pushResult({
     result,
