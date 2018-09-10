@@ -16,6 +16,7 @@ export default Component.extend({
   powerCalendarService: inject('power-calendar'),
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
+  yearsComponent: 'power-calendar/years',
   center: null,
 
   // Lifecycle chooks
@@ -27,10 +28,18 @@ export default Component.extend({
     this.publicActions = {
       changeCenter,
       moveCenter: (step, unit, calendar, e) => {
-        let newCenter = add(this.get('currentCenter'), step, unit);
+        const center = this.get('currentCenter');
+        let newCenter;
+
+        if (unit === 'decade') {
+          newCenter = add(center, 10 * step, 'year');
+        } else {
+          newCenter = add(center, step, unit);
+        }
+
         return changeCenter(newCenter, calendar, e);
       },
-      select: (...args) => this.send('select', ...args)
+      select: (...args) => this.send('select', ...args),
     };
     this.registerCalendar();
     let onInit = this.get('onInit');
@@ -79,10 +88,10 @@ export default Component.extend({
 
   // Actions
   actions: {
-    select(day, calendar, e) {
+    select(dateObj, calendar, e) {
       let action = this.get('onSelect');
       if (action) {
-        action(day, calendar, e);
+        action(dateObj, calendar, e);
       }
     }
   },

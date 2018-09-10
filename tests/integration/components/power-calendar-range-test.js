@@ -44,6 +44,32 @@ module('Integration | Component | power calendar range', function(hooks) {
     );
   });
 
+  test('when it receives a range in the `selected` argument containing `Date` objects, the range in years is highlighted', async function(assert) {
+    assert.expect(4);
+    this.selected = { start: new Date(2016, 0), end: new Date(2020, 0) };
+    await render(hbs`
+      {{#power-calendar-range selected=selected as |calendar|}}
+        {{calendar.nav by="decade"}}
+        {{calendar.years}}
+      {{/power-calendar-range}}
+    `);
+    assert.dom('.ember-power-calendar-nav').containsText('2010\'s', 'The calendar is centered in the decade of the selected date');
+    let allYearsInRangeAreSelected = this.element.querySelector('.ember-power-calendar-year[data-date="2016"]').classList.contains('ember-power-calendar-year--selected')
+      && this.element.querySelector('.ember-power-calendar-year[data-date="2017"]').classList.contains('ember-power-calendar-year--selected')
+      && this.element.querySelector('.ember-power-calendar-year[data-date="2018"]').classList.contains('ember-power-calendar-year--selected')
+      && this.element.querySelector('.ember-power-calendar-year[data-date="2019"]').classList.contains('ember-power-calendar-year--selected')
+      && this.element.querySelector('.ember-power-calendar-year[data-date="2020"]').classList.contains('ember-power-calendar-year--selected');
+    assert.ok(allYearsInRangeAreSelected, 'All years in range are selected');
+    assert.dom('.ember-power-calendar-year[data-date="2016"]').hasClass(
+      'ember-power-calendar-year--range-start',
+      'The start of the range has a special class'
+    );
+    assert.dom('.ember-power-calendar-year[data-date="2020"]').hasClass(
+      'ember-power-calendar-year--range-end',
+      'The end of the range has a special class'
+    );
+  });
+
   test('In range calendars, clicking a day selects one end of the range, and clicking another closes the range', async function(assert) {
     this.selected = null;
     let numberOfCalls = 0;

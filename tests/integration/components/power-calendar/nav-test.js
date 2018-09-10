@@ -37,4 +37,11 @@ module('Integration | Component | power-calendar/nav', function(hooks) {
     run(() => this.set('calendar.locale', 'es'));
     assert.dom('.ember-power-calendar-nav-title').hasText('octubre 2013');
   });
+
+  test('by="decade" works', async function(assert) {
+    assert.expect(1);
+    this.calendar = calendar;
+    await render(hbs`{{power-calendar/nav by='decade' calendar=calendar}}`);
+    assert.dom('.ember-power-calendar-nav-title').hasText("2010's");
+  });
 });

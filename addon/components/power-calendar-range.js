@@ -13,6 +13,7 @@ import {
 
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-range/days',
+  yearsComponent: 'power-calendar-range/years',
   proximitySelection: fallbackIfUndefined(false),
 
   // CPs
@@ -75,6 +76,7 @@ export default CalendarComponent.extend({
           return;
         }
       }
+
       let action = this.get('onSelect');
       if (action) {
         action(range, calendar, e);
