@@ -8,7 +8,6 @@ import {
 
 export default CalendarComponent.extend({
   daysComponent: "power-calendar-multiple/days",
-  monthsComponent: "power-calendar-multiple/months",
   yearsComponent: "power-calendar-multiple/years",
 
   // CPs
@@ -37,13 +36,6 @@ export default CalendarComponent.extend({
       if (action) {
         action(this._buildCollection({ date: selected }, day), calendar, e);
       }
-    },
-
-    selectQuarter(quarter, calendar, e) {
-      let action = this.get('onSelectQuarter');
-      let selected = this.get("publicAPI.selected");
-
-      if (action) action(quarter.months.reduce(this._buildCollection, { date: selected }), calendar, e);
     }
   },
 

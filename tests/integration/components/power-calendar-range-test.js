@@ -44,31 +44,6 @@ module('Integration | Component | power calendar range', function(hooks) {
     );
   });
 
-  test('when it receives a range in the `selected` argument containing `Date` objects, the range in months is highlighted', async function(assert) {
-    assert.expect(4);
-    this.selected = { start: new Date(2016, 1), end: new Date(2016, 4) };
-    await render(hbs`
-      {{#power-calendar-range selected=selected as |calendar|}}
-        {{calendar.nav by="year"}}
-        {{calendar.months}}
-      {{/power-calendar-range}}
-    `);
-    assert.dom('.ember-power-calendar-nav').containsText('2016', 'The calendar is centered in the year of the selected date');
-    let allMonthsInRangeAreSelected = this.element.querySelector('.ember-power-calendar-month[data-date="2016-02"]').classList.contains('ember-power-calendar-month--selected')
-      && this.element.querySelector('.ember-power-calendar-month[data-date="2016-03"]').classList.contains('ember-power-calendar-month--selected')
-      && this.element.querySelector('.ember-power-calendar-month[data-date="2016-04"]').classList.contains('ember-power-calendar-month--selected')
-      && this.element.querySelector('.ember-power-calendar-month[data-date="2016-05"]').classList.contains('ember-power-calendar-month--selected');
-    assert.ok(allMonthsInRangeAreSelected, 'All months in range are selected');
-    assert.dom('.ember-power-calendar-month[data-date="2016-02"]').hasClass(
-      'ember-power-calendar-month--range-start',
-      'The start of the range has a special class'
-    );
-    assert.dom('.ember-power-calendar-month[data-date="2016-05"]').hasClass(
-      'ember-power-calendar-month--range-end',
-      'The end of the range has a special class'
-    );
-  });
-
   test('when it receives a range in the `selected` argument containing `Date` objects, the range in years is highlighted', async function(assert) {
     assert.expect(4);
     this.selected = { start: new Date(2016, 0), end: new Date(2020, 0) };
@@ -387,33 +362,5 @@ module('Integration | Component | power calendar range', function(hooks) {
       'ember-power-calendar-day--range-end',
       'The end of the range has a special class'
     );
-  });
-
-  test('It renders quarter selected if any range intersecting the quarter is selected', async function(assert) {
-    assert.expect(10);
-
-    await render(hbs`
-      {{#power-calendar-range selected=selected as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.months}}
-      {{/power-calendar-range}}
-    `);
-
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').doesNotExist();
-
-    this.set('selected', { start: new Date(2013, 1, 5), end: new Date(2013, 1, 5) });
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').exists();
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').doesNotExist();
-
-    this.set('selected', { start: new Date(2013, 1, 5), end: new Date(2013, 5, 5)  });
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').exists();
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').exists();
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q3"].ember-power-calendar-quarter--selected').doesNotExist();
-
-    this.set('selected', { start: new Date(2013, 11, 5), end: new Date(2013, 11, 5) });
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').doesNotExist();
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').doesNotExist();
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q3"].ember-power-calendar-quarter--selected').doesNotExist();
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q4"].ember-power-calendar-quarter--selected').exists();
   });
 });

@@ -19,13 +19,11 @@ export default Component.extend({
   classNames: ['ember-power-calendar-years'],
   attributeBindings: ['data-power-calendar-id'],
 
-  firstQuarter: fallbackIfUndefined(1),
   focusedId: null,
   layout,
   period: 'year',
   powerCalendarService: inject('power-calendar'),
   rowWidth: 3,
-  showQuarterLabels: true,
   yearFormat: fallbackIfUndefined('YYYY'),
 
   // CPs
@@ -126,8 +124,8 @@ export default Component.extend({
     });
   },
 
-  buildonSelectValue(month) {
-    return month;
+  buildonSelectValue(year) {
+    return year;
   },
 
   isSelected(date, calendar = this.get('calendar')) {
@@ -189,9 +187,9 @@ export default Component.extend({
   },
 
   _focusDate(id) {
-    let monthElement = this.element.querySelector(`[data-date="${id}"]`);
-    if (monthElement) {
-      monthElement.focus();
+    let yearElement = this.element.querySelector(`[data-date="${id}"]`);
+    if (yearElement) {
+      yearElement.focus();
     }
   }
 });

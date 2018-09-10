@@ -16,7 +16,6 @@ export default Component.extend({
   powerCalendarService: inject('power-calendar'),
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
-  monthsComponent: 'power-calendar/months',
   yearsComponent: 'power-calendar/years',
   center: null,
 
@@ -41,7 +40,6 @@ export default Component.extend({
         return changeCenter(newCenter, calendar, e);
       },
       select: (...args) => this.send('select', ...args),
-      selectQuarter: (...args) => this.send('selectQuarter', ...args)
     };
     this.registerCalendar();
     let onInit = this.get('onInit');
@@ -95,11 +93,6 @@ export default Component.extend({
       if (action) {
         action(dateObj, calendar, e);
       }
-    },
-
-    selectQuarter(quarter, calendar, e) {
-      let action = this.get('onSelectQuarter');
-      if (action) action(quarter, calendar, e);
     }
   },
 

@@ -42,36 +42,7 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     );
   });
 
-  test('When a multiple calendar receives an array of month dates, those months are marked as selected', async function(assert) {
-    assert.expect(5);
-    this.selected = [new Date(2016, 2), new Date(2016, 4), new Date(2016, 10)];
-
-    await render(hbs`
-      {{#power-calendar-multiple selected=selected as |calendar|}}
-        {{calendar.nav by='year'}}
-        {{calendar.months}}
-      {{/power-calendar-multiple}}
-    `);
-    assert.dom('.ember-power-calendar-nav').containsText('2016', 'The calendar is centered in the year of the first selected date');
-    assert.dom('.ember-power-calendar-month[data-date="2016-03"]').hasClass(
-      'ember-power-calendar-month--selected', 
-      'The first selected month is selected'
-    );
-    assert.dom('.ember-power-calendar-month[data-date="2016-05"]').hasClass(
-      'ember-power-calendar-month--selected',
-      'The second selected month is selected'
-    );
-    assert.dom('.ember-power-calendar-month[data-date="2016-11"]').hasClass(
-      'ember-power-calendar-month--selected', 
-      'The third selected month is selected'
-    );
-    assert.dom('.ember-power-calendar-month[data-date="2016-08"]').hasNoClass(
-      'ember-power-calendar-month--selected',
-      'The months in between those aren\'t month is selected'
-    );
-  });
-
-  test('When a multiple calendar receives an array of month dates, those years are marked as selected', async function(assert) {
+  test('When a multiple calendar receives an array of year dates, those years are marked as selected', async function(assert) {
     assert.expect(5);
     this.selected = [new Date(2016, 0), new Date(2017, 0), new Date(2020, 0)];
 
@@ -217,33 +188,5 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-21"]').isNotDisabled('The 21st is enabled');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-23"]').isNotDisabled('The 23rd is enabled');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-22"]').isDisabled('The 22nd is disabled');
-  });
-
-  test('It renders quarter selected if any date contained by the quarter is selected', async function(assert) {
-    assert.expect(10);
-
-    await render(hbs`
-      {{#power-calendar-multiple selected=selected as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.months}}
-      {{/power-calendar-multiple}}
-    `);
-
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').doesNotExist();
-
-    this.set('selected', [new Date(2013, 1, 5)]);
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').exists();
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').doesNotExist();
-
-    this.set('selected', [new Date(2013, 1, 5), new Date(2013, 7, 5)]);
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').exists();
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').doesNotExist();
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q3"].ember-power-calendar-quarter--selected').exists();
-
-    this.set('selected', [new Date(2013, 1, 1), new Date(2013, 2, 1)]);
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q1"].ember-power-calendar-quarter--selected').exists();
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q2"].ember-power-calendar-quarter--selected').doesNotExist();
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q3"].ember-power-calendar-quarter--selected').doesNotExist();
-    assert.dom('.ember-power-calendar-quarter[data-date="2013-Q4"].ember-power-calendar-quarter--selected').doesNotExist();
   });
 });

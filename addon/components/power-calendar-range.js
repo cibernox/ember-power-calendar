@@ -13,7 +13,6 @@ import {
 
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-range/days',
-  monthsComponent: 'power-calendar-range/months',
   yearsComponent: 'power-calendar-range/years',
   proximitySelection: fallbackIfUndefined(false),
 
@@ -82,14 +81,6 @@ export default CalendarComponent.extend({
       if (action) {
         action(range, calendar, e);
       }
-    },
-
-    selectQuarter(quarter, calendar, e) {
-      let { months } = quarter;
-      quarter.date = { start: months[0].date, end: months[months.length - 1].date };
-      
-      let action = this.get('onSelectQuarter');
-      if (action) action(quarter, calendar, e);
     }
   },
 

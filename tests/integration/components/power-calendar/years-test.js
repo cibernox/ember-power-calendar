@@ -20,8 +20,7 @@ module('Integration | Component | power-calendar/years', function(hooks) {
       locale: 'en',
       actions: {
         moveCenter: () => {},
-        select: () => {},
-        selectQuarter: () => {}
+        select: () => {}
       }
     };
   });
