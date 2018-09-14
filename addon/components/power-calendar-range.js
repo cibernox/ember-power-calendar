@@ -13,6 +13,7 @@ import {
 
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-range/days',
+  _calendarType: 'range',
   proximitySelection: fallbackIfUndefined(false),
 
   // CPs

@@ -7,7 +7,8 @@ import {
 } from 'ember-power-calendar-utils';
 
 export default CalendarComponent.extend({
-  daysComponent: "power-calendar-multiple/days",
+  daysComponent: 'power-calendar-multiple/days',
+  _calendarType: 'multiple',
 
   // CPs
   selected: computed({

@@ -17,6 +17,7 @@ export default Component.extend({
   navComponent: 'power-calendar/nav',
   daysComponent: 'power-calendar/days',
   center: null,
+  _calendarType: 'single',
 
   // Lifecycle chooks
   init() {
@@ -69,6 +70,7 @@ export default Component.extend({
   _publicAPI: computed('selected', 'currentCenter', 'locale', 'powerCalendarService.locale', 'changeCenterTask.isRunning', function() {
     return {
       uniqueId: guidFor(this),
+      type: this.get('_calendarType'),
       selected: this.get('selected'),
       loading: this.get('changeCenterTask.isRunning'),
       center: this.get('currentCenter'),
