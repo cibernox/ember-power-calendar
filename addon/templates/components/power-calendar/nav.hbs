@@ -1,5 +1,5 @@
 <nav class="ember-power-calendar-nav">
-  {{#if onCenterChange}}
+  {{#if calendar.actions.changeCenter}}
     <button type="button" class="ember-power-calendar-nav-control ember-power-calendar-nav-control--previous" onclick={{action calendar.actions.moveCenter -1 'month' calendar}}>«</button>
   {{/if}}
   <div class="ember-power-calendar-nav-title">
@@ -9,7 +9,7 @@
       {{power-calendar-format-date calendar.center 'MMMM YYYY' locale=calendar.locale}}
     {{/if}}
   </div>
-  {{#if onCenterChange}}
+  {{#if calendar.actions.changeCenter}}
     <button type="button" class="ember-power-calendar-nav-control ember-power-calendar-nav-control--next" onclick={{action calendar.actions.moveCenter 1 'month' calendar}}>»</button>
   {{/if}}
 </nav>

@@ -22,17 +22,6 @@ export default Component.extend({
   // Lifecycle chooks
   init() {
     this._super(...arguments);
-    let changeCenter = (newCenter, calendar, e) => {
-      return this.get('changeCenterTask').perform(newCenter, calendar, e);
-    };
-    this.publicActions = {
-      changeCenter,
-      moveCenter: (step, unit, calendar, e) => {
-        let newCenter = add(this.get('currentCenter'), step, unit);
-        return changeCenter(newCenter, calendar, e);
-      },
-      select: (...args) => this.send('select', ...args)
-    };
     this.registerCalendar();
     let onInit = this.get('onInit');
     if (onInit) {
@@ -46,6 +35,24 @@ export default Component.extend({
   },
 
   // CPs
+  publicActions: computed('onSelect', 'onCenterChange', function() {
+    let actions = {};
+    if (this.get('onSelect')) {
+      actions.select = (...args) => this.send('select', ...args);
+    }
+    if (this.get('onCenterChange')) {
+      let changeCenter = (newCenter, calendar, e) => {
+        return this.get('changeCenterTask').perform(newCenter, calendar, e);
+      };
+      actions.changeCenter = changeCenter;
+      actions.moveCenter = (step, unit, calendar, e) => {
+        let newCenter = add(this.get('currentCenter'), step, unit);
+        return changeCenter(newCenter, calendar, e);
+      };
+    }
+    return actions;
+  }),
+
   selected: computed({
     get() {
       return undefined;
@@ -67,7 +74,7 @@ export default Component.extend({
     return this.get('_publicAPI');
   }),
 
-  _publicAPI: computed('selected', 'currentCenter', 'locale', 'powerCalendarService.locale', 'changeCenterTask.isRunning', function() {
+  _publicAPI: computed('selected', 'currentCenter', 'locale', 'powerCalendarService.locale', 'changeCenterTask.isRunning', 'publicActions', function() {
     return {
       uniqueId: guidFor(this),
       type: this.get('_calendarType'),

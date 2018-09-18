@@ -105,6 +105,22 @@ export default Component.extend({
     return weeks;
   }),
 
+  // Lifecycle hooks
+  init() {
+    this._super(...arguments);
+    this._handleDayClick = this._handleDayClick.bind(this);
+  },
+
+  didInsertElement() {
+    this._super(...arguments);
+    this.element.addEventListener('click', this._handleDayClick);
+  },
+
+  willRemoveElement() {
+    this._super(...arguments);
+    this.element.removeEventListener('click', this._handleDayClick);
+  },
+
   // Actions
   actions: {
     onFocusDay(day) {
@@ -194,7 +210,7 @@ export default Component.extend({
   },
 
   dayIsDisabled(date) {
-    let isDisabled = !this.get('onSelect');
+    let isDisabled = !this.get('calendar.actions.select');
     if (isDisabled) {
       return true;
     }
@@ -254,6 +270,20 @@ export default Component.extend({
     let dayElement = this.element.querySelector(`[data-date="${id}"]`);
     if (dayElement) {
       dayElement.focus();
+    }
+  },
+
+  _handleDayClick(e) {
+    let dayEl = e.target.closest('[data-date]');
+    if (dayEl) {
+      let dateStr = dayEl.dataset.date;
+      let day = this.get('days').find(d => d.id === dateStr);
+      if (day) {
+        let calendar = this.get('calendar');
+        if (calendar.actions.select) {
+          calendar.actions.select(day, calendar, e);
+        }
+      }
     }
   }
 });
