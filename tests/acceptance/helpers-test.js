@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import { visit } from '@ember/test-helpers';
+import { visit, click } from '@ember/test-helpers';
 import { calendarCenter, calendarSelect } from 'ember-power-calendar/test-support';
 
 module('Acceptance | helpers | calendarCenter', function(hooks) {
@@ -77,5 +77,18 @@ module('Acceptance | helpers | calendarSelect', function(hooks) {
     assert.dom('.calendar-select-1 .ember-power-calendar-nav-title').hasText('September 2013', 'The nav component has updated');
     assert.dom('.calendar-select-1 [data-date="2013-09-01"]').exists('The days component has updated');
     assert.dom('.calendar-select-1 [data-date="2013-09-03"]').hasClass('ember-power-calendar-day--selected', 'The 3rd of september is selected');
+  });
+
+  test('`calendarSelect` selects the given date in wormhole', async function(assert) {
+    await visit('/helpers-testing');
+
+    await click('.calendar-in-dropdown input');
+    assert.dom('.dropdown-content .ember-power-calendar-nav-title').hasText('October 2013');
+    assert.dom('.dropdown-content [data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected', 'The 15th is selected');
+    await calendarSelect('.dropdown-content', new Date(2013, 8, 3));
+
+    assert.dom('.dropdown-content .ember-power-calendar-nav-title').hasText('September 2013', 'The nav component has updated');
+    assert.dom('.dropdown-content [data-date="2013-09-01"]').exists('The days component has updated');
+    assert.dom('.dropdown-content [data-date="2013-09-03"]').hasClass('ember-power-calendar-day--selected', 'The 3rd of september is selected');
   });
 });

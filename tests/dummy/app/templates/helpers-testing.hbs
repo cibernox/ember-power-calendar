@@ -49,3 +49,28 @@
     {{calendar.days}}
   {{/power-calendar}}
 </div>
+
+<div class="calendar-in-dropdown">
+  {{#basic-dropdown as |dropdown|}}
+    {{#dropdown.trigger}}
+      <input
+        value={{selected4}}
+        name="date"
+        readonly="true"
+      >
+    {{/dropdown.trigger}}
+    {{#dropdown.content
+      class="dropdown-content"
+    }}
+      {{#power-calendar
+        tagName=''
+        center=center4
+        selected=selected4
+        onSelect=(action (mut selected4) value="date")
+        onCenterChange=(action (mut center4) value="date") as |calendar|}}
+        {{calendar.nav}}
+        {{calendar.days}}
+      {{/power-calendar}}
+    {{/dropdown.content}}
+  {{/basic-dropdown}}
+</div>

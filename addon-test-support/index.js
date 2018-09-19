@@ -1,11 +1,10 @@
 import { run } from '@ember/runloop';
 import { assert } from '@ember/debug';
-import { getContext, click, settled } from '@ember/test-helpers';
+import { click, settled, find } from '@ember/test-helpers';
 import { formatDate } from 'ember-power-calendar-utils';
 
 function findCalendarElement(selector) {
-  let { element } = getContext();
-  let target = element.querySelector(selector);
+  let target = find(selector);
   if (target) {
     if (target.classList.contains('ember-power-calendar')) {
       return target;
