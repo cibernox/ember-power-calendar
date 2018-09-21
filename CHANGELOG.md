@@ -1,7 +1,10 @@
 ## Master
 
+## 0.9.2
+- [BUGFIX] Fix testing of ember-power-calendar from within a whormole to the root of the body.
+
 ## 0.9.1
-- [BREAKING] Prevent infinite loop rendering the days component
+- [BUGFIX] Prevent infinite loop rendering the days component
 
 ## 0.9.0
 - [BREAKING] Now this addon requires the user to install either `ember-power-calendar-moment` or `ember-power-calendar-luxon`
