@@ -8,19 +8,23 @@
   {{#each weeks key='id' as |week|}}
     <div class="ember-power-calendar-row ember-power-calendar-week" data-missing-days={{week.missingDays}}>
       {{#each week.days key='id' as |day|}}
-        <button type="button"
-          data-date="{{day.id}}"
-          class={{day.classNames}}
-          onclick={{action calendar.actions.select day calendar}}
-          onfocus={{action 'onFocusDay' day}}
-          onblur={{action 'onBlurDay'}}
-          disabled={{day.isDisabled}}>
-          {{#if hasBlock}}
-            {{yield day publicAPI}}
-          {{else}}
-            {{day.number}}
-          {{/if}}
-        </button>
+        {{#if yieldAll}}
+          {{yield day publicAPI}}
+        {{else}}
+          <button type="button"
+            data-date="{{day.id}}"
+            class={{day.classNames}}
+            onclick={{action calendar.actions.select day calendar}}
+            onfocus={{action 'onFocusDay' day}}
+            onblur={{action 'onBlurDay'}}
+            disabled={{day.isDisabled}}>
+            {{#if hasBlock}}
+              {{yield day publicAPI}}
+            {{else}}
+              {{day.number}}
+            {{/if}}
+          </button>
+        {{/if}}
       {{/each}}
     </div>
   {{/each}}
