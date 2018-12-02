@@ -30,6 +30,18 @@ const WEEK_DAYS = [
   'Sun'
 ];
 
+function classes(...args) {
+  return args.reduce((acc, arg) => {
+    if (typeof arg === 'string') return acc.concat([arg]);
+    const classes = Object.keys(arg).reduce((a, key) => {
+      if (arg[key]) return a.concat([key])
+      return a;
+    }, [])
+    return acc.concat(classes);
+  }, [])
+  .join(' ');
+}
+
 export default Component.extend({
   layout,
   focusedId: null,
@@ -181,7 +193,17 @@ export default Component.extend({
       isFocused: this.get('focusedId') === id,
       isCurrentMonth: date.getMonth() === calendar.center.getMonth(),
       isToday: isSame(date, today, 'day'),
-      isSelected: this.dayIsSelected(date, calendar)
+      isSelected: this.dayIsSelected(date, calendar),
+      classNames: classes('ember-power-calendar-day', {
+        'ember-power-calendar-day--interactive': this.get('onSelect'),
+        'ember-power-calendar-day--current-month': this.get('isCurrentMonth'),
+        'ember-power-calendar-day--other-month': !this.get('isCurrentMonth'),
+        'ember-power-calendar-day--selected': this.get('isSelected'),
+        'ember-power-calendar-day--today': this.get('isToday'),
+        'ember-power-calendar-day--focused': this.get('isFocused'),
+        'ember-power-calendar-day--range-start': this.get('isRangeStart'),
+        'ember-power-calendar-day--range-end': this.get('isRangeEnd'),
+      }),
     });
   },
 
