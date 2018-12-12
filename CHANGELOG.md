@@ -1,5 +1,8 @@
 ## Master
 
+## 0.9.3
+- [BUGFIX] Fix broken dependency check under yarn workspaces.
+
 ## 0.9.2
 - [BUGFIX] Fix testing of ember-power-calendar from within a whormole to the root of the body.
 
