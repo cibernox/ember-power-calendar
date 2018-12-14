@@ -83,16 +83,16 @@
 <h3>The <code>calendar</code> object</h3>
 
 <pre>
-{
-  uniqueId: &lt;string&gt;, // Contains the unique of this instance of EmberPowerSelect. It's of the form `ember1234`.
-  selected: &lt;Date&gt;,   // The selected date
-  loading: &lt;boolean&gt;, // True when the async operation of changing the center is in progress
-  center: &lt;Date&gt;,     // The date that acts as the center for the displayed date information
-  locale: &lt;string&gt;    // The ISO code of the locale used to format dates in the calendar
-  actions: {
-    changeCenter(newCenter, calendar, event) { ... }, // Changes the center of the calendar (invoking `onCenterChange`)
-    moveCenter(step, unit, calendar, event) { ... },  // Moves the center of the calendar the given number of units (invoking `onCenterChange`)
-    select(day, calendar, event) { ... },             // Selects the given date (invoking `onSelect`)
+  {
+    uniqueId: &lt;string&gt;, // Contains the unique of this instance of EmberPowerSelect. It's of the form `ember1234`.
+    selected: &lt;Date&gt;,   // The selected date
+    loading: &lt;boolean&gt;, // True when the async operation of changing the center is in progress
+    center: &lt;Date&gt;,     // The date that acts as the center for the displayed date information
+    locale: &lt;string&gt;    // The ISO code of the locale used to format dates in the calendar
+    actions: {
+      changeCenter(newCenter, calendar, event) { ... }, // Changes the center of the calendar (invoking `onCenterChange`)
+      moveCenter(step, unit, calendar, event) { ... },  // Moves the center of the calendar the given number of units (invoking `onCenterChange`)
+      select(day, calendar, event) { ... },             // Selects the given date (invoking `onSelect`)
+    }
   }
-}
 </pre>
