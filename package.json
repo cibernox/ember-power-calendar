@@ -53,7 +53,8 @@
     "eslint-plugin-node": "^8.0.0",
     "loader.js": "^4.7.0",
     "memory-scroll": "0.9.1",
-    "qunit-dom": "^0.8.3"
+    "qunit-dom": "^0.8.3",
+    "sass": "^1.15.2"
   },
   "keywords": [
     "ember-addon",
