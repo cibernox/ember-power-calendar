@@ -1,5 +1,13 @@
 ## Master
 
+## 0.9.5
+- [ENHANCEMENT] Add `type` to public API. Possible values: "single" | "multiple" | "range"
+- [DOCS] Document public API object.
+- [CHORE] Update dependencies, including babel 7
+
+## 0.9.4
+- [BUFIX] Fix 0.9.3 in versions of ember-cli >= 3.5
+
 ## 0.9.3
 - [BUGFIX] Fix broken dependency check under yarn workspaces.
 
