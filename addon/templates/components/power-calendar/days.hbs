@@ -10,8 +10,7 @@
       {{#each week.days key='id' as |day|}}
         <button type="button"
           data-date="{{day.id}}"
-          class="ember-power-calendar-day {{if onSelect 'ember-power-calendar-day--interactive'}} {{if day.isCurrentMonth 'ember-power-calendar-day--current-month' 'ember-power-calendar-day--other-month'}} {{if day.isSelected 'ember-power-calendar-day--selected'}} {{if day.isToday 'ember-power-calendar-day--today'}} {{if day.isFocused 'ember-power-calendar-day--focused'}} {{if day.isRangeStart 'ember-power-calendar-day--range-start'}} {{if day.isRangeEnd 'ember-power-calendar-day--range-end'}}"
-          onclick={{action calendar.actions.select day calendar}}
+          class="ember-power-calendar-day {{if calendar.actions.select 'ember-power-calendar-day--interactive'}} {{if day.isCurrentMonth 'ember-power-calendar-day--current-month' 'ember-power-calendar-day--other-month'}} {{if day.isSelected 'ember-power-calendar-day--selected'}} {{if day.isToday 'ember-power-calendar-day--today'}} {{if day.isFocused 'ember-power-calendar-day--focused'}} {{if day.isRangeStart 'ember-power-calendar-day--range-start'}} {{if day.isRangeEnd 'ember-power-calendar-day--range-end'}}"
           onfocus={{action 'onFocusDay' day}}
           onblur={{action 'onBlurDay'}}
           disabled={{day.isDisabled}}>

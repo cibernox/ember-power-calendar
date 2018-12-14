@@ -89,6 +89,7 @@
     loading: &lt;boolean&gt;, // True when the async operation of changing the center is in progress
     center: &lt;Date&gt;,     // The date that acts as the center for the displayed date information
     locale: &lt;string&gt;    // The ISO code of the locale used to format dates in the calendar
+    type: &lt;string&gt;      // The type of calendar. One of: "multiple" | "range" | "single"
     actions: {
       changeCenter(newCenter, calendar, event) { ... }, // Changes the center of the calendar (invoking `onCenterChange`)
       moveCenter(step, unit, calendar, event) { ... },  // Moves the center of the calendar the given number of units (invoking `onCenterChange`)
