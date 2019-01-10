@@ -1,5 +1,9 @@
 ## Master
 
+## 0.9.7
+- [ENHANCEMENT] `{{#cal.days}}` yields the array of weeks as third argument.
+
+## 0.9.6
 - [ENHANCEMENT] Allow `{{cal.days}}` component to receive a `dayClass` property that can be either a string or a function that takes `(day, calendar, weeks)` and returns a string. That string is added as a class to days.
 
 ## 0.9.5

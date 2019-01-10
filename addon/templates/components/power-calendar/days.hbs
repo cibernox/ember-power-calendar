@@ -15,7 +15,7 @@
           onblur={{action 'onBlurDay'}}
           disabled={{day.isDisabled}}>
           {{#if hasBlock}}
-            {{yield day calendar}}
+            {{yield day calendar weeks}}
           {{else}}
             {{day.number}}
           {{/if}}
