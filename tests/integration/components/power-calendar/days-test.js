@@ -120,4 +120,24 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     );
     assert.dom('.ember-power-calendar-days').hasAttribute('data-power-calendar-id', 'foobar', 'The attribute is bound');
   });
+
+  test('it can receive a `dayClass` property containing a string to add classes to days', async function(assert) {
+    assert.expect(1);
+    this.calendar = calendar;
+    await render(hbs`{{power-calendar/days calendar=calendar dayClass="custom-day-class"}}`);
+    assert.dom('.ember-power-calendar-day').hasClass('custom-day-class');
+  });
+
+  test('it can receive a `dayClass` property containing a function to add classes to days', async function (assert) {
+    assert.expect(106);
+    this.classFn = (day, calendar, weeks) => {
+      assert.ok(day.hasOwnProperty('isCurrentMonth'), 'the first argument is a day');
+      assert.ok(calendar.hasOwnProperty('actions'), 'the second argument is the calendar');
+      assert.ok(Array.isArray(weeks), 'the third argument is arr');
+      return 'some-computed-class';
+    }
+    this.calendar = calendar;
+    await render(hbs`{{power-calendar/days calendar=calendar dayClass=classFn}}`);
+    assert.dom('.ember-power-calendar-day').hasClass('some-computed-class');
+  });
 });

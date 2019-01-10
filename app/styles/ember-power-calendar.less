@@ -99,6 +99,7 @@
   @row-padding-left: 0,
   @row-padding-right: 0,
   @row-width: @cell-with-spacing-width * 7 - 2px + @row-padding-left + @row-padding-right,
+  @row-height: @cell-height + 2px,
   @primary-color: #0078c9,
   @nav-button-color: @primary-color,
   @nav-button-color--focus: lighten(@nav-button-color, 10%),
@@ -169,7 +170,7 @@
     height: @cell-height;
   }
   .ember-power-calendar-weekdays, .ember-power-calendar-week {
-    height: @cell-height + 2px;
+    height: @row-height;
     padding-left: @row-padding-left;
     padding-right: @row-padding-right;
   }
