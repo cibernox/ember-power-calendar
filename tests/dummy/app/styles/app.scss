@@ -173,3 +173,65 @@
     color: red;
   }
 }
+
+.custom-day-demo-calendar {
+  @include ember-power-calendar($cell-size: 50px, $cell-with-spacing-width: 50px, $row-height: 50px);
+  .ember-power-calendar-week {
+    justify-content: left;
+  }
+}
+.custom-class-demo-day {
+  $border-left:   inset 1px 0 0 blue;
+  $border-right:  inset -1px 0 0 blue;
+  $border-top:    inset 0 1px 0 blue;
+  $border-bottom: inset 0 -1px 0 blue;
+  transform: translateX(-1px)translateY(-1px);
+  &.ember-power-calendar-day--focused {
+    box-shadow: none;
+  }
+  &.is-horizontal-first-day {
+    box-shadow: $border-left;
+  }
+  &.is-horizontal-last-day {
+    box-shadow: $border-right;
+  }
+  &.is-vertical-first-day {
+    box-shadow: $border-top;
+  }
+  &.is-vertical-last-day {
+    box-shadow: $border-bottom;
+  }
+  &.is-horizontal-first-day.is-horizontal-last-day {
+    box-shadow: $border-left, $border-right;
+  }
+  &.is-vertical-first-day.is-vertical-last-day {
+    box-shadow: $border-top, $border-bottom;
+  }
+  &.is-horizontal-first-day.is-vertical-first-day {
+    box-shadow: $border-left, $border-top;
+  }
+  &.is-horizontal-last-day.is-vertical-first-day {
+    box-shadow: $border-right, $border-top;
+  }
+  &.is-horizontal-last-day.is-vertical-last-day {
+    box-shadow: $border-right, $border-bottom;
+  }
+  &.is-horizontal-first-day.is-vertical-last-day {
+    box-shadow: $border-left, $border-bottom;
+  }
+  &.is-horizontal-first-day.is-horizontal-last-day.is-vertical-first-day {
+    box-shadow: $border-left, $border-right, $border-top;
+  }
+  &.is-horizontal-first-day.is-horizontal-last-day.is-vertical-last-day {
+    box-shadow: $border-left, $border-right, $border-bottom;
+  }
+  &.is-vertical-first-day.is-vertical-last-day.is-horizontal-first-day {
+    box-shadow: $border-top, $border-bottom, $border-left;
+  }
+  &.is-vertical-first-day.is-vertical-last-day.is-horizontal-last-day {
+    box-shadow: $border-top, $border-bottom, $border-right;
+  }
+  &.is-horizontal-first-day.is-horizontal-last-day.is-vertical-first-day.is-vertical-last-day {
+    box-shadow: $border-left, $border-right, $border-top, $border-bottom;
+  }
+}

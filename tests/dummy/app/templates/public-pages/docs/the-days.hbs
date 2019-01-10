@@ -6,6 +6,28 @@
   the content of each day.
 </p>
 
+<h3>Pass a custom class for each day</h3>
+
+<p>
+  You can pass to this component a <code>dayClass</code> argument. If this argument is a string, that
+  string will be added as a class to every rendered day.
+</p>
+
+<p>
+  This on itself is not amazing, but if instead of a string <code>dayClass</code> is a function, it will
+  be invoked for every day, receiving the day object and the calendar. You can then implement any custom
+  logic to add classes to buttons.
+</p>
+
+<p>
+  Using this technique we can create complex things, like a calendar with multiple selection in which
+  the selected days have a <em>"magnetic"</em> border.
+</p>
+
+{{#code-example hbs="the-days-0.hbs" js="the-days-0-js.js" as |partialName|}}
+  {{partial partialName}}
+{{/code-example}}
+
 <h3>Passing a block</h3>
 
 <p>

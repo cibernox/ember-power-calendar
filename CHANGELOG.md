@@ -1,5 +1,7 @@
 ## Master
 
+- [ENHANCEMENT] Allow `{{cal.days}}` component to receive a `dayClass` property that can be either a string or a function that takes `(day, calendar, weeks)` and returns a string. That string is added as a class to days.
+
 ## 0.9.5
 - [ENHANCEMENT] Add `type` to public API. Possible values: "single" | "multiple" | "range"
 - [DOCS] Document public API object.

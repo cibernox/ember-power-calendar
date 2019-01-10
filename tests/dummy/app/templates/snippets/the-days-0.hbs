@@ -1,0 +1,4 @@
+{{#power-calendar-multiple selected=selectedDays onSelect=(action (mut selectedDays) value="date") as |calendar|}}
+  {{calendar.nav}}
+  {{calendar.days class="custom-day-demo-calendar" dayClass=this.customClass}}
+{{/power-calendar-multiple}}
