@@ -1,5 +1,9 @@
 ## Master
 
+## 0.10.0
+- [CHORE] Minimum version of `ember-power-calendar-luxon` has to be 0.1.5 and of `ember-power-calendar-moment` 0.1.4.
+  Some utility functions have been extracted there.
+
 ## 0.9.7
 - [ENHANCEMENT] `{{#cal.days}}` yields the array of weeks as third argument.
 

@@ -12,12 +12,14 @@ import {
   getWeekdaysMin,
   getWeekdaysShort,
   formatDate,
-  isoWeekday,
   isBefore,
   isAfter,
   isSame,
   withLocale,
-  normalizeCalendarDay
+  normalizeCalendarDay,
+  localeStartOfWeek,
+  startOfWeek,
+  endOfWeek
 } from 'ember-power-calendar-utils';
 
 const WEEK_DAYS = [
@@ -60,10 +62,7 @@ export default Component.extend({
     if (forcedStartOfWeek) {
       return parseInt(forcedStartOfWeek, 10);
     }
-    let now = this.get('powerCalendarService').getDate();
-    let day = withLocale(this.get('calendar.locale'), () => formatDate(startOf(now, 'week'), 'dddd'));
-    let idx = this.get('weekdays').indexOf(day);
-    return idx >= 0 ? idx : 0;
+    return localeStartOfWeek(this.get('calendar.locale'));
   }),
 
   weekdaysNames: computed('localeStartOfWeek', 'weekdayFormat', 'calendar.locale', function() {
@@ -244,22 +243,14 @@ export default Component.extend({
 
   firstDay(calendar) {
     let firstDay = startOf(calendar.center, 'month');
-    let localeStartOfWeek = this.get('localeStartOfWeek');
-    while ((isoWeekday(firstDay) % 7) !== localeStartOfWeek) {
-      firstDay = add(firstDay, -1, "day");
-    }
-    return firstDay;
+    return startOfWeek(firstDay, this.get('localeStartOfWeek'));
   },
 
   lastDay(calendar) {
     let localeStartOfWeek = this.get('localeStartOfWeek');
     assert("The center of the calendar is an invalid date.", !isNaN(calendar.center.getTime()));
     let lastDay = endOf(calendar.center, 'month')
-    let localeEndOfWeek = (localeStartOfWeek + 6) % 7;
-    while (isoWeekday(lastDay) % 7 !== localeEndOfWeek) {
-      lastDay = add(lastDay, 1, 'day');
-    }
-    return lastDay;
+    return endOfWeek(lastDay, localeStartOfWeek);
   },
 
   _updateFocused(id) {
@@ -287,3 +278,4 @@ export default Component.extend({
     }
   }
 });
+
