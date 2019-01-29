@@ -3,5 +3,7 @@ import layout from '../../templates/components/power-calendar/nav';
 
 export default Component.extend({
   layout,
-  tagName: ''
+  tagName: '',
+  unit: 'month',
+  format: 'MMMM YYYY'
 });

@@ -1,6 +1,6 @@
 import { module, test } from "qunit";
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../../assertions';
 import { run } from '@ember/runloop';
@@ -19,6 +19,7 @@ module('Integration | Component | power-calendar/nav', function(hooks) {
       center: calendarService.getDate(),
       locale: 'en',
       actions: {
+        changeCenter: () => {},
         moveCenter: () => {},
         select: () => {}
       }
@@ -36,5 +37,40 @@ module('Integration | Component | power-calendar/nav', function(hooks) {
     assert.dom('.ember-power-calendar-nav-title').hasText('October 2013');
     run(() => this.set('calendar.locale', 'es'));
     assert.dom('.ember-power-calendar-nav-title').hasText('octubre 2013');
+  });
+
+  test('it can changes the date format', async function(assert) {
+    assert.expect(1);
+    this.calendar = calendar;
+    await render(hbs`{{power-calendar/nav calendar=calendar format="YYYY"}}`);
+    assert.dom('.ember-power-calendar-nav-title').hasText('2013');
+  });
+
+  test('it uses unit=month by default', async function(assert) {
+    assert.expect(1);
+    this.calendar = calendar;
+    const moved = [];
+    this.calendar.actions.moveCenter = (step, unit) => {
+      moved.push({ step, unit });
+    };
+    await render(hbs`{{power-calendar/nav calendar=calendar}}`);
+    await click('.ember-power-calendar-nav-control--previous');
+    await click('.ember-power-calendar-nav-control--next');
+
+    assert.deepEqual([ { step: -1, unit: 'month' }, { step: 1, unit: 'month' } ], moved);
+  });
+
+  test('it can changes the unit', async function(assert) {
+    assert.expect(1);
+    this.calendar = calendar;
+    const moved = [];
+    this.calendar.actions.moveCenter = (step, unit) => {
+      moved.push({ step, unit });
+    };
+    await render(hbs`{{power-calendar/nav calendar=calendar unit="year"}}`);
+    await click('.ember-power-calendar-nav-control--previous');
+    await click('.ember-power-calendar-nav-control--next');
+
+    assert.deepEqual([ { step: -1, unit: 'year' }, { step: 1, unit: 'year' } ], moved);
   });
 });
