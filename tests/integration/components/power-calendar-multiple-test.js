@@ -95,6 +95,29 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-09"]').hasClass('ember-power-calendar-day--selected');
   });
 
+  test('When an array of day objects are passed to the select action they are processed one at a time and added to the selected list passed to the user', async function(assert) {
+    this.datesToSelect = [
+      new Date(2013, 9, 5),
+      new Date(2013, 9, 15),
+      new Date(2013, 9, 9),
+      new Date(2013, 9, 15)
+    ].map(date => ({ date }));
+
+    this.didChange = days => {
+      assert.equal(days.date.length, 2);
+      assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
+      assert.ok(isSame(days.date[1], new Date(2013, 9, 9), 'day'));
+    };
+
+    await render(hbs`
+      {{#power-calendar-multiple selected=selected onSelect=(action didChange) as |calendar|}}
+        <button onclick={{action calendar.actions.select datesToSelect}} id="test_button"></button>
+      {{/power-calendar-multiple}}
+    `);
+
+    await click('#test_button');
+  });
+
   test('Clicking on a day selects it, and clicking again on it unselects it', async function(assert) {
     assert.expect(13);
     await render(hbs`
