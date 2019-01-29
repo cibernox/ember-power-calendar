@@ -5,6 +5,7 @@ import {
   isSame,
   normalizeMultipleActionValue
 } from 'ember-power-calendar-utils';
+import { assert } from '@ember/debug';
 
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-multiple/days',
@@ -29,30 +30,38 @@ export default CalendarComponent.extend({
 
   // Actions
   actions: {
-    select(day, calendar, e) {
+    select(dayOrDays, calendar, e) {
       let action = this.get("onSelect");
+      let days;
+      console.log(dayOrDays)
+
+      if (Array.isArray(dayOrDays)) {
+        days = dayOrDays;
+      } else if (dayOrDays instanceof Object && dayOrDays.date instanceof Date) {
+        days = [dayOrDays];
+      } else {
+        assert(`The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`);
+      }
+
       if (action) {
-        action(this._buildCollection(day), calendar, e);
+        action(this._buildCollection(days), calendar, e);
       }
     }
   },
 
   // Methods
-  _buildCollection(day) {
+  _buildCollection(days) {
     let selected = this.get("publicAPI.selected") || [];
-    let values = [];
-    let index = -1;
-    for (let i = 0; i < selected.length; i++) {
-      if (isSame(day.date, selected[i], "day")) {
-        index = i;
-        break;
+
+    for (const day of days) {
+      let index = selected.findIndex(selectedDate => isSame(day.date, selectedDate, "day"));
+      if (index === -1) {
+        selected = [...selected, day.date];
+      } else {
+        selected = selected.slice(0, index).concat(selected.slice(index + 1));
       }
     }
-    if (index === -1) {
-      values = [...selected, day.date];
-    } else {
-      values = selected.slice(0, index).concat(selected.slice(index + 1));
-    }
-    return normalizeMultipleActionValue({ date: values });
+
+    return normalizeMultipleActionValue({ date: selected });
   }
 });
