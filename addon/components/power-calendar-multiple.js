@@ -33,7 +33,6 @@ export default CalendarComponent.extend({
     select(dayOrDays, calendar, e) {
       let action = this.get("onSelect");
       let days;
-      console.log(dayOrDays)
 
       if (Array.isArray(dayOrDays)) {
         days = dayOrDays;
