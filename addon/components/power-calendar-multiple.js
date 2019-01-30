@@ -31,6 +31,11 @@ export default CalendarComponent.extend({
   // Actions
   actions: {
     select(dayOrDays, calendar, e) {
+      assert(
+        `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`, 
+        Array.isArray(dayOrDays) || dayOrDays instanceof Object && dayOrDays.date instanceof Date
+      );
+
       let action = this.get("onSelect");
       let days;
 
@@ -38,8 +43,6 @@ export default CalendarComponent.extend({
         days = dayOrDays;
       } else if (dayOrDays instanceof Object && dayOrDays.date instanceof Date) {
         days = [dayOrDays];
-      } else {
-        assert(`The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`);
       }
 
       if (action) {
