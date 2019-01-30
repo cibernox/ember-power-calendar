@@ -48,20 +48,20 @@ module('Integration | Component | power calendar multiple', function(hooks) {
       callsCount++;
       if (callsCount === 1) {
         assert.equal(days.date.length, 1);
-        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
+        assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
       } else if (callsCount === 2) {
         assert.equal(days.date.length, 2);
-        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
-        assert.ok(isSame(days.date[1], new Date('2013-10-15'), 'day'));
+        assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
+        assert.ok(isSame(days.date[1], new Date(2013, 9, 15), 'day'));
       } else if (callsCount === 3) {
         assert.equal(days.date.length, 3);
-        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
-        assert.ok(isSame(days.date[1], new Date('2013-10-15'), 'day'));
-        assert.ok(isSame(days.date[2], new Date('2013-10-09'), 'day'));
+        assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
+        assert.ok(isSame(days.date[1], new Date(2013, 9, 15), 'day'));
+        assert.ok(isSame(days.date[2], new Date(2013, 9, 9), 'day'));
       } else {
         assert.equal(days.date.length, 2);
-        assert.ok(isSame(days.date[0], new Date('2013-10-05'), 'day'));
-        assert.ok(isSame(days.date[1], new Date('2013-10-09'), 'day'));
+        assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
+        assert.ok(isSame(days.date[1], new Date(2013, 9, 9), 'day'));
       }
       assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
       assert.ok(e instanceof Event, 'The third argument is an event');
@@ -93,6 +93,29 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-15"]').hasNoClass('ember-power-calendar-day--selected');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-09"]').hasClass('ember-power-calendar-day--selected');
+  });
+
+  test('When an array of day objects are passed to the select action they are processed one at a time and added to the selected list passed to the user', async function(assert) {
+    this.datesToSelect = [
+      new Date(2013, 9, 5),
+      new Date(2013, 9, 15),
+      new Date(2013, 9, 9),
+      new Date(2013, 9, 15)
+    ].map(date => ({ date }));
+
+    this.didChange = days => {
+      assert.equal(days.date.length, 2);
+      assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
+      assert.ok(isSame(days.date[1], new Date(2013, 9, 9), 'day'));
+    };
+
+    await render(hbs`
+      {{#power-calendar-multiple selected=selected onSelect=(action didChange) as |calendar|}}
+        <button onclick={{action calendar.actions.select datesToSelect}} id="test_button"></button>
+      {{/power-calendar-multiple}}
+    `);
+
+    await click('#test_button');
   });
 
   test('Clicking on a day selects it, and clicking again on it unselects it', async function(assert) {
