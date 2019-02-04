@@ -6,6 +6,7 @@ import {
   normalizeMultipleActionValue
 } from 'ember-power-calendar-utils';
 import { assert } from '@ember/debug';
+import { isArray } from '@ember/array';
 
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-multiple/days',
@@ -17,7 +18,7 @@ export default CalendarComponent.extend({
       return undefined;
     },
     set(_, v) {
-      return Array.isArray(v) ? v.map(normalizeDate) : v;
+      return isArray(v) ? v.map(normalizeDate) : v;
     }
   }),
   currentCenter: computed('center', function() {
@@ -33,13 +34,13 @@ export default CalendarComponent.extend({
     select(dayOrDays, calendar, e) {
       assert(
         `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`, 
-        Array.isArray(dayOrDays) || dayOrDays instanceof Object && dayOrDays.date instanceof Date
+        isArray(dayOrDays) || dayOrDays instanceof Object && dayOrDays.date instanceof Date
       );
 
       let action = this.get("onSelect");
       let days;
 
-      if (Array.isArray(dayOrDays)) {
+      if (isArray(dayOrDays)) {
         days = dayOrDays;
       } else if (dayOrDays instanceof Object && dayOrDays.date instanceof Date) {
         days = [dayOrDays];
@@ -55,7 +56,7 @@ export default CalendarComponent.extend({
   _buildCollection(days) {
     let selected = this.get("publicAPI.selected") || [];
 
-    for (const day of days) {
+    for (let day of days) {
       let index = selected.findIndex(selectedDate => isSame(day.date, selectedDate, "day"));
       if (index === -1) {
         selected = [...selected, day.date];
