@@ -10,6 +10,7 @@ import {
   isBefore,
   normalizeDuration
 } from 'ember-power-calendar-utils';
+import { assert } from '@ember/debug';
 
 export default CalendarComponent.extend({
   daysComponent: 'power-calendar-range/days',
@@ -66,8 +67,19 @@ export default CalendarComponent.extend({
 
   // Actions
   actions: {
-    select(day, calendar, e) {
-      let range = this._buildRange(day);
+    select({ date }, calendar, e) {
+      assert(
+        'date must be either a Date, or a Range', 
+        date && (date.hasOwnProperty('start') || date.hasOwnProperty('end') || date instanceof Date)
+      );
+
+      let range;
+      if (date && (date.hasOwnProperty('start') || date.hasOwnProperty('end'))) {
+        range = { date };
+      } else {
+        range = this._buildRange({ date });
+      }
+
       let { start, end } = range.date;
       if (start && end) {
         let { minRange, maxRange } = this.get('publicAPI');
@@ -76,6 +88,7 @@ export default CalendarComponent.extend({
           return;
         }
       }
+
       let action = this.get('onSelect');
       if (action) {
         action(range, calendar, e);

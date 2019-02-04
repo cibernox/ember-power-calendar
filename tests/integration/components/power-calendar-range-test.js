@@ -4,6 +4,7 @@ import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run } from '@ember/runloop';
+import { isSame } from 'ember-power-calendar-utils';
 
 module('Integration | Component | power calendar range', function(hooks) {
   setupRenderingTest(hooks);
@@ -94,6 +95,49 @@ module('Integration | Component | power calendar range', function(hooks) {
       && this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-14"]').classList.contains('ember-power-calendar-day--selected');
     assert.ok(allDaysInBetweenAreSelected, 'All days in between are also selected');
     assert.equal(numberOfCalls, 2, 'The onSelect action was called twice');
+  });
+
+  test('When an range date object is passed, the range selection behavior is skipped', async function(assert) {
+    assert.expect(4);
+    this.rangeToSelect = { date: { start: undefined, end: undefined } };
+    this.selected = { date: { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) } };
+
+    this.didChange = range => {
+      assert.ok(
+        range && range.date && range.date.hasOwnProperty('start') && range.date.hasOwnProperty('end'),
+        'range selected has a start and end prop'
+      );
+      assert.ok(
+        range && range.date && range.date.start === undefined && range.date.end === undefined,
+        'selected range has undefined start and end date'
+      );
+    };
+
+    await render(hbs`
+      {{#power-calendar-range selected=selected onSelect=(action didChange) as |calendar|}}
+        <button onclick={{action calendar.actions.select rangeToSelect}} id="test_button"></button>
+      {{/power-calendar-range}}
+    `);
+    await click('#test_button');
+
+
+    this.set('rangeToSelect', { date: { start: new Date(2013, 9, 15), end: new Date(2013, 9, 20) } });
+    this.set('selected', { date: { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) } });
+
+    this.set('didChange', range => {
+      assert.ok(
+        range && range.date && range.date.hasOwnProperty('start') && range.date.hasOwnProperty('end'),
+        'range selected has a start and end prop'
+      );
+      assert.ok(
+        range
+        && range.date
+        && isSame(range.date.start, this.rangeToSelect.date.start, 'day')
+        && isSame(range.date.end, this.rangeToSelect.date.end, 'day'),
+        'selected range matches range to select passed to select action.'
+      );
+    });
+    await click('#test_button');
   });
 
   test('In range calendars, clicking first the end of the range and then the start is not a problem', async function(assert) {
