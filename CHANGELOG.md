@@ -1,5 +1,10 @@
 ## Master
 
+## 0.10.3
+- [ENHANCEMENT] Allow range calendar's `actions.select` to take an range. It used to only
+  allow a single day from which it constructed a the range. This hasn't change, but now if it receives
+  a range it it will use that range it will use as is.
+
 ## 0.10.2
 - [ENHANCEMENT] Allow pass a `@unit` and `@format` to the `calendar.nav` component, which used to be
   hardcoded values (`'month'` and `'MMMM YYYY'` respetively).
