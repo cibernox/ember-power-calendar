@@ -101,7 +101,6 @@ module('Integration | Component | power calendar range', function(hooks) {
     assert.expect(4);
     this.rangeToSelect = { date: { start: undefined, end: undefined } };
     this.selected = { date: { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) } };
-
     this.didChange = range => {
       assert.ok(
         range && range.date && range.date.hasOwnProperty('start') && range.date.hasOwnProperty('end'),
@@ -123,7 +122,6 @@ module('Integration | Component | power calendar range', function(hooks) {
 
     this.set('rangeToSelect', { date: { start: new Date(2013, 9, 15), end: new Date(2013, 9, 20) } });
     this.set('selected', { date: { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) } });
-
     this.set('didChange', range => {
       assert.ok(
         range && range.date && range.date.hasOwnProperty('start') && range.date.hasOwnProperty('end'),
