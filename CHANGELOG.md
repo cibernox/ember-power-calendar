@@ -1,5 +1,14 @@
 ## Master
 
+## 0.10.2
+- [ENHANCEMENT] Allow pass a `@unit` and `@format` to the `calendar.nav` component, which used to be
+  hardcoded values (`'month'` and `'MMMM YYYY'` respetively).
+
+## 0.10.1
+- [ENHANCEMENT] Allow multiple calendar's `actions.select` to take an array of days. It used to only
+  allow a single day from which it constructed a new list. This hasn't change, but now if it receives
+  a list it it will use that list as the final set of values.
+
 ## 0.10.0
 - [CHORE] Minimum version of `ember-power-calendar-luxon` has to be 0.1.5 and of `ember-power-calendar-moment` 0.1.4.
   Some utility functions have been extracted there.
