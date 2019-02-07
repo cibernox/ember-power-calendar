@@ -1,0 +1,35 @@
+.multiple-month-power-calendar-horizontal {
+  @include ember-power-calendar($cell-size: 46px);
+
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  .ember-power-calendar-nav-title {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+
+    .month-name {
+      flex-grow: 1;
+      width: calc(50% - 0.5rem);
+
+      &:first-child {
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  .months-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    .ember-power-calendar-days {
+      width: calc(50% - 0.5rem);
+    }
+  }
+}

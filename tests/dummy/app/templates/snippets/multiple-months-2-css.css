@@ -1,0 +1,12 @@
+.multiple-month-power-calendar-vertical {
+  height: 500px;
+  overflow-y: scroll;
+
+  .months-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
