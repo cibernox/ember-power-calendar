@@ -30,6 +30,7 @@ Router.map(function() {
     this.route('cookbook', function() {
       this.route('datepicker');
       this.route('nav-select');
+      this.route('multiple-months');
     });
 
     this.route('addons', function() {

@@ -1,0 +1,26 @@
+{{#power-calendar-range
+  class='multiple-month-power-calendar-horizontal'
+  center=center
+  selected=selected
+  onCenterChange=(action (mut center) value="date")
+  onSelect=(action (mut selected) value="date")
+  as |calendar|
+}}
+  {{#calendar.nav}}
+    <div class='month-name'>
+      {{power-calendar-format-date calendar.center 'MMMM' locale=calendar.locale}}
+    </div>
+    <div class='month-name'>
+      {{power-calendar-format-date nextMonthsCenter 'MMMM' locale=calendar.locale}}
+    </div>
+  {{/calendar.nav}}
+
+
+  <div class='months-container'>
+    {{calendar.days}}
+
+    {{calendar.days
+      center=nextMonthsCenter
+    }}
+  </div>
+{{/power-calendar-range}}

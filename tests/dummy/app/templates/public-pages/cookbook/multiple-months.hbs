@@ -1,0 +1,35 @@
+<h1 class="doc-page-title">Display Multiple Months</h1>
+
+<p>
+  You might want to display multiple months simultaneously.  Displaying multiple months is a nice especially when you might want people to select dates across month boundaries.
+</p>
+
+<p>
+  We are in luck!  Versions of Ember Power Calendar greater than 0.11.0 can support this with a few little twix.
+</p>
+
+{{#code-example js="multiple-months-1-js.js" hbs="multiple-months-1.hbs" css="multiple-months-1-css.css" as |partialName|}}
+  {{partial partialName}}
+{{/code-example}}
+
+<p>
+  How? Well. In versions of ember-power-calendar greater than 0.11.0 we can pass a <code>center</code> property to the <code>calendar.days</code> component. This center property must be a valid date.
+  As long as you use the <code>ember-power-calendar-range</code> component, months will render with the correct center and everything still works!
+  If you want the months to be changeable you will need to wire that up yourself similar to how we demonstate above. You might need to bust out some fancy styling, but we are web developers... are we not?
+</p>
+
+<p>
+  Another nice pattern for mobile is to render all 12 months vertically and let the user scroll them.
+</p>
+
+{{#code-example js="multiple-months-2-js.js"  hbs="multiple-months-2.hbs" css="multiple-months-2-css.css" as |partialName|}}
+  {{partial partialName}}
+{{/code-example}}
+
+<p>
+  In this example, we create an array of all the month centers and loop over them. A little dash of CSS to align them correct. Easy peasy lemon-squeezy.
+</p>
+
+<div class="doc-page-nav">
+  <a href={{href-to 'public-pages.cookbook.nav-select'}} class="doc-page-nav-link-prev">&lt; Nav with select</a>
+</div>
