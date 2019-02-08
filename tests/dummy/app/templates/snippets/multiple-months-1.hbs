@@ -17,10 +17,8 @@
 
 
   <div class='months-container'>
-    {{calendar.days}}
+    {{calendar.days showDaysAround=false}}
 
-    {{calendar.days
-      center=nextMonthsCenter
-    }}
+    {{calendar.days center=nextMonthsCenter showDaysAround=false}}
   </div>
 {{/power-calendar-range}}

@@ -10,9 +10,7 @@
         {{power-calendar-format-date month 'MMMM' locale=calendar.locale}}
       {{/calendar.nav}}
 
-      {{calendar.days
-        center=month
-      }}
+      {{calendar.days center=month showDaysAround=false}}
     {{/each}}
   </div>
 {{/power-calendar-range}}
