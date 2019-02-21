@@ -497,9 +497,9 @@ module('Integration | Component | Power Calendar', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-16"]').isNotDisabled('Days after the minDate are selectable');
 
     run(() => this.set('minDate', new Date(2013, 9, 18)));
-    assert.dom('.ember-power-calendar-day[data-date="2013-10-14"]').isDisabled('Days before the minDate are disabled');
-    assert.dom('.ember-power-calendar-day[data-date="2013-10-17"]').isDisabled('The minDate is selectable');
-    assert.dom('.ember-power-calendar-day[data-date="2013-10-18"]').isNotDisabled('Days after the minDate are selectable');
+    assert.dom('.ember-power-calendar-day[data-date="2013-10-17"]').isDisabled('Days before the minDate are disabled');
+    assert.dom('.ember-power-calendar-day[data-date="2013-10-18"]').isNotDisabled('The minDate is selectable');
+    assert.dom('.ember-power-calendar-day[data-date="2013-10-19"]').isNotDisabled('Days after the minDate are selectable');
   });
 
   test('If the user passes `maxDate=someDate` to single calendars, days after that one cannot be selected, but that day and those days before can', async function(assert) {
