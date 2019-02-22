@@ -6,10 +6,14 @@
 </p>
 
 <p>
-  If you develop an addon that builds on top of Ember Power Calendar, there is two things you should do:
+  If you develop an addon that builds on top of Ember Power Calendar, there are three things you should do:
 </p>
 
 <ol>
+   <li>
+    Remember to list it as a `dependency`, not a `devDependency` in your addon's `package.json`. Otherwise,
+    apps will not be able to find any of the components.
+  </li>
   <li>
     Add <code>"ember-power-calendar-addon"</code> to the keywords section of your <em>package.json</em> so I can scan the
     npm registry and find them.
