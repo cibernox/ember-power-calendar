@@ -55,7 +55,7 @@ module('Integration | Component | power calendar range', function(hooks) {
         assert.notOk(range.date.end, 'The end is not present');
       } else {
         assert.ok(range.date.start, 'The start is present');
-        assert.ok(range.date.end, 'The start is also present');
+        assert.ok(range.date.end, 'The end is also present');
       }
       this.set('selected', range.date);
       assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
@@ -148,7 +148,7 @@ module('Integration | Component | power calendar range', function(hooks) {
         assert.notOk(range.date.end, 'The end is not present');
       } else {
         assert.ok(range.date.start, 'The start is present');
-        assert.ok(range.date.end, 'The start is also present');
+        assert.ok(range.date.end, 'The end is also present');
       }
       this.set('selected', range.date);
       assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
