@@ -87,7 +87,7 @@ module('Integration | Component | power calendar range', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass('ember-power-calendar-day--selected', 'The clicked date is selected');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-15"]').hasClass(
       'ember-power-calendar-day--range-end',
-      'The clicked date is the start of the range'
+      'The clicked date is the end of the range'
     );
     let allDaysInBetweenAreSelected = this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-11"]').classList.contains('ember-power-calendar-day--selected')
       && this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-12"]').classList.contains('ember-power-calendar-day--selected')
