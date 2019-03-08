@@ -1,6 +1,6 @@
 {
   "name": "ember-power-calendar",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Powerful and customizable calendar component for Ember",
   "scripts": {
     "build": "ember build",
