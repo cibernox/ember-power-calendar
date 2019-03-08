@@ -33,36 +33,6 @@ const WEEK_DAYS = [
   'Sun'
 ];
 
-function elementMatches(element, selector) {
-  let methodAliases = ['matches', 'msMatchesSelector'];
-
-  for (let method of methodAliases) {
-    if (typeof element[method] === 'function') {
-      return element[method](selector);
-    }
-  }
-
-  assert('Browser does not support Element.matches() or one of it\'s aliases');
-}
-
-function closestElement(targetElement, selector) {
-  if (typeof targetElement.closest === 'function') {
-    return targetElement.closest(selector);
-  }
-
-  // This is based on polyfill suggested by Mozilla Developer Network:
-  // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest#Polyfill
-  let element = targetElement;
-  do {
-    if (elementMatches(element, selector)) {
-      return element;
-    }
-    element = element.parentElement || element.parentNode;
-  } while (element !== null && element.nodeType === 1);
-
-  return null;
-}
-
 export default Component.extend({
   layout,
   focusedId: null,
@@ -306,7 +276,7 @@ export default Component.extend({
   },
 
   _handleDayClick(e) {
-    let dayEl = closestElement(e.target, '[data-date]');
+    let dayEl = e.target.closest('[data-date]');
     if (dayEl) {
       let dateStr = dayEl.dataset.date;
       let day = this.get('days').find(d => d.id === dateStr);
