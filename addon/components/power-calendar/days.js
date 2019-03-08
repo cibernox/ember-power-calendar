@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 import { inject } from '@ember/service';
-import { A } from '@ember/array';
 import { assert } from '@ember/debug';
 import layout from '../../templates/components/power-calendar/days';
 import {
@@ -310,7 +309,7 @@ export default Component.extend({
     let dayEl = closestElement(e.target, '[data-date]');
     if (dayEl) {
       let dateStr = dayEl.dataset.date;
-      let day = A(this.get('days')).find(d => d.id === dateStr);
+      let day = this.get('days').find(d => d.id === dateStr);
       if (day) {
         let calendar = this.get('calendar');
         if (calendar.actions.select) {
