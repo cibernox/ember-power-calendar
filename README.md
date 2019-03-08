@@ -11,6 +11,8 @@ the next weeks. Use it with caution!
 
 `ember install ember-power-calendar`
 
+IE 11 support requires babel polyfill.
+
 ## Usage
 
 There are many possible ways to use it, for giving you just a taste of the API:
