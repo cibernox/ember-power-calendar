@@ -11,6 +11,18 @@ the next weeks. Use it with caution!
 
 `ember install ember-power-calendar`
 
+Internet Explorer 11 support requires babel polyfill:
+
+```js
+// ember-cli-build.js
+
+let app = new EmberAddon(defaults, {
+  'ember-cli-babel': {
+    includePolyfill: true
+  }
+});
+```
+
 ## Usage
 
 There are many possible ways to use it, for giving you just a taste of the API:
