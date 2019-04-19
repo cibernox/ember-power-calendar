@@ -512,12 +512,12 @@ module('Integration | Component | Power Calendar', function(hooks) {
       {{/power-calendar}}
     `);
 
-    assert.dom('.ember-power-calendar-day[data-date="2013-10-14"]').isNotDisabled('Days before the minDate are selectable');
+    assert.dom('.ember-power-calendar-day[data-date="2013-10-14"]').isNotDisabled('Days before the maxDate are selectable');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-15"]').isNotDisabled('The maxDate is selectable');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-16"]').isDisabled('Days after the maxDate are disabled');
 
     run(() => this.set('maxDate', new Date(2013, 9, 18)));
-    assert.dom('.ember-power-calendar-day[data-date="2013-10-14"]').isNotDisabled('Days before the minDate are selectable');
+    assert.dom('.ember-power-calendar-day[data-date="2013-10-17"]').isNotDisabled('Days before the maxDate are selectable');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-18"]').isNotDisabled('The maxDate is selectable');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-19"]').isDisabled('Days after the maxDate are disabled');
   });
@@ -547,7 +547,7 @@ module('Integration | Component | Power Calendar', function(hooks) {
       {{/power-calendar-range}}
     `);
 
-    assert.dom('.ember-power-calendar-day[data-date="2013-10-14"]').isNotDisabled('Days before the minDate are selectable');
+    assert.dom('.ember-power-calendar-day[data-date="2013-10-14"]').isNotDisabled('Days before the maxDate are selectable');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-15"]').isNotDisabled('The maxDate is selectable');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-16"]').isDisabled('Days after the maxDate are disabled');
   });
