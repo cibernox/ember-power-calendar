@@ -14,7 +14,7 @@ module.exports = {
 
     const hasMetaAddon = addons => {
       for (let addonName in addons) {
-        if (addons[addonName].pkg.keywords.indexOf('ember-power-calendar-adapter')) {
+        if (addons[addonName].pkg.keywords.indexOf('ember-power-calendar-adapter') > -1) {
           return true;
         }
       }
