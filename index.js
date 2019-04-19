@@ -13,12 +13,20 @@ module.exports = {
     const parentAddons = this.parent.addonPackages;
 
     const hasMetaAddon = addons => {
+      for (let addonName in addons) {
+        if (addons[addonName].pkg.keywords.indexOf('ember-power-calendar-adapter')) {
+          return true;
+        }
+      }
+      // The above check works for ember-power-calendar-moment 0.1.7+ and for
+      // ember-power-calendar-luxon 0.1.8+, but in case someone has an older version I keep this
+      // whitelist.
       return Object.hasOwnProperty.call(addons, 'ember-power-calendar-moment') ||
         Object.hasOwnProperty.call(addons, 'ember-power-calendar-luxon');
     }
 
     if (!hasMetaAddon(hostAppAddons) && !hasMetaAddon(parentAddons)) {
-      throw new Error(`You have installed "ember-power-calendar" but you don't have any of the required meta-addons to make it work. Please, explicitly install 'ember-power-calendar-moment' or 'ember-power-calendar-luxon' in your app`);
+      throw new Error(`You have installed "ember-power-calendar" but you don't have any of the required meta-addons to make it work, like 'ember-power-calendar-moment' or 'ember-power-calendar-luxon'`);
     }
   }
 };

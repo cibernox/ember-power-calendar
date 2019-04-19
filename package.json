@@ -43,7 +43,7 @@
     "ember-href-to": "^2.0.1",
     "ember-load-initializers": "^2.0.0",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-power-calendar-moment": "^0.1.4",
+    "ember-power-calendar-moment": "^0.1.7",
     "ember-power-select": "^2.2.1",
     "ember-resolver": "^5.0.1",
     "ember-source": "~3.6.1",
