@@ -1,5 +1,9 @@
 ## Master
 
+## 0.13.0
+- [ENHANCEMENT] Detect EPC-adapters (like ember-power-calendar-luxon and ember-power-calendar-moment)
+  not using a whitelist, but looking for a specific keyword in their package.json
+
 ## 0.12.0
 - [ENHANCEMENT] Update ember-concurrency to 0.9 for better octane support
 
