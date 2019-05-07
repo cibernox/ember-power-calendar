@@ -77,7 +77,7 @@ export default CalendarComponent.extend({
       if (date && (date.hasOwnProperty('start') || date.hasOwnProperty('end'))) {
         range = { date };
       } else {
-        range = this._buildRange({ date });
+        range = this._buildRange({ date }, e);
       }
 
       let { start, end } = range.date;
@@ -97,11 +97,11 @@ export default CalendarComponent.extend({
   },
 
   // Methods
-  _buildRange(day) {
+  _buildRange(day, e) {
     let selected = this.get('publicAPI.selected') || { start: null, end: null };
     let { start, end } = getProperties(selected, 'start', 'end');
 
-    if (this.get('proximitySelection')) {
+    if (this.get('proximitySelection') || (e && e.shiftKey)) {
       return this._buildRangeByProximity(day, start, end);
     }
 
