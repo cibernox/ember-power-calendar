@@ -102,7 +102,7 @@
   @row-height: @cell-height + 2px,
   @primary-color: #0078c9,
   @nav-button-color: @primary-color,
-  @nav-button-color--focus: lighten(@nav-button-color, 10%),
+  @nav-button-color--focus: lighten(@nav-button-color, 20%),
   @day-default-text-color: #bbb,
   @day-current-month-color: #F5F7FA,
   @day-weekday-text-color: #333333,
@@ -183,7 +183,7 @@
   .ember-power-calendar-nav-control {
     color: @nav-button-color;
     &:focus {
-      color: lighten(@nav-button-color--focus, 10%);
+      color: @nav-button-color--focus;
     }
   }
   .ember-power-calendar-day--current-month {
