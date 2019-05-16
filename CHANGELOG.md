@@ -1,5 +1,8 @@
 ## Master
 
+## 0.13.2
+- [BUGFIX] Make use of `$nav-button-color--focus`, which before wasn't really being used as intended. This makes it customizable.
+
 ## 0.13.1
 - [BUGFIX] Fix bug detecting keyword in package.json
 
