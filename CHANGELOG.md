@@ -1,5 +1,8 @@
 ## Master
 
+## 0.13.3
+- [CHORE] Allow ember-concurrency 1.0
+
 ## 0.13.2
 - [BUGFIX] Make use of `$nav-button-color--focus`, which before wasn't really being used as intended. This makes it customizable.
 
