@@ -1,8 +1,16 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click, focus, triggerKeyEvent } from "ember-test-helpers";
+import {
+  render,
+  click,
+  focus,
+  triggerKeyEvent
+} from "ember-test-helpers";
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../assertions';
+import {
+  assertionInjector,
+  assertionCleanup
+} from '../../assertions';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
 import require from 'require';

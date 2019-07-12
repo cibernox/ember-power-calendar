@@ -1,3 +1,4 @@
+import { oneWay } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
@@ -45,7 +46,7 @@ export default Component.extend({
   ],
 
   // CPs
-  'data-power-calendar-id': computed.oneWay('calendar.uniqueId'),
+  'data-power-calendar-id': oneWay('calendar.uniqueId'),
   weekdaysMin: computed('calendar.locale', function() {
     return withLocale(this.get("calendar.locale"), getWeekdaysMin);
   }),
