@@ -308,10 +308,10 @@ module('Integration | Component | power calendar range', function(hooks) {
       range = r;
     };
     await render(hbs`
-      {{#power-calendar-range selected=selected onSelect=didSelect minRange=2 as |cal|}}
-        <button id="select-invalid-range-end" onclick={{action cal.actions.select invalidDay}}>Select invalid date</button>
-        <button id="select-valid-range-end" onclick={{action cal.actions.select validDay}}>Select valid date</button>
-      {{/power-calendar-range}}
+      <PowerCalendarRange @selected={{selected}} @onSelect={{didSelect}} @minRange={{2}} as |cal|>
+        <button id="select-invalid-range-end" {{on "click" (fn cal.actions.select invalidDay)}}>Select invalid date</button>
+        <button id="select-valid-range-end" {{on "click" (fn cal.actions.select validDay)}}>Select valid date</button>
+      </PowerCalendarRange>
     `);
     await click('#select-invalid-range-end');
     assert.equal(range, undefined, 'The actions has not been called');
@@ -332,7 +332,7 @@ module('Integration | Component | power calendar range', function(hooks) {
         <button id="select-valid-range-end" {{on "click" (fn cal.actions.select validDay)}}>Select valid date</button>
       </PowerCalendarRange>
     `);
-    await click('#select- invalid-range-end');
+    await click('#select-invalid-range-end');
     assert.equal(range, undefined, 'The actions has not been called');
     await click('#select-valid-range-end');
     assert.notEqual(range, undefined, 'The actions has been called now');
