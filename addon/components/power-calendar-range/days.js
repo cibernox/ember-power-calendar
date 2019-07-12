@@ -2,10 +2,10 @@ import { getProperties } from '@ember/object';
 import DaysComponent from '../power-calendar/days';
 import { isBetween, isSame, diff } from 'ember-power-calendar-utils';
 
-export default DaysComponent.extend({
+export default class extends DaysComponent {
   // Methods
   buildDay(date, today, calendar) {
-    let day = this._super(...arguments);
+    let day = super.buildDay(...arguments);
     let { start, end } = getProperties(calendar.selected || { start: null, end: null }, 'start', 'end');
     if (start && end) {
       day.isSelected = isBetween(date, start, end, 'day', '[]');
@@ -25,9 +25,9 @@ export default DaysComponent.extend({
       }
     }
     return day;
-  },
+  }
 
   dayIsSelected() {
     return false;
   }
-});
+}

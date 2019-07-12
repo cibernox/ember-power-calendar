@@ -2,16 +2,17 @@ import Service from '@ember/service';
 import { computed } from '@ember/object';
 import { getDefaultLocale } from 'ember-power-calendar-utils';
 
-export default Service.extend({
-  date: null,
+export default class extends Service {
+  date = null
 
   // CPs
-  locale: computed(function() {
+  @computed
+  get locale() {
     return getDefaultLocale();
-  }),
+  }
 
   // Methods
   getDate() {
-    return this.get("date") || new Date();
+    return this.date || new Date();
   }
-});
+}

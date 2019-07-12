@@ -1,4 +1,4 @@
-import { computed, getProperties } from '@ember/object';
+import { computed, action, getProperties } from '@ember/object';
 import { assign } from '@ember/polyfills';
 import CalendarComponent from './power-calendar';
 import fallbackIfUndefined from '../utils/computed-fallback-if-undefined';
@@ -12,89 +12,88 @@ import {
 } from 'ember-power-calendar-utils';
 import { assert } from '@ember/debug';
 
-export default CalendarComponent.extend({
-  daysComponent: 'power-calendar-range/days',
-  _calendarType: 'range',
-  proximitySelection: fallbackIfUndefined(false),
+export default class extends CalendarComponent {
+  @fallbackIfUndefined(false) proximitySelection
+  daysComponent = 'power-calendar-range/days'
+  _calendarType = 'range'
 
   // CPs
-  minRange: computed({
-    get() {
-      return 86400000;
-    },
-    set(_, v) {
-      if (typeof v === 'number') {
-        return v * 86400000;
-      }
-      return normalizeDuration(v === undefined ? 86400000 : v);
+  @computed
+  get minRange() {
+    return 86400000;
+  }
+  set minRange(v) {
+    if (typeof v === 'number') {
+      return v * 86400000;
     }
-  }),
-  maxRange: computed({
-    get() {
-      return null;
-    },
-    set(_, v) {
-      if (typeof v === 'number') {
-        return v * 86400000;
-      }
-      return normalizeDuration(v === undefined ? 86400000 : v);
-    }
-  }),
-  selected: computed({
-    get() {
-      return { start: undefined, end: undefined };
-    },
-    set(_, v) {
-      if (v === undefined || v === null) {
-        v = {};
-      }
-      return { start: normalizeDate(v.start), end: normalizeDate(v.end) };
-    }
-  }),
+    return normalizeDuration(v === undefined ? 86400000 : v);
+  }
 
-  currentCenter: computed('center', function() {
+  @computed
+  get maxRange() {
+    return null;
+  }
+  set maxRange(v) {
+    if (typeof v === 'number') {
+      return v * 86400000;
+    }
+    return normalizeDuration(v === undefined ? 86400000 : v);
+  }
+
+  @computed
+  get selected() {
+    return { start: undefined, end: undefined };
+  }
+  set selected(v) {
+    if (v === undefined || v === null) {
+      v = {};
+    }
+    return { start: normalizeDate(v.start), end: normalizeDate(v.end) };
+  }
+
+  @computed('center')
+  get currentCenter() {
     let center = this.get('center');
     if (!center) {
       center = this.get('selected.start') || this.get('powerCalendarService').getDate();
     }
     return normalizeDate(center);
-  }),
+  }
 
-  publicAPI: computed('_publicAPI', 'minRange', 'maxRange', function() {
+  @computed('_publicAPI', 'minRange', 'maxRange')
+  get publicAPI() {
     let rangeOnlyAPI = this.getProperties('minRange', 'maxRange');
     return assign(rangeOnlyAPI, this.get('_publicAPI'));
-  }),
+  }
 
   // Actions
-  actions: {
-    select({ date }, calendar, e) {
-      assert(
-        'date must be either a Date, or a Range', 
-        date && (date.hasOwnProperty('start') || date.hasOwnProperty('end') || date instanceof Date)
-      );
+  @action
+  select({ date }, calendar, e) {
+    assert(
+      'date must be either a Date, or a Range',
+      date && (date.hasOwnProperty('start') || date.hasOwnProperty('end') || date instanceof Date)
+    );
 
-      let range;
-      if (date && (date.hasOwnProperty('start') || date.hasOwnProperty('end'))) {
-        range = { date };
-      } else {
-        range = this._buildRange({ date });
-      }
+    let range;
+    if (date && (date.hasOwnProperty('start') || date.hasOwnProperty('end'))) {
+      range = { date };
+    } else {
+      range = this._buildRange({ date });
+    }
 
-      let { start, end } = range.date;
-      if (start && end) {
-        let { minRange, maxRange } = this.get('publicAPI');
-        let diffInMs = Math.abs(diff(end, start));
-        if (diffInMs < minRange || maxRange && diffInMs > maxRange) {
-          return;
-        }
-      }
-
-      let action = this.get('onSelect');
-      if (action) {
-        action(range, calendar, e);
+    let { start, end } = range.date;
+    if (start && end) {
+      let { minRange, maxRange } = this.get('publicAPI');
+      let diffInMs = Math.abs(diff(end, start));
+      if (diffInMs < minRange || maxRange && diffInMs > maxRange) {
+        return;
       }
     }
-  },
+
+    if (this.onSelect) {
+      this.onSelect(range, calendar, e);
+    }
+  }
 
   // Methods
   _buildRange(day) {
@@ -106,7 +105,7 @@ export default CalendarComponent.extend({
     }
 
     return this._buildDefaultRange(day, start, end);
-  },
+  }
 
   _buildRangeByProximity(day, start, end) {
     if (start && end) {
@@ -125,7 +124,7 @@ export default CalendarComponent.extend({
     }
 
     return this._buildDefaultRange(day, start, end);
-  },
+  }
 
   _buildDefaultRange(day, start, end) {
     if (start && !end) {
@@ -137,4 +136,4 @@ export default CalendarComponent.extend({
 
     return normalizeRangeActionValue({ date: { start: day.date, end: null } });
   }
-});
+}

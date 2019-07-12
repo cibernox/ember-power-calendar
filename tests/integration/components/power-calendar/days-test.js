@@ -115,15 +115,6 @@ module('Integration | Component | power-calendar/days', function(hooks) {
     assert.dom('.ember-power-calendar-day', weeks[4]).exists({ count: 4 }, 'The last week has 4 days');
   });
 
-  test('It can receive `data-power-calendar-id` and it is bound to an attribute', async function(assert) {
-    assert.expect(1);
-    this.calendar = calendar;
-    await render(
-      hbs`{{power-calendar/days calendar=calendar data-power-calendar-id="foobar"}}`
-    );
-    assert.dom('.ember-power-calendar-days').hasAttribute('data-power-calendar-id', 'foobar', 'The attribute is bound');
-  });
-
   test('it can receive a `dayClass` property containing a string to add classes to days', async function(assert) {
     assert.expect(1);
     this.calendar = calendar;

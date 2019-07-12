@@ -13,10 +13,10 @@ module('Test Support | Helper | calendarCenter', function(hooks) {
 
     await render(hbs`
       <div class="calendar-center-1">
-        {{#power-calendar center=center1 onCenterChange=(action (mut center1) value="date") as |calendar|}}
-          {{calendar.nav}}
-          {{calendar.days}}
-        {{/power-calendar}}
+        <PowerCalendar @center={{center1}} @onCenterChange={{action (mut center1) value="date"}} as |calendar|>
+          <calendar.nav/>
+          <calendar.days/>
+        </PowerCalendar>
       </div>
     `);
     assert.dom('.calendar-center-1 .ember-power-calendar-nav-title').hasText('October 2013');

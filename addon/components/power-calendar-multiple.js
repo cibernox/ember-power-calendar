@@ -1,5 +1,5 @@
 import CalendarComponent from './power-calendar';
-import { computed } from '@ember/object';
+import { computed, action } from '@ember/object';
 import {
   normalizeDate,
   isSame,
@@ -8,49 +8,48 @@ import {
 import { assert } from '@ember/debug';
 import { isArray } from '@ember/array';
 
-export default CalendarComponent.extend({
-  daysComponent: 'power-calendar-multiple/days',
-  _calendarType: 'multiple',
+export default class extends CalendarComponent {
+  daysComponent = 'power-calendar-multiple/days'
+  _calendarType = 'multiple'
 
   // CPs
-  selected: computed({
-    get() {
-      return undefined;
-    },
-    set(_, v) {
-      return isArray(v) ? v.map(normalizeDate) : v;
-    }
-  }),
-  currentCenter: computed('center', function() {
+  @computed
+  get selected() {
+    return undefined;
+  }
+  set selected(v) {
+    return isArray(v) ? v.map(normalizeDate) : v;
+  }
+
+  @computed('center')
+  get currentCenter() {
     let center = this.get('center');
     if (!center) {
       center = (this.get('selected') || [])[0] || this.get('powerCalendarService').getDate();
     }
     return normalizeDate(center);
-  }),
+  }
 
   // Actions
-  actions: {
-    select(dayOrDays, calendar, e) {
-      assert(
-        `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`, 
-        isArray(dayOrDays) || dayOrDays instanceof Object && dayOrDays.date instanceof Date
-      );
+  @action
+  select(dayOrDays, calendar, e) {
+    assert(
+      `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`,
+      isArray(dayOrDays) || dayOrDays instanceof Object && dayOrDays.date instanceof Date
+    );
 
-      let action = this.get("onSelect");
-      let days;
+    let days;
 
-      if (isArray(dayOrDays)) {
-        days = dayOrDays;
-      } else if (dayOrDays instanceof Object && dayOrDays.date instanceof Date) {
-        days = [dayOrDays];
-      }
-
-      if (action) {
-        action(this._buildCollection(days), calendar, e);
-      }
+    if (isArray(dayOrDays)) {
+      days = dayOrDays;
+    } else if (dayOrDays instanceof Object && dayOrDays.date instanceof Date) {
+      days = [dayOrDays];
     }
-  },
+
+    if (this.onSelect) {
+      this.onSelect(this._buildCollection(days), calendar, e);
+    }
+  }
 
   // Methods
   _buildCollection(days) {
@@ -67,4 +66,4 @@ export default CalendarComponent.extend({
 
     return normalizeMultipleActionValue({ date: selected });
   }
-});
+}

@@ -1,10 +1,10 @@
-import { oneWay } from '@ember/object/computed';
+import { layout, tagName } from "@ember-decorators/component";
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 import { assert } from '@ember/debug';
-import layout from '../../templates/components/power-calendar/days';
+import templateLayout from '../../templates/components/power-calendar/days';
 import {
   add,
   endOf,
@@ -34,61 +34,62 @@ const WEEK_DAYS = [
   'Sun'
 ];
 
-export default Component.extend({
-  layout,
-  focusedId: null,
-  showDaysAround: true,
-  classNames: ['ember-power-calendar-days'],
-  weekdayFormat: 'short', // "min" | "short" | "long"
-  powerCalendarService: inject('power-calendar'),
-  attributeBindings: [
-    'data-power-calendar-id'
-  ],
+export default @layout(templateLayout) @tagName('') class extends Component {
+  focusedId = undefined
+  center = undefined
+  showDaysAround = true
+  weekdayFormat = 'short' // "min" | "short" | "long"
+  @service('power-calendar') powerCalendarService
 
   // CPs
-  'data-power-calendar-id': oneWay('calendar.uniqueId'),
-  weekdaysMin: computed('calendar.locale', function() {
-    return withLocale(this.get("calendar.locale"), getWeekdaysMin);
-  }),
+  @computed('calendar.locale')
+  get weekdaysMin() {
+    return withLocale(this.calendar.locale, getWeekdaysMin);
+  }
 
-  weekdaysShort: computed('calendar.locale', function() {
-    return withLocale(this.get("calendar.locale"), getWeekdaysShort);
-  }),
+  @computed('calendar.locale')
+  get weekdaysShort() {
+    return withLocale(this.calendar.locale, getWeekdaysShort);
+  }
 
-  weekdays: computed('calendar.locale', function() {
-    return withLocale(this.get("calendar.locale"), getWeekdays);
-  }),
+  @computed('calendar.locale')
+  get weekdays() {
+    return withLocale(this.calendar.locale, getWeekdays);
+  }
 
-  localeStartOfWeek: computed('weekdaysShort', 'startOfWeek', function() {
+  @computed('weekdaysShort', 'startOfWeek')
+  get localeStartOfWeek() {
     let forcedStartOfWeek = this.get('startOfWeek');
     if (forcedStartOfWeek) {
       return parseInt(forcedStartOfWeek, 10);
     }
     return localeStartOfWeek(this.get('calendar.locale'));
-  }),
+  }
 
-  weekdaysNames: computed('localeStartOfWeek', 'weekdayFormat', 'calendar.locale', function() {
-    let { localeStartOfWeek, weekdayFormat } = this.getProperties('localeStartOfWeek', 'weekdayFormat');
+  @computed('localeStartOfWeek', 'weekdayFormat', 'calendar.locale')
+  get weekdaysNames() {
+    let { localeStartOfWeek, weekdayFormat } = this;
     let format = `weekdays${weekdayFormat === 'long' ? '' : (weekdayFormat === 'min' ? 'Min' : 'Short')}`;
     let weekdaysNames = this.get(format);
     return weekdaysNames.slice(localeStartOfWeek).concat(weekdaysNames.slice(0, localeStartOfWeek));
-  }),
+  }
 
-  days: computed('calendar', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', function() {
-    let today = this.get('powerCalendarService').getDate();
-    let calendar = this.get('calendar');
+  @computed('calendar', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength')
+  get days() {
+    let today = this.powerCalendarService.getDate();
     let lastDay = this.lastDay();
     let day = this.firstDay();
     let days = [];
     while (isBefore(day, lastDay)) {
-      days.push(this.buildDay(day, today, calendar));
+      days.push(this.buildDay(day, today, this.calendar));
       day = add(day, 1, "day");
     }
     return days;
-  }),
+  }
 
-  weeks: computed('showDaysAround', 'days', function() {
-    let { showDaysAround, days } = this.getProperties('showDaysAround', 'days');
+  @computed('showDaysAround', 'days')
+  get weeks() {
+    let { showDaysAround, days } = this;
     let weeks = [];
     let i = 0;
     while (days[i]) {
@@ -104,97 +105,81 @@ export default Component.extend({
       i += 7;
     }
     return weeks;
-  }),
+  }
 
-  center: null,
-
-  currentCenter: computed('center', 'calendar.center', function() {
-    let center = this.get('center');
+  @computed('center', 'calendar.center')
+  get currentCenter() {
+    let center = this.center;
     if (!center) {
-      center = this.get('selected') || this.get('calendar.center');
+      center = this.selected || this.calendar.center;
     }
     return normalizeDate(center);
-  }),
-
-  // Lifecycle hooks
-  init() {
-    this._super(...arguments);
-    this._handleDayClick = this._handleDayClick.bind(this);
-  },
-
-  didInsertElement() {
-    this._super(...arguments);
-    this.element.addEventListener('click', this._handleDayClick);
-  },
-
-  willRemoveElement() {
-    this._super(...arguments);
-    this.element.removeEventListener('click', this._handleDayClick);
-  },
+  }
 
   // Actions
-  actions: {
-    onFocusDay(day) {
-      scheduleOnce('actions', this, this._updateFocused, day.id);
-    },
+  @action
+  handleDayFocus(e) {
+    scheduleOnce('actions', this, this._updateFocused, e.target.dataset.date);
+  }
 
-    onBlurDay() {
-      scheduleOnce('actions', this, this._updateFocused, null);
-    },
+  @action
+  handleDayBlur() {
+    scheduleOnce('actions', this, this._updateFocused, null);
+  }
 
-    onKeyDown(calendar, e) {
-      let focusedId = this.get('focusedId');
-      if (focusedId) {
-        let days = this.get('days');
-        let day, index;
-        for (let i = 0; i < days.length; i++) {
-          if (days[i].id === focusedId) {
-            index = i;
-            break;
+  @action
+  handleKeyDown(e) {
+    let { focusedId } = this;
+    if (focusedId) {
+      let days = this.days;
+      let day, index;
+      for (let i = 0; i < days.length; i++) {
+        if (days[i].id === focusedId) {
+          index = i;
+          break;
+        }
+      }
+      if (e.keyCode === 38) {
+        e.preventDefault();
+        let newIndex = Math.max(index - 7, 0);
+        day = days[newIndex];
+        if (day.isDisabled) {
+          for (let i = newIndex + 1; i <= index; i++) {
+            day = days[i];
+            if (!day.isDisabled) {
+              break;
+            }
           }
         }
-        if (e.keyCode === 38) {
-          e.preventDefault();
-          let newIndex = Math.max(index - 7, 0);
-          day = days[newIndex];
-          if (day.isDisabled) {
-            for (let i = newIndex + 1; i <= index; i++) {
-              day = days[i];
-              if (!day.isDisabled) {
-                break;
-              }
+      } else if (e.keyCode === 40) {
+        e.preventDefault();
+        let newIndex = Math.min(index + 7, days.length - 1);
+        day = days[newIndex];
+        if (day.isDisabled) {
+          for (let i = newIndex - 1; i >= index; i--) {
+            day = days[i];
+            if (!day.isDisabled) {
+              break;
             }
           }
-        } else if (e.keyCode === 40) {
-          e.preventDefault();
-          let newIndex = Math.min(index + 7, days.length - 1);
-          day = days[newIndex];
-          if (day.isDisabled) {
-            for (let i = newIndex - 1; i >= index; i--) {
-              day = days[i];
-              if (!day.isDisabled) {
-                break;
-              }
-            }
-          }
-        } else if (e.keyCode === 37) {
-          day = days[Math.max(index - 1, 0)];
-          if (day.isDisabled) {
-            return;
-          }
-        } else if (e.keyCode === 39) {
-          day = days[Math.min(index + 1, days.length - 1)];
-          if (day.isDisabled) {
-            return;
-          }
-        } else {
+        }
+      } else if (e.keyCode === 37) {
+        day = days[Math.max(index - 1, 0)];
+        if (day.isDisabled) {
           return;
         }
-        this.set('focusedId', day.id);
-        scheduleOnce('afterRender', this, '_focusDate', day.id);
+      } else if (e.keyCode === 39) {
+        day = days[Math.min(index + 1, days.length - 1)];
+        if (day.isDisabled) {
+          return;
+        }
+      } else {
+        return;
       }
+      this.set('focusedId', day.id);
+      scheduleOnce('afterRender', this, '_focusDate', day.id);
     }
-  },
+  }
 
   // Methods
   buildDay(date, today, calendar) {
@@ -210,15 +195,15 @@ export default Component.extend({
       isToday: isSame(date, today, 'day'),
       isSelected: this.dayIsSelected(date, calendar)
     });
-  },
+  }
 
   buildonSelectValue(day) {
     return day;
-  },
+  }
 
-  dayIsSelected(date, calendar = this.get('calendar')) {
+  dayIsSelected(date, calendar = this.calendar) {
     return calendar.selected ? isSame(date, calendar.selected, 'day') : false;
-  },
+  }
 
   dayIsDisabled(date) {
     let isDisabled = !this.get('calendar.actions.select');
@@ -251,32 +236,33 @@ export default Component.extend({
     }
 
     return false;
-  },
+  }
 
   firstDay() {
     let firstDay = startOf(this.get('currentCenter'), 'month');
     return startOfWeek(firstDay, this.get('localeStartOfWeek'));
-  },
+  }
 
   lastDay() {
     let localeStartOfWeek = this.get('localeStartOfWeek');
     assert("The center of the calendar is an invalid date.", !isNaN(this.get('currentCenter').getTime()));
     let lastDay = endOf(this.get('currentCenter'), 'month')
     return endOfWeek(lastDay, localeStartOfWeek);
-  },
+  }
 
   _updateFocused(id) {
     this.set('focusedId', id);
-  },
+  }
 
   _focusDate(id) {
-    let dayElement = this.element.querySelector(`[data-date="${id}"]`);
+    let dayElement = document.querySelector(`[data-power-calendar-id="${this.calendar.uniqueId}"] [data-date="${id}"]`);
     if (dayElement) {
       dayElement.focus();
     }
-  },
+  }
 
-  _handleDayClick(e) {
+  @action
+  handleClick(e) {
     let dayEl = e.target.closest('[data-date]');
     if (dayEl) {
       let dateStr = dayEl.dataset.date;
@@ -289,4 +275,4 @@ export default Component.extend({
       }
     }
   }
-});
+}

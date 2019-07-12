@@ -341,10 +341,10 @@ module('Integration | Component | Power Calendar', function(hooks) {
   test('If a day is focused, it gets a special hasClass', async function(assert) {
     assert.expect(3);
     await render(hbs`
-      {{#power-calendar onSelect=(action (mut foo)) as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.days}}
-      {{/power-calendar}}
+      <PowerCalendar @onSelect={{action (mut foo)}} as |calendar|>
+        <calendar.nav/>
+        <calendar.days/>
+      </PowerCalendar>
     `);
     let dayElement = this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-18"]');
     await focus(dayElement);
