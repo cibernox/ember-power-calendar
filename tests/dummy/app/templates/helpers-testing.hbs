@@ -51,17 +51,15 @@
 </div>
 
 <div class="calendar-in-dropdown">
-  {{#basic-dropdown as |dropdown|}}
-    {{#dropdown.trigger}}
+  <BasicDropdown as |dropdown|>
+    <dropdown.Trigger>
       <input
         value={{selected4}}
         name="date"
         readonly="true"
       >
-    {{/dropdown.trigger}}
-    {{#dropdown.content
-      class="dropdown-content"
-    }}
+    </dropdown.Trigger>
+    <dropdown.Content class="dropdown-content">
       {{#power-calendar
         tagName=''
         center=center4
@@ -71,6 +69,6 @@
         {{calendar.nav}}
         {{calendar.days}}
       {{/power-calendar}}
-    {{/dropdown.content}}
-  {{/basic-dropdown}}
+    </dropdown.Content>
+  </BasicDropdown>
 </div>
