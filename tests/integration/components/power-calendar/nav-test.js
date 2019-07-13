@@ -36,7 +36,7 @@ module('Integration | Component | power-calendar/nav', function(hooks) {
   test('[i18n] If the user sets a different locale in the calendar, this setting overrides the locale set in the calendar service', async function(assert) {
     assert.expect(2);
     this.calendar = calendar;
-    await render(hbs`{{power-calendar/nav calendar=calendar}}`);
+    await render(hbs`<PowerCalendar::Nav @calendar={{calendar}}/>`);
     assert.dom('.ember-power-calendar-nav-title').hasText('October 2013');
     run(() => this.set('calendar.locale', 'es'));
     assert.dom('.ember-power-calendar-nav-title').hasText('octubre 2013');
@@ -45,7 +45,7 @@ module('Integration | Component | power-calendar/nav', function(hooks) {
   test('it can changes the date format', async function(assert) {
     assert.expect(1);
     this.calendar = calendar;
-    await render(hbs`{{power-calendar/nav calendar=calendar format="YYYY"}}`);
+    await render(hbs`<PowerCalendar::Nav @calendar={{calendar}} @format="YYYY"/>`);
     assert.dom('.ember-power-calendar-nav-title').hasText('2013');
   });
 
@@ -56,7 +56,7 @@ module('Integration | Component | power-calendar/nav', function(hooks) {
     this.calendar.actions.moveCenter = (step, unit) => {
       moved.push({ step, unit });
     };
-    await render(hbs`{{power-calendar/nav calendar=calendar}}`);
+    await render(hbs`<PowerCalendar::Nav @calendar={{calendar}}/>`);
     await click('.ember-power-calendar-nav-control--previous');
     await click('.ember-power-calendar-nav-control--next');
 
@@ -70,7 +70,7 @@ module('Integration | Component | power-calendar/nav', function(hooks) {
     this.calendar.actions.moveCenter = (step, unit) => {
       moved.push({ step, unit });
     };
-    await render(hbs`{{power-calendar/nav calendar=calendar unit="year"}}`);
+    await render(hbs`<PowerCalendar::Nav @calendar={{calendar}} @unit="year"/>`);
     await click('.ember-power-calendar-nav-control--previous');
     await click('.ember-power-calendar-nav-control--next');
 
