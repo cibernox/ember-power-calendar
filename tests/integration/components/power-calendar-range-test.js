@@ -9,7 +9,7 @@ import {
 import { run } from '@ember/runloop';
 import { isSame } from 'ember-power-calendar-utils';
 
-module('Integration | Component | power calendar range', function(hooks) {
+module('Integration | Component | <PowerCalendarRange>', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {

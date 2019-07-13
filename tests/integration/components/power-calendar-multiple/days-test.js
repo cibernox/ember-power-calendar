@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | power-calendar-multiple/days', function(hooks) {
+module('Integration | Component | <PowerCalendarMultiple::Days>', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {

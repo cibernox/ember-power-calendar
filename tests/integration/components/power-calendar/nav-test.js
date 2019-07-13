@@ -11,7 +11,7 @@ import { run } from '@ember/runloop';
 let calendarService;
 let calendar;
 
-module('Integration | Component | power-calendar/nav', function(hooks) {
+module('Integration | Component | <PowerCalendar::Nav>', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {

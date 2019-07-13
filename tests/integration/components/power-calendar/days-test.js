@@ -13,7 +13,7 @@ const dateLibrary = require.has("luxon") ? "luxon" : "moment";
 let calendarService;
 let calendar;
 
-module('Integration | Component | power-calendar/days', function(hooks) {
+module('Integration | Component | <PowerCalendar::Days>', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {

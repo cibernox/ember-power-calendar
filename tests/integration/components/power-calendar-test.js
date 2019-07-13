@@ -17,7 +17,7 @@ import require from 'require';
 
 const dateLibrary = require.has('luxon') ? 'luxon' : 'moment';
 
-module('Integration | Component | Power Calendar', function(hooks) {
+module('Integration | Component | <PowerCalendar>', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {
