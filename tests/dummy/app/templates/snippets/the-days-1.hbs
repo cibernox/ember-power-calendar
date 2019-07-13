@@ -1,5 +1,5 @@
-{{#power-calendar as |calendar|}}
-  {{calendar.nav}}
+<PowerCalendar as |calendar|>
+  <calendar.nav/>
 
   {{#calendar.days as |day|}}
     {{#with (format-date day.date 'ddd') as |weekday|}}
@@ -10,4 +10,4 @@
       {{/if}}
     {{/with}}
   {{/calendar.days}}
-{{/power-calendar}}
+</PowerCalendar>

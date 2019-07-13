@@ -1,7 +1,7 @@
-{{#power-calendar-multiple
-  center=center
-  selected=selectedPrimes
-  onSelect=(action "selectClosestPrime" value="date") as |calendar|}}
-  {{calendar.nav}}
-  {{calendar.days}}
-{{/power-calendar-multiple}}
+<PowerCalendarMultiple
+  @center={{center}}
+  @selected={{selectedPrimes}}
+  @onSelect={{action "selectClosestPrime" value="date"}} as |calendar|>
+  <calendar.nav/>
+  <calendar.days/>
+</PowerCalendarMultiple>

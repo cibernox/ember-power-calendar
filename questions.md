@@ -1,13 +1,6 @@
 ### Example syntax for ranges
 
 ```hbs
-{{!-- Two values and two actions. Each one updated independently --}}
-{{power-calendar
-  start=start
-  end=end
-  onStartChange=(action (mut start) value="date")
-  onEndChange=(action (mut start) value="date")}}
-
 {{!-- O --}}
 {{!-- selected is { start: moment(), end: moment() }  or { start: Date, end: Date } --}}
 {{!--
@@ -29,9 +22,9 @@ lookis like this:
 The `onSelect` action is fired every time either end of the range changes.
 --}}
 
-{{power-calendar
-  selected=selected
-  onSelect=(action (mut selected) value="date")}}
+<PowerCalendar
+  @selected={{selected}}
+  @onSelect={{action (mut selected) value="date"}} />
 
 ```
 
@@ -43,31 +36,31 @@ The `onSelect` action is fired every time either end of the range changes.
   The value received by the onSelect action is an object with two keys, `date` and `moment`,
   one containing an array of dates and the other containing an array of moments
 --}}
-{{power-calendar
-  selected=selected
-  onSelect=(action (mut selected) value="date")}}
+<PowerCalendar
+  @selected={{selected}}
+  @onSelect={{action (mut selected) value="date")}} />
 ```
 
 
 ### EXAMPLE OF CONTEXTUAL COMPONENTS API
 
 <!-- Just days -->
-{{#power-calendar as |calendar|}}
-  {{calendar.days}}
-{{/power-calendar}}
+<PowerCalendar as |calendar|>
+  <calendar.days/>
+</PowerCalendar>
 
 <!-- Days and nav -->
-{{#power-calendar as |calendar|}}
-  {{calendar.nav}}
-  {{calendar.days}}
-{{/power-calendar}}
+<PowerCalendar as |calendar|>
+  <calendar.nav/>
+  <calendar.days/>
+</PowerCalendar>
 
 
 <!-- Days and nav -->
-{{#power-calendar center=month selected=day onSelect=(action (mut day) value="date") onCenterChange=(action (mut month) value="date") as |calendar|}}
-  {{calendar.nav}}
+<PowerCalendar @center={{month}} @selected={{day}} @onSelect={{action (mut day) value="date"}} @onCenterChange={{action (mut month) value="date"}} as |calendar|>
+  <calendar.nav/>
 
-  {{#calendar.days as |day|}}
+  <calendar.days as |day|>
     {{day.number}}
-  {{/calendar.days}}
-{{/power-calendar}}
+  </calendar.days>
+</PowerCalendar>

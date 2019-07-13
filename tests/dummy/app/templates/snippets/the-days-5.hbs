@@ -1,4 +1,4 @@
-{{#power-calendar center=wedding as |calendar|}}
-  {{calendar.nav}}
-  {{calendar.days showDaysAround=false}}
-{{/power-calendar}}
+<PowerCalendar @center={{wedding}} as |calendar|>
+  <calendar.nav/>
+  <calendar.days @showDaysAround={{false}} />
+</PowerCalendar>

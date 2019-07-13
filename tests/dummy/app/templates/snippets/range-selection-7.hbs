@@ -1,7 +1,7 @@
-{{#power-calendar-range
-  selected=selectedRange
-  proximitySelection=true
-  onSelect=(action (mut selectedRange) value="date") as |cal|}}
-  {{cal.nav}}
-  {{cal.days}}
-{{/power-calendar-range}}
+<PowerCalendarRange
+  @selected={{selectedRange}}
+  @proximitySelection={{true}}
+  @onSelect={{action (mut selectedRange) value="date"}} as |cal|>
+  <cal.nav/>
+  <cal.days/>
+</PowerCalendarRange>

@@ -1,13 +1,13 @@
 {{#with (assign publicAPI (hash
   nav=(component navComponent calendar=(readonly publicAPI))
   days=(component daysComponent calendar=(readonly publicAPI))
-)) as |calendar|}}
+)) as |calendar|>
   <div class="ember-power-calendar" ...attributes id={{calendar.uniqueId}}>
     {{#if hasBlock}}
       {{yield calendar}}
     {{else}}
-      {{calendar.nav}}
-      {{calendar.days}}
+      <calendar.nav/>
+      <calendar.days/>
     {{/if}}
   </div>
 {{/with}}

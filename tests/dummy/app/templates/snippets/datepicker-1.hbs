@@ -7,13 +7,13 @@
     readonly>
 
   <dropdown.Content class="datepicker-demo-dropdown">
-    {{#power-calendar class="demo-calendar-small"
-      center=center
-      onCenterChange=(action (mut center) value="date")
-      selected=selected
-      onSelect=(action (mut selected) value="date") as |calendar|}}
-      {{calendar.nav}}
-      {{calendar.days}}
-    {{/power-calendar}}
+    <PowerCalendar class="demo-calendar-small"
+      @center={{center}}
+      @onCenterChange={{action (mut center) value="date"}}
+      @selected={{selected}}
+      @onSelect={{action (mut selected) value="date"}} as |calendar|>
+      <calendar.nav/>
+      <calendar.days/>
+    </PowerCalendar>
   </dropdown.Content>
 </BasicDropdown>

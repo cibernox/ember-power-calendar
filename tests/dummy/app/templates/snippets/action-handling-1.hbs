@@ -1,6 +1,6 @@
-{{#power-calendar
-  center=center
-  onCenterChange=(action (mut center) value="date") as |calendar|}}
-  {{calendar.nav}}
-  {{calendar.days}}
-{{/power-calendar}}
+<PowerCalendar
+  @center={{center}}
+  @onCenterChange={{action (mut center) value="date"}} as |calendar|>
+  <calendar.nav/>
+  <calendar.days/>
+</PowerCalendar>
