@@ -23,9 +23,9 @@ export default class extends CalendarComponent {
 
   @computed('center')
   get currentCenter() {
-    let center = this.get('center');
+    let center = this.center;
     if (!center) {
-      center = (this.get('selected') || [])[0] || this.get('powerCalendarService').getDate();
+      center = (this.selected || [])[0] || this.powerCalendarService.getDate();
     }
     return normalizeDate(center);
   }
@@ -53,7 +53,7 @@ export default class extends CalendarComponent {
 
   // Methods
   _buildCollection(days) {
-    let selected = this.get("publicAPI.selected") || [];
+    let selected = this.publicAPI.selected || [];
 
     for (let day of days) {
       let index = selected.findIndex(selectedDate => isSame(day.date, selectedDate, "day"));

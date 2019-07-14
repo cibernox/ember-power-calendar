@@ -23,7 +23,7 @@ export default class extends Controller {
     let clone = pageElement.cloneNode(true);
     let parent = pageElement.parentNode;
     parent.insertBefore(clone, pageElement);
-    this.set('day', add(this.get('day'), 1, 'day'));
+    this.set('day', add(this.day, 1, 'day'));
     later(function() {
       parent.removeChild(clone);
     }, 400);

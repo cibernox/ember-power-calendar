@@ -59,18 +59,18 @@ export default @layout(templateLayout) @tagName('') class extends Component {
 
   @computed('weekdaysShort', 'startOfWeek')
   get localeStartOfWeek() {
-    let forcedStartOfWeek = this.get('startOfWeek');
+    let forcedStartOfWeek = this.startOfWeek;
     if (forcedStartOfWeek) {
       return parseInt(forcedStartOfWeek, 10);
     }
-    return localeStartOfWeek(this.get('calendar.locale'));
+    return localeStartOfWeek(this.calendar.locale);
   }
 
   @computed('localeStartOfWeek', 'weekdayFormat', 'calendar.locale')
   get weekdaysNames() {
     let { localeStartOfWeek, weekdayFormat } = this;
     let format = `weekdays${weekdayFormat === 'long' ? '' : (weekdayFormat === 'min' ? 'Min' : 'Short')}`;
-    let weekdaysNames = this.get(format);
+    let weekdaysNames = this[format];
     return weekdaysNames.slice(localeStartOfWeek).concat(weekdaysNames.slice(0, localeStartOfWeek));
   }
 
@@ -190,8 +190,8 @@ export default @layout(templateLayout) @tagName('') class extends Component {
       number: date.getDate(),
       date: new Date(date),
       isDisabled: this.dayIsDisabled(date),
-      isFocused: this.get('focusedId') === id,
-      isCurrentMonth: date.getMonth() === this.get('currentCenter').getMonth(),
+      isFocused: this.focusedId === id,
+      isCurrentMonth: date.getMonth() === this.currentCenter.getMonth(),
       isToday: isSame(date, today, 'day'),
       isSelected: this.dayIsSelected(date, calendar)
     });
@@ -206,25 +206,22 @@ export default @layout(templateLayout) @tagName('') class extends Component {
   }
 
   dayIsDisabled(date) {
-    let isDisabled = !this.get('calendar.actions.select');
+    let isDisabled = !this.calendar.actions.select;
     if (isDisabled) {
       return true;
     }
 
-    let minDate = this.get('minDate');
-    if (minDate && isBefore(date, minDate)) {
+    if (this.minDate && isBefore(date, this.minDate)) {
       return true;
     }
 
-    let maxDate = this.get('maxDate');
-    if (maxDate && isAfter(date, maxDate)) {
+    if (this.maxDate && isAfter(date, this.maxDate)) {
       return true;
     }
 
-    let disabledDates = this.get('disabledDates');
 
-    if (disabledDates) {
-      let disabledInRange = disabledDates.some((d) => {
+    if (this.disabledDates) {
+      let disabledInRange = this.disabledDates.some((d) => {
         let isSameDay = isSame(date, d, 'day');
         let isWeekDayIncludes = WEEK_DAYS.indexOf(d) !== -1 && formatDate(date, 'ddd') === d;
         return isSameDay || isWeekDayIncludes;
@@ -239,14 +236,14 @@ export default @layout(templateLayout) @tagName('') class extends Component {
   }
 
   firstDay() {
-    let firstDay = startOf(this.get('currentCenter'), 'month');
-    return startOfWeek(firstDay, this.get('localeStartOfWeek'));
+    let firstDay = startOf(this.currentCenter, 'month');
+    return startOfWeek(firstDay, this.localeStartOfWeek);
   }
 
   lastDay() {
-    let localeStartOfWeek = this.get('localeStartOfWeek');
-    assert("The center of the calendar is an invalid date.", !isNaN(this.get('currentCenter').getTime()));
-    let lastDay = endOf(this.get('currentCenter'), 'month')
+    let localeStartOfWeek = this.localeStartOfWeek;
+    assert("The center of the calendar is an invalid date.", !isNaN(this.currentCenter.getTime()));
+    let lastDay = endOf(this.currentCenter, 'month')
     return endOfWeek(lastDay, localeStartOfWeek);
   }
 
@@ -266,11 +263,10 @@ export default @layout(templateLayout) @tagName('') class extends Component {
     let dayEl = e.target.closest('[data-date]');
     if (dayEl) {
       let dateStr = dayEl.dataset.date;
-      let day = this.get('days').find(d => d.id === dateStr);
+      let day = this.days.find(d => d.id === dateStr);
       if (day) {
-        let calendar = this.get('calendar');
-        if (calendar.actions.select) {
-          calendar.actions.select(day, calendar, e);
+        if (this.calendar.actions.select) {
+          this.calendar.actions.select(day, this.calendar, e);
         }
       }
     }

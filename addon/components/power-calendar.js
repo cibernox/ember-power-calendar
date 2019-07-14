@@ -24,7 +24,7 @@ export default @layout(templateLayout) @tagName('') class extends Component {
     super.init(...arguments);
     this.registerCalendar();
     if (this.onInit) {
-      this.onInit(this.get('publicAPI'));
+      this.onInit(this.publicAPI);
     }
   }
 
@@ -63,9 +63,9 @@ export default @layout(templateLayout) @tagName('') class extends Component {
 
   @computed('center')
   get currentCenter() {
-    let center = this.get('center');
+    let center = this.center;
     if (!center) {
-      center = this.get('selected') || this.get('powerCalendarService').getDate()
+      center = this.selected || this.powerCalendarService.getDate()
     }
     return normalizeDate(center);
   }

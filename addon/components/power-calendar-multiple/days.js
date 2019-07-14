@@ -6,14 +6,14 @@ export default class extends DaysComponent {
   @fallbackIfUndefined(Infinity) maxLength
 
   // Methods
-  dayIsSelected(date, calendar = this.get('calendar')) {
+  dayIsSelected(date, calendar = this.calendar) {
     let selected = calendar.selected || [];
     return selected.some((d) => isSame(date, d, 'day'));
   }
 
   dayIsDisabled(date) {
-    let numSelected = this.get('calendar.selected.length') || 0;
-    let maxLength = this.get('maxLength') || Infinity;
+    let numSelected = (this.calendar.selected && this.calendar.selected.length) || 0;
+    let maxLength = this.maxLength || Infinity;
     return super.dayIsDisabled(...arguments) || (numSelected >= maxLength && !this.dayIsSelected(date));
   }
 }

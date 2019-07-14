@@ -53,9 +53,9 @@ export default class extends CalendarComponent {
 
   @computed('center')
   get currentCenter() {
-    let center = this.get('center');
+    let center = this.center;
     if (!center) {
-      center = this.get('selected.start') || this.get('powerCalendarService').getDate();
+      center = this.selected.start || this.powerCalendarService.getDate();
     }
     return normalizeDate(center);
   }
@@ -63,7 +63,7 @@ export default class extends CalendarComponent {
   @computed('_publicAPI', 'minRange', 'maxRange')
   get publicAPI() {
     let rangeOnlyAPI = this.getProperties('minRange', 'maxRange');
-    return assign(rangeOnlyAPI, this.get('_publicAPI'));
+    return assign(rangeOnlyAPI, this._publicAPI);
   }
 
   // Actions
@@ -83,7 +83,7 @@ export default class extends CalendarComponent {
 
     let { start, end } = range.date;
     if (start && end) {
-      let { minRange, maxRange } = this.get('publicAPI');
+      let { minRange, maxRange } = this.publicAPI;
       let diffInMs = Math.abs(diff(end, start));
       if (diffInMs < minRange || maxRange && diffInMs > maxRange) {
         return;
@@ -97,10 +97,10 @@ export default class extends CalendarComponent {
 
   // Methods
   _buildRange(day) {
-    let selected = this.get('publicAPI.selected') || { start: null, end: null };
+    let selected = this.publicAPI.selected || { start: null, end: null };
     let { start, end } = getProperties(selected, 'start', 'end');
 
-    if (this.get('proximitySelection')) {
+    if (this.proximitySelection) {
       return this._buildRangeByProximity(day, start, end);
     }
 

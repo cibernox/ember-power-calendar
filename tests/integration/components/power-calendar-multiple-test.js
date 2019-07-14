@@ -142,13 +142,13 @@ module('Integration | Component | <PowerCalendarMultiple>', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-12"]').hasClass('ember-power-calendar-day--selected');
-    assert.equal(formatDate(this.get('selected')[0], 'YYYY-MM-DD'), '2013-10-05');
-    assert.equal(formatDate(this.get('selected')[1], 'YYYY-MM-DD'), '2013-10-10');
-    assert.equal(formatDate(this.get('selected')[2], 'YYYY-MM-DD'), '2013-10-12');
+    assert.equal(formatDate(this.selected[0], 'YYYY-MM-DD'), '2013-10-05');
+    assert.equal(formatDate(this.selected[1], 'YYYY-MM-DD'), '2013-10-10');
+    assert.equal(formatDate(this.selected[2], 'YYYY-MM-DD'), '2013-10-12');
 
     await click('.ember-power-calendar-day[data-date="2013-10-10"]');
-    assert.equal(formatDate(this.get('selected')[0], 'YYYY-MM-DD'), '2013-10-05');
-    assert.equal(formatDate(this.get('selected')[1], 'YYYY-MM-DD'), '2013-10-12');
+    assert.equal(formatDate(this.selected[0], 'YYYY-MM-DD'), '2013-10-05');
+    assert.equal(formatDate(this.selected[1], 'YYYY-MM-DD'), '2013-10-12');
 
     await click('.ember-power-calendar-day[data-date="2013-10-12"]');
     await click('.ember-power-calendar-day[data-date="2013-10-05"]');
