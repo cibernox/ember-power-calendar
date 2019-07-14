@@ -8,8 +8,9 @@ import {
   weekday
 } from 'ember-power-calendar-utils';
 
-export default Component.extend({
-  days: computed(function() {
+export default class extends Component {
+  @computed
+  get days() {
     let now = new Date();
     let day = startOf(startOf(now, 'month'), 'isoWeek');
     let lastDay = endOf(endOf(now, 'month'), 'isoWeek');
@@ -23,16 +24,16 @@ export default Component.extend({
       day = add(day, 1, 'day');
     }
     return days;
-  }),
+  }
 
-  weeksWithoutMondaysOrWednesday: computed('noMondays', function() {
-    let days = this.get('days');
+  @computed('noMondays')
+  get weeksWithoutMondaysOrWednesday() {
     let weeks = [];
     let i = 0;
-    while (days[i]) {
-      weeks.push({ days: days.slice(i, i + 5) });
+    while (this.days[i]) {
+      weeks.push({ days: this.days.slice(i, i + 5) });
       i += 5;
     }
     return weeks;
-  })
-});
+  }
+}
