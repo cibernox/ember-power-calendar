@@ -3,12 +3,12 @@
     <PowerSelect @options={{months}}
       @selected={{format-date cal.center "MMMM"}}
       @matchTriggerWidth={{false}}
-      @onChange={{action "changeCenter2" "month" cal}} as |month|>
+      @onChange={{fn this.changeCenter2 "month" cal}} as |month|>
       {{month}}
     </PowerSelect>
     <PowerSelect @options={{groupedYears}}
       @selected={{format-date cal.center "YYYY"}}
-      @onChange={{action "changeCenter2" "year" cal}} as |year|>
+      @onChange={{fn this.changeCenter2 "year" cal}} as |year|>
       {{year}}
     </PowerSelect>
   </cal.nav>

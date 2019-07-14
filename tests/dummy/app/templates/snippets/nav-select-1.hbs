@@ -1,12 +1,12 @@
 <PowerCalendar
   @center={{center}}
-  @onCenterChange={{action (mut center) value="date"}} as |calendar|>
+  @onCenterChange={{action (mut this.center) value="date"}} as |calendar|>
 
   <calendar.nav>
     <span class="with-invisible-select">
       {{#with (format-date calendar.center 'MMMM') as |currentMonth|}}
         {{currentMonth}}
-        <select onchange={{action "changeCenter" "month" calendar}}>
+        <select onchange={{fn this.changeCenter "month" calendar}}>
           {{#each months as |month|}}
             <option value="{{month}}" selected={{eq month currentMonth}}>{{month}}</option>
           {{/each}}
@@ -16,7 +16,7 @@
     <span class="with-invisible-select">
       {{#with (format-date calendar.center 'YYYY') as |currentYear|}}
         {{currentYear}}
-        <select onchange={{action "changeCenter" "year" calendar}}>
+        <select onchange={{fn this.changeCenter "year" calendar}}>
           {{#each years as |year|}}
             <option value="{{year}}" selected={{eq year currentYear}}>{{year}}</option>
           {{/each}}

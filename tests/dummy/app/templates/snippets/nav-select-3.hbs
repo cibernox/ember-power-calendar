@@ -3,7 +3,7 @@
     {{format-date cal.center "MMMM"}}
     <input type="number" min="1940" max="2020"
       value={{format-date cal.center "YYYY"}}
-      oninput={{action "changeYear" cal}}>
+      oninput={{fn this.changeYear cal}}>
   </cal.nav>
 
   <cal.days/>

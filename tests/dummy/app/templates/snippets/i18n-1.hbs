@@ -1,4 +1,4 @@
-<PowerSelect @triggerClass="i18n-select-demo" @options={{locales}} @selected={{calendarService.locale}} @onChange={{action "changeAppWideLocale"}} as |locale|>
+<PowerSelect @triggerClass="i18n-select-demo" @options={{locales}} @selected={{calendarService.locale}} @onChange={{this.changeAppWideLocale}} as |locale|>
   {{locale}}
 </PowerSelect>
 <br>

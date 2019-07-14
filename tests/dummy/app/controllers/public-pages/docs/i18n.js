@@ -1,18 +1,14 @@
 import Controller from '@ember/controller';
-import { inject } from '@ember/service';
+import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
 
-export default Controller.extend({
-  calendarService: inject('power-calendar'),
+export default class extends Controller {
+  @service ('power-calendar') calendarService
+  locales = ['en', 'es', 'ru', 'fr', 'pt' ]
 
-  init() {
-    this._super(...arguments);
-    this.set('locales', ['en', 'es', 'ru', 'fr', 'pt' ]);
-  },
-
-  // actions
-  actions: {
-    changeAppWideLocale(locale) {
-      this.get('calendarService').set('locale', locale);
-    }
+  // Actions
+  @action
+  changeAppWideLocale(locale) {
+    this.calendarService.set('locale', locale);
   }
-});
+}
