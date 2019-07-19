@@ -7,7 +7,7 @@ import { calendarCenter } from 'ember-power-calendar/test-support';
 module('Test Support | Helper | calendarCenter', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('`calendarCenter` invokes the `onCenterChange` action of the target component inside the selector we pass it', async function(assert) {
+  test('`calendarCenter` invokes the `@onCenterChange` action of the target component inside the selector we pass it', async function(assert) {
     assert.expect(3);
     this.center1 = new Date(2013, 9, 18);
 

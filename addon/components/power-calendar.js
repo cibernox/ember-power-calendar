@@ -98,7 +98,7 @@ export default @layout(templateLayout) @tagName('') class extends Component {
 
   // Tasks
   @(task(function* (newCenter, calendar, e) {
-    assert('You attempted to move the center of a calendar that doesn\'t receive an `onCenterChange` action.', typeof this.onCenterChange === 'function');
+    assert('You attempted to move the center of a calendar that doesn\'t receive an `@onCenterChange` action.', typeof this.onCenterChange === 'function');
     let value = normalizeCalendarValue({ date: newCenter });
     yield this.onCenterChange(value, calendar, e);
   })) changeCenterTask

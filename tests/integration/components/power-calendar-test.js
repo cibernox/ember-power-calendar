@@ -108,7 +108,7 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
       assert.dom('.ember-power-calendar-day[data-date="2016-02-29"]').exists('The days in the calendar actually belong to the displayed month');
     });
 
-    test('the `onCenterChange` action receives the date/moment compound object, the calendar and the event', async function (assert) {
+    test('the `@onCenterChange` action receives the date/moment compound object, the calendar and the event', async function (assert) {
       assert.expect(3);
       this.center = new Date(2016, 1, 5);
       this.onCenterChange = function (obj, calendar, e) {
@@ -156,7 +156,7 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
       assert.dom('.ember-power-calendar-day[data-date="2016-02-29"]').exists('The days in the calendar actually belong to the displayed month');
     });
 
-    test('the `onCenterChange` action receives the date/datetime compound object, the calendar and the event', async function (assert) {
+    test('the `@onCenterChange` action receives the date/datetime compound object, the calendar and the event', async function (assert) {
       assert.expect(3);
       this.center = new Date(2016, 1, 5);
       this.onCenterChange = function (obj, calendar, e) {
@@ -190,7 +190,7 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     });
   }
 
-  test('when it receives a `center` and an `onCenterChange` action, it shows controls to go to the next & previous month and the action is called when they are clicked', async function(assert) {
+  test('when it receives a `center` and an `@onCenterChange` action, it shows controls to go to the next & previous month and the action is called when they are clicked', async function(assert) {
     assert.expect(7);
     this.center = new Date(2016, 1, 5);
     this.moveCenter = function() {
