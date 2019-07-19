@@ -2,7 +2,7 @@
   @center={{center}}
   @onCenterChange={{action (mut this.center) value="date"}} as |calendar|>
 
-  <calendar.nav>
+  <calendar.Nav>
     <span class="with-invisible-select">
       {{#with (format-date calendar.center 'MMMM') as |currentMonth|}}
         {{currentMonth}}
@@ -23,7 +23,7 @@
         </select>
       {{/with}}
     </span>
-  </calendar.nav>
+  </calendar.Nav>
 
-  <calendar.days/>
+  <calendar.Days/>
 </PowerCalendar>

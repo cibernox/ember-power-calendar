@@ -40,7 +40,7 @@ module('Integration | Component | <PowerCalendar::Days>', function(hooks) {
     this.center = new Date(2016, 10, 15);
     calendarService.set('locale', 'fr');
     await render(
-      hbs`<PowerCalendar @center={{center}} as |cal|><cal.days/></PowerCalendar>`
+      hbs`<PowerCalendar @center={{center}} as |cal|><cal.Days/></PowerCalendar>`
     );
     assert.equal(this.element.querySelector('.ember-power-calendar-weekdays').textContent.replace(/\s+/g, ' ').trim(), 'lun. mar. mer. jeu. ven. sam. dim.');
     assert.equal(this.element.querySelectorAll('.ember-power-calendar-day')[0].dataset.date, '2016-10-31');

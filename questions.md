@@ -46,21 +46,21 @@ The `onSelect` action is fired every time either end of the range changes.
 
 <!-- Just days -->
 <PowerCalendar as |calendar|>
-  <calendar.days/>
+  <calendar.Days/>
 </PowerCalendar>
 
 <!-- Days and nav -->
 <PowerCalendar as |calendar|>
-  <calendar.nav/>
-  <calendar.days/>
+  <calendar.Nav/>
+  <calendar.Days/>
 </PowerCalendar>
 
 
 <!-- Days and nav -->
 <PowerCalendar @center={{month}} @selected={{day}} @onSelect={{action (mut day) value="date"}} @onCenterChange={{action (mut month) value="date"}} as |calendar|>
-  <calendar.nav/>
+  <calendar.Nav/>
 
-  <calendar.days as |day|>
+  <calendar.Days as |day|>
     {{day.number}}
-  </calendar.days>
+  </calendar.Days>
 </PowerCalendar>

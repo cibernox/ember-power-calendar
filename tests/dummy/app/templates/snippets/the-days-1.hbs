@@ -1,7 +1,7 @@
 <PowerCalendar as |calendar|>
-  <calendar.nav/>
+  <calendar.Nav/>
 
-  <calendar.days as |day|>
+  <calendar.Days as |day|>
     {{#with (format-date day.date 'ddd') as |weekday|}}
       {{#if (or (eq weekday "Sat") (eq weekday "Sun"))}}
         <strong class="pink-text">{{day.number}}</strong>
@@ -9,5 +9,5 @@
         {{day.number}}
       {{/if}}
     {{/with}}
-  </calendar.days>
+  </calendar.Days>
 </PowerCalendar>

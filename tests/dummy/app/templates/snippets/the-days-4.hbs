@@ -13,5 +13,5 @@
   <label for="weekday-radio-button-6">Sat</label>
   <input type="radio" name="weekday" id="weekday-radio-button-0" value="0" onchange={{action (mut startOfWeek) value="target.value"}}>
   <label for="weekday-radio-button-0">Sun</label>
-  <calendar.days @startOfWeek={{startOfWeek}}/>
+  <calendar.Days @startOfWeek={{startOfWeek}}/>
 </PowerCalendar>

@@ -16,7 +16,7 @@ module('Integration | Component | <PowerCalendarMultiple::Days>', function(hooks
       <PowerCalendarMultiple
         @selected={{collection}}
         @onSelect={{action (mut collection) value="date"}} as |calendar|>
-        <calendar.days @maxLength={{1}}/>
+        <calendar.Days @maxLength={{1}}/>
       </PowerCalendarMultiple>
     `);
     await click('.ember-power-calendar-day[data-date="2013-10-05"]');
@@ -34,7 +34,7 @@ module('Integration | Component | <PowerCalendarMultiple::Days>', function(hooks
       <PowerCalendarMultiple
         @selected={{collection}}
         @onSelect={{action (mut collection) value="date"}} as |calendar|>
-        <calendar.days @maxLength={{max}}/>
+        <calendar.Days @maxLength={{max}}/>
       </PowerCalendarMultiple>
     `);
     await click('.ember-power-calendar-day[data-date="2013-10-05"]');
@@ -53,7 +53,7 @@ module('Integration | Component | <PowerCalendarMultiple::Days>', function(hooks
       <PowerCalendarMultiple
         @selected={{collection}}
         @onSelect={{action (mut collection) value="date"}} as |calendar|>
-        <calendar.days @maxLength={{max}}/>
+        <calendar.Days @maxLength={{max}}/>
       </PowerCalendarMultiple>
     `);
     await click('.ember-power-calendar-day[data-date="2013-10-05"]');
@@ -68,7 +68,7 @@ module('Integration | Component | <PowerCalendarMultiple::Days>', function(hooks
       <PowerCalendarMultiple
         @selected={{collection}}
         @onSelect={{action (mut collection) value="date"}} as |calendar|>
-        <calendar.days @maxLength={{max}}/>
+        <calendar.Days @maxLength={{max}}/>
       </PowerCalendarMultiple>
     `);
     await click('.ember-power-calendar-day[data-date="2013-10-05"]');
@@ -84,7 +84,7 @@ module('Integration | Component | <PowerCalendarMultiple::Days>', function(hooks
         @selected={{collection}}
         @center={{center}}
         @onSelect={{action (mut collection) value="date"}} as |calendar|>
-        <calendar.days @showDaysAround={{false}}/>
+        <calendar.Days @showDaysAround={{false}}/>
       </PowerCalendarMultiple>
     `);
     await click('.ember-power-calendar-day[data-date="2013-10-05"]');

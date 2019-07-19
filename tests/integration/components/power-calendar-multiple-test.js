@@ -28,8 +28,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function(hooks) {
 
     await render(hbs`
       <PowerCalendarMultiple @selected={{selected}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendarMultiple>
     `);
     assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in the month of the first selected date');
@@ -73,8 +73,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function(hooks) {
 
     await render(hbs`
       <PowerCalendarMultiple @selected={{selected}} @onSelect={{action didChange}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendarMultiple>
     `);
 
@@ -125,8 +125,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function(hooks) {
     assert.expect(13);
     await render(hbs`
       <PowerCalendarMultiple @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendarMultiple>
     `);
     assert.dom('.ember-power-calendar-day--selected').doesNotExist('No days are selected');
@@ -165,8 +165,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function(hooks) {
     ];
     await render(hbs`
       <PowerCalendarMultiple @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days @disabledDates={{disabledDates}}/>
+        <calendar.Nav/>
+        <calendar.Days @disabledDates={{disabledDates}}/>
       </PowerCalendarMultiple>
     `);
 

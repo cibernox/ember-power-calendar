@@ -1,5 +1,5 @@
 <PowerCalendar class="nav-with-power-select-demo" @center={{center2}} @onCenterChange={{action (mut center2) value="date"}} as |cal|>
-  <cal.nav>
+  <cal.Nav>
     <PowerSelect @options={{months}}
       @selected={{format-date cal.center "MMMM"}}
       @matchTriggerWidth={{false}}
@@ -11,7 +11,7 @@
       @onChange={{fn this.changeCenter2 "year" cal}} as |year|>
       {{year}}
     </PowerSelect>
-  </cal.nav>
+  </cal.Nav>
 
-  <cal.days/>}
+  <cal.Days/>}
 </PowerCalendar>

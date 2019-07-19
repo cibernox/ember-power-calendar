@@ -29,8 +29,8 @@ There are many possible ways to use it, for giving you just a taste of the API:
 
 ```hbs
 <PowerCalendar @selected={{arrival}} @onSelect={{action (mut arrival) value="date"}} as |calendar|>
-  <calendar.nav/>
-  <calendar.days/>
+  <calendar.Nav/>
+  <calendar.Days/>
 </PowerCalendar>
 ```
 

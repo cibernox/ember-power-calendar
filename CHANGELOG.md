@@ -25,7 +25,7 @@ Unsure
   a range it it will use that range it will use as is.
 
 ## 0.10.2
-- [ENHANCEMENT] Allow pass a `@unit` and `@format` to the `calendar.nav` component, which used to be
+- [ENHANCEMENT] Allow pass a `@unit` and `@format` to the `calendar.Nav` component, which used to be
   hardcoded values (`'month'` and `'MMMM YYYY'` respetively).
 
 ## 0.10.1
@@ -193,5 +193,5 @@ Unsure
 - [FEATURE] Add `i18n` based in ember-moment.
 
 ## 0.1.1
-- [FEATURE] Add `minDate` and `maxDate` to default `<calendar.days/>` component to disabled days before/after
+- [FEATURE] Add `minDate` and `maxDate` to default `<calendar.Days/>` component to disabled days before/after
   some specific date.

@@ -34,8 +34,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     assert.expect(3);
     await render(hbs`
       <PowerCalendar as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     assert.dom('.ember-power-calendar-nav').containsText('October 2013', 'The calendar is centered in the present');
@@ -55,8 +55,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.center = new Date(2016, 1, 5);
     await render(hbs`
       <PowerCalendar @center={{center}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in passed month');
@@ -69,8 +69,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.center = null;
     await render(hbs`
       <PowerCalendar @center={{center}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     assert.dom('.ember-power-calendar-nav').containsText('October 2013', 'The calendar is centered in current month');
@@ -83,8 +83,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.center = undefined;
     await render(hbs`
       <PowerCalendar @center={{center}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     assert.dom('.ember-power-calendar-nav').containsText('October 2013', 'The calendar is centered in current month');
@@ -99,8 +99,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
       this.center = moment('2016-02-05');
       await render(hbs`
         <PowerCalendar @center={{center}} as |calendar|>
-          <calendar.nav/>
-          <calendar.days/>
+          <calendar.Nav/>
+          <calendar.Days/>
         </PowerCalendar>
       `);
       assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in passed month');
@@ -118,8 +118,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
       };
       await render(hbs`
       <PowerCalendar @center={{center}} @onCenterChange={{onCenterChange}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
 
@@ -131,8 +131,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
       this.selected = moment('2016-02-05');
       await render(hbs`
       <PowerCalendar @selected={{selected}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
       assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in the month of the selected date');
@@ -147,8 +147,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
       this.center = DateTime.fromObject({ year: 2016, month: 2, day: 5 });
       await render(hbs`
         <PowerCalendar @center={{center}} as |calendar|>
-          <calendar.nav/>
-          <calendar.days/>
+          <calendar.Nav/>
+          <calendar.Days/>
         </PowerCalendar>
       `);
       assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in passed month');
@@ -166,8 +166,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
       };
       await render(hbs`
       <PowerCalendar @center={{center}} @onCenterChange={{onCenterChange}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
 
@@ -179,8 +179,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
       this.selected = DateTime.fromObject({ year: 2016, month: 2, day: 5 });
       await render(hbs`
       <PowerCalendar @selected={{selected}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
       assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in the month of the selected date');
@@ -198,8 +198,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     };
     await render(hbs`
       <PowerCalendar @center={{center}} @onCenterChange={{moveCenter}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in passed month');
@@ -217,8 +217,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.center = new Date(2016, 1, 5);
     await render(hbs`
       <PowerCalendar @center={{center}} @onCenterChange={{action (mut center) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
 
@@ -232,8 +232,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.center = null;
     await render(hbs`
       <PowerCalendar @center={{center}} @onCenterChange={{action (mut center) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
 
@@ -247,8 +247,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.selected = new Date(2016, 1, 5);
     await render(hbs`
       <PowerCalendar @selected={{selected}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in the month of the selected date');
@@ -263,8 +263,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.center = new Date(2016, 1, 5);
     await render(hbs`
       <PowerCalendar @selected={{selected}} @center={{center}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in the `center`, no on the `selected` date');
@@ -277,8 +277,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     assert.expect(4);
     await render(hbs`
       <PowerCalendar as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     assert.dom('.ember-power-calendar-day[data-date="2013-10-01"]').hasClass(
@@ -303,8 +303,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     assert.expect(3);
     await render(hbs`
       <PowerCalendar as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     assert.dom('.ember-power-calendar-day[data-date="2013-10-18"]').hasClass('ember-power-calendar-day--today', 'The current day has a special class');
@@ -316,8 +316,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     assert.expect(1);
     await render(hbs`
       <PowerCalendar as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     let dayElement = this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-18"]');
@@ -329,8 +329,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     assert.expect(1);
     await render(hbs`
       <PowerCalendar @onSelect={{action (mut foo)}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     let dayElement = this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-18"]');
@@ -342,8 +342,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     assert.expect(3);
     await render(hbs`
       <PowerCalendar @onSelect={{action (mut foo)}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     let dayElement = this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-18"]');
@@ -373,8 +373,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     };
     await render(hbs`
       <PowerCalendar @onSelect={{action didChange}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     await click('.ember-power-calendar-day[data-date="2013-10-18"]');
@@ -385,8 +385,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.selected = new Date(2016, 1, 5);
     await render(hbs`
       <PowerCalendar @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
 
@@ -399,8 +399,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     assert.expect(6);
     await render(hbs`
       <PowerCalendar @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
 
@@ -421,8 +421,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     assert.expect(6);
     await render(hbs`
       <PowerCalendar @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
     await focus('.ember-power-calendar-day[data-date="2013-10-18"]');
@@ -449,8 +449,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     await render(hbs`
       <PowerCalendar @onCenterChange={{action asyncAction}} as |calendar|>
         <div class={{if calendar.loading 'is-loading-yo'}}></div>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendar>
     `);
 
@@ -470,9 +470,9 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     assert.expect(1);
     await render(hbs`
       <PowerCalendar as |calendar|>
-        <calendar.days as |day|>
+        <calendar.Days as |day|>
           {{day.number}}!
-        </calendar.days>
+        </calendar.Days>
       </PowerCalendar>
     `);
     assert.dom('.ember-power-calendar-day[data-date="2013-10-01"]').hasText('1!', 'The block has been rendered');
@@ -482,9 +482,9 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     assert.expect(1);
     await render(hbs`
       <PowerCalendar @selected={{day}} @onSelect={{action (mut day) value="date"}} as |calendar|>
-        <calendar.days as |day|>
+        <calendar.Days as |day|>
           {{day.number}}!
-        </calendar.days>
+        </calendar.Days>
       </PowerCalendar>
     `);
     assert.dom('.ember-power-calendar-day[data-date="2013-10-01"]').hasText('1!', 'The block has been rendered');
@@ -495,8 +495,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.minDate = new Date(2013, 9, 15);
     await render(hbs`
       <PowerCalendar @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days @minDate={{minDate}}/>
+        <calendar.Nav/>
+        <calendar.Days @minDate={{minDate}}/>
       </PowerCalendar>
     `);
 
@@ -515,8 +515,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.maxDate = new Date(2013, 9, 15);
     await render(hbs`
       <PowerCalendar @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days @maxDate={{maxDate}}/>
+        <calendar.Nav/>
+        <calendar.Days @maxDate={{maxDate}}/>
       </PowerCalendar>
     `);
 
@@ -535,8 +535,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.minDate = new Date(2013, 9, 15);
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days @minDate={{minDate}}/>
+        <calendar.Nav/>
+        <calendar.Days @minDate={{minDate}}/>
       </PowerCalendarRange>
     `);
 
@@ -550,8 +550,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.maxDate = new Date(2013, 9, 15);
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days @maxDate={{maxDate}}/>
+        <calendar.Nav/>
+        <calendar.Days @maxDate={{maxDate}}/>
       </PowerCalendarRange>
     `);
 
@@ -570,8 +570,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     ];
     await render(hbs`
       <PowerCalendar @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days @disabledDates={{disabledDates}}/>
+        <calendar.Nav/>
+        <calendar.Days @disabledDates={{disabledDates}}/>
       </PowerCalendar>
     `);
 
@@ -606,8 +606,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.minDate = new Date(2013, 9, 15);
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days @minDate={{minDate}}/>
+        <calendar.Nav/>
+        <calendar.Days @minDate={{minDate}}/>
       </PowerCalendarRange>
     `);
 
@@ -625,8 +625,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.minDate = new Date(2013, 9, 15);
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days @minDate={{minDate}}/>
+        <calendar.Nav/>
+        <calendar.Days @minDate={{minDate}}/>
       </PowerCalendarRange>
     `);
 
@@ -644,8 +644,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.maxDate = new Date(2013, 9, 15);
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days @maxDate={{maxDate}}/>
+        <calendar.Nav/>
+        <calendar.Days @maxDate={{maxDate}}/>
       </PowerCalendarRange>
     `);
 
@@ -663,8 +663,8 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     this.maxDate = new Date(2013, 9, 15);
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days @maxDate={{maxDate}}/>
+        <calendar.Nav/>
+        <calendar.Days @maxDate={{maxDate}}/>
       </PowerCalendarRange>
     `);
 

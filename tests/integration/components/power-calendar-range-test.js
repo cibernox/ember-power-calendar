@@ -27,8 +27,8 @@ module('Integration | Component | <PowerCalendarRange>', function(hooks) {
     this.selected = { start: new Date(2016, 1, 5), end: new Date(2016, 1, 9) };
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendarRange>
     `);
     assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in the month of the selected date');
@@ -66,8 +66,8 @@ module('Integration | Component | <PowerCalendarRange>', function(hooks) {
     };
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} @onSelect={{action didChange}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendarRange>
     `);
 
@@ -159,8 +159,8 @@ module('Integration | Component | <PowerCalendarRange>', function(hooks) {
     };
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} @onSelect={{action didChange}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendarRange>
     `);
 
@@ -197,8 +197,8 @@ module('Integration | Component | <PowerCalendarRange>', function(hooks) {
     assert.expect(10);
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} @minRange={{3}} as |cal|>
-        <cal.nav/>
-        <cal.days/>
+        <cal.Nav/>
+        <cal.Days/>
       </PowerCalendarRange>
     `);
 
@@ -231,8 +231,8 @@ module('Integration | Component | <PowerCalendarRange>', function(hooks) {
     assert.expect(7);
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} @minRange={{0}} as |cal|>
-        <cal.nav/>
-        <cal.days/>
+        <cal.Nav/>
+        <cal.Days/>
       </PowerCalendarRange>
     `);
 
@@ -278,8 +278,8 @@ module('Integration | Component | <PowerCalendarRange>', function(hooks) {
     assert.expect(9);
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} @maxRange={{2}} as |cal|>
-        <cal.nav/>
-        <cal.days/>
+        <cal.Nav/>
+        <cal.Days/>
       </PowerCalendarRange>
     `);
 
@@ -345,8 +345,8 @@ module('Integration | Component | <PowerCalendarRange>', function(hooks) {
 
     await render(hbs`
       <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} @proximitySelection={{true}} as |calendar|>
-        <calendar.nav/>
-        <calendar.days/>
+        <calendar.Nav/>
+        <calendar.Days/>
       </PowerCalendarRange>
     `);
     let allDaysInRangeAreSelected = this.element.querySelector('.ember-power-calendar-day[data-date="2016-02-05"]').classList.contains('ember-power-calendar-day--selected')

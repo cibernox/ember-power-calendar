@@ -14,8 +14,8 @@ module('Test Support | Helper | calendarCenter', function(hooks) {
     await render(hbs`
       <div class="calendar-center-1">
         <PowerCalendar @center={{center1}} @onCenterChange={{action (mut center1) value="date"}} as |calendar|>
-          <calendar.nav/>
-          <calendar.days/>
+          <calendar.Nav/>
+          <calendar.Days/>
         </PowerCalendar>
       </div>
     `);
