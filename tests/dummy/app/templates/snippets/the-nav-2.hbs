@@ -1,6 +1,6 @@
-{{#power-calendar class="demo-calendar-small"
-  center=month
-  onCenterChange=(action (mut month) value="date") as |calendar|}}
+<PowerCalendar class="demo-calendar-small"
+  @center={{month}}
+  @onCenterChange={{action (mut month) value="date"}} as |calendar|>
 
   <nav class="ember-power-calendar-nav">
     <button type="button" class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter -12 'month'}}>«</button>
@@ -12,5 +12,5 @@
     <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter 12 'month'}}>»</button>
   </nav>
 
-  {{calendar.days}}
-{{/power-calendar}}
+  <calendar.Days/>
+</PowerCalendar>

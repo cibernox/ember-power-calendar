@@ -2,11 +2,14 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../assertions';
+import {
+  assertionInjector,
+  assertionCleanup
+} from '../../assertions';
 import { run } from '@ember/runloop';
 import { isSame } from 'ember-power-calendar-utils';
 
-module('Integration | Component | power calendar range', function(hooks) {
+module('Integration | Component | <PowerCalendarRange>', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {
@@ -23,10 +26,10 @@ module('Integration | Component | power calendar range', function(hooks) {
     assert.expect(4);
     this.selected = { start: new Date(2016, 1, 5), end: new Date(2016, 1, 9) };
     await render(hbs`
-      {{#power-calendar-range selected=selected as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.days}}
-      {{/power-calendar-range}}
+      <PowerCalendarRange @selected={{selected}} as |calendar|>
+        <calendar.Nav/>
+        <calendar.Days/>
+      </PowerCalendarRange>
     `);
     assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in the month of the selected date');
     let allDaysInRangeAreSelected = this.element.querySelector('.ember-power-calendar-day[data-date="2016-02-05"]').classList.contains('ember-power-calendar-day--selected')
@@ -62,10 +65,10 @@ module('Integration | Component | power calendar range', function(hooks) {
       assert.ok(e instanceof Event, 'The third argument is an event');
     };
     await render(hbs`
-      {{#power-calendar-range selected=selected onSelect=(action didChange) as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.days}}
-      {{/power-calendar-range}}
+      <PowerCalendarRange @selected={{selected}} @onSelect={{action didChange}} as |calendar|>
+        <calendar.Nav/>
+        <calendar.Days/>
+      </PowerCalendarRange>
     `);
 
     assert.dom('.ember-power-calendar-day--selected').doesNotExist('No days have been selected');
@@ -113,9 +116,9 @@ module('Integration | Component | power calendar range', function(hooks) {
     };
 
     await render(hbs`
-      {{#power-calendar-range selected=selected onSelect=(action didChange) as |calendar|}}
+      <PowerCalendarRange @selected={{selected}} @onSelect={{action didChange}} as |calendar|>
         <button onclick={{action calendar.actions.select rangeToSelect}} id="test_button"></button>
-      {{/power-calendar-range}}
+      </PowerCalendarRange>
     `);
     await click('#test_button');
 
@@ -155,10 +158,10 @@ module('Integration | Component | power calendar range', function(hooks) {
       assert.ok(e instanceof Event, 'The third argument is an event');
     };
     await render(hbs`
-      {{#power-calendar-range selected=selected onSelect=(action didChange) as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.days}}
-      {{/power-calendar-range}}
+      <PowerCalendarRange @selected={{selected}} @onSelect={{action didChange}} as |calendar|>
+        <calendar.Nav/>
+        <calendar.Days/>
+      </PowerCalendarRange>
     `);
 
     assert.dom('.ember-power-calendar-day--selected').doesNotExist('No days have been selected');
@@ -193,10 +196,10 @@ module('Integration | Component | power calendar range', function(hooks) {
   test('Passing `minRange` allows to determine the minimum length of a range (in days)', async function(assert) {
     assert.expect(10);
     await render(hbs`
-      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") minRange=3 as |cal|}}
-        {{cal.nav}}
-        {{cal.days}}
-      {{/power-calendar-range}}
+      <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} @minRange={{3}} as |cal|>
+        <cal.Nav/>
+        <cal.Days/>
+      </PowerCalendarRange>
     `);
 
     await click('.ember-power-calendar-day[data-date="2013-10-10"]');
@@ -224,13 +227,13 @@ module('Integration | Component | power calendar range', function(hooks) {
     assert.ok(allDaysInBetweenAreSelected, 'the 11th and 12th day are selected');
   });
 
-  test('Passing `minRange=0` allows to make a range start and end on the same date', async function(assert) {
+  test('Passing `@minRange={{0}}` allows to make a range start and end on the same date', async function(assert) {
     assert.expect(7);
     await render(hbs`
-      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") minRange=0 as |cal|}}
-        {{cal.nav}}
-        {{cal.days}}
-      {{/power-calendar-range}}
+      <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} @minRange={{0}} as |cal|>
+        <cal.Nav/>
+        <cal.Days/>
+      </PowerCalendarRange>
     `);
 
     assert.dom('.ember-power-calendar-day--selected').doesNotExist('No days have been selected');
@@ -257,9 +260,9 @@ module('Integration | Component | power calendar range', function(hooks) {
   test('The default minRange is one day, but it can be changed passing convenient strings', async function(assert) {
     assert.expect(4);
     await render(hbs`
-      {{#power-calendar-range minRange=minRange as |calendar|}}
+      <PowerCalendarRange @minRange={{minRange}} as |calendar|>
         <div class="formatted-min-range">{{calendar.minRange}}</div>
-      {{/power-calendar-range}}
+      </PowerCalendarRange>
     `);
 
     assert.dom('.formatted-min-range').hasText('86400000', 'the default minRange is one day');
@@ -274,10 +277,10 @@ module('Integration | Component | power calendar range', function(hooks) {
   test('Passing `maxRange` allows to determine the minimum length of a range (in days)', async function(assert) {
     assert.expect(9);
     await render(hbs`
-      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") maxRange=2 as |cal|}}
-        {{cal.nav}}
-        {{cal.days}}
-      {{/power-calendar-range}}
+      <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} @maxRange={{2}} as |cal|>
+        <cal.Nav/>
+        <cal.Days/>
+      </PowerCalendarRange>
     `);
 
     await click('.ember-power-calendar-day[data-date="2013-10-10"]');
@@ -305,10 +308,10 @@ module('Integration | Component | power calendar range', function(hooks) {
       range = r;
     };
     await render(hbs`
-      {{#power-calendar-range selected=selected onSelect=didSelect minRange=2 as |cal|}}
-        <button id="select-invalid-range-end" onclick={{action cal.actions.select invalidDay}}>Select invalid date</button>
-        <button id="select-valid-range-end" onclick={{action cal.actions.select validDay}}>Select valid date</button>
-      {{/power-calendar-range}}
+      <PowerCalendarRange @selected={{selected}} @onSelect={{didSelect}} @minRange={{2}} as |cal|>
+        <button id="select-invalid-range-end" {{on "click" (fn cal.actions.select invalidDay)}}>Select invalid date</button>
+        <button id="select-valid-range-end" {{on "click" (fn cal.actions.select validDay)}}>Select valid date</button>
+      </PowerCalendarRange>
     `);
     await click('#select-invalid-range-end');
     assert.equal(range, undefined, 'The actions has not been called');
@@ -324,10 +327,10 @@ module('Integration | Component | power calendar range', function(hooks) {
     let range;
     this.didSelect = function(r) { range = r; };
     await render(hbs`
-      {{#power-calendar-range selected=selected onSelect=didSelect maxRange=2 as |cal|}}
-        <button id="select-invalid-range-end" onclick={{action cal.actions.select invalidDay}}>Select invalid date</button>
-        <button id="select-valid-range-end" onclick={{action cal.actions.select validDay}}>Select valid date</button>
-      {{/power-calendar-range}}
+      <PowerCalendarRange @selected={{selected}} @onSelect={{didSelect}} @maxRange={{2}} as |cal|>
+        <button id="select-invalid-range-end" {{on "click" (fn cal.actions.select invalidDay)}}>Select invalid date</button>
+        <button id="select-valid-range-end" {{on "click" (fn cal.actions.select validDay)}}>Select valid date</button>
+      </PowerCalendarRange>
     `);
     await click('#select-invalid-range-end');
     assert.equal(range, undefined, 'The actions has not been called');
@@ -341,10 +344,10 @@ module('Integration | Component | power calendar range', function(hooks) {
     this.proximitySelection = true;
 
     await render(hbs`
-      {{#power-calendar-range selected=selected onSelect=(action (mut selected) value="date") proximitySelection=true as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.days}}
-      {{/power-calendar-range}}
+      <PowerCalendarRange @selected={{selected}} @onSelect={{action (mut selected) value="date"}} @proximitySelection={{true}} as |calendar|>
+        <calendar.Nav/>
+        <calendar.Days/>
+      </PowerCalendarRange>
     `);
     let allDaysInRangeAreSelected = this.element.querySelector('.ember-power-calendar-day[data-date="2016-02-05"]').classList.contains('ember-power-calendar-day--selected')
       && this.element.querySelector('.ember-power-calendar-day[data-date="2016-02-06"]').classList.contains('ember-power-calendar-day--selected')

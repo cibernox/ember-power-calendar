@@ -1,7 +1,7 @@
-{{#power-calendar
-  center=wedding
-  selected=selected
-  onSelect=(action (mut selected) value="date") as |calendar|}}
-  {{calendar.nav}}
-  {{calendar.days minDate=minDate maxDate=maxDate}}
-{{/power-calendar}}
+<PowerCalendar
+  @center={{wedding}}
+  @selected={{selected}}
+  @onSelect={{action (mut selected) value="date"}} as |calendar|>
+  <calendar.Nav/>
+  <calendar.Days @minDate={{minDate}} @maxDate={{maxDate}}/>
+</PowerCalendar>

@@ -28,10 +28,10 @@ let app = new EmberAddon(defaults, {
 There are many possible ways to use it, for giving you just a taste of the API:
 
 ```hbs
-{{#power-calendar selected=arrival onSelect=(action (mut arrival) value="date") as |calendar|}}
-  {{calendar.nav}}
-  {{calendar.days}}
-{{/power-calendar}}
+<PowerCalendar @selected={{arrival}} @onSelect={{action (mut arrival) value="date"}} as |calendar|>
+  <calendar.Nav/>
+  <calendar.Days/>
+</PowerCalendar>
 ```
 
 Check the full documentation at www.ember-power-calendar.com

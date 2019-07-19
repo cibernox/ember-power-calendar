@@ -7,16 +7,16 @@ import { calendarCenter } from 'ember-power-calendar/test-support';
 module('Test Support | Helper | calendarCenter', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('`calendarCenter` invokes the `onCenterChange` action of the target component inside the selector we pass it', async function(assert) {
+  test('`calendarCenter` invokes the `@onCenterChange` action of the target component inside the selector we pass it', async function(assert) {
     assert.expect(3);
     this.center1 = new Date(2013, 9, 18);
 
     await render(hbs`
       <div class="calendar-center-1">
-        {{#power-calendar center=center1 onCenterChange=(action (mut center1) value="date") as |calendar|}}
-          {{calendar.nav}}
-          {{calendar.days}}
-        {{/power-calendar}}
+        <PowerCalendar @center={{center1}} @onCenterChange={{action (mut center1) value="date"}} as |calendar|>
+          <calendar.Nav/>
+          <calendar.Days/>
+        </PowerCalendar>
       </div>
     `);
     assert.dom('.calendar-center-1 .ember-power-calendar-nav-title').hasText('October 2013');

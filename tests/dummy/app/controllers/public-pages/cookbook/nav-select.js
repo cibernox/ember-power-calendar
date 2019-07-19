@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 
-export default Controller.extend({
-  months: [
+export default class extends Controller {
+  months = [
     "January",
     "February",
     "March",
@@ -14,9 +14,9 @@ export default Controller.extend({
     "October",
     "November",
     "December"
-  ],
-  years: Array(...Array(80)).map((_, i) => `${i + 1940}`),
-  groupedYears: [
+  ]
+  years = Array(...Array(80)).map((_, i) => `${i + 1940}`)
+  groupedYears = [
     {
       groupName: "40's",
       options: Array(...Array(10)).map((_, i) => `${i + 1940}`)
@@ -45,22 +45,20 @@ export default Controller.extend({
       groupName: "00's",
       options: Array(...Array(10)).map((_, i) => `${i + 2000}`)
     }
-  ],
+  ]
 
-  actions: {
-    changeCenter(unit, calendar, e) {
-      let newCenter = calendar.center.clone()[unit](e.target.value);
-      calendar.actions.changeCenter(newCenter);
-    },
-
-    changeCenter2(unit, calendar, val) {
-      let newCenter = calendar.center.clone()[unit](val);
-      calendar.actions.changeCenter(newCenter);
-    },
-
-    changeYear(calendar, e) {
-      let newCenter = calendar.center.clone().year(e.target.value);
-      calendar.actions.changeCenter(newCenter);
-    }
+  changeCenter(unit, calendar, e) {
+    let newCenter = calendar.center.clone()[unit](e.target.value);
+    calendar.actions.changeCenter(newCenter);
   }
-});
+
+  changeCenter2(unit, calendar, val) {
+    let newCenter = calendar.center.clone()[unit](val);
+    calendar.actions.changeCenter(newCenter);
+  }
+
+  changeYear(calendar, e) {
+    let newCenter = calendar.center.clone().year(e.target.value);
+    calendar.actions.changeCenter(newCenter);
+  }
+}

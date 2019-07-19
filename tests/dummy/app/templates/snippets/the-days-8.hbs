@@ -1,4 +1,4 @@
-{{#power-calendar as |calendar|}}
+<PowerCalendar as |calendar|>
   <input type="radio" name="weekday-format" id="weekday-format-radio-button-1" value="min" onchange={{action (mut weekdayFormat) value="target.value"}}>
   <label for="weekday-format-radio-button-1">Min</label>
   <input type="radio" name="weekday-format" id="weekday-format-radio-button-2" value="short" onchange={{action (mut weekdayFormat) value="target.value"}}>
@@ -6,5 +6,5 @@
   <input type="radio" name="weekday-format" id="weekday-format-radio-button-3" value="long" onchange={{action (mut weekdayFormat) value="target.value"}}>
   <label for="weekday-format-radio-button-3">Long</label>
 
-  {{calendar.days weekdayFormat=weekdayFormat}}
-{{/power-calendar}}
+  <calendar.Days @weekdayFormat={{weekdayFormat}}/>
+</PowerCalendar>

@@ -1,4 +1,4 @@
-{{#power-calendar selected=birthday as |calendar|}}
-  {{calendar.nav}}
-  {{calendar.days}}
-{{/power-calendar}}
+<PowerCalendar @selected={{birthday}} as |calendar|>
+  <calendar.Nav/>
+  <calendar.Days/>
+</PowerCalendar>

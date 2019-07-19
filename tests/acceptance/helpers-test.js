@@ -6,7 +6,7 @@ import { calendarCenter, calendarSelect } from 'ember-power-calendar/test-suppor
 module('Acceptance | helpers | calendarCenter', function(hooks) {
   setupApplicationTest(hooks);
 
-  test('`calendarCenter` invokes the `onCenterChange` action of the target component inside the selector we pass it', async function(assert) {
+  test('`calendarCenter` invokes the `@onCenterChange` action of the target component inside the selector we pass it', async function(assert) {
     await visit('/helpers-testing');
     assert.dom('.calendar-center-1 .ember-power-calendar-nav-title').hasText('October 2013');
 
@@ -15,7 +15,7 @@ module('Acceptance | helpers | calendarCenter', function(hooks) {
     assert.dom('.calendar-center-1 [data-date="2013-09-01"]').exists('The days component has updated');
   });
 
-  test('`calendarCenter` invokes the `onCenterChange` action of the target component WITH the selector we pass it', async function(assert) {
+  test('`calendarCenter` invokes the `@onCenterChange` action of the target component WITH the selector we pass it', async function(assert) {
     await visit('/helpers-testing');
 
     assert.dom('.calendar-center-2-calendar .ember-power-calendar-nav-title').hasText('October 2013');
@@ -25,13 +25,13 @@ module('Acceptance | helpers | calendarCenter', function(hooks) {
     assert.dom('.calendar-center-2-calendar [data-date="2013-09-01"]').exists('The days component has updated');
   });
 
-  test('`calendarCenter` throws an error if called on a calendar without `onCenterChange` action', async function(assert) {
+  test('`calendarCenter` throws an error if called on a calendar without `@onCenterChange` action', async function(assert) {
     assert.expect(2);
     await visit('/helpers-testing');
 
     assert.dom('.calendar-center-3 .ember-power-calendar-nav-title').hasText('October 2013');
     return calendarCenter('.calendar-center-3', new Date(2013, 8, 3)).catch((error) => {
-      assert.equal(error.message, 'Assertion Failed: You cannot call `calendarCenter` on a component that doesn\'t has an `onCenterChange` action');
+      assert.equal(error.message, 'Assertion Failed: You cannot call `calendarCenter` on a component that doesn\'t has an `@onCenterChange` action');
     });
   });
 

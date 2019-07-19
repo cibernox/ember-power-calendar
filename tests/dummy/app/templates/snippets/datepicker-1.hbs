@@ -1,4 +1,4 @@
-{{#basic-dropdown as |dropdown|}}
+<BasicDropdown as |dropdown|>
   <input type="text"
     data-ebd-id="{{dropdown.uniqueId}}-trigger"
     class="datepicker-demo-input"
@@ -6,14 +6,14 @@
     value={{if selected (format-date selected 'DD-MM-YYYY')}}
     readonly>
 
-  {{#dropdown.content class="datepicker-demo-dropdown"}}
-    {{#power-calendar class="demo-calendar-small"
-      center=center
-      onCenterChange=(action (mut center) value="date")
-      selected=selected
-      onSelect=(action (mut selected) value="date") as |calendar|}}
-      {{calendar.nav}}
-      {{calendar.days}}
-    {{/power-calendar}}
-  {{/dropdown.content}}
-{{/basic-dropdown}}
+  <dropdown.Content class="datepicker-demo-dropdown">
+    <PowerCalendar class="demo-calendar-small"
+      @center={{center}}
+      @onCenterChange={{action (mut center) value="date"}}
+      @selected={{selected}}
+      @onSelect={{action (mut selected) value="date"}} as |calendar|>
+      <calendar.Nav/>
+      <calendar.Days/>
+    </PowerCalendar>
+  </dropdown.Content>
+</BasicDropdown>

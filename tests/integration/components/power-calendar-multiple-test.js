@@ -2,11 +2,14 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../assertions';
+import {
+  assertionInjector,
+  assertionCleanup
+} from '../../assertions';
 import { run } from '@ember/runloop';
 import { isSame, formatDate } from 'ember-power-calendar-utils';
 
-module('Integration | Component | power calendar multiple', function(hooks) {
+module('Integration | Component | <PowerCalendarMultiple>', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {
@@ -24,10 +27,10 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     this.selected = [new Date(2016, 1, 5), new Date(2016, 1, 9), new Date(2016, 1, 15)];
 
     await render(hbs`
-      {{#power-calendar-multiple selected=selected as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.days}}
-      {{/power-calendar-multiple}}
+      <PowerCalendarMultiple @selected={{selected}} as |calendar|>
+        <calendar.Nav/>
+        <calendar.Days/>
+      </PowerCalendarMultiple>
     `);
     assert.dom('.ember-power-calendar-nav').containsText('February 2016', 'The calendar is centered in the month of the first selected date');
     assert.dom('.ember-power-calendar-day[data-date="2016-02-05"]').hasClass('ember-power-calendar-day--selected', 'The first selected day is selected');
@@ -69,10 +72,10 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     };
 
     await render(hbs`
-      {{#power-calendar-multiple selected=selected onSelect=(action didChange) as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.days}}
-      {{/power-calendar-multiple}}
+      <PowerCalendarMultiple @selected={{selected}} @onSelect={{action didChange}} as |calendar|>
+        <calendar.Nav/>
+        <calendar.Days/>
+      </PowerCalendarMultiple>
     `);
 
     assert.dom('.ember-power-calendar-day--selected').doesNotExist('No days are selected');
@@ -110,9 +113,9 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     };
 
     await render(hbs`
-      {{#power-calendar-multiple selected=selected onSelect=(action didChange) as |calendar|}}
+      <PowerCalendarMultiple @selected={{selected}} @onSelect={{action didChange}} as |calendar|>
         <button onclick={{action calendar.actions.select datesToSelect}} id="test_button"></button>
-      {{/power-calendar-multiple}}
+      </PowerCalendarMultiple>
     `);
 
     await click('#test_button');
@@ -121,10 +124,10 @@ module('Integration | Component | power calendar multiple', function(hooks) {
   test('Clicking on a day selects it, and clicking again on it unselects it', async function(assert) {
     assert.expect(13);
     await render(hbs`
-      {{#power-calendar-multiple selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.days}}
-      {{/power-calendar-multiple}}
+      <PowerCalendarMultiple @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
+        <calendar.Nav/>
+        <calendar.Days/>
+      </PowerCalendarMultiple>
     `);
     assert.dom('.ember-power-calendar-day--selected').doesNotExist('No days are selected');
 
@@ -139,20 +142,20 @@ module('Integration | Component | power calendar multiple', function(hooks) {
     assert.dom('.ember-power-calendar-day[data-date="2013-10-05"]').hasClass('ember-power-calendar-day--selected');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-10"]').hasClass('ember-power-calendar-day--selected');
     assert.dom('.ember-power-calendar-day[data-date="2013-10-12"]').hasClass('ember-power-calendar-day--selected');
-    assert.equal(formatDate(this.get('selected')[0], 'YYYY-MM-DD'), '2013-10-05');
-    assert.equal(formatDate(this.get('selected')[1], 'YYYY-MM-DD'), '2013-10-10');
-    assert.equal(formatDate(this.get('selected')[2], 'YYYY-MM-DD'), '2013-10-12');
+    assert.equal(formatDate(this.selected[0], 'YYYY-MM-DD'), '2013-10-05');
+    assert.equal(formatDate(this.selected[1], 'YYYY-MM-DD'), '2013-10-10');
+    assert.equal(formatDate(this.selected[2], 'YYYY-MM-DD'), '2013-10-12');
 
     await click('.ember-power-calendar-day[data-date="2013-10-10"]');
-    assert.equal(formatDate(this.get('selected')[0], 'YYYY-MM-DD'), '2013-10-05');
-    assert.equal(formatDate(this.get('selected')[1], 'YYYY-MM-DD'), '2013-10-12');
+    assert.equal(formatDate(this.selected[0], 'YYYY-MM-DD'), '2013-10-05');
+    assert.equal(formatDate(this.selected[1], 'YYYY-MM-DD'), '2013-10-12');
 
     await click('.ember-power-calendar-day[data-date="2013-10-12"]');
     await click('.ember-power-calendar-day[data-date="2013-10-05"]');
     assert.dom('.ember-power-calendar-day--selected').doesNotExist('No days are selected');
   });
 
-  test('If the user passes `disabledDates=someDate` to multiple calendars, days on those days are disabled', async function(assert) {
+  test('If the user passes `@disabledDates=someDate` to multiple calendars, days on those days are disabled', async function(assert) {
     assert.expect(13);
     this.disabledDates = [
       new Date(2013, 9, 15),
@@ -161,10 +164,10 @@ module('Integration | Component | power calendar multiple', function(hooks) {
       new Date(2013, 9, 23)
     ];
     await render(hbs`
-      {{#power-calendar-multiple selected=selected onSelect=(action (mut selected) value="date") as |calendar|}}
-        {{calendar.nav}}
-        {{calendar.days disabledDates=disabledDates}}
-      {{/power-calendar-multiple}}
+      <PowerCalendarMultiple @selected={{selected}} @onSelect={{action (mut selected) value="date"}} as |calendar|>
+        <calendar.Nav/>
+        <calendar.Days @disabledDates={{disabledDates}}/>
+      </PowerCalendarMultiple>
     `);
 
     assert.dom('.ember-power-calendar-day[data-date="2013-10-14"]').isNotDisabled('The 14th is enabled');

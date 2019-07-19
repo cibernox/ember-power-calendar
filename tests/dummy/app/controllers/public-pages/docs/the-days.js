@@ -8,19 +8,20 @@ import {
   weekday
 } from 'ember-power-calendar-utils';
 
-export default Controller.extend({
-  wedding: new Date('2013-10-18'),
-  minDate: new Date('2013-10-11'),
-  maxDate: new Date('2013-10-21'),
-  center: new Date('2013-10-15'),
-  disabledDates: [
+export default class extends Controller {
+  wedding = new Date('2013-10-18')
+  minDate = new Date('2013-10-11')
+  maxDate = new Date('2013-10-21')
+  center = new Date('2013-10-15')
+  disabledDates = [
     new Date('2013-10-18'),
     new Date('2013-10-21'),
     new Date('2013-10-22'),
     new Date('2013-10-28')
-  ],
+  ]
 
-  days: computed(function() {
+  @computed()
+  get days() {
     let now = new Date();
     let day = startOf(startOf(now, 'month'), 'isoWeek');
     let lastDay = endOf(endOf(now, 'month'), 'isoWeek');
@@ -37,18 +38,18 @@ export default Controller.extend({
       day = add(day, 1, 'day');
     }
     return days;
-  }),
+  }
 
-  weeksWithoutMondaysOrWednesday: computed('noMondays', function() {
-    let days = this.get('days');
+  @computed('noMondays')
+  get weeksWithoutMondaysOrWednesday() {
     let weeks = [];
     let i = 0;
-    while (days[i]) {
-      weeks.push({ days: days.slice(i, i + 5) });
+    while (this.days[i]) {
+      weeks.push({ days: this.days.slice(i, i + 5) });
       i += 5;
     }
     return weeks;
-  }),
+  }
 
   customClass(day, calendar, weeks) {
     if (day.isSelected) {
@@ -75,4 +76,4 @@ export default Controller.extend({
       return classes.join(' ');
     }
   }
-});
+}

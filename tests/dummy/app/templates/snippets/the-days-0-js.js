@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 
-export default Controller.extend({
+export default class extends Controller {
   customClass(day, calendar, weeks) {
     if (day.isSelected) {
       let currentWeek = weeks.find(w => w.days.includes(day));
@@ -26,4 +26,4 @@ export default Controller.extend({
       return classes.join(" ");
     }
   }
-});
+}

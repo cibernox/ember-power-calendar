@@ -36,7 +36,7 @@ export async function calendarCenter(selector, newCenter) {
   assert('`calendarCenter` expect a Date object as second argument', newCenter instanceof Date);
   let calendarComponent = findComponentInstance(selector);
   let onCenterChange = calendarComponent.get('onCenterChange');
-  assert('You cannot call `calendarCenter` on a component that doesn\'t has an `onCenterChange` action', !!onCenterChange);
+  assert('You cannot call `calendarCenter` on a component that doesn\'t has an `@onCenterChange` action', !!onCenterChange);
   let publicAPI = calendarComponent.get('publicAPI');
   await run(() => publicAPI.actions.changeCenter(newCenter, publicAPI));
   return settled();

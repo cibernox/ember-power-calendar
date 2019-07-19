@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 
-export default Controller.extend({
-  months: [
+export default class extends Controller {
+  months = [
     "January",
     "February",
     "March",
@@ -14,12 +14,10 @@ export default Controller.extend({
     "October",
     "November",
     "December"
-  ],
+  ]
 
-  actions: {
-    changeYear(calendar, e) {
-      let newCenter = calendar.center.clone().year(e.target.value);
-      calendar.actions.changeCenter(newCenter);
-    }
+  changeYear(calendar, e) {
+    let newCenter = calendar.center.clone().year(e.target.value);
+    calendar.actions.changeCenter(newCenter);
   }
-});
+}
