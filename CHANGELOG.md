@@ -1,5 +1,9 @@
 ## Master
 
+## 0.14.1
+- [ENHANCEMENT] The `<calendar.Nav>` component will display in the `data-power-calendar-id` the value of `calendar.calendarUniqueId`
+  if present (it not present, it will display `calendar.uniqueId` as before)
+
 ## 0.14.0
 - [BREAKING] Update addon to angle-bracket syntax. It requires Ember 3.11 now. The yielded components are
   not capitalized (e.g. `<calendar.Nav>`).
