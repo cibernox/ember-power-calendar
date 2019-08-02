@@ -19,7 +19,7 @@ export default @layout(templateLayout) @tagName('') class extends Component {
   center = null
   _calendarType = 'single'
 
-  // Lifecycle chooks
+  // Lifecycle hooks
   init() {
     super.init(...arguments);
     this.registerCalendar();
@@ -107,7 +107,7 @@ export default @layout(templateLayout) @tagName('') class extends Component {
   registerCalendar() {
     if (window) {
       window.__powerCalendars = window.__powerCalendars || {}; // TODO: weakmap??
-      window.__powerCalendars[guidFor(this)] = this;
+      window.__powerCalendars[this.publicAPI.uniqueId] = this;
     }
   }
 
