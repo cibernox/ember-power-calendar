@@ -155,13 +155,13 @@ module('Integration | Component | <PowerCalendar::Days>', function(hooks) {
   });
 
   test('The `data-power-calendar-id` attribute takes the value of the `calendarUniqueId` if present, or the `uniqueId` otherwise', async function(assert) {
-    assert.expect(1);
+    assert.expect(2);
     this.calendar = Object.assign({ calendarUniqueId: '123abc' }, calendar);
     await render(
       hbs`<PowerCalendar::Days @calendar={{calendar}}/>`
     );
     assert.dom('.ember-power-calendar-days').hasAttribute('data-power-calendar-id', '123abc');
-    this.calendar = Object.assign({ uniqueId: '987zwx' }, calendar);
+    this.set('calendar', Object.assign({ uniqueId: '987zwx' }, calendar));
     await render(
       hbs`<PowerCalendar::Days @calendar={{calendar}}/>`
       );
