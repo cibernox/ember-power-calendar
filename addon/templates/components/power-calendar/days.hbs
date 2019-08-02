@@ -2,7 +2,7 @@
   class="ember-power-calendar-days"
   {{on "click" this.handleClick}}
   ...attributes
-  data-power-calendar-id={{@calendar.uniqueId}}>
+  data-power-calendar-id={{or @calendar.calendarUniqueId @calendar.uniqueId}}>
   <div class="ember-power-calendar-row ember-power-calendar-weekdays">
     {{#each this.weekdaysNames as |wdn|}}
       <div class="ember-power-calendar-weekday">{{wdn}}</div>
