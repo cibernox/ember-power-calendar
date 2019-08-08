@@ -4,8 +4,8 @@ Customizable Calendar Component for Ember.
 
 ## Disclaimer
 
-This addon is in very early days of development, so things might change fast over
-the next weeks. Use it with caution!
+Version 0.14 of this addon requires Ember 3.11 or greater.
+Versions below 0.14 would work with Ember 3.0+ (and perhaps 2.12+)
 
 ## Installation
 
