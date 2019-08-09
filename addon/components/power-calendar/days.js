@@ -211,11 +211,11 @@ export default @layout(templateLayout) @tagName('') class extends Component {
       return true;
     }
 
-    if (this.minDate && isBefore(date, this.minDate)) {
+    if (this.minDate && isBefore(date, startOf(this.minDate, 'day'))) {
       return true;
     }
 
-    if (this.maxDate && isAfter(date, this.maxDate)) {
+    if (this.maxDate && isAfter(date, endOf(this.maxDate, 'day'))) {
       return true;
     }
 

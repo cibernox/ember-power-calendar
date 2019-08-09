@@ -1,5 +1,8 @@
 ## Master
 
+
+- [BUGFIX] Both `minDate` and `maxDate` should form part of the range and therefore be selectables.
+
 ## 0.14.1
 - [ENHANCEMENT] The `<calendar.Nav>` component will display in the `data-power-calendar-id` the value of `calendar.calendarUniqueId`
   if present (it not present, it will display `calendar.uniqueId` as before)
