@@ -1,6 +1,7 @@
 ## Master
 
 
+## 0.14.2
 - [BUGFIX] Both `minDate` and `maxDate` should form part of the range and therefore be selectables.
 
 ## 0.14.1
