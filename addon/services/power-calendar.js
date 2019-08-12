@@ -10,6 +10,9 @@ export default class extends Service {
   get locale() {
     return getDefaultLocale();
   }
+  set locale(value) {
+    return this._locale = value
+  }
 
   // Methods
   getDate() {
