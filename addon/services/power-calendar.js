@@ -11,7 +11,7 @@ export default class extends Service {
     return getDefaultLocale();
   }
   set locale(value) {
-    return this._locale = value
+    return value;
   }
 
   // Methods
