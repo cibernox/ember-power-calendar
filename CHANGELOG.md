@@ -1,6 +1,10 @@
 ## Master
 
 
+## 0.14.3
+- [BUGFIX] Remove deprecation by adding a setter for the locale to power-calendar service.
+
+
 ## 0.14.2
 - [BUGFIX] Both `minDate` and `maxDate` should form part of the range and therefore be selectables.
 
