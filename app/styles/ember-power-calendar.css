@@ -1,0 +1,96 @@
+.ember-power-calendar {
+  box-sizing: border-box;
+  position: relative;
+}
+
+.ember-power-calendar-nav {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ember-power-calendar-nav * {
+  box-sizing: border-box;
+}
+
+.ember-power-calendar-days, .ember-power-calendar-days * {
+  box-sizing: border-box;
+}
+
+.ember-power-calendar-nav-title {
+  flex: 1;
+  text-align: center;
+}
+
+.ember-power-calendar-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ember-power-calendar-weekday {
+  -webkit-appearance: none;
+  flex: 1 1 100%;
+  padding: 0;
+  background-color: transparent;
+  background-color: initial;
+  border: none;
+  border: initial;
+  outline: none;
+  outline: initial;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.ember-power-calendar-day {
+  -webkit-appearance: none;
+  background-color: transparent;
+  background-color: initial;
+  border: none;
+  border: initial;
+  outline: none;
+  outline: initial;
+  flex: 1 1 100%;
+  font-size: inherit;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.ember-power-calendar-nav-control {
+  -webkit-appearance: none;
+  background-color: transparent;
+  background-color: initial;
+  border: none;
+  border: initial;
+  outline: none;
+  outline: initial;
+  font-size: inherit;
+}
+
+.ember-power-calendar {
+  font-size: 14px;
+  line-height: 1.42857;
+}
+
+.ember-power-calendar-nav {
+  line-height: 2;
+}
+
+.ember-power-calendar-nav-control {
+  line-height: 1;
+  font-size: 150%;
+}
+.ember-power-calendar-nav-control:focus {
+  transform: scale(1.2);
+}
+
+.ember-power-calendar-day--selected,
+.ember-power-calendar-day--selected:not([disabled]):hover {
+  font-weight: bold;
+}
+
+.ember-power-calendar-day--interactive[disabled] {
+  opacity: 0.4;
+}
