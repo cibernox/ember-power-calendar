@@ -49,8 +49,10 @@
 <h3>Add the styles</h3>
 
 <p>
-  This addon still requires Sass or Less, although support for people using vanilla CSS is coming.
+  This addon supports styling with Sass, Less, and CSS.
 </p>
+
+<h4>Sass</h4>
 
 <p>
   If you are using Sass, all you need to do is import the addon styles with:
@@ -74,6 +76,8 @@
 {{code-snippet name="installation-2a.scss" classNames="code-sample-snippet" class="active"}}
 <br>
 
+<h4>Less</h4>
+
 <p>
   For those using Less, the process is very similar. Import the addon styles with:
 </p>
@@ -88,6 +92,38 @@
 
 <p>
   This code above will make each one of those classes have a different size.
+</p>
+
+<h4>CSS</h4>
+
+<p>
+  While it is recommended to use Sass or Less in order to take advantage of themeing features,
+  some default styles are available in plain CSS as well.
+</p>
+
+<p>
+  Import the addon styles with:
+</p>
+{{code-snippet name="installation-4.less" classNames="code-sample-snippet" class="active"}}
+<br>
+
+<p>
+  Apply one of these classes to your component:
+  <code>.ember-power-calendar-default-small</code> for a cell size of 30px,
+  <code>.ember-power-calendar-default-medium</code> for 50px, or
+  <code>.ember-power-calendar-default-large</code> for 70px:
+</p>
+{{code-snippet name="installation-5.less" classNames="code-sample-snippet" class="active"}}
+<br>
+
+<p>
+  If you are using CSS and want to apply your own styling, you can
+  override the default rules provided following regular
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity" target="_blank" rel="noopener noreferrer">
+    CSS specificity.
+  </a>
+  Developers who want to make major changes to styling are encouraged
+  to use Sass or Less instead, since Mixins make this much easier.
 </p>
 
 <div class="doc-page-nav">
