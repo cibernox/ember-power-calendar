@@ -14,7 +14,7 @@
 
 ## 0.14.0
 - [BREAKING] Update addon to angle-bracket syntax. It requires Ember 3.11 now. The yielded components are
-  not capitalized (e.g. `<calendar.Nav>`).
+  now capitalized (e.g. `<calendar.Nav>`).
 
 ## 0.13.3
 - [CHORE] Allow ember-concurrency 1.0
