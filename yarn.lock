@@ -4106,6 +4106,13 @@ ember-element-helper@^0.1.1:
   dependencies:
     ember-cli-babel "^6.16.0"
 
+ember-element-helper@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/ember-element-helper/-/ember-element-helper-0.2.0.tgz#eacdf4d8507d6708812623206e24ad37bad487e7"
+  integrity sha512-/WV0PNLyxDvLX/YETb/8KICFTr719OYqFWXqV5XUkh9YhhBGDU/mr1OtlQaWOlsx+sHm42HD2UAICecqex8ziw==
+  dependencies:
+    ember-cli-babel "^6.16.0"
+
 ember-export-application-global@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ember-export-application-global/-/ember-export-application-global-2.0.0.tgz#8d6d7619ac8a1a3f8c43003549eb21ebed685bd2"

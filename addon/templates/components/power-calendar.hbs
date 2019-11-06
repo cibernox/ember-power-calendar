@@ -2,12 +2,14 @@
   Nav=(component this.navComponent calendar=(readonly this.publicAPI))
   Days=(component this.daysComponent calendar=(readonly this.publicAPI))
 )) as |calendar|}}
-  <div class="ember-power-calendar" ...attributes id={{calendar.uniqueId}}>
-    {{#if hasBlock}}
-      {{yield calendar}}
-    {{else}}
-      <calendar.Nav/>
-      <calendar.Days/>
-    {{/if}}
-  </div>
+  {{#let (element (or @tagName "div")) as |Tag|}}
+    <Tag class="ember-power-calendar" ...attributes id={{calendar.uniqueId}}>
+      {{#if hasBlock}}
+        {{yield calendar}}
+      {{else}}
+        <calendar.Nav/>
+        <calendar.Days/>
+      {{/if}}
+    </Tag>
+  {{/let}}
 {{/with}}
