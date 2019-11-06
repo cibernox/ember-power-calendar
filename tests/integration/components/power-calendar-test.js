@@ -677,11 +677,19 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
     assert.equal(document.activeElement, this.element.querySelector('.ember-power-calendar-day[data-date="2013-10-15"]'));
   });
 
-  test('user can provide `@tagName` attribute', async function(assert) {
-    assert.expect(1);
-    await render(hbs`
-      <PowerCalendar @tagName="li" />
-    `);
-    assert.dom('li.ember-power-calendar').exists('default `div` overwritten with `li`');
-  });
+  test('user can provide `@tag` attribute', async function(assert) { 
+    assert.expect(1); 
+    await render(hbs` 
+      <PowerCalendar @tag="li" /> 
+    `); 
+    assert.dom('li.ember-power-calendar').exists('default `div` overwritten with `li`'); 
+  }); 
+ 
+  test('user can provide empty `@tag` attribute', async function(assert) { 
+    assert.expect(1); 
+    await render(hbs` 
+      <PowerCalendar @tag="" /> 
+    `); 
+    assert.dom('.ember-power-calendar').doesNotExist('default `div` overwritten'); 
+  }); 
 });

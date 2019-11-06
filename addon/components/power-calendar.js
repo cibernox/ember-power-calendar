@@ -88,6 +88,14 @@ export default @layout(templateLayout) @tagName('') class extends Component {
     };
   }
 
+  @computed('tag')
+  get tagWithDefault() {
+    if (this.tag === undefined || this.tag === null) {
+      return 'div';
+    }
+    return this.tag;
+  }
+
   // Actions
   @action
   select(day, calendar, e) {
