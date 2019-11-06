@@ -1,5 +1,7 @@
 ## Master
 
+## 0.14.4
+- [ENHANCEMENT] Added support for optional `@tag` argument to `<PowerCalendar />`
 
 ## 0.14.3
 - [BUGFIX] Remove deprecation by adding a setter for the locale to power-calendar service.
