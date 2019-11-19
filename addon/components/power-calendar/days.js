@@ -36,7 +36,6 @@ const WEEK_DAYS = [
 
 export default @layout(templateLayout) @tagName('') class extends Component {
   focusedId = undefined
-  center = undefined
   showDaysAround = true
   weekdayFormat = 'short' // "min" | "short" | "long"
   @service('power-calendar') powerCalendarService
