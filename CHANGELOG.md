@@ -1,5 +1,9 @@
 ## Master
 
+## 0.14.5
+- [BUGFIX] Don't set `center` to undefined in days component. Users may subclass it and define center
+  as readonly.
+
 ## 0.14.4
 - [ENHANCEMENT] Added support for optional `@tag` argument to `<PowerCalendar />`
 
