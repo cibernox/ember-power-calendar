@@ -6,6 +6,19 @@
 * `cd my-addon`
 * `npm install`
 
+## Styling changes
+
+Whenever changes are made to a `.less` or `.scss` file,
+the changes need to be made in both of these files,
+and we need to apply the changes to the CSS file as well.
+Run the following command to update the CSS found in `vendor`:
+
+```sh
+yarn run compile-css
+```
+
+Do not make changes by hand to `ember-power-calendar.css`. 
+
 ## Linting
 
 * `npm run lint:hbs`

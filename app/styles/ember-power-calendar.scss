@@ -224,3 +224,18 @@
     color: $day-other-month-text-color--hover;
   }
 }
+
+// These defaults are used for generating CSS-only styles.
+// See compile-css.js
+
+.ember-power-calendar-default-small {
+  @include ember-power-calendar($cell-size: 30px);
+}
+
+.ember-power-calendar-default-medium {
+  @include ember-power-calendar($cell-size: 50px);
+}
+
+.ember-power-calendar-default-large {
+  @include ember-power-calendar($cell-size: 70px);
+}

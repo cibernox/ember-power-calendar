@@ -8,7 +8,8 @@
     "lint:js": "eslint .",
     "start": "ember serve",
     "test": "ember test",
-    "test:all": "ember try:each"
+    "test:all": "ember try:each",
+    "compile-css": "node compile-css.js"
   },
   "engines": {
     "node": "8.* || >= 10.*"
@@ -18,7 +19,8 @@
     "app/",
     "addon-test-support/",
     "test-support/",
-    "index.js"
+    "index.js",
+    "vendor/"
   ],
   "devDependencies": {
     "@ember/optional-features": "^0.7.0",
