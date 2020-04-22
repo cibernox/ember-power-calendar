@@ -29,7 +29,7 @@
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "ember-auto-import": "^1.5.3",
-    "ember-basic-dropdown": "^2.0.0",
+    "ember-basic-dropdown": "^3.0.0",
     "ember-cli": "~3.17.0",
     "ember-cli-app-version": "^3.2.0",
     "ember-cli-custom-assertions": "^0.1.1",
