@@ -83,7 +83,7 @@ module('Integration | Component | <PowerCalendar::Days>', function(hooks) {
 
     run(() => this.set('calendar.locale', 'pt'));
     if (dateLibrary === 'luxon') {
-      assert.dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0]).hasText('sex', 'The week starts on Sexta Feira');
+      assert.dom('.ember-power-calendar-weekday').hasText('sex.', 'The week starts on Sexta Feira');
     } else {
       assert.dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0]).hasText('Sex', 'The week starts on Sexta Feira');
     }
