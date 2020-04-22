@@ -1,11 +1,8 @@
 'use strict';
 
 module.exports = {
-  extends: 'recommended',
+  extends: 'octane',
   rules: {
     'no-unused-block-params': false
   },
-  ignore: [
-    './node_modules/**'
-  ]
 };
