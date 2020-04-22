@@ -15,6 +15,8 @@ import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
 import require from 'require';
 
+import ownProp from 'ember-power-calendar/-private/utils/own-prop';
+
 const dateLibrary = require.has('luxon') ? 'luxon' : 'moment';
 
 module('Integration | Component | <PowerCalendar>', function(hooks) {
@@ -112,7 +114,7 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
       assert.expect(3);
       this.center = new Date(2016, 1, 5);
       this.onCenterChange = function (obj, calendar, e) {
-        assert.ok(obj.hasOwnProperty('moment') && obj.hasOwnProperty('date'), 'The first argument is a compound moment/date object');
+        assert.ok(ownProp(obj, 'moment') && ownProp(obj, 'date'), 'The first argument is a compound moment/date object');
         assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
         assert.ok(e instanceof Event, 'The third argument is an event');
       };
@@ -160,7 +162,7 @@ module('Integration | Component | <PowerCalendar>', function(hooks) {
       assert.expect(3);
       this.center = new Date(2016, 1, 5);
       this.onCenterChange = function (obj, calendar, e) {
-        assert.ok(obj.hasOwnProperty('datetime') && obj.hasOwnProperty('date'), 'The first argument is a compound date/datetime object');
+        assert.ok(ownProp(obj, 'datetime') && ownProp(obj, 'date'), 'The first argument is a compound date/datetime object');
         assert.isCalendar(calendar, 'The second argument is the calendar\'s public API');
         assert.ok(e instanceof Event, 'The third argument is an event');
       };

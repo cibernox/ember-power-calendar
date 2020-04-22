@@ -9,6 +9,8 @@ import {
 import { run } from '@ember/runloop';
 import { isSame } from 'ember-power-calendar-utils';
 
+import ownProp from 'ember-power-calendar/-private/utils/own-prop';
+
 module('Integration | Component | <PowerCalendarRange>', function(hooks) {
   setupRenderingTest(hooks);
 
@@ -106,7 +108,7 @@ module('Integration | Component | <PowerCalendarRange>', function(hooks) {
     this.selected = { date: { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) } };
     this.didChange = range => {
       assert.ok(
-        range && range.date && range.date.hasOwnProperty('start') && range.date.hasOwnProperty('end'),
+        range && range.date && ownProp(range.date, 'start') && ownProp(range.date, 'end'),
         'range selected has a start and end prop'
       );
       assert.ok(
@@ -127,7 +129,7 @@ module('Integration | Component | <PowerCalendarRange>', function(hooks) {
     this.set('selected', { date: { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) } });
     this.set('didChange', range => {
       assert.ok(
-        range && range.date && range.date.hasOwnProperty('start') && range.date.hasOwnProperty('end'),
+        range && range.date && ownProp(range.date, 'start') && ownProp(range.date, 'end'),
         'range selected has a start and end prop'
       );
       assert.ok(

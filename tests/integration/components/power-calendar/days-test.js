@@ -9,6 +9,8 @@ import {
 import { run } from '@ember/runloop';
 import require from "require";
 
+import ownProp from 'ember-power-calendar/-private/utils/own-prop';
+
 const dateLibrary = require.has("luxon") ? "luxon" : "moment";
 let calendarService;
 let calendar;
@@ -125,8 +127,8 @@ module('Integration | Component | <PowerCalendar::Days>', function(hooks) {
   test('it can receive a `dayClass` property containing a function to add classes to days', async function (assert) {
     assert.expect(106);
     this.classFn = (day, calendar, weeks) => {
-      assert.ok(day.hasOwnProperty('isCurrentMonth'), 'the first argument is a day');
-      assert.ok(calendar.hasOwnProperty('actions'), 'the second argument is the calendar');
+      assert.ok(ownProp(day, 'isCurrentMonth'), 'the first argument is a day');
+      assert.ok(ownProp(calendar, 'actions'), 'the second argument is the calendar');
       assert.ok(Array.isArray(weeks), 'the third argument is arr');
       return 'some-computed-class';
     }
