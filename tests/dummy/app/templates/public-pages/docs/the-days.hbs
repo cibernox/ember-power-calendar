@@ -56,7 +56,7 @@
 <h3>Just using the public API</h3>
 
 <p>
-  Like with <a href={{href-to 'public-pages.docs.the-nav'}}>The nav</a> component, all the behaviour is
+  Like with <LinkTo @route="public-pages.docs.the-nav">The nav</LinkTo> component, all the behaviour is
   implemented using the public API of the calendar, so you can build your calendar and replace it.
 </p>
 
@@ -146,6 +146,6 @@
 {{/code-example}}
 
 <div class="doc-page-nav">
-  <a href={{href-to 'public-pages.docs.the-nav'}} class="doc-page-nav-link-prev">&lt; The nav</a>
-  <a href={{href-to 'public-pages.docs.test-helpers'}} class="doc-page-nav-link-next">Test helpers &gt;</a>
+  <LinkTo @route="public-pages.docs.the-nav" class="doc-page-nav-link-prev">&lt; The nav</LinkTo>
+  <LinkTo @route="public-pages.docs.test-helpers" class="doc-page-nav-link-next">Test helpers &gt;</LinkTo>
 </div>

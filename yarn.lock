@@ -5285,14 +5285,6 @@ ember-export-application-global@^2.0.1:
   resolved "https://registry.yarnpkg.com/ember-export-application-global/-/ember-export-application-global-2.0.1.tgz#b120a70e322ab208defc9e2daebe8d0dfc2dcd46"
   integrity sha512-B7wiurPgsxsSGzJuPFkpBWnaeuCu2PGpG2BjyrfA1VcL7//o+5RSnZqiCEY326y7qmxb2GoCgo0ft03KBU0rRw==
 
-ember-href-to@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/ember-href-to/-/ember-href-to-2.0.1.tgz#87c88daccf4b02c77f0a0292ab793ea7c6a25ced"
-  integrity sha512-dsMXJTIUd4dQKN7Sd93T5xKqltbYRnr9J4pgFs1bwvDXXQb7XP4WWPozn48+YGptmzvCbDaLsIMfwETuwl7RTA==
-  dependencies:
-    ember-cli-babel "^6.8.2"
-    ember-router-service-polyfill "^1.0.2"
-
 ember-inflector@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/ember-inflector/-/ember-inflector-3.0.1.tgz#04be6df4d7e4000f6d6bd70787cdc995f77be4ab"
@@ -5398,13 +5390,6 @@ ember-router-generator@^2.0.0:
     "@babel/parser" "^7.4.5"
     "@babel/traverse" "^7.4.5"
     recast "^0.18.1"
-
-ember-router-service-polyfill@^1.0.2:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/ember-router-service-polyfill/-/ember-router-service-polyfill-1.0.3.tgz#506d7fbd7179951410b7ffe8db171540601d88b1"
-  integrity sha1-UG1/vXF5lRQQt//o2xcVQGAdiLE=
-  dependencies:
-    ember-cli-babel "^6.8.2"
 
 ember-source-channel-url@^1.0.1:
   version "1.2.0"
