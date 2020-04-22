@@ -13,8 +13,11 @@
       >
         <img src="/ember_logo.png" alt="ember">
         <strong>Power</strong>
-        {{! template-lint-disable invalid-interactive }}
-        <div class="header-calendar" onclick={{action "flipPage"}}>
+        {{! template-lint-disable no-invalid-interactive }}
+        <div
+          class="header-calendar"
+          {{on "click" (perform this.flipPage)}}
+        >
           <div class="header-calendar-page {{if (eq day today) '' 'run-animation'}}">
             <sub class="calendar-page-number">{{format-date day 'D'}}</sub>
             Calendar
