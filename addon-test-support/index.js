@@ -5,6 +5,7 @@ import { formatDate } from 'ember-power-calendar-utils';
 
 function findCalendarElement(selector) {
   let target = find(selector);
+
   if (target) {
     if (target.classList.contains('ember-power-calendar')) {
       return target;

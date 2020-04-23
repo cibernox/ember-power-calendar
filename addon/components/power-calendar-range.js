@@ -12,6 +12,8 @@ import {
 } from 'ember-power-calendar-utils';
 import { assert } from '@ember/debug';
 
+import ownProp from 'ember-power-calendar/-private/utils/own-prop';
+
 export default class extends CalendarComponent {
   @fallbackIfUndefined(false) proximitySelection
   daysComponent = 'power-calendar-range/days'
@@ -71,11 +73,12 @@ export default class extends CalendarComponent {
   select({ date }, calendar, e) {
     assert(
       'date must be either a Date, or a Range',
-      date && (date.hasOwnProperty('start') || date.hasOwnProperty('end') || date instanceof Date)
+      date && (ownProp(date, 'start') || ownProp(date, 'end') || date instanceof Date)
     );
 
     let range;
-    if (date && (date.hasOwnProperty('start') || date.hasOwnProperty('end'))) {
+
+    if (ownProp(date, 'start') && ownProp(date, 'end')) {
       range = { date };
     } else {
       range = this._buildRange({ date });

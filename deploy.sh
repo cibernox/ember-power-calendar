@@ -1,4 +1,4 @@
 #!/bin/bash
 
-ember build -e production
+ember build
 netlify deploy

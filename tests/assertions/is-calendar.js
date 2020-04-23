@@ -1,11 +1,13 @@
-export default function isCalendar(context, calendar, message) {
+import ownProp from 'ember-power-calendar/-private/utils/own-prop';
+
+export default function isCalendar(_context, calendar, message) {
   let result = !!calendar
-    && calendar.hasOwnProperty('center')
+    && ownProp(calendar, 'center')
     && typeof calendar.loading === 'boolean'
-    && calendar.hasOwnProperty('locale')
-    && calendar.hasOwnProperty('selected')
-    && calendar.hasOwnProperty('uniqueId')
-    && calendar.hasOwnProperty('actions');
+    && ownProp(calendar, 'locale')
+    && ownProp(calendar, 'selected')
+    && ownProp(calendar, 'uniqueId')
+    && ownProp(calendar, 'actions');
 
   this.pushResult({
     result,

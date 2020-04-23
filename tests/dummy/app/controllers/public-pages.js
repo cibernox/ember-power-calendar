@@ -1,8 +1,7 @@
 import Controller from '@ember/controller';
-import { later, scheduleOnce } from '@ember/runloop';
-import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { add } from 'ember-power-calendar-utils';
+import { task, timeout, waitForQueue } from 'ember-concurrency';
 
 export default class extends Controller {
   @service router
@@ -10,8 +9,7 @@ export default class extends Controller {
   today = this.now
   day = this.now
 
-  @action
-  flipPage(e) {
+  @(task(function * (e) {
     if (this.router.currentRouteName === 'public-pages.docs.index') {
       return;
     }
@@ -19,17 +17,20 @@ export default class extends Controller {
     if (!pageElement) {
       return;
     }
-    pageElement.classList.remove('run-animation');
     let clone = pageElement.cloneNode(true);
     let parent = pageElement.parentNode;
     parent.insertBefore(clone, pageElement);
     this.set('day', add(this.day, 1, 'day'));
-    later(function() {
-      parent.removeChild(clone);
-    }, 400);
-    scheduleOnce('afterRender', function() {
-      pageElement.offsetLeft; // force layout
-      pageElement.classList.add('run-animation');
-    });
-  }
+
+    yield waitForQueue('afterRender');
+
+    pageElement.offsetLeft; // force layout
+    pageElement.classList.add('run-animation');
+
+    yield timeout(400);
+
+    pageElement.classList.remove('run-animation');
+    parent.removeChild(clone);
+  }).drop())
+  flipPage;
 }
