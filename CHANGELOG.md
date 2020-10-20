@@ -1,5 +1,10 @@
 ## Master
 
+# 0.16.1
+- [ENHANCEMENT] Bump version of `element-closest-polyfill` to 0.0.2
+
+# 0.16.0
+
 ## 0.14.5
 - [BUGFIX] Don't set `center` to undefined in days component. Users may subclass it and define center
   as readonly.
