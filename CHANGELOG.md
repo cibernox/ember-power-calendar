@@ -1,5 +1,8 @@
 ## Master
 
+# 0.16.2
+- [ENHANCEMENT] Relax dependency on ember-truth-helpers.
+
 # 0.16.1
 - [ENHANCEMENT] Bump version of `element-closest-polyfill` to 0.0.2
 
