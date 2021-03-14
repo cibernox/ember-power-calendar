@@ -1,5 +1,7 @@
 ## Master
 
+# 0.16.4
+- [BUGFIX] Update version of ember-element-helper for better embroider compatibility
 # 0.16.2
 - [ENHANCEMENT] Relax dependency on ember-truth-helpers.
 
