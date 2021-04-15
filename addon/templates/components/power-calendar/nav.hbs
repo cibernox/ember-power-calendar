@@ -9,7 +9,7 @@
       {{power-calendar-format-date @calendar.center this.format locale=@calendar.locale}}
     {{/if}}
   </div>
-  {{#if calendar.actions.changeCenter}}
+  {{#if @calendar.actions.changeCenter}}
     <button type="button" class="ember-power-calendar-nav-control ember-power-calendar-nav-control--next" {{on "click" (fn @calendar.actions.moveCenter 1 this.unit @calendar)}}>»</button>
   {{/if}}
 </nav>
