@@ -19,7 +19,7 @@
             {{on "focus" this.handleDayFocus}}
             {{on "blur" this.handleDayBlur}}
             disabled={{day.isDisabled}}>
-            {{#if hasBlock}}
+            {{#if (has-block)}}
               {{yield day @calendar this.weeks}}
             {{else}}
               {{day.number}}
