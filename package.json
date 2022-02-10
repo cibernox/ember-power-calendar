@@ -90,18 +90,6 @@
     "ember-element-helper": "^0.5.0 || ^0.6.0",
     "ember-truth-helpers": "^2.1.0 || ^3.0.0"
   },
-  "peerDependencies": {
-    "moment": "^2",
-    "moment-timezone": "^0.5.34"
-  },
-  "peerDependenciesMeta": {
-    "moment": {
-      "optional": true
-    },
-    "moment-timezone": {
-      "optional": true
-    }
-  },
   "ember": {
     "edition": "octane"
   },
