@@ -22,12 +22,6 @@ const pending = [
     ]
   },
   {
-    "moduleId": "tests/dummy/app/templates/components/calendar-nav-with-year-buttons",
-    "only": [
-      "no-action"
-    ]
-  },
-  {
     "moduleId": "tests/dummy/app/templates/components/days-grid-without-mon-or-wed",
     "only": [
       "no-implicit-this"
