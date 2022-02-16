@@ -73,7 +73,7 @@ export default @layout(templateLayout) @tagName('') class extends Component {
     return weekdaysNames.slice(localeStartOfWeek).concat(weekdaysNames.slice(0, localeStartOfWeek));
   }
 
-  @computed('calendar', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength')
+  @computed('calendar', 'focusedId', 'localeStartOfWeek', 'minDate', 'maxDate', 'disabledDates.[]', 'maxLength', 'currentCenter')
   get days() {
     let today = this.powerCalendarService.getDate();
     let lastDay = this.lastDay();

@@ -8,12 +8,6 @@ const pending = [
     ]
   },
   {
-    "moduleId": "addon/templates/components/power-calendar/nav",
-    "only": [
-      "no-implicit-this"
-    ]
-  },
-  {
     "moduleId": "tests/dummy/app/templates/helpers-testing",
     "only": [
       "no-action",
@@ -24,13 +18,6 @@ const pending = [
     "moduleId": "tests/dummy/app/templates/public-pages",
     "only": [
       "no-curly-component-invocation",
-      "no-implicit-this"
-    ]
-  },
-  {
-    "moduleId": "tests/dummy/app/templates/components/calendar-nav-with-year-buttons",
-    "only": [
-      "no-action",
       "no-implicit-this"
     ]
   },
@@ -297,8 +284,7 @@ const pending = [
   {
     "moduleId": "tests/dummy/app/templates/snippets/the-nav-3",
     "only": [
-      "no-action",
-      "no-implicit-this"
+      "no-action"
     ]
   },
   {
