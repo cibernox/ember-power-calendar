@@ -1,1 +1,1 @@
-export { default } from 'ember-power-calendar/components/power-calendar/nav';
+export { default } from "ember-power-calendar/components/power-calendar/nav";

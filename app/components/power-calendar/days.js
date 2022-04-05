@@ -1,1 +1,1 @@
-export { default } from 'ember-power-calendar/components/power-calendar/days';
+export { default } from "ember-power-calendar/components/power-calendar/days";

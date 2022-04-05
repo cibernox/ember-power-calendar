@@ -1,0 +1,19 @@
+{{#let
+  (assign
+    this.publicAPI
+    (hash
+      Nav=(component this.navComponent calendar=this.publicAPI)
+      Days=(component this.daysComponent calendar=this.publicAPI)
+    )
+  ) as |calendar|
+}}
+  {{#let (element this.defaultTag) as |Tag|}}
+    <Tag class="ember-power-calendar" ...attributes id={{calendar.uniqueId}}>
+      {{#if (has-block)}}
+        {{yield calendar}}
+      {{else}}
+        <calendar.Nav /><calendar.Days />
+      {{/if}}
+    </Tag>
+  {{/let}}
+{{/let}}
