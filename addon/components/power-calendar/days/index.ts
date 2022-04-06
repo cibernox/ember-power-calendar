@@ -16,7 +16,6 @@ import {
   startOfWeek,
   withLocale
 } from 'ember-power-calendar-utils';
-import { PowerCalendarRangeAPI } from 'ember-power-calendar/components/power-calendar-range';
 
 import { assert } from '@ember/debug';
 import { action, computed } from '@ember/object';
@@ -25,30 +24,26 @@ import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-import { PowerCalendarAPI, PowerCalendarDay } from '../';
+import { CalendarAPI, PowerCalendarDay } from '../';
 
+import type PowerCalendarService from '../../../services/power-calendar';
 const WEEK_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 interface IArgs {
-  calendar: PowerCalendarAPI;
+  calendar: CalendarAPI;
   maxLength?: number;
   minDate?: Date;
   maxDate?: Date;
-  disabledDates?: Date[];
+  disabledDates?: Array<Date | string>;
   weekdayFormat?: 'min' | 'short' | 'long';
   startOfWeek?: string;
   center?: Date;
-
+  selected?: Date;
   showDaysAround?: boolean;
   dayClass?: string;
 }
 
-interface TDaySelected {
-  selected?: Date;
-}
-
-import type PowerCalendarService from '../../../services/power-calendar';
-export default class PowerCalendarDays<T = TDaySelected> extends Component<T & IArgs> {
+export default class PowerCalendarDays<T = {}> extends Component<T & IArgs> {
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked focusedId: string | null = null;
@@ -61,7 +56,7 @@ export default class PowerCalendarDays<T = TDaySelected> extends Component<T & I
   }
 
   // CPs
-  get calendar() {
+  get calendar(): CalendarAPI {
     return this.args.calendar;
   }
   @computed('calendar.locale')
@@ -228,7 +223,7 @@ export default class PowerCalendarDays<T = TDaySelected> extends Component<T & I
   }
 
   // Methods
-  dayIsSelected(date: Date, calendar: PowerCalendarAPI | PowerCalendarRangeAPI = this.calendar) {
+  dayIsSelected(date: Date, calendar: CalendarAPI = this.calendar) {
     const { selected } = calendar;
     return selected ? isSame(date, selected, 'day') : false;
   }
@@ -251,8 +246,9 @@ export default class PowerCalendarDays<T = TDaySelected> extends Component<T & I
 
     if (disabledDates) {
       const disabledInRange = disabledDates.some((d) => {
-        let isSameDay = isSame(date, d, 'day');
-        let isWeekDayIncludes = WEEK_DAYS.indexOf(d) !== -1 && formatDate(date, 'ddd') === d;
+        const isSameDay = isSame(date, d, 'day');
+        const isWeekDayIncludes =
+          WEEK_DAYS.indexOf(d as string) !== -1 && formatDate(date, 'ddd') === d;
         return isSameDay || isWeekDayIncludes;
       });
 
@@ -264,11 +260,7 @@ export default class PowerCalendarDays<T = TDaySelected> extends Component<T & I
     return false;
   }
 
-  buildDay(
-    date: Date,
-    today: Date,
-    calendar: PowerCalendarAPI | PowerCalendarRangeAPI
-  ): PowerCalendarDay {
+  buildDay(date: Date, today: Date, calendar: CalendarAPI): PowerCalendarDay {
     const id = formatDate(date, 'YYYY-MM-DD');
 
     return normalizeCalendarDay({

@@ -14,10 +14,17 @@ import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
+import { PowerCalendarMultipleAPI } from '../power-calendar-multiple';
+import {
+  PowerCalendarRangeAPI,
+  PowerCalendarRangeDay
+} from '../power-calendar-range';
+
 import type { Moment } from 'moment';
 import type PowerCalendarService from '../../services/power-calendar';
-
 export type TCalendarType = 'multiple' | 'range' | 'single';
+export type CalendarAPI = PowerCalendarAPI | PowerCalendarMultipleAPI | PowerCalendarRangeAPI;
+export type CalendarDay = PowerCalendarDay | PowerCalendarRangeDay | PowerCalendarDay[];
 
 export interface PowerCalendarDay {
   id: string; // A unique identified of the day. It has the format YYYY-MM-DD
@@ -30,23 +37,23 @@ export interface PowerCalendarDay {
   isSelected: boolean; //	It is true if the date of this day is the selected one. In multiple select it is true if the date of this day is among the selected ones. In range selects, it is true if the date if this day is in the range, including both ends.
   isRangeStart: boolean; //	It is true if this day is the beginning of a range. It is false in non-range calendars
   isRangeEnd: boolean; //	It is true if this day is the end of a range. It is false in non-range calendars
-  isDisabled: boolean;
+  isDisabled: boolean; //	It is true if days are not in range for range calendars or are included in disabled dates.
 }
 
 export interface PowerCalendarActions {
-  changeCenter?: (newCenter: Date, calendar: PowerCalendarAPI, event: MouseEvent) => void;
+  changeCenter?: (newCenter: Date, calendar: CalendarAPI, event: MouseEvent) => void;
   moveCenter?: (
     step: number,
     unit: 'year' | 'month',
     calendar: PowerCalendarAPI,
     event: MouseEvent
   ) => void;
-  select?: (day: Date, calendar: PowerCalendarAPI, event: MouseEvent) => void;
+  select?: (day: CalendarDay, calendar: CalendarAPI, event: MouseEvent) => void;
 }
 
-export interface PowerCalendarAPI<T = PowerCalendarDay> {
+export interface PowerCalendarAPI {
   uniqueId: string;
-  selected: T;
+  selected: Date;
   loading: boolean;
   center: Date;
   locale: string;
@@ -54,10 +61,10 @@ export interface PowerCalendarAPI<T = PowerCalendarDay> {
   actions: PowerCalendarActions;
 }
 
-interface IArgs {
-  selected?: unknown;
+export interface PowerCalendarArgs {
+  selected?: Date;
   tag?: string;
-  onSelect?: (day: TSelected, calendar: PowerCalendarAPI, event: MouseEvent) => void;
+  onSelect?: (day: CalendarDay, calendar: CalendarAPI, event: MouseEvent) => void;
   onCenterChange?: (newCenter: number, calendar: PowerCalendarAPI, event: MouseEvent) => void;
   onInit: (calendar: PowerCalendarAPI) => void;
   proximitySelection?: boolean;
@@ -67,17 +74,13 @@ interface IArgs {
   center?: Date;
 }
 
-interface TSelected {
-  selected?: Date;
-}
-
 interface WindowWithCalendar extends Window {
   __powerCalendars?: Record<string, PowerCalendar>;
 }
 
 declare var window: WindowWithCalendar;
 
-export default class PowerCalendar<T = TSelected> extends Component<T & IArgs> {
+export default class PowerCalendar<T = {}> extends Component<T & PowerCalendarArgs> {
   @service declare powerCalendar: PowerCalendarService;
   // Range
   @tracked proximitySelection: boolean = this.args.proximitySelection ?? false;
@@ -88,7 +91,7 @@ export default class PowerCalendar<T = TSelected> extends Component<T & IArgs> {
   _calendarType: TCalendarType = 'single';
 
   // Lifecycle hooks
-  constructor(owner: any, args: T & IArgs) {
+  constructor(owner: any, args: T & PowerCalendarArgs) {
     super(owner, args);
     this.registerCalendar();
 
@@ -126,6 +129,7 @@ export default class PowerCalendar<T = TSelected> extends Component<T & IArgs> {
 
   get selected() {
     const { selected } = this.args;
+
     return normalizeDate(selected);
   }
 
@@ -159,7 +163,7 @@ export default class PowerCalendar<T = TSelected> extends Component<T & IArgs> {
 
   // Actions
   @action
-  select<T = Date>(day: T, calendar: PowerCalendarAPI, e: MouseEvent) {
+  select(day: CalendarDay, calendar: CalendarAPI, e: MouseEvent) {
     if (this.args.onSelect) {
       this.args.onSelect(day, calendar, e);
     }

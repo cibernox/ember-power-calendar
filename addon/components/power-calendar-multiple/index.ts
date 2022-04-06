@@ -10,15 +10,20 @@ import { action } from '@ember/object';
 
 import PowerCalendarComponent, {
   PowerCalendarAPI,
+  PowerCalendarArgs,
   PowerCalendarDay,
   TCalendarType
 } from '../power-calendar';
 
-interface IArgs {
+export interface PowerCalendarMultipleAPI extends Omit<PowerCalendarAPI, 'selected'> {
   selected?: Date[];
 }
 
-export default class PowerCalendarMultiple extends PowerCalendarComponent<IArgs> {
+export interface PowerCalendarMultipleArgs extends Omit<PowerCalendarArgs, 'selected'> {
+  selected?: Date[];
+}
+
+export default class PowerCalendarMultiple extends PowerCalendarComponent<PowerCalendarMultipleArgs> {
   daysComponent = 'power-calendar-multiple/days';
   _calendarType: TCalendarType = 'multiple';
 
@@ -38,8 +43,8 @@ export default class PowerCalendarMultiple extends PowerCalendarComponent<IArgs>
 
   // Actions
   @action
-  select<T = PowerCalendarDay[] | PowerCalendarDay>(
-    dayOrDays: T,
+  select(
+    dayOrDays: PowerCalendarDay[] | PowerCalendarDay,
     calendar: PowerCalendarAPI,
     e: MouseEvent
   ) {

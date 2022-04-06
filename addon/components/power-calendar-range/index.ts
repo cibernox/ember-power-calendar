@@ -14,6 +14,7 @@ import { isNone } from '@ember/utils';
 
 import PowerCalendarComponent, {
   PowerCalendarAPI,
+  PowerCalendarArgs,
   PowerCalendarDay,
   TCalendarType
 } from '../power-calendar';
@@ -23,12 +24,18 @@ export interface SelectedPowerCalendarRange {
   end?: Date;
 }
 
-export interface PowerCalendarRangeAPI extends PowerCalendarAPI<SelectedPowerCalendarRange> {
+type RangeDate = Date | SelectedPowerCalendarRange;
+
+export interface PowerCalendarRangeDay extends Omit<PowerCalendarDay, 'date'> {
+  date: RangeDate;
+}
+export interface PowerCalendarRangeAPI extends Omit<PowerCalendarAPI, 'selected'> {
+  selected?: SelectedPowerCalendarRange;
   minRange?: number;
   maxRange?: number;
 }
 
-interface IArgs {
+interface PowerCalendarRangeArgs extends Omit<PowerCalendarArgs, 'selected' | 'onSelect'> {
   selected?: SelectedPowerCalendarRange;
   minRange?: number;
   maxRange?: number;
@@ -41,7 +48,7 @@ interface IArgs {
 
 export const DAY_IN_MS = 86400000;
 
-export default class PowerCalendarRange extends PowerCalendarComponent<IArgs> {
+export default class PowerCalendarRange extends PowerCalendarComponent<PowerCalendarRangeArgs> {
   daysComponent = 'power-calendar-range/days';
   _calendarType: TCalendarType = 'range';
 
@@ -93,19 +100,22 @@ export default class PowerCalendarRange extends PowerCalendarComponent<IArgs> {
 
   // Actions
   @action
-  select<T = { date: SelectedPowerCalendarRange }>(
-    { date }: T,
-    calendar: PowerCalendarRangeAPI,
-    e: MouseEvent
-  ) {
+  select(day: PowerCalendarRangeDay, calendar: PowerCalendarRangeAPI, e: MouseEvent) {
+    const { date } = day;
     assert(
       'date must be either a Date, or a Range',
-      date && (ownProp(date, 'start') || ownProp(date, 'end') || date instanceof Date)
+      date &&
+        (ownProp(date as SelectedPowerCalendarRange, 'start') ||
+          ownProp(date as SelectedPowerCalendarRange, 'end') ||
+          date instanceof Date)
     );
 
     let range;
 
-    if (ownProp(date, 'start') && ownProp(date, 'end')) {
+    if (
+      ownProp(date as SelectedPowerCalendarRange, 'start') &&
+      ownProp(date as SelectedPowerCalendarRange, 'end')
+    ) {
       range = { date };
     } else {
       range = this._buildRange({ date });
@@ -125,7 +135,7 @@ export default class PowerCalendarRange extends PowerCalendarComponent<IArgs> {
     }
   }
 
-  _buildRange(day: Partial<PowerCalendarDay>) {
+  _buildRange(day: { date: RangeDate }) {
     const start = this.selected.start;
     const end = this.selected.end;
 
@@ -136,7 +146,7 @@ export default class PowerCalendarRange extends PowerCalendarComponent<IArgs> {
     return this._buildDefaultRange(day, start, end);
   }
 
-  _buildRangeByProximity(day: Partial<PowerCalendarDay>, start?: Date, end?: Date) {
+  _buildRangeByProximity(day: { date: RangeDate }, start?: Date, end?: Date) {
     if (start && end) {
       const changeStart = Math.abs(diff(day.date, end)) > Math.abs(diff(day.date, start));
 
@@ -157,7 +167,7 @@ export default class PowerCalendarRange extends PowerCalendarComponent<IArgs> {
     return this._buildDefaultRange(day, start, end);
   }
 
-  _buildDefaultRange(day: Partial<PowerCalendarDay>, start?: Date, end?: Date) {
+  _buildDefaultRange(day: { date: RangeDate }, start?: Date, end?: Date) {
     if (start && !end) {
       if (isAfter(start, day.date)) {
         return normalizeRangeActionValue({
