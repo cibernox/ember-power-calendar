@@ -24,9 +24,9 @@
   the selected days have a <em>"magnetic"</em> border.
 </p>
 
-{{#code-example hbs="the-days-0.hbs" js="the-days-0-js.js" as |partialName|}}
+<CodeExample @hbs="the-days-0.hbs" @js="the-days-0-js.js" as |partialName|>
   {{partial partialName}}
-{{/code-example}}
+</CodeExample>
 
 <h3>Passing a block</h3>
 
@@ -45,9 +45,9 @@
   Let's start by making the number of the days of the weeked be strong and pink, because we like weekends.
 </p>
 
-{{#code-example hbs="the-days-1.hbs" as |partialName|}}
+<CodeExample @hbs="the-days-1.hbs" as |partialName|>
   {{partial partialName}}
-{{/code-example}}
+</CodeExample>
 
 <p>
   The properties of they so called "day" object to make most common customizations easy.
@@ -65,9 +65,9 @@
   Yay short weeks!
 </p>
 
-{{#code-example hbs="the-days-2.hbs"  js="the-days-2-js.js" as |partialName|}}
+<CodeExample @hbs="the-days-2.hbs" @js="the-days-2-js.js" as |partialName|>
   {{partial partialName}}
-{{/code-example}}
+</CodeExample>
 
 <h3>Passing a custom component</h3>
 
@@ -76,9 +76,9 @@
   reuse it all over the place. Maybe if you use it often enough the boss end up thinking weeks have 3 working days.
 </p>
 
-{{#code-example hbs="the-days-3.hbs" as |partialName|}}
+<CodeExample @hbs="the-days-3.hbs" as |partialName|>
   {{partial partialName}}
-{{/code-example}}
+</CodeExample>
 
 <p>
   This options is the one that gives you more power, but it would be silly to make users create their own components
@@ -94,9 +94,9 @@
   <code>startOfWeek=[NUMBER]</code> to change the first day of the week. Values go from <code>0</code> (Sunday) to <code>6</code> (Saturday).
 </p>
 
-{{#code-example hbs="the-days-4.hbs" as |partialName|}}
+<CodeExample @hbs="the-days-4.hbs" as |partialName|>
   {{partial partialName}}
-{{/code-example}}
+</CodeExample>
 
 <h3><code>showDaysAround</code></h3>
 
@@ -105,9 +105,9 @@
   if you want to hide them pass <code>showDaysAround=false</code>.
 </p>
 
-{{#code-example hbs="the-days-5.hbs" as |partialName|}}
+<CodeExample @hbs="the-days-5.hbs" as |partialName|>
   {{partial partialName}}
-{{/code-example}}
+</CodeExample>
 
 <h3><code>minDate</code> and <code>maxDate</code></h3>
 
@@ -118,9 +118,9 @@
 
 <p>By example, in the next example, only days between 11th and 21th can be selected (both inclusive)</p>
 
-{{#code-example hbs="the-days-6.hbs" js="the-days-6-js.js" as |partialName|}}
+<CodeExample @hbs="the-days-6.hbs" @js="the-days-6-js.js" as |partialName|>
   {{partial partialName}}
-{{/code-example}}
+</CodeExample>
 
 <h3><code>disabledDates</code></h3>
 
@@ -130,9 +130,9 @@
   objects and those days will be disabled.
 </p>
 
-{{#code-example hbs="the-days-7.hbs" js="the-days-7-js.js" as |partialName|}}
+<CodeExample @hbs="the-days-7.hbs" @js="the-days-7-js.js" as |partialName|>
   {{partial partialName}}
-{{/code-example}}
+</CodeExample>
 
 <h3><code>weekdayFormat</code></h3>
 
@@ -141,9 +141,9 @@
   to change it. The accepted values are <code>short</code> (the default), <code>long</code> (the full day name) and <code>min</code> (an even shorter abbreviation).
 </p>
 
-{{#code-example hbs="the-days-8.hbs" as |partialName|}}
+<CodeExample @hbs="the-days-8.hbs" as |partialName|>
   {{partial partialName}}
-{{/code-example}}
+</CodeExample>
 
 <div class="doc-page-nav">
   <LinkTo @route="public-pages.docs.the-nav" class="doc-page-nav-link-prev">&lt; The nav</LinkTo>
