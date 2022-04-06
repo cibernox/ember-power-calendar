@@ -19,8 +19,8 @@ interface IArgs {
 }
 
 export default class PowerCalendarMultiple extends PowerCalendarComponent<IArgs> {
-  daysComponent = "power-calendar-multiple/days";
-  _calendarType: TCalendarType = "multiple";
+  daysComponent = 'power-calendar-multiple/days';
+  _calendarType: TCalendarType = 'multiple';
 
   // CPs
   get selected(): Date[] | undefined {
@@ -45,8 +45,7 @@ export default class PowerCalendarMultiple extends PowerCalendarComponent<IArgs>
   ) {
     assert(
       `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`,
-      isArray(dayOrDays) ||
-        (dayOrDays instanceof Object && dayOrDays.date instanceof Date)
+      isArray(dayOrDays) || (dayOrDays instanceof Object && dayOrDays.date instanceof Date)
     );
 
     let days;
@@ -67,9 +66,7 @@ export default class PowerCalendarMultiple extends PowerCalendarComponent<IArgs>
     let selected: Date[] = this.publicAPI.selected || [];
 
     for (let day of days) {
-      let index = selected.findIndex((selectedDate: Date) =>
-        isSame(day.date, selectedDate, "day")
-      );
+      let index = selected.findIndex((selectedDate: Date) => isSame(day.date, selectedDate, 'day'));
       if (index === -1) {
         selected = [...selected, day.date];
       } else {

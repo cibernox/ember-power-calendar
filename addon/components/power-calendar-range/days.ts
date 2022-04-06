@@ -11,15 +11,15 @@ export default class PowerCalendarDaysRange extends DaysComponent {
     const { start, end } = calendar.selected ?? { start: null, end: null };
 
     if (start && end) {
-      day.isSelected = isBetween(date, start, end, "day", "[]");
-      day.isRangeStart = day.isSelected && isSame(date, start, "day");
-      day.isRangeEnd = day.isSelected && isSame(date, end, "day");
+      day.isSelected = isBetween(date, start, end, 'day', '[]');
+      day.isRangeStart = day.isSelected && isSame(date, start, 'day');
+      day.isRangeEnd = day.isSelected && isSame(date, end, 'day');
     } else {
       day.isRangeEnd = false;
       if (!start) {
         day.isRangeStart = false;
       } else {
-        day.isRangeStart = day.isSelected = isSame(date, start, "day");
+        day.isRangeStart = day.isSelected = isSame(date, start, 'day');
         if (!day.isDisabled) {
           const diffInMs = Math.abs(diff(day.date, start));
           const minRange = calendar.minRange;
@@ -27,9 +27,7 @@ export default class PowerCalendarDaysRange extends DaysComponent {
 
           day.isDisabled =
             (minRange && diffInMs < minRange) ||
-            (maxRange !== null &&
-              maxRange !== undefined &&
-              diffInMs > maxRange);
+            (maxRange !== null && maxRange !== undefined && diffInMs > maxRange);
         }
       }
     }

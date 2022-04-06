@@ -14,10 +14,10 @@ import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-import type { Moment } from "moment";
-import type PowerCalendarService from "../../services/power-calendar";
+import type { Moment } from 'moment';
+import type PowerCalendarService from '../../services/power-calendar';
 
-export type TCalendarType = "multiple" | "range" | "single";
+export type TCalendarType = 'multiple' | 'range' | 'single';
 
 export interface PowerCalendarDay {
   id: string; // A unique identified of the day. It has the format YYYY-MM-DD
@@ -34,14 +34,10 @@ export interface PowerCalendarDay {
 }
 
 export interface PowerCalendarActions {
-  changeCenter?: (
-    newCenter: Date,
-    calendar: PowerCalendarAPI,
-    event: MouseEvent
-  ) => void;
+  changeCenter?: (newCenter: Date, calendar: PowerCalendarAPI, event: MouseEvent) => void;
   moveCenter?: (
     step: number,
-    unit: "year" | "month",
+    unit: 'year' | 'month',
     calendar: PowerCalendarAPI,
     event: MouseEvent
   ) => void;
@@ -61,16 +57,8 @@ export interface PowerCalendarAPI<T = PowerCalendarDay> {
 interface IArgs {
   selected?: unknown;
   tag?: string;
-  onSelect?: (
-    day: TSelected,
-    calendar: PowerCalendarAPI,
-    event: MouseEvent
-  ) => void;
-  onCenterChange?: (
-    newCenter: number,
-    calendar: PowerCalendarAPI,
-    event: MouseEvent
-  ) => void;
+  onSelect?: (day: TSelected, calendar: PowerCalendarAPI, event: MouseEvent) => void;
+  onCenterChange?: (newCenter: number, calendar: PowerCalendarAPI, event: MouseEvent) => void;
   onInit: (calendar: PowerCalendarAPI) => void;
   proximitySelection?: boolean;
   locale: string;
@@ -94,10 +82,10 @@ export default class PowerCalendar<T = TSelected> extends Component<T & IArgs> {
   // Range
   @tracked proximitySelection: boolean = this.args.proximitySelection ?? false;
 
-  navComponent = "power-calendar/nav";
-  daysComponent = "power-calendar/days";
+  navComponent = 'power-calendar/nav';
+  daysComponent = 'power-calendar/days';
   center = null;
-  _calendarType: TCalendarType = "single";
+  _calendarType: TCalendarType = 'single';
 
   // Lifecycle hooks
   constructor(owner: any, args: T & IArgs) {
@@ -123,11 +111,7 @@ export default class PowerCalendar<T = TSelected> extends Component<T & IArgs> {
       actions.select = (day, calendar, e) => this.select(day, calendar, e);
     }
     if (onCenterChange) {
-      const changeCenter = (
-        newCenter: Date,
-        calendar: PowerCalendarAPI,
-        e: MouseEvent
-      ) => {
+      const changeCenter = (newCenter: Date, calendar: PowerCalendarAPI, e: MouseEvent) => {
         return taskFor(this.changeCenterTask).perform(newCenter, calendar, e);
       };
       actions.changeCenter = changeCenter;
@@ -165,12 +149,12 @@ export default class PowerCalendar<T = TSelected> extends Component<T & IArgs> {
       loading: taskFor(this.changeCenterTask).isRunning,
       center: this.currentCenter,
       locale: this.args.locale || this.powerCalendar.locale,
-      actions: this.publicActions,
+      actions: this.publicActions
     };
   }
 
   get defaultTag() {
-    return this.args.tag ?? "div";
+    return this.args.tag ?? 'div';
   }
 
   // Actions
@@ -191,7 +175,7 @@ export default class PowerCalendar<T = TSelected> extends Component<T & IArgs> {
     const { onCenterChange } = this.args;
     assert(
       "You attempted to move the center of a calendar that doesn't receive an `@onCenterChange` action.",
-      typeof onCenterChange === "function"
+      typeof onCenterChange === 'function'
     );
     const value = normalizeCalendarValue({ date: newCenter });
 

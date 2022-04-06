@@ -6,10 +6,10 @@ interface IArgs {
 }
 export default class PowerCalendarNav extends Component<IArgs> {
   get unit() {
-    return this.args.unit ?? "month";
+    return this.args.unit ?? 'month';
   }
 
   get format() {
-    return this.args.format ?? "MMMM YYYY";
+    return this.args.format ?? 'MMMM YYYY';
   }
 }

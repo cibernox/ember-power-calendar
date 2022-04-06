@@ -9,43 +9,32 @@ export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]: [
   PowerCalendarDay,
   PowerCalendarAPI,
   string[],
-  (
-    | string
-    | ((
-        day: PowerCalendarDay,
-        calendar: PowerCalendarAPI,
-        weeks: string[]
-      ) => string)
-  )
+  string | ((day: PowerCalendarDay, calendar: PowerCalendarAPI, weeks: string[]) => string)
 ]) {
-  let classes = ["ember-power-calendar-day"];
+  let classes = ['ember-power-calendar-day'];
   if (calendar.actions.select) {
-    classes.push("ember-power-calendar-day--interactive");
+    classes.push('ember-power-calendar-day--interactive');
   }
-  classes.push(
-    `ember-power-calendar-day--${
-      day.isCurrentMonth ? "current" : "other"
-    }-month`
-  );
+  classes.push(`ember-power-calendar-day--${day.isCurrentMonth ? 'current' : 'other'}-month`);
   if (day.isSelected) {
-    classes.push("ember-power-calendar-day--selected");
+    classes.push('ember-power-calendar-day--selected');
   }
   if (day.isToday) {
-    classes.push("ember-power-calendar-day--today");
+    classes.push('ember-power-calendar-day--today');
   }
   if (day.isFocused) {
-    classes.push("ember-power-calendar-day--focused");
+    classes.push('ember-power-calendar-day--focused');
   }
   if (day.isRangeStart) {
-    classes.push("ember-power-calendar-day--range-start");
+    classes.push('ember-power-calendar-day--range-start');
   }
   if (day.isRangeEnd) {
-    classes.push("ember-power-calendar-day--range-end");
+    classes.push('ember-power-calendar-day--range-end');
   }
   if (dayClass) {
-    if (typeof dayClass === "string") {
+    if (typeof dayClass === 'string') {
       classes.push(dayClass);
-    } else if (typeof dayClass === "function") {
+    } else if (typeof dayClass === 'function') {
       let k = dayClass(day, calendar, weeks);
       if (k !== null && k !== undefined) {
         classes.push(k);
@@ -53,7 +42,7 @@ export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]: [
     }
   }
 
-  return classes.join(" ");
+  return classes.join(' ');
 }
 
 export default helper(emberPowerCalendarDayClasses);
