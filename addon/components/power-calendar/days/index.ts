@@ -225,7 +225,7 @@ export default class PowerCalendarDays<T = {}> extends Component<T & IArgs> {
   // Methods
   dayIsSelected(date: Date, calendar: CalendarAPI = this.calendar) {
     const { selected } = calendar;
-    return selected ? isSame(date, selected, 'day') : false;
+    return selected ? isSame(date, selected as Date, 'day') : false;
   }
 
   dayIsDisabled(date: Date) {
@@ -246,7 +246,7 @@ export default class PowerCalendarDays<T = {}> extends Component<T & IArgs> {
 
     if (disabledDates) {
       const disabledInRange = disabledDates.some((d) => {
-        const isSameDay = isSame(date, d, 'day');
+        const isSameDay = isSame(date, d as Date, 'day');
         const isWeekDayIncludes =
           WEEK_DAYS.indexOf(d as string) !== -1 && formatDate(date, 'ddd') === d;
         return isSameDay || isWeekDayIncludes;
@@ -263,7 +263,7 @@ export default class PowerCalendarDays<T = {}> extends Component<T & IArgs> {
   buildDay(date: Date, today: Date, calendar: CalendarAPI): PowerCalendarDay {
     const id = formatDate(date, 'YYYY-MM-DD');
 
-    return normalizeCalendarDay({
+    return normalizeCalendarDay<PowerCalendarDay>({
       id,
       number: date.getDate(),
       date: new Date(date),

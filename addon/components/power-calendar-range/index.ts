@@ -24,10 +24,8 @@ export interface SelectedPowerCalendarRange {
   end?: Date;
 }
 
-type RangeDate = Date | SelectedPowerCalendarRange;
-
 export interface PowerCalendarRangeDay extends Omit<PowerCalendarDay, 'date'> {
-  date: RangeDate;
+  date: SelectedPowerCalendarRange;
 }
 export interface PowerCalendarRangeAPI extends Omit<PowerCalendarAPI, 'selected'> {
   selected?: SelectedPowerCalendarRange;
@@ -40,7 +38,7 @@ interface PowerCalendarRangeArgs extends Omit<PowerCalendarArgs, 'selected' | 'o
   minRange?: number;
   maxRange?: number;
   onSelect?: (
-    day: SelectedPowerCalendarRange,
+    day: { date: SelectedPowerCalendarRange },
     calendar: PowerCalendarRangeAPI,
     event: MouseEvent
   ) => void;
@@ -53,7 +51,7 @@ export default class PowerCalendarRange extends PowerCalendarComponent<PowerCale
   _calendarType: TCalendarType = 'range';
 
   // CP
-  get minRange(): number {
+  get minRange(): number | null {
     const { minRange } = this.args;
 
     if (typeof minRange === 'number') {
@@ -110,7 +108,7 @@ export default class PowerCalendarRange extends PowerCalendarComponent<PowerCale
           date instanceof Date)
     );
 
-    let range;
+    let range: { date: SelectedPowerCalendarRange };
 
     if (
       ownProp(date as SelectedPowerCalendarRange, 'start') &&
@@ -118,14 +116,14 @@ export default class PowerCalendarRange extends PowerCalendarComponent<PowerCale
     ) {
       range = { date };
     } else {
-      range = this._buildRange({ date });
+      range = this._buildRange({ date } as { date: Date });
     }
 
     const { start, end } = range.date;
     if (start && end) {
       const { minRange, maxRange } = this.publicAPI;
       const diffInMs = Math.abs(diff(end, start));
-      if (diffInMs < minRange || (maxRange && diffInMs > maxRange)) {
+      if (diffInMs < (minRange ?? DAY_IN_MS) || (maxRange && diffInMs > maxRange)) {
         return;
       }
     }
@@ -135,7 +133,7 @@ export default class PowerCalendarRange extends PowerCalendarComponent<PowerCale
     }
   }
 
-  _buildRange(day: { date: RangeDate }) {
+  _buildRange(day: { date: Date }) {
     const start = this.selected.start;
     const end = this.selected.end;
 
@@ -146,10 +144,9 @@ export default class PowerCalendarRange extends PowerCalendarComponent<PowerCale
     return this._buildDefaultRange(day, start, end);
   }
 
-  _buildRangeByProximity(day: { date: RangeDate }, start?: Date, end?: Date) {
+  _buildRangeByProximity(day: { date: Date }, start?: Date, end?: Date) {
     if (start && end) {
       const changeStart = Math.abs(diff(day.date, end)) > Math.abs(diff(day.date, start));
-
       return normalizeRangeActionValue({
         date: {
           start: changeStart ? day.date : start,
@@ -167,7 +164,7 @@ export default class PowerCalendarRange extends PowerCalendarComponent<PowerCale
     return this._buildDefaultRange(day, start, end);
   }
 
-  _buildDefaultRange(day: { date: RangeDate }, start?: Date, end?: Date) {
+  _buildDefaultRange(day: { date: Date }, start?: Date, end?: Date) {
     if (start && !end) {
       if (isAfter(start, day.date)) {
         return normalizeRangeActionValue({

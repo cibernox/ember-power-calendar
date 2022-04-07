@@ -4,7 +4,9 @@ import { taskFor } from 'ember-concurrency-ts';
 import {
   add,
   normalizeCalendarValue,
-  normalizeDate
+  normalizeDate,
+  NormalizedDate,
+  NormalizedDates
 } from 'ember-power-calendar-utils';
 
 import { assert } from '@ember/debug';
@@ -17,14 +19,20 @@ import { tracked } from '@glimmer/tracking';
 import { PowerCalendarMultipleAPI } from '../power-calendar-multiple';
 import {
   PowerCalendarRangeAPI,
-  PowerCalendarRangeDay
+  PowerCalendarRangeDay,
+  SelectedPowerCalendarRange
 } from '../power-calendar-range';
 
 import type { Moment } from 'moment';
 import type PowerCalendarService from '../../services/power-calendar';
 export type TCalendarType = 'multiple' | 'range' | 'single';
 export type CalendarAPI = PowerCalendarAPI | PowerCalendarMultipleAPI | PowerCalendarRangeAPI;
-export type CalendarDay = PowerCalendarDay | PowerCalendarRangeDay | PowerCalendarDay[];
+export type CalendarDay =
+  | PowerCalendarDay
+  | PowerCalendarRangeDay
+  | PowerCalendarDay[]
+  | NormalizedDates;
+export type SelectedDays = SelectedPowerCalendarRange | Date | Date[] | undefined;
 
 export interface PowerCalendarDay {
   id: string; // A unique identified of the day. It has the format YYYY-MM-DD
@@ -35,8 +43,8 @@ export interface PowerCalendarDay {
   isCurrentMonth: boolean; //	It is true for those days in the current day, and false for those days for the previous/next months shown around.
   isToday: boolean; //	It is true if this day is today
   isSelected: boolean; //	It is true if the date of this day is the selected one. In multiple select it is true if the date of this day is among the selected ones. In range selects, it is true if the date if this day is in the range, including both ends.
-  isRangeStart: boolean; //	It is true if this day is the beginning of a range. It is false in non-range calendars
-  isRangeEnd: boolean; //	It is true if this day is the end of a range. It is false in non-range calendars
+  isRangeStart?: boolean; //	It is true if this day is the beginning of a range. It is false in non-range calendars
+  isRangeEnd?: boolean; //	It is true if this day is the end of a range. It is false in non-range calendars
   isDisabled: boolean; //	It is true if days are not in range for range calendars or are included in disabled dates.
 }
 
@@ -53,7 +61,7 @@ export interface PowerCalendarActions {
 
 export interface PowerCalendarAPI {
   uniqueId: string;
-  selected: Date;
+  selected?: Date;
   loading: boolean;
   center: Date;
   locale: string;
@@ -65,7 +73,11 @@ export interface PowerCalendarArgs {
   selected?: Date;
   tag?: string;
   onSelect?: (day: CalendarDay, calendar: CalendarAPI, event: MouseEvent) => void;
-  onCenterChange?: (newCenter: number, calendar: PowerCalendarAPI, event: MouseEvent) => void;
+  onCenterChange?: (
+    newCenter: NormalizedDate,
+    calendar: PowerCalendarAPI,
+    event: MouseEvent
+  ) => void;
   onInit: (calendar: PowerCalendarAPI) => void;
   proximitySelection?: boolean;
   locale: string;
@@ -127,7 +139,7 @@ export default class PowerCalendar<T = {}> extends Component<T & PowerCalendarAr
     return actions;
   }
 
-  get selected() {
+  get selected(): SelectedDays {
     const { selected } = this.args;
 
     return normalizeDate(selected);
@@ -136,7 +148,7 @@ export default class PowerCalendar<T = {}> extends Component<T & PowerCalendarAr
   get currentCenter() {
     let center = this.args.center;
     if (!center) {
-      center = this.selected || this.powerCalendar.getDate();
+      center = (this.selected as Date) || this.powerCalendar.getDate();
     }
     return normalizeDate(center);
   }
@@ -145,11 +157,11 @@ export default class PowerCalendar<T = {}> extends Component<T & PowerCalendarAr
     return this._publicAPI;
   }
 
-  get _publicAPI() {
+  get _publicAPI(): PowerCalendarAPI {
     return {
       uniqueId: guidFor(this),
       type: this._calendarType,
-      selected: this.selected,
+      selected: this.selected as Date,
       loading: taskFor(this.changeCenterTask).isRunning,
       center: this.currentCenter,
       locale: this.args.locale || this.powerCalendar.locale,

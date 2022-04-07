@@ -9,6 +9,7 @@ import { assert } from '@ember/debug';
 import { action } from '@ember/object';
 
 import PowerCalendarComponent, {
+  CalendarDay,
   PowerCalendarAPI,
   PowerCalendarArgs,
   PowerCalendarDay,
@@ -43,11 +44,7 @@ export default class PowerCalendarMultiple extends PowerCalendarComponent<PowerC
 
   // Actions
   @action
-  select(
-    dayOrDays: PowerCalendarDay[] | PowerCalendarDay,
-    calendar: PowerCalendarAPI,
-    e: MouseEvent
-  ) {
+  select(dayOrDays: CalendarDay, calendar: PowerCalendarAPI, e: MouseEvent) {
     assert(
       `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`,
       isArray(dayOrDays) || (dayOrDays instanceof Object && dayOrDays.date instanceof Date)
@@ -62,13 +59,13 @@ export default class PowerCalendarMultiple extends PowerCalendarComponent<PowerC
     }
 
     if (this.args.onSelect) {
-      this.args.onSelect(this._buildCollection(days ?? []), calendar, e);
+      this.args.onSelect(this._buildCollection((days as PowerCalendarDay[]) ?? []), calendar, e);
     }
   }
 
   // Methods
   _buildCollection(days: PowerCalendarDay[]) {
-    let selected: Date[] = this.publicAPI.selected || [];
+    let selected: Date[] = (this.publicAPI.selected as Date[] | undefined) || [];
 
     for (let day of days) {
       let index = selected.findIndex((selectedDate: Date) => isSame(day.date, selectedDate, 'day'));
