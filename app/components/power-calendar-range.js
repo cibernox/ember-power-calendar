@@ -1,1 +1,1 @@
-export { default } from "ember-power-calendar/components/power-calendar-range";
+export { default } from 'ember-power-calendar/components/power-calendar-range';
