@@ -4,8 +4,7 @@ import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
 export default class PowerCalendarService extends Service {
-  date = null;
-
+  @tracked date = null;
   @tracked locale = getDefaultLocale();
 
   // Methods
