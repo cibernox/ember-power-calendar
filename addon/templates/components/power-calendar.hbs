@@ -1,4 +1,4 @@
-{{#with (assign this.publicAPI (hash
+{{#let (assign this.publicAPI (hash
   Nav=(component this.navComponent calendar=(readonly this.publicAPI))
   Days=(component this.daysComponent calendar=(readonly this.publicAPI))
 )) as |calendar|}}
@@ -12,4 +12,4 @@
       {{/if}}
     </Tag>
   {{/let}}
-{{/with}}
+{{/let}}

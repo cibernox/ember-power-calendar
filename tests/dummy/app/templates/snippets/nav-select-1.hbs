@@ -4,24 +4,24 @@
 
   <calendar.Nav>
     <span class="with-invisible-select">
-      {{#with (format-date calendar.center 'MMMM') as |currentMonth|}}
+      {{#let (format-date calendar.center 'MMMM') as |currentMonth|}}
         {{currentMonth}}
         <select onchange={{fn this.changeCenter "month" calendar}}>
           {{#each months as |month|}}
             <option value="{{month}}" selected={{eq month currentMonth}}>{{month}}</option>
           {{/each}}
         </select>
-      {{/with}}
+      {{/let}}
     </span>
     <span class="with-invisible-select">
-      {{#with (format-date calendar.center 'YYYY') as |currentYear|}}
+      {{#let (format-date calendar.center 'YYYY') as |currentYear|}}
         {{currentYear}}
         <select onchange={{fn this.changeCenter "year" calendar}}>
           {{#each years as |year|}}
             <option value="{{year}}" selected={{eq year currentYear}}>{{year}}</option>
           {{/each}}
         </select>
-      {{/with}}
+      {{/let}}
     </span>
   </calendar.Nav>
 

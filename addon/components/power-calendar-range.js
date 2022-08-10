@@ -1,5 +1,4 @@
 import { computed, action, getProperties } from '@ember/object';
-import { assign } from '@ember/polyfills';
 import CalendarComponent from './power-calendar';
 import fallbackIfUndefined from '../utils/computed-fallback-if-undefined';
 import {
@@ -65,7 +64,7 @@ export default class extends CalendarComponent {
   @computed('_publicAPI', 'minRange', 'maxRange')
   get publicAPI() {
     let rangeOnlyAPI = this.getProperties('minRange', 'maxRange');
-    return assign(rangeOnlyAPI, this._publicAPI);
+    return Object.assign(rangeOnlyAPI, this._publicAPI);
   }
 
   // Actions

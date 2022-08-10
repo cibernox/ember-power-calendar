@@ -1,5 +1,11 @@
 ## Master
 
+# 0.18.0
+- Replace deprecated usages of `{{#with}}` with `{{#let}}`.
+# 0.17.0
+- Remove deprecated Ember.assign
+- [BUGFIX] Add `currentCenter` as a dependency for the `days` computed property.
+- Update dependencies to make it compatible with newer ember versions.
 # 0.16.5
 - Fix `hasBlock` deprecation. 
 - Dependencies updates.
