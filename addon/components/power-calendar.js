@@ -1,4 +1,3 @@
-import { layout, tagName } from "@ember-decorators/component";
 import Component from '@ember/component';
 import { computed, action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
@@ -12,12 +11,14 @@ import {
   normalizeCalendarValue
 } from 'ember-power-calendar-utils';
 
-export default @layout(templateLayout) @tagName('') class extends Component {
+export default class extends Component {
   @service('power-calendar') powerCalendarService
   navComponent = 'power-calendar/nav'
   daysComponent = 'power-calendar/days'
   center = null
   _calendarType = 'single'
+  layout = templateLayout
+  tagName = ''
 
   // Lifecycle hooks
   init() {

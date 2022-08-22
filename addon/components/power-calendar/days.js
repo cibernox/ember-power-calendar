@@ -1,4 +1,3 @@
-import { layout, tagName } from "@ember-decorators/component";
 import Component from '@ember/component';
 import { computed, action } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
@@ -34,7 +33,9 @@ const WEEK_DAYS = [
   'Sun'
 ];
 
-export default @layout(templateLayout) @tagName('') class extends Component {
+export default class extends Component {
+  layout = templateLayout
+  tagName = ''
   focusedId = undefined
   showDaysAround = true
   weekdayFormat = 'short' // "min" | "short" | "long"
