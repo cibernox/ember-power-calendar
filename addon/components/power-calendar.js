@@ -10,8 +10,8 @@ import {
   normalizeDate,
   normalizeCalendarValue
 } from 'ember-power-calendar-utils';
-import PowerCalendarNavComponent from 'power-calendar/nav'
-import PowerCalendarDaysComponent from 'power-calendar/days'
+import PowerCalendarNavComponent from './power-calendar/nav'
+import PowerCalendarDaysComponent from './power-calendar/days'
 
 export default class extends Component {
   @service('power-calendar') powerCalendarService
