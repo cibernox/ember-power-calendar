@@ -7,9 +7,10 @@ import {
 } from 'ember-power-calendar-utils';
 import { assert } from '@ember/debug';
 import { isArray } from '@ember/array';
+import PowerCalendarMultipleDaysComponent from './power-calendar-multiple/days'
 
 export default class extends CalendarComponent {
-  daysComponent = 'power-calendar-multiple/days'
+  daysComponent = PowerCalendarMultipleDaysComponent
   _calendarType = 'multiple'
 
   // CPs

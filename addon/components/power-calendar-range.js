@@ -12,10 +12,11 @@ import {
 import { assert } from '@ember/debug';
 
 import ownProp from 'ember-power-calendar/-private/utils/own-prop';
+import PowerCalendarRangeComponent from './power-calendar-range/days'
 
 export default class extends CalendarComponent {
   @fallbackIfUndefined(false) proximitySelection
-  daysComponent = 'power-calendar-range/days'
+  daysComponent = PowerCalendarRangeComponent
   _calendarType = 'range'
 
   // CPs
