@@ -1,5 +1,7 @@
 ## Master
 
+# 0.19.0
+- Many updates and fixes (see #303)
 # 0.18.0
 - Replace deprecated usages of `{{#with}}` with `{{#let}}`.
 # 0.17.0
