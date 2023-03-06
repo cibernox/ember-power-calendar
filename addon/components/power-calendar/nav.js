@@ -1,8 +1,9 @@
 import Component from '@ember/component';
-import { layout, tagName } from "@ember-decorators/component";
 import templateLayout from '../../templates/components/power-calendar/nav';
 
-export default @layout(templateLayout) @tagName('') class extends Component {
+export default class extends Component {
+  layout = templateLayout
+  tagName = ''
   unit = 'month'
   format = 'MMMM YYYY'
 }
