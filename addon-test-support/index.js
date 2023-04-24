@@ -4,7 +4,7 @@ import { click, settled, find } from '@ember/test-helpers';
 import { formatDate } from 'ember-power-calendar-utils';
 
 function findCalendarElement(selector) {
-  let target = find(selector);
+  let target = typeof selector === 'string' ? find(selector) : selector;
 
   if (target) {
     if (target.classList.contains('ember-power-calendar')) {
@@ -46,10 +46,11 @@ export async function calendarCenter(selector, newCenter) {
 export async function calendarSelect(selector, selected) {
   assert('`calendarSelect` expect a Date object as second argument', selected);
   let calendarElement = findCalendarElement(selector);
-  let daySelector = `${selector} [data-date="${formatDate(selected, 'YYYY-MM-DD')}"]`;
+  let daySelector = `[data-date="${formatDate(selected, 'YYYY-MM-DD')}"]`;
   let dayElement = calendarElement.querySelector(daySelector);
   if (!dayElement) {
     await calendarCenter(selector, selected);
+    dayElement = calendarElement.querySelector(daySelector);
   }
-  return click(daySelector);
+  return click(dayElement);
 }
