@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { computed, action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { inject as service } from '@ember/service';
-import { task } from 'ember-concurrency';
 import templateLayout from '../templates/components/power-calendar';
 import { assert } from '@ember/debug';
 import {
@@ -20,6 +19,7 @@ export default class extends Component {
   center = null
   _calendarType = 'single'
   layout = templateLayout
+  loading = false;
   tagName = ''
 
   // Lifecycle hooks
@@ -45,7 +45,7 @@ export default class extends Component {
     }
     if (this.onCenterChange) {
       let changeCenter = (newCenter, calendar, e) => {
-        return this.changeCenterTask.perform(newCenter, calendar, e);
+        return this.changeCenter(newCenter, calendar, e);
       };
       actions.changeCenter = changeCenter;
       actions.moveCenter = (step, unit, calendar, e) => {
@@ -78,13 +78,13 @@ export default class extends Component {
     return this._publicAPI;
   }
 
-  @computed('selected', 'currentCenter', 'locale', 'powerCalendarService.locale', 'changeCenterTask.isRunning', 'publicActions')
+  @computed('selected', 'currentCenter', 'locale', 'powerCalendarService.locale', 'loading', 'publicActions')
   get _publicAPI() {
     return {
       uniqueId: guidFor(this),
       type: this._calendarType,
       selected: this.selected,
-      loading: this.changeCenterTask.isRunning,
+      loading: this.loading,
       center: this.currentCenter,
       locale: this.locale || this.powerCalendarService.locale,
       actions: this.publicActions
@@ -107,14 +107,15 @@ export default class extends Component {
     }
   }
 
-  // Tasks
-  @(task(function* (newCenter, calendar, e) {
+  // Methods
+  async changeCenter(newCenter, calendar, e) {
     assert('You attempted to move the center of a calendar that doesn\'t receive an `@onCenterChange` action.', typeof this.onCenterChange === 'function');
     let value = normalizeCalendarValue({ date: newCenter });
-    yield this.onCenterChange(value, calendar, e);
-  })) changeCenterTask
+    this.set('loading', true);
+    await this.onCenterChange(value, calendar, e);
+    this.set('loading', false);
+  }
 
-  // Methods
   registerCalendar() {
     if (window) {
       window.__powerCalendars = window.__powerCalendars || {}; // TODO: weakmap??
