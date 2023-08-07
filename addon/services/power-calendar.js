@@ -3,7 +3,7 @@ import { computed } from '@ember/object';
 import { getDefaultLocale } from 'ember-power-calendar-utils';
 
 export default class extends Service {
-  date = null
+  date = null;
 
   // CPs
   @computed

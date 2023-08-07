@@ -7,17 +7,17 @@ import {
   diff,
   isAfter,
   isBefore,
-  normalizeDuration
+  normalizeDuration,
 } from 'ember-power-calendar-utils';
 import { assert } from '@ember/debug';
 
 import ownProp from 'ember-power-calendar/-private/utils/own-prop';
-import PowerCalendarRangeComponent from './power-calendar-range/days'
+import PowerCalendarRangeComponent from './power-calendar-range/days';
 
 export default class extends CalendarComponent {
-  @fallbackIfUndefined(false) proximitySelection
-  daysComponent = PowerCalendarRangeComponent
-  _calendarType = 'range'
+  @fallbackIfUndefined(false) proximitySelection;
+  daysComponent = PowerCalendarRangeComponent;
+  _calendarType = 'range';
 
   // CPs
   @computed
@@ -53,7 +53,7 @@ export default class extends CalendarComponent {
     return { start: normalizeDate(v.start), end: normalizeDate(v.end) };
   }
 
-  @computed('center')
+  @computed('center', 'powerCalendarService', 'selected.start')
   get currentCenter() {
     let center = this.center;
     if (!center) {
@@ -73,7 +73,8 @@ export default class extends CalendarComponent {
   select({ date }, calendar, e) {
     assert(
       'date must be either a Date, or a Range',
-      date && (ownProp(date, 'start') || ownProp(date, 'end') || date instanceof Date)
+      date &&
+        (ownProp(date, 'start') || ownProp(date, 'end') || date instanceof Date)
     );
 
     let range;
@@ -88,7 +89,7 @@ export default class extends CalendarComponent {
     if (start && end) {
       let { minRange, maxRange } = this.publicAPI;
       let diffInMs = Math.abs(diff(end, start));
-      if (diffInMs < minRange || maxRange && diffInMs > maxRange) {
+      if (diffInMs < minRange || (maxRange && diffInMs > maxRange)) {
         return;
       }
     }
@@ -112,18 +113,21 @@ export default class extends CalendarComponent {
 
   _buildRangeByProximity(day, start, end) {
     if (start && end) {
-      let changeStart = Math.abs(diff(day.date, end)) > Math.abs(diff(day.date, start));
+      let changeStart =
+        Math.abs(diff(day.date, end)) > Math.abs(diff(day.date, start));
 
       return normalizeRangeActionValue({
         date: {
           start: changeStart ? day.date : start,
-          end: changeStart ? end : day.date
-        }
+          end: changeStart ? end : day.date,
+        },
       });
     }
 
     if (isBefore(day.date, start)) {
-      return normalizeRangeActionValue({ date: { start: day.date, end: null } });
+      return normalizeRangeActionValue({
+        date: { start: day.date, end: null },
+      });
     }
 
     return this._buildDefaultRange(day, start, end);
@@ -132,9 +136,13 @@ export default class extends CalendarComponent {
   _buildDefaultRange(day, start, end) {
     if (start && !end) {
       if (isAfter(start, day.date)) {
-        return normalizeRangeActionValue({ date: { start: day.date, end: start } });
+        return normalizeRangeActionValue({
+          date: { start: day.date, end: start },
+        });
       }
-      return normalizeRangeActionValue({ date: { start: start, end: day.date } });
+      return normalizeRangeActionValue({
+        date: { start: start, end: day.date },
+      });
     }
 
     return normalizeRangeActionValue({ date: { start: day.date, end: null } });

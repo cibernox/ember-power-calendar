@@ -1,12 +1,10 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import {
-  add,
-} from 'ember-power-calendar-utils';
+import { add } from 'ember-power-calendar-utils';
 
 export default class extends Controller {
-  center = new Date('2016-05-17')
-  selected = undefined
+  center = new Date('2016-05-17');
+  selected = undefined;
   months = [
     new Date('2016-01-15'),
     new Date('2016-02-15'),
@@ -20,7 +18,7 @@ export default class extends Controller {
     new Date('2016-10-15'),
     new Date('2016-11-15'),
     new Date('2016-12-15'),
-  ]
+  ];
 
   @computed('center')
   get nextMonthsCenter() {

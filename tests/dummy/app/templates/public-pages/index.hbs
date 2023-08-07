@@ -17,7 +17,7 @@
 
   <article class="selling-point">
     <div class="selling-point-calendar-page">
-      <sub class="selling-point-calendar-page-number">{{format-date today 'D'}}</sub>
+      <sub class="selling-point-calendar-page-number">{{format-date this.today 'D'}}</sub>
       <img src="/ember-word-logo.svg" alt="Ember" class="selling-point-calendar-page-ember-logo">
     </div>
     <div class="selling-point-text">
@@ -39,7 +39,7 @@
   </article>
 </section>
 <div class="text-center get-started">
-  {{#link-to 'public-pages.docs.index' class="get-started-button"}}
+  <LinkTo @route='public-pages.docs.index' class="get-started-button">
     Get started
-  {{/link-to}}
+  </LinkTo>
 </div>

@@ -1,1 +1,4 @@
-export { default, powerCalendarFormatDate } from 'ember-power-calendar/helpers/power-calendar-format-date';
+export {
+  default,
+  powerCalendarFormatDate,
+} from 'ember-power-calendar/helpers/power-calendar-format-date';

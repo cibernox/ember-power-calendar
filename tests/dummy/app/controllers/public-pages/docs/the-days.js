@@ -5,20 +5,20 @@ import {
   isBefore,
   startOf,
   endOf,
-  weekday
+  weekday,
 } from 'ember-power-calendar-utils';
 
 export default class extends Controller {
-  wedding = new Date('2013-10-18')
-  minDate = new Date('2013-10-11')
-  maxDate = new Date('2013-10-21')
-  center = new Date('2013-10-15')
+  wedding = new Date('2013-10-18');
+  minDate = new Date('2013-10-11');
+  maxDate = new Date('2013-10-21');
+  center = new Date('2013-10-15');
   disabledDates = [
     new Date('2013-10-18'),
     new Date('2013-10-21'),
     new Date('2013-10-22'),
-    new Date('2013-10-28')
-  ]
+    new Date('2013-10-28'),
+  ];
 
   @computed()
   get days() {
@@ -27,12 +27,13 @@ export default class extends Controller {
     let lastDay = endOf(endOf(now, 'month'), 'isoWeek');
     let days = [];
     while (isBefore(day, lastDay)) {
-      if (weekday(day) !== 1 && weekday(day) !== 3) { // Skip Mon/Wed
+      if (weekday(day) !== 1 && weekday(day) !== 3) {
+        // Skip Mon/Wed
         let copy = new Date(day);
         let isCurrentMonth = copy.getMonth() === now.getMonth();
         days.push({
           date: copy,
-          isCurrentMonth
+          isCurrentMonth,
         });
       }
       day = add(day, 1, 'day');
@@ -40,7 +41,7 @@ export default class extends Controller {
     return days;
   }
 
-  @computed('noMondays')
+  @computed('days', 'noMondays')
   get weeksWithoutMondaysOrWednesday() {
     let weeks = [];
     let i = 0;
@@ -53,11 +54,11 @@ export default class extends Controller {
 
   customClass(day, calendar, weeks) {
     if (day.isSelected) {
-      let currentWeek = weeks.find(w => w.days.includes(day));
+      let currentWeek = weeks.find((w) => w.days.includes(day));
       let weekIndex = weeks.indexOf(currentWeek);
       let dayIndex = currentWeek.days.indexOf(day);
       let classes = ['custom-class-demo-day'];
-      let previousWeek = weeks[weekIndex - 1]
+      let previousWeek = weeks[weekIndex - 1];
       let nextWeek = weeks[weekIndex + 1];
       let previousDay = currentWeek.days[dayIndex - 1];
       let nextDay = currentWeek.days[dayIndex + 1];
@@ -65,7 +66,7 @@ export default class extends Controller {
         classes.push('is-horizontal-first-day');
       }
       if (!nextDay || !nextDay.isSelected) {
-        classes.push("is-horizontal-last-day");
+        classes.push('is-horizontal-last-day');
       }
       if (!previousWeek || !previousWeek.days[dayIndex].isSelected) {
         classes.push('is-vertical-first-day');

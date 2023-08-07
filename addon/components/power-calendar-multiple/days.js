@@ -3,7 +3,7 @@ import fallbackIfUndefined from '../../utils/computed-fallback-if-undefined';
 import { isSame } from 'ember-power-calendar-utils';
 
 export default class extends DaysComponent {
-  @fallbackIfUndefined(Infinity) maxLength
+  @fallbackIfUndefined(Infinity) maxLength;
 
   // Methods
   dayIsSelected(date, calendar = this.calendar) {
@@ -12,8 +12,12 @@ export default class extends DaysComponent {
   }
 
   dayIsDisabled(date) {
-    let numSelected = (this.calendar.selected && this.calendar.selected.length) || 0;
+    let numSelected =
+      (this.calendar.selected && this.calendar.selected.length) || 0;
     let maxLength = this.maxLength || Infinity;
-    return super.dayIsDisabled(...arguments) || (numSelected >= maxLength && !this.dayIsSelected(date));
+    return (
+      super.dayIsDisabled(...arguments) ||
+      (numSelected >= maxLength && !this.dayIsSelected(date))
+    );
   }
 }

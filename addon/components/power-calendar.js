@@ -8,19 +8,19 @@ import { assert } from '@ember/debug';
 import {
   add,
   normalizeDate,
-  normalizeCalendarValue
+  normalizeCalendarValue,
 } from 'ember-power-calendar-utils';
-import PowerCalendarNavComponent from './power-calendar/nav'
-import PowerCalendarDaysComponent from './power-calendar/days'
+import PowerCalendarNavComponent from './power-calendar/nav';
+import PowerCalendarDaysComponent from './power-calendar/days';
 
 export default class extends Component {
-  @service('power-calendar') powerCalendarService
-  navComponent = PowerCalendarNavComponent
-  daysComponent = PowerCalendarDaysComponent
-  center = null
-  _calendarType = 'single'
-  layout = templateLayout
-  tagName = ''
+  @service('power-calendar') powerCalendarService;
+  navComponent = PowerCalendarNavComponent;
+  daysComponent = PowerCalendarDaysComponent;
+  center = null;
+  _calendarType = 'single';
+  layout = templateLayout;
+  tagName = '';
 
   // Lifecycle hooks
   init() {
@@ -37,11 +37,11 @@ export default class extends Component {
   }
 
   // CPs
-  @computed('onSelect', 'onCenterChange')
+  @computed('changeCenterTask', 'currentCenter', 'onCenterChange', 'onSelect')
   get publicActions() {
     let actions = {};
     if (this.onSelect) {
-      actions.select = (...args) => this.select(...args)
+      actions.select = (...args) => this.select(...args);
     }
     if (this.onCenterChange) {
       let changeCenter = (newCenter, calendar, e) => {
@@ -64,11 +64,11 @@ export default class extends Component {
     return normalizeDate(v);
   }
 
-  @computed('center')
+  @computed('center', 'selected')
   get currentCenter() {
     let center = this.center;
     if (!center) {
-      center = this.selected || this.powerCalendarService.getDate()
+      center = this.selected || this.powerCalendarService.getDate();
     }
     return normalizeDate(center);
   }
@@ -78,7 +78,15 @@ export default class extends Component {
     return this._publicAPI;
   }
 
-  @computed('selected', 'currentCenter', 'locale', 'powerCalendarService.locale', 'changeCenterTask.isRunning', 'publicActions')
+  @computed(
+    '_calendarType',
+    'changeCenterTask.isRunning',
+    'currentCenter',
+    'locale',
+    'powerCalendarService.locale',
+    'publicActions',
+    'selected'
+  )
   get _publicAPI() {
     return {
       uniqueId: guidFor(this),
@@ -87,7 +95,7 @@ export default class extends Component {
       loading: this.changeCenterTask.isRunning,
       center: this.currentCenter,
       locale: this.locale || this.powerCalendarService.locale,
-      actions: this.publicActions
+      actions: this.publicActions,
     };
   }
 
@@ -108,11 +116,15 @@ export default class extends Component {
   }
 
   // Tasks
-  @(task(function* (newCenter, calendar, e) {
-    assert('You attempted to move the center of a calendar that doesn\'t receive an `@onCenterChange` action.', typeof this.onCenterChange === 'function');
+  @task(function* (newCenter, calendar, e) {
+    assert(
+      "You attempted to move the center of a calendar that doesn't receive an `@onCenterChange` action.",
+      typeof this.onCenterChange === 'function'
+    );
     let value = normalizeCalendarValue({ date: newCenter });
     yield this.onCenterChange(value, calendar, e);
-  })) changeCenterTask
+  })
+  changeCenterTask;
 
   // Methods
   registerCalendar() {

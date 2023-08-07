@@ -3,15 +3,15 @@ import { computed, action } from '@ember/object';
 import {
   normalizeDate,
   isSame,
-  normalizeMultipleActionValue
+  normalizeMultipleActionValue,
 } from 'ember-power-calendar-utils';
 import { assert } from '@ember/debug';
 import { isArray } from '@ember/array';
-import PowerCalendarMultipleDaysComponent from './power-calendar-multiple/days'
+import PowerCalendarMultipleDaysComponent from './power-calendar-multiple/days';
 
 export default class extends CalendarComponent {
-  daysComponent = PowerCalendarMultipleDaysComponent
-  _calendarType = 'multiple'
+  daysComponent = PowerCalendarMultipleDaysComponent;
+  _calendarType = 'multiple';
 
   // CPs
   @computed
@@ -22,7 +22,7 @@ export default class extends CalendarComponent {
     return isArray(v) ? v.map(normalizeDate) : v;
   }
 
-  @computed('center')
+  @computed('center', 'powerCalendarService', 'selected')
   get currentCenter() {
     let center = this.center;
     if (!center) {
@@ -36,7 +36,8 @@ export default class extends CalendarComponent {
   select(dayOrDays, calendar, e) {
     assert(
       `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`,
-      isArray(dayOrDays) || dayOrDays instanceof Object && dayOrDays.date instanceof Date
+      isArray(dayOrDays) ||
+        (dayOrDays instanceof Object && dayOrDays.date instanceof Date)
     );
 
     let days;
@@ -57,7 +58,9 @@ export default class extends CalendarComponent {
     let selected = this.publicAPI.selected || [];
 
     for (let day of days) {
-      let index = selected.findIndex(selectedDate => isSame(day.date, selectedDate, "day"));
+      let index = selected.findIndex((selectedDate) =>
+        isSame(day.date, selectedDate, 'day')
+      );
       if (index === -1) {
         selected = [...selected, day.date];
       } else {

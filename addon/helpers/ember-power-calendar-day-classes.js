@@ -5,15 +5,19 @@ export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]) {
   if (calendar.actions.select) {
     classes.push('ember-power-calendar-day--interactive');
   }
-  classes.push(`ember-power-calendar-day--${day.isCurrentMonth ? 'current' : 'other'}-month`);
+  classes.push(
+    `ember-power-calendar-day--${
+      day.isCurrentMonth ? 'current' : 'other'
+    }-month`
+  );
   if (day.isSelected) {
-    classes.push('ember-power-calendar-day--selected')
+    classes.push('ember-power-calendar-day--selected');
   }
   if (day.isToday) {
-    classes.push('ember-power-calendar-day--today')
+    classes.push('ember-power-calendar-day--today');
   }
   if (day.isFocused) {
-    classes.push('ember-power-calendar-day--focused')
+    classes.push('ember-power-calendar-day--focused');
   }
   if (day.isRangeStart) {
     classes.push('ember-power-calendar-day--range-start');
