@@ -15,8 +15,8 @@
   Let's build it in a few lines of code.
 </p>
 
-<CodeExample @js="nav-select-1-js.js" @hbs="nav-select-1.hbs" @css="nav-select-1-css.css" as |partialName|>
-  {{partial partialName}}
+<CodeExample @js="nav-select-1.js" @hbs="nav-select-1.hbs" @css="nav-select-1-css.css">
+  {{component (ensure-safe-component this.navSelect1)}}
 </CodeExample>
 
 <p>
@@ -43,16 +43,16 @@
   What if you prefer to use Ember Power Select with the years grouped by decade and some fancy animations instead of a native select?
 </p>
 
-<CodeExample @js="nav-select-2-js.js" @hbs="nav-select-2.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @js="nav-select-2.js" @hbs="nav-select-2.hbs">
+  {{component (ensure-safe-component this.navSelect2)}}
 </CodeExample>
 
 <p>
   Or maybe an <code>&lt;input type="number"&gt;</code> for the year only?
 </p>
 
-<CodeExample @js="nav-select-3-js.js" @hbs="nav-select-3.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @js="nav-select-3.js" @hbs="nav-select-3.hbs">
+  {{component (ensure-safe-component this.navSelect3)}}
 </CodeExample>
 
 <p>

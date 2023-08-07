@@ -1,0 +1,17 @@
+<PowerCalendar as |calendar|>
+  <input type="radio" name="weekday" id="weekday-radio-button-1" value="1" onchange={{action (mut this.startOfWeek) value="target.value"}}>
+  <label for="weekday-radio-button-1">Mon</label>
+  <input type="radio" name="weekday" id="weekday-radio-button-2" value="2" onchange={{action (mut this.startOfWeek) value="target.value"}}>
+  <label for="weekday-radio-button-2">Tue</label>
+  <input type="radio" name="weekday" id="weekday-radio-button-3" value="3" onchange={{action (mut this.startOfWeek) value="target.value"}}>
+  <label for="weekday-radio-button-3">Wed</label>
+  <input type="radio" name="weekday" id="weekday-radio-button-4" value="4" onchange={{action (mut this.startOfWeek) value="target.value"}}>
+  <label for="weekday-radio-button-4">Thu</label>
+  <input type="radio" name="weekday" id="weekday-radio-button-5" value="5" onchange={{action (mut this.startOfWeek) value="target.value"}}>
+  <label for="weekday-radio-button-5">Fri</label>
+  <input type="radio" name="weekday" id="weekday-radio-button-6" value="6" onchange={{action (mut this.startOfWeek) value="target.value"}}>
+  <label for="weekday-radio-button-6">Sat</label>
+  <input type="radio" name="weekday" id="weekday-radio-button-0" value="0" onchange={{action (mut this.startOfWeek) value="target.value"}}>
+  <label for="weekday-radio-button-0">Sun</label>
+  <calendar.Days @startOfWeek={{this.startOfWeek}}/>
+</PowerCalendar>

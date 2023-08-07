@@ -1,0 +1,12 @@
+<PowerCalendarRange
+  class="single-day-range-demo"
+  @selected={{this.minimalRange}}
+  @minRange={{0}}
+  @onSelect={{action (mut this.minimalRange) value="date"}} as |cal|>
+  <cal.Nav/>
+  <cal.Days/>
+</PowerCalendarRange>
+<small>
+  To help visualize it in this demo the color of the days when range starts and ends in the same
+  day is red.
+</small>

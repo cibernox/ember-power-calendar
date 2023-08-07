@@ -39,7 +39,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.center = new Date(2016, 10, 15);
     calendarService.set('locale', 'fr');
     await render(
-      hbs`<PowerCalendar @center={{center}} as |cal|><cal.Days/></PowerCalendar>`
+      hbs`<PowerCalendar @center={{this.center}} as |cal|><cal.Days/></PowerCalendar>`
     );
     assert.equal(
       this.element
@@ -58,7 +58,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
   test('[i18n] The user can force a different locale from the one set the calendar service passing `locale="some-locale"`', async function (assert) {
     assert.expect(2);
     this.calendar = calendar;
-    await render(hbs`<PowerCalendar::Days @calendar={{calendar}}/>`);
+    await render(hbs`<PowerCalendar::Days @calendar={{this.calendar}}/>`);
     assert.equal(
       this.element
         .querySelector('.ember-power-calendar-weekdays')
@@ -82,7 +82,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.calendar = calendar;
     this.startOfWeek = '2';
     await render(
-      hbs`<PowerCalendar::Days @calendar={{calendar}} @startOfWeek={{startOfWeek}}/>`
+      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @startOfWeek={{this.startOfWeek}}/>`
     );
 
     assert
@@ -151,7 +151,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
   test('The format of the weekdays can be changed passing `weekdayFormat="long|short|min"`', async function (assert) {
     this.calendar = calendar;
     await render(
-      hbs`<PowerCalendar::Days @calendar={{calendar}} @weekdayFormat={{weekdayFormat}}/>`
+      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @weekdayFormat={{this.weekdayFormat}}/>`
     );
     assert.equal(
       this.element
@@ -193,7 +193,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.calendar = calendar;
     calendar.locale = 'es';
     await render(
-      hbs`<PowerCalendar::Days @calendar={{calendar}} @showDaysAround={{false}}/>`
+      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @showDaysAround={{false}}/>`
     );
     let weeks = this.element.querySelectorAll('.ember-power-calendar-week');
     assert
@@ -213,7 +213,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     assert.expect(1);
     this.calendar = calendar;
     await render(
-      hbs`<PowerCalendar::Days @calendar={{calendar}} @dayClass="custom-day-class"/>`
+      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @dayClass="custom-day-class"/>`
     );
     assert.dom('.ember-power-calendar-day').hasClass('custom-day-class');
   });
@@ -231,7 +231,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     };
     this.calendar = calendar;
     await render(
-      hbs`<PowerCalendar::Days @calendar={{calendar}} @dayClass={{classFn}}/>`
+      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @dayClass={{this.classFn}}/>`
     );
     assert.dom('.ember-power-calendar-day').hasClass('some-computed-class');
   });
@@ -241,7 +241,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.calendar = calendar;
     this.center = new Date(2017, 11, 1);
     await render(
-      hbs`<PowerCalendar::Days @calendar={{calendar}} @center={{center}}/>`
+      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @center={{this.center}}/>`
     );
     assert.dom('[data-date="2017-12-15"]').exists();
   });
@@ -249,19 +249,19 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
   test("If it doesn't receive `center`, it uses calendar's center", async function (assert) {
     assert.expect(1);
     this.calendar = calendar;
-    await render(hbs`<PowerCalendar::Days @calendar={{calendar}}/>`);
+    await render(hbs`<PowerCalendar::Days @calendar={{this.calendar}}/>`);
     assert.dom('[data-date="2013-10-15"]').exists();
   });
 
   test('The `data-power-calendar-id` attribute takes the value of the `calendarUniqueId` if present, or the `uniqueId` otherwise', async function (assert) {
     assert.expect(2);
     this.calendar = Object.assign({ calendarUniqueId: '123abc' }, calendar);
-    await render(hbs`<PowerCalendar::Days @calendar={{calendar}}/>`);
+    await render(hbs`<PowerCalendar::Days @calendar={{this.calendar}}/>`);
     assert
       .dom('.ember-power-calendar-days')
       .hasAttribute('data-power-calendar-id', '123abc');
     this.set('calendar', Object.assign({ uniqueId: '987zwx' }, calendar));
-    await render(hbs`<PowerCalendar::Days @calendar={{calendar}}/>`);
+    await render(hbs`<PowerCalendar::Days @calendar={{this.calendar}}/>`);
     assert
       .dom('.ember-power-calendar-days')
       .hasAttribute('data-power-calendar-id', '987zwx');

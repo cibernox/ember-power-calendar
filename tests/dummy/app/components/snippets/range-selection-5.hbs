@@ -1,0 +1,10 @@
+<PowerCalendarRange
+  @center={{this.center}}
+  @selected={{this.largeRange}}
+  @minRange="1w"
+  @maxRange="2w"
+  @onCenterChange={{action (mut this.center) value="date"}}
+  @onSelect={{action (mut this.largeRange) value="date"}} as |cal|>
+  <cal.Nav/>
+  <cal.Days/>
+</PowerCalendarRange>

@@ -27,8 +27,8 @@
   Use that action to update the displayed month and you have a navigable calendar!
 </p>
 
-<CodeExample @hbs="action-handling-1.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="action-handling-1.hbs">
+  {{component (ensure-safe-component this.actionHandling1)}}
 </CodeExample>
 
 <p>
@@ -45,8 +45,8 @@
 
 <p>It doesn't seem like the kind of thing you'd dare to attempt with bootstrap-datepicker, right?</p>
 
-<CodeExample @hbs="action-handling-2.hbs" @js="action-handling-2-js.js" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="action-handling-2.hbs" @js="action-handling-2.js">
+  {{component (ensure-safe-component this.actionHandling2)}}
 </CodeExample>
 
 <p>
@@ -82,8 +82,8 @@
 
 <p>Go, click one day.</p>
 
-<CodeExample @hbs="action-handling-3.hbs" @js="action-handling-3-js.js" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="action-handling-3.hbs" @js="action-handling-3.js">
+  {{component (ensure-safe-component this.actionHandling3)}}
 </CodeExample>
 
 <p>

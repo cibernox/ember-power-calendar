@@ -26,8 +26,8 @@
   for very small calendars.
 </p>
 
-<CodeExample @hbs="the-nav-1.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="the-nav-1.hbs">
+  {{component (ensure-safe-component this.theNav1)}}
 </CodeExample>
 
 <h3>Just using the public API</h3>
@@ -43,8 +43,8 @@
   months <em>and years</em>.
 </p>
 
-<CodeExample @hbs="the-nav-2.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="the-nav-2.hbs">
+  {{component (ensure-safe-component this.theNav2)}}
 </CodeExample>
 
 <h3>Passing your own component</h3>
@@ -57,8 +57,8 @@
 
 <p>Let's encapsulate the same logic above into a component and use that instead</p>
 
-<CodeExample @hbs="the-nav-3.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="the-nav-3.hbs">
+  {{component (ensure-safe-component this.theNav3)}}
 </CodeExample>
 
 <p>

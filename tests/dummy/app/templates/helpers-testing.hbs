@@ -1,27 +1,27 @@
 <h3>Helpers testing</h3>
 <div class="calendar-center-1">
-  <PowerCalendar @center={{center1}} @onCenterChange={{action (mut center1) value="date"}} as |calendar|>
+  <PowerCalendar @center={{this.center1}} @onCenterChange={{action (mut this.center1) value="date"}} as |calendar|>
     <calendar.Nav/>
     <calendar.Days/>
   </PowerCalendar>
 </div>
 
 <div class="calendar-center-2">
-  <PowerCalendar class="calendar-center-2-calendar" @center={{center2}} @onCenterChange={{action (mut center2) value="date"}} as |calendar|>
+  <PowerCalendar class="calendar-center-2-calendar" @center={{this.center2}} @onCenterChange={{action (mut this.center2) value="date"}} as |calendar|>
     <calendar.Nav/>
     <calendar.Days/>
   </PowerCalendar>
 </div>
 
 <div class="calendar-center-3">
-  <PowerCalendar @center={{center3}} as |calendar|>
+  <PowerCalendar @center={{this.center3}} as |calendar|>
     <calendar.Nav/>
     <calendar.Days/>
   </PowerCalendar>
 </div>
 
 <div class="calendar-center-4">
-  <PowerCalendar @tagName="" @center={{center4}} @onCenterChange={{action (mut center4) value="date"}} as |calendar|>
+  <PowerCalendar @tagName="" @center={{this.center4}} @onCenterChange={{action (mut this.center4) value="date"}} as |calendar|>
     <calendar.Nav/>
     <calendar.Days/>
   </PowerCalendar>
@@ -29,10 +29,10 @@
 
 <div class="calendar-select-1">
   <PowerCalendar
-    @center={{center4}}
-    @selected={{selected4}}
-    @onSelect={{action (mut selected4) value="date"}}
-    @onCenterChange={{action (mut center4) value="date"}} as |calendar|>
+    @center={{this.center4}}
+    @selected={{this.selected4}}
+    @onSelect={{action (mut this.selected4) value="date"}}
+    @onCenterChange={{action (mut this.center4) value="date"}} as |calendar|>
     <calendar.Nav/>
     <calendar.Days/>
   </PowerCalendar>
@@ -41,10 +41,10 @@
 <div class="calendar-select-2">
   <PowerCalendar
     @tagName=""
-    @center={{center4}}
-    @selected={{selected4}}
-    @onSelect={{action (mut selected4) value="date"}}
-    @onCenterChange={{action (mut center4) value="date"}} as |calendar|>
+    @center={{this.center4}}
+    @selected={{this.selected4}}
+    @onSelect={{action (mut this.selected4) value="date"}}
+    @onCenterChange={{action (mut this.center4) value="date"}} as |calendar|>
     <calendar.Nav/>
     <calendar.Days/>
   </PowerCalendar>
@@ -54,7 +54,7 @@
   <BasicDropdown as |dropdown|>
     <dropdown.Trigger>
       <input
-        value={{selected4}}
+        value={{this.selected4}}
         name="date"
         readonly="true"
       >
@@ -62,10 +62,10 @@
     <dropdown.Content class="dropdown-content">
       <PowerCalendar
         @tagName=''
-        @center={{center4}}
-        @selected={{selected4}}
-        @onSelect={{action (mut selected4) value="date"}}
-        @onCenterChange={{action (mut center4) value="date"}} as |calendar|>
+        @center={{this.center4}}
+        @selected={{this.selected4}}
+        @onSelect={{action (mut this.selected4) value="date"}}
+        @onCenterChange={{action (mut this.center4) value="date"}} as |calendar|>
         <calendar.Nav/>
         <calendar.Days/>
       </PowerCalendar>

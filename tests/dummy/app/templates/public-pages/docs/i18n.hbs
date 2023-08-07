@@ -10,8 +10,8 @@
   When the locale is updated not only the language changes but also the first day of the week and any other configuration.
 </p>
 
-<CodeExample @hbs="i18n-1.hbs" @js="i18n-1-js.js" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="i18n-1.hbs" @js="i18n-1.js">
+  {{component (ensure-safe-component this.i18n1)}}
 </CodeExample>
 
 <p>
@@ -19,8 +19,8 @@
   The next calendar is going to be in russian no matter what the global locale is.
 </p>
 
-<CodeExample @hbs="i18n-2.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="i18n-2.hbs">
+  {{component (ensure-safe-component this.i18n2)}}
 </CodeExample>
 
 <p>

@@ -8,8 +8,8 @@
   We are in luck!  Versions of Ember Power Calendar greater than 0.11.0 can support this with a few little twix.
 </p>
 
-<CodeExample @js="multiple-months-1-js.js" @hbs="multiple-months-1.hbs" @css="multiple-months-1-css.css" as |partialName|>
-  {{partial partialName}}
+<CodeExample @js="multiple-months-1.js" @hbs="multiple-months-1.hbs" @css="multiple-months-1-css.css">
+  {{component (ensure-safe-component this.multipleMonths1)}}
 </CodeExample>
 
 <p>
@@ -22,8 +22,8 @@
   Another nice pattern for mobile is to render all 12 months vertically and let the user scroll them.
 </p>
 
-<CodeExample @js="multiple-months-2-js.js" @hbs="multiple-months-2.hbs" @css="multiple-months-2-css.css" as |partialName|>
-  {{partial partialName}}
+<CodeExample @js="multiple-months-2.js" @hbs="multiple-months-2.hbs" @css="multiple-months-2-css.css">
+  {{component (ensure-safe-component this.multipleMonths2)}}
 </CodeExample>
 
 <p>

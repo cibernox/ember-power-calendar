@@ -17,8 +17,8 @@
 
 <p>Let's build a naive datepicker in 20 lines of code!</p>
 
-<CodeExample @hbs="datepicker-1.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="datepicker-1.hbs">
+  {{component (ensure-safe-component this.datepicker1)}}
 </CodeExample>
 
 <p>

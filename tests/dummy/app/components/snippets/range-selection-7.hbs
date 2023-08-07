@@ -1,0 +1,7 @@
+<PowerCalendarRange
+  @selected={{this.selectedRange}}
+  @proximitySelection={{true}}
+  @onSelect={{action (mut this.selectedRange) value="date"}} as |cal|>
+  <cal.Nav/>
+  <cal.Days/>
+</PowerCalendarRange>

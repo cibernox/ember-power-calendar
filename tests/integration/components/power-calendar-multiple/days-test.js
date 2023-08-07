@@ -16,8 +16,8 @@ module(
     test('The maxLength property sets a maximum number of available days', async function (assert) {
       await render(hbs`
       <PowerCalendarMultiple
-        @selected={{collection}}
-        @onSelect={{action (mut collection) value="date"}} as |calendar|>
+        @selected={{this.collection}}
+        @onSelect={{action (mut this.collection) value="date"}} as |calendar|>
         <calendar.Days @maxLength={{1}}/>
       </PowerCalendarMultiple>
     `);
@@ -42,9 +42,9 @@ module(
       this.set('max', 1);
       await render(hbs`
       <PowerCalendarMultiple
-        @selected={{collection}}
-        @onSelect={{action (mut collection) value="date"}} as |calendar|>
-        <calendar.Days @maxLength={{max}}/>
+        @selected={{this.collection}}
+        @onSelect={{action (mut this.collection) value="date"}} as |calendar|>
+        <calendar.Days @maxLength={{this.max}}/>
       </PowerCalendarMultiple>
     `);
       await click('.ember-power-calendar-day[data-date="2013-10-05"]');
@@ -67,9 +67,9 @@ module(
 
       await render(hbs`
       <PowerCalendarMultiple
-        @selected={{collection}}
-        @onSelect={{action (mut collection) value="date"}} as |calendar|>
-        <calendar.Days @maxLength={{max}}/>
+        @selected={{this.collection}}
+        @onSelect={{action (mut this.collection) value="date"}} as |calendar|>
+        <calendar.Days @maxLength={{this.max}}/>
       </PowerCalendarMultiple>
     `);
       await click('.ember-power-calendar-day[data-date="2013-10-05"]');
@@ -84,9 +84,9 @@ module(
 
       await render(hbs`
       <PowerCalendarMultiple
-        @selected={{collection}}
-        @onSelect={{action (mut collection) value="date"}} as |calendar|>
-        <calendar.Days @maxLength={{max}}/>
+        @selected={{this.collection}}
+        @onSelect={{action (mut this.collection) value="date"}} as |calendar|>
+        <calendar.Days @maxLength={{this.max}}/>
       </PowerCalendarMultiple>
     `);
       await click('.ember-power-calendar-day[data-date="2013-10-05"]');
@@ -101,9 +101,9 @@ module(
       this.center = new Date(2013, 9, 1);
       await render(hbs`
       <PowerCalendarMultiple
-        @selected={{collection}}
-        @center={{center}}
-        @onSelect={{action (mut collection) value="date"}} as |calendar|>
+        @selected={{this.collection}}
+        @center={{this.center}}
+        @onSelect={{action (mut this.collection) value="date"}} as |calendar|>
         <calendar.Days @showDaysAround={{false}}/>
       </PowerCalendarMultiple>
     `);

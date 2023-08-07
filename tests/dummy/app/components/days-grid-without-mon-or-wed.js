@@ -1,5 +1,4 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import {
   add,
   isBefore,
@@ -9,7 +8,6 @@ import {
 } from 'ember-power-calendar-utils';
 
 export default class extends Component {
-  @computed
   get days() {
     let now = new Date();
     let day = startOf(startOf(now, 'month'), 'isoWeek');
@@ -27,7 +25,6 @@ export default class extends Component {
     return days;
   }
 
-  @computed('days', 'noMondays')
   get weeksWithoutMondaysOrWednesday() {
     let weeks = [];
     let i = 0;

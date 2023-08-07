@@ -13,10 +13,10 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
     await render(hbs`
       <div class="calendar-select-1">
         <PowerCalendar
-          @center={{center4}}
-          @selected={{selected4}}
-          @onSelect={{action (mut selected4) value="date"}}
-          @onCenterChange={{action (mut center4) value="date"}} as |calendar|>
+          @center={{this.center4}}
+          @selected={{this.selected4}}
+          @onSelect={{action (mut this.selected4) value="date"}}
+          @onCenterChange={{action (mut this.center4) value="date"}} as |calendar|>
           <calendar.Nav/>
           <calendar.Days/>
         </PowerCalendar>
@@ -45,10 +45,10 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
     await render(hbs`
       <div class="calendar-select-1">
         <PowerCalendar
-          @center={{center4}}
-          @selected={{selected4}}
-          @onSelect={{action (mut selected4) value="date"}}
-          @onCenterChange={{action (mut center4) value="date"}} as |calendar|>
+          @center={{this.center4}}
+          @selected={{this.selected4}}
+          @onSelect={{action (mut this.selected4) value="date"}}
+          @onCenterChange={{action (mut this.center4) value="date"}} as |calendar|>
           <calendar.Nav/>
           <calendar.Days/>
         </PowerCalendar>

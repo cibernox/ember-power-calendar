@@ -11,8 +11,8 @@
   but the one you probably care most about is named <code>days</code>.
 </p>
 
-<CodeExample @hbs="how-to-use-it-1.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="how-to-use-it-1.hbs">
+  {{component (ensure-safe-component this.howToUseIt1)}}
 </CodeExample>
 
 <p>
@@ -32,8 +32,8 @@
   Let's render October of 2013.
 </p>
 
-<CodeExample @hbs="how-to-use-it-2.hbs" @js="how-to-use-it-2-js.js" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="how-to-use-it-2.hbs" @js="how-to-use-it-2.js">
+  {{component (ensure-safe-component this.howToUseIt2)}}
 </CodeExample>
 
 <p>
@@ -42,8 +42,8 @@
   This component displays the name of the month and, optionally, some actions to navigate to the previous/next month.
 </p>
 
-<CodeExample @hbs="how-to-use-it-3.hbs" @js="how-to-use-it-3-js.js" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="how-to-use-it-3.hbs" @js="how-to-use-it-3.js">
+  {{component (ensure-safe-component this.howToUseIt2)}}
 </CodeExample>
 
 <p>
@@ -58,8 +58,8 @@
   without a block, like so:
 </p>
 
-<CodeExample @hbs="how-to-use-it-5.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="how-to-use-it-5.hbs">
+  {{component (ensure-safe-component this.howToUseIt5)}}
 </CodeExample>
 
 <h3><code>selected</code></h3>
@@ -68,8 +68,8 @@
   Sometimes you want a day of the month to be highlighted. To do it pass <code>selected=someDate</code> to the component.
 </p>
 
-<CodeExample @hbs="how-to-use-it-4.hbs" @js="how-to-use-it-4-js.js" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="how-to-use-it-4.hbs" @js="how-to-use-it-4.js">
+  {{component (ensure-safe-component this.howToUseIt4)}}
 </CodeExample>
 
 <p>

@@ -24,8 +24,8 @@
   Lets see this in action.
 </p>
 
-<CodeExample @hbs="range-selection-1.hbs" @js="range-selection-1-js.js" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="range-selection-1.hbs" @js="range-selection-1.js">
+  {{component (ensure-safe-component this.rangeSelection1)}}
 </CodeExample>
 
 <p>
@@ -37,8 +37,8 @@
   Let's see an example:
 </p>
 
-<CodeExample @hbs="range-selection-2.hbs" @js="range-selection-1-js.js" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="range-selection-2.hbs" @js="range-selection-2.js">
+  {{component (ensure-safe-component this.rangeSelection2)}}
 </CodeExample>
 
 <p>Hey, I never said I was a brilliant designer! But you get the idea.</p>
@@ -60,8 +60,8 @@
 
 <p>If you want to force the user to pick a range of at least 3 days you can just pass a number:</p>
 
-<CodeExample @hbs="range-selection-3.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="range-selection-3.hbs">
+  {{component (ensure-safe-component this.rangeSelection3)}}
 </CodeExample>
 
 <p>
@@ -73,8 +73,8 @@
   Let's make the range be of at most one week.
 </p>
 
-<CodeExample @hbs="range-selection-4.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="range-selection-4.hbs">
+  {{component (ensure-safe-component this.rangeSelection4)}}
 </CodeExample>
 
 <p>
@@ -82,16 +82,16 @@
   combine <code>minRange</code> and <code>maxRange</code> as you want.
 </p>
 
-<CodeExample @hbs="range-selection-5.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="range-selection-5.hbs">
+  {{component (ensure-safe-component this.rangeSelection5)}}
 </CodeExample>
 
 <p>
   If you want to allow ranges to begin and end on the same day, pass <code>minRange=0</code>.
 </p>
 
-<CodeExample @hbs="range-selection-6.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="range-selection-6.hbs">
+  {{component (ensure-safe-component this.rangeSelection6)}}
 </CodeExample>
 
 <h3>The <code>proximitySelection</code> option</h3>
@@ -101,8 +101,8 @@
   clicking a third time will move the closest of the extremes, narrowing or extending the range.
 </p>
 
-<CodeExample @hbs="range-selection-7.hbs" as |partialName|>
-  {{partial partialName}}
+<CodeExample @hbs="range-selection-7.hbs">
+  {{component (ensure-safe-component this.rangeSelection7)}}
 </CodeExample>
 
 <p>

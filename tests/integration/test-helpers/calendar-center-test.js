@@ -13,7 +13,7 @@ module('Test Support | Helper | calendarCenter', function (hooks) {
 
     await render(hbs`
       <div class="calendar-center-1">
-        <PowerCalendar @center={{center1}} @onCenterChange={{action (mut center1) value="date"}} as |calendar|>
+        <PowerCalendar @center={{this.center1}} @onCenterChange={{action (mut this.center1) value="date"}} as |calendar|>
           <calendar.Nav/>
           <calendar.Days/>
         </PowerCalendar>

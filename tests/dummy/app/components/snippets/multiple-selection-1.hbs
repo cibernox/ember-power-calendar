@@ -1,0 +1,7 @@
+<PowerCalendarMultiple
+  @center={{this.center}}
+  @selected={{this.collection}}
+  @onSelect={{action (mut this.collection) value="date"}} as |calendar|>
+  <calendar.Nav/>
+  <calendar.Days/>
+</PowerCalendarMultiple>

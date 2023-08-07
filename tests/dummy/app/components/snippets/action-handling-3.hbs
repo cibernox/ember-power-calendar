@@ -1,0 +1,6 @@
+<PowerCalendar
+  @selected={{this.selected}}
+  @onSelect={{action (mut this.selected) value="date"}} as |calendar|>
+  <calendar.Nav/>
+  <calendar.Days/>
+</PowerCalendar>

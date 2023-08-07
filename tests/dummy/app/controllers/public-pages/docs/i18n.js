@@ -1,14 +1,8 @@
 import Controller from '@ember/controller';
-import { action } from '@ember/object';
-import { inject as service } from '@ember/service';
+import I18n1 from '../../../components/snippets/i18n-1';
+import I18n2 from '../../../components/snippets/i18n-2';
 
 export default class extends Controller {
-  @service('power-calendar') calendarService;
-  locales = ['en', 'es', 'ru', 'fr', 'pt'];
-
-  // Actions
-  @action
-  changeAppWideLocale(locale) {
-    this.calendarService.set('locale', locale);
-  }
+  i18n1 = I18n1;
+  i18n2 = I18n2;
 }

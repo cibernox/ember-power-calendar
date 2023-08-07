@@ -9,16 +9,16 @@
 @import 'components/index';
 @import 'components/sidenav';
 @import 'components/docs';
-// @import 'ember-code-example';
-// @include ember-code-example($brand-color);
-// .code-example-snippet {
-//   &.result {
-//     background-color: white;
-//   }
-//   .ember-power-calendar {
-//     margin: 0 auto;
-//   }
-// }
+@import 'ember-code-example';
+@include ember-code-example($brand-color);
+.code-example-snippet {
+  &.result {
+    background-color: white;
+  }
+  .ember-power-calendar {
+    margin: 0 auto;
+  }
+}
 
 // Power Select
 @import 'ember-power-select/themes/bootstrap';
