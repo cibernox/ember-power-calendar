@@ -2,7 +2,6 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../../assertions';
 import { run } from '@ember/runloop';
 
 let calendarService;
@@ -12,7 +11,6 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    assertionInjector(this);
     calendarService = this.owner.lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
     calendar = {
@@ -24,10 +22,6 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
         select: () => {},
       },
     };
-  });
-
-  hooks.afterEach(function () {
-    assertionCleanup(this);
   });
 
   test('[i18n] If the user sets a different locale in the calendar, this setting overrides the locale set in the calendar service', async function (assert) {

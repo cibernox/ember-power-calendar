@@ -2,21 +2,17 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run } from '@ember/runloop';
 import { isSame, formatDate } from 'ember-power-calendar-utils';
+import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 
 module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
   setupRenderingTest(hooks);
+  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function () {
     let calendarService = this.owner.lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
-    assertionInjector(this);
-  });
-
-  hooks.afterEach(function () {
-    assertionCleanup(this);
   });
 
   test('When a multiple calendar receives an array of dates, those dates are marked as selected', async function (assert) {

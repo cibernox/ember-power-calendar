@@ -2,7 +2,6 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../../assertions';
 import { run } from '@ember/runloop';
 import require from 'require';
 
@@ -16,7 +15,6 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    assertionInjector(this);
     calendarService = this.owner.lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
     calendarService.set('locale', 'en-US');
@@ -28,10 +26,6 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
         select: () => {},
       },
     };
-  });
-
-  hooks.afterEach(function () {
-    assertionCleanup(this);
   });
 
   test('[i18n] The name of the weekdays respect the locale set in the calendar service', async function (assert) {

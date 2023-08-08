@@ -2,10 +2,10 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, focus, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
 import require from 'require';
+import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 
 import ownProp from 'ember-power-calendar/-private/utils/own-prop';
 
@@ -13,15 +13,11 @@ const dateLibrary = require.has('luxon') ? 'luxon' : 'moment';
 
 module('Integration | Component | <PowerCalendar>', function (hooks) {
   setupRenderingTest(hooks);
+  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function () {
-    assertionInjector(this);
     let calendarService = this.owner.lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
-  });
-
-  hooks.afterEach(function () {
-    assertionCleanup(this);
   });
 
   test('Rendered without any arguments, it displays the current month and has no month navigation', async function (assert) {

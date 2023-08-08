@@ -2,23 +2,19 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { assertionInjector, assertionCleanup } from '../../assertions';
 import { run } from '@ember/runloop';
 import { isSame } from 'ember-power-calendar-utils';
+import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 
 import ownProp from 'ember-power-calendar/-private/utils/own-prop';
 
 module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   setupRenderingTest(hooks);
+  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function () {
     let calendarService = this.owner.lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
-    assertionInjector(this);
-  });
-
-  hooks.afterEach(function () {
-    assertionCleanup(this);
   });
 
   test('when it receives a range in the `selected` argument containing `Date` objects, the range is highlighted', async function (assert) {
