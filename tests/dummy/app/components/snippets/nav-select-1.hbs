@@ -1,6 +1,6 @@
 <PowerCalendar
   @center={{this.center}}
-  @onCenterChange={{action (mut this.center) value="date"}} as |calendar|>
+  @onCenterChange={{this.onCenterChange}} as |calendar|>
 
   <calendar.Nav>
     <span class="with-invisible-select">

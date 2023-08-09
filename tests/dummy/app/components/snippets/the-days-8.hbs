@@ -1,9 +1,9 @@
 <PowerCalendar as |calendar|>
-  <input type="radio" name="weekday-format" id="weekday-format-radio-button-1" value="min" onchange={{action (mut this.weekdayFormat) value="target.value"}}>
+  <input type="radio" name="weekday-format" id="weekday-format-radio-button-1" value="min" {{on "change" this.onChange}}>
   <label for="weekday-format-radio-button-1">Min</label>
-  <input type="radio" name="weekday-format" id="weekday-format-radio-button-2" value="short" onchange={{action (mut this.weekdayFormat) value="target.value"}}>
+  <input type="radio" name="weekday-format" id="weekday-format-radio-button-2" value="short" {{on "change" this.onChange}}>
   <label for="weekday-format-radio-button-2">Short</label>
-  <input type="radio" name="weekday-format" id="weekday-format-radio-button-3" value="long" onchange={{action (mut this.weekdayFormat) value="target.value"}}>
+  <input type="radio" name="weekday-format" id="weekday-format-radio-button-3" value="long" {{on "change" this.onChange}}>
   <label for="weekday-format-radio-button-3">Long</label>
 
   <calendar.Days @weekdayFormat={{this.weekdayFormat}}/>

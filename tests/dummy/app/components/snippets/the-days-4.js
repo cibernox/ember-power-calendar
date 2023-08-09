@@ -1,4 +1,12 @@
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-// eslint-disable-next-line ember/no-empty-glimmer-component-classes
-export default class extends Component {}
+export default class extends Component {
+  @tracked startOfWeek;
+
+  @action
+  onChange(evt) {
+    this.startOfWeek = evt.target.value;
+  }
+}

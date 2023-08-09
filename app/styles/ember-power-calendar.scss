@@ -95,8 +95,7 @@
   $row-padding-bottom: 0,
   $row-padding-left: 0,
   $row-padding-right: 0,
-  $row-width: $cell-with-spacing-width * 7 - 2px + $row-padding-left +
-    $row-padding-right,
+  $row-width: $cell-with-spacing-width * 7 - 2px + $row-padding-left + $row-padding-right,
   $row-height: $cell-height + 2px,
   $primary-color: #0078c9,
   $nav-button-color: $primary-color,

@@ -1,5 +1,5 @@
 <PowerCalendarMultiple
   @selected={{this.collection}}
-  @onSelect={{action (mut this.collection) value="date"}} as |calendar|>
+  @onSelect={{this.onSelect}} as |calendar|>
   <calendar.Days @maxLength={{4}}/>
 </PowerCalendarMultiple>

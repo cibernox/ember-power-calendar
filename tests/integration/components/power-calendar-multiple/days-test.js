@@ -14,10 +14,13 @@ module(
     });
 
     test('The maxLength property sets a maximum number of available days', async function (assert) {
+      this.onSelect = (selected) => {
+        this.set('collection', selected.date);
+      };
       await render(hbs`
       <PowerCalendarMultiple
         @selected={{this.collection}}
-        @onSelect={{action (mut this.collection) value="date"}} as |calendar|>
+        @onSelect={{this.onSelect}} as |calendar|>
         <calendar.Days @maxLength={{1}}/>
       </PowerCalendarMultiple>
     `);
@@ -40,10 +43,13 @@ module(
 
     test('the maxLength property can handle changing of the property', async function (assert) {
       this.set('max', 1);
+      this.onSelect = (selected) => {
+        this.set('collection', selected.date);
+      };
       await render(hbs`
       <PowerCalendarMultiple
         @selected={{this.collection}}
-        @onSelect={{action (mut this.collection) value="date"}} as |calendar|>
+        @onSelect={{this.onSelect}} as |calendar|>
         <calendar.Days @maxLength={{this.max}}/>
       </PowerCalendarMultiple>
     `);
@@ -64,11 +70,14 @@ module(
     test('maxLength can handle null for the selected days', async function (assert) {
       this.set('max', 1);
       this.set('collection', null);
+      this.onSelect = (selected) => {
+        this.set('collection', selected.date);
+      };
 
       await render(hbs`
       <PowerCalendarMultiple
         @selected={{this.collection}}
-        @onSelect={{action (mut this.collection) value="date"}} as |calendar|>
+        @onSelect={{this.onSelect}} as |calendar|>
         <calendar.Days @maxLength={{this.max}}/>
       </PowerCalendarMultiple>
     `);
@@ -81,11 +90,14 @@ module(
 
     test('maxLength can handle null for the maxLength property', async function (assert) {
       this.set('max', null);
+      this.onSelect = (selected) => {
+        this.set('collection', selected.date);
+      };
 
       await render(hbs`
       <PowerCalendarMultiple
         @selected={{this.collection}}
-        @onSelect={{action (mut this.collection) value="date"}} as |calendar|>
+        @onSelect={{this.onSelect}} as |calendar|>
         <calendar.Days @maxLength={{this.max}}/>
       </PowerCalendarMultiple>
     `);
@@ -99,11 +111,14 @@ module(
     test("If it receives `showDaysAround=false` option, it doesn't show the days before first or after last day of the month", async function (assert) {
       assert.expect(3);
       this.center = new Date(2013, 9, 1);
+      this.onSelect = (selected) => {
+        this.set('collection', selected.date);
+      };
       await render(hbs`
       <PowerCalendarMultiple
         @selected={{this.collection}}
         @center={{this.center}}
-        @onSelect={{action (mut this.collection) value="date"}} as |calendar|>
+        @onSelect={{this.onSelect}} as |calendar|>
         <calendar.Days @showDaysAround={{false}}/>
       </PowerCalendarMultiple>
     `);

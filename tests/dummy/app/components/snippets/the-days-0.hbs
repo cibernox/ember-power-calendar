@@ -1,4 +1,4 @@
-<PowerCalendarMultiple @selected={{this.selectedDays}} @onSelect={{action (mut this.selectedDays) value="date"}} as |calendar|>
+<PowerCalendarMultiple @selected={{this.selectedDays}} @onSelect={{this.onSelect}} as |calendar|>
   <calendar.Nav/>
   <calendar.Days class="custom-day-demo-calendar" @dayClass={{this.customClass}}/>
 </PowerCalendarMultiple>

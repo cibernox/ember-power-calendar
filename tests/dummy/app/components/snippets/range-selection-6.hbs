@@ -2,7 +2,7 @@
   class="single-day-range-demo"
   @selected={{this.minimalRange}}
   @minRange={{0}}
-  @onSelect={{action (mut this.minimalRange) value="date"}} as |cal|>
+  @onSelect={{this.onSelect}} as |cal|>
   <cal.Nav/>
   <cal.Days/>
 </PowerCalendarRange>

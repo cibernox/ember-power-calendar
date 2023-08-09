@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class extends Component {
   @tracked selected = null;
@@ -18,4 +19,9 @@ export default class extends Component {
     new Date('2016-11-15'),
     new Date('2016-12-15'),
   ];
+
+  @action
+  onSelect(selected) {
+    this.selected = selected.date;
+  }
 }

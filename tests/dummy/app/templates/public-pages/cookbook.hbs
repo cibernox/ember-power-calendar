@@ -15,7 +15,7 @@
     --}}
   </nav>
   <section class="doc-page">
-    <PowerSelect @selected={{this.currentSection}} @options={{this.groupedSections}} @onChange={{action 'visit'}} @searchField="text" @triggerClass="section-selector" as |option|>
+    <PowerSelect @selected={{this.currentSection}} @options={{this.groupedSections}} @onChange={{this.visit}} @searchField="text" @triggerClass="section-selector" as |option|>
       {{option.text}}
     </PowerSelect>
     {{outlet}}

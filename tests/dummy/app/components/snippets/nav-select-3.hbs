@@ -1,4 +1,4 @@
-<PowerCalendar class="nav-with-number-input-demo" @center={{this.center3}} @onCenterChange={{action (mut this.center3) value="date"}} as |cal|>
+<PowerCalendar class="nav-with-number-input-demo" @center={{this.center3}} @onCenterChange={{this.onCenterChange}} as |cal|>
   <cal.Nav>
     {{format-date cal.center "MMMM"}}
     <input type="number" min="1940" max="2020"

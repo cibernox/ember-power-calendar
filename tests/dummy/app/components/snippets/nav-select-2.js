@@ -56,4 +56,9 @@ export default class extends Component {
     let newCenter = calendar.center.clone()[unit](val);
     calendar.actions.changeCenter(newCenter);
   }
+
+  @action
+  onCenterChange(selected) {
+    this.center2 = selected.date;
+  }
 }

@@ -3,8 +3,8 @@
   @selected={{this.largeRange}}
   @minRange="1w"
   @maxRange="2w"
-  @onCenterChange={{action (mut this.center) value="date"}}
-  @onSelect={{action (mut this.largeRange) value="date"}} as |cal|>
+  @onCenterChange={{this.onCenterChange}}
+  @onSelect={{this.onSelect}} as |cal|>
   <cal.Nav/>
   <cal.Days/>
 </PowerCalendarRange>

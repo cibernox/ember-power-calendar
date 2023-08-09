@@ -10,10 +10,13 @@ module('Test Support | Helper | calendarCenter', function (hooks) {
   test('`calendarCenter` invokes the `@onCenterChange` action of the target component inside the selector we pass it', async function (assert) {
     assert.expect(3);
     this.center1 = new Date(2013, 9, 18);
+    this.onCenterChange = (selected) => {
+      this.set('center1', selected.date);
+    };
 
     await render(hbs`
       <div class="calendar-center-1">
-        <PowerCalendar @center={{this.center1}} @onCenterChange={{action (mut this.center1) value="date"}} as |calendar|>
+        <PowerCalendar @center={{this.center1}} @onCenterChange={{this.onCenterChange}} as |calendar|>
           <calendar.Nav/>
           <calendar.Days/>
         </PowerCalendar>

@@ -23,8 +23,8 @@ The `onSelect` action is fired every time either end of the range changes.
 --}}
 
 <PowerCalendar
-  @selected={{selected}}
-  @onSelect={{action (mut selected) value="date"}} />
+  @selected={{this.selected}}
+  @onSelect={{this.onSelect}} />
 
 ```
 
@@ -37,8 +37,8 @@ The `onSelect` action is fired every time either end of the range changes.
   one containing an array of dates and the other containing an array of moments
 --}}
 <PowerCalendar
-  @selected={{selected}}
-  @onSelect={{action (mut selected) value="date")}} />
+  @selected={{this.selected}}
+  @onSelect={{this.onSelect)}} />
 ```
 
 
@@ -57,7 +57,7 @@ The `onSelect` action is fired every time either end of the range changes.
 
 
 <!-- Days and nav -->
-<PowerCalendar @center={{month}} @selected={{day}} @onSelect={{action (mut day) value="date"}} @onCenterChange={{action (mut month) value="date"}} as |calendar|>
+<PowerCalendar @center={{this.month}} @selected={{this.day}} @onSelect={{this.onSelect}} @onCenterChange={{this.onCenterChange}} as |calendar|>
   <calendar.Nav/>
 
   <calendar.Days as |day|>

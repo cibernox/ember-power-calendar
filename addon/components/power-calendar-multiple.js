@@ -21,11 +21,9 @@ export default class extends CalendarComponent {
       return this._selected;
     }
 
-    return this.args.selected;
-  }
+    const value = this.args.selected;
 
-  set selected(v) {
-    this._selected = isArray(v) ? v.map(normalizeDate) : v;
+    return isArray(value) ? value.map(normalizeDate) : value;
   }
 
   get currentCenter() {

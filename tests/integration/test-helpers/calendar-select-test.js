@@ -10,13 +10,19 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
   test('`calendarSelect` selects the given date ', async function (assert) {
     this.center4 = new Date(2013, 9, 18);
     this.selected4 = new Date(2013, 9, 15);
+    this.onCenterChange = (selected) => {
+      this.set('center4', selected.date);
+    };
+    this.onSelect = (selected) => {
+      this.set('selected4', selected.date);
+    };
     await render(hbs`
       <div class="calendar-select-1">
         <PowerCalendar
           @center={{this.center4}}
           @selected={{this.selected4}}
-          @onSelect={{action (mut this.selected4) value="date"}}
-          @onCenterChange={{action (mut this.center4) value="date"}} as |calendar|>
+          @onSelect={{this.onSelect}}
+          @onCenterChange={{this.onCenterChange}} as |calendar|>
           <calendar.Nav/>
           <calendar.Days/>
         </PowerCalendar>
@@ -42,13 +48,19 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
   test('`calendarSelect` selects the given date changing the month center on the process', async function (assert) {
     this.center4 = new Date(2013, 9, 18);
     this.selected4 = new Date(2013, 9, 15);
+    this.onCenterChange = (selected) => {
+      this.set('center4', selected.date);
+    };
+    this.onSelect = (selected) => {
+      this.set('selected4', selected.date);
+    };
     await render(hbs`
       <div class="calendar-select-1">
         <PowerCalendar
           @center={{this.center4}}
           @selected={{this.selected4}}
-          @onSelect={{action (mut this.selected4) value="date"}}
-          @onCenterChange={{action (mut this.center4) value="date"}} as |calendar|>
+          @onSelect={{this.onSelect}}
+          @onCenterChange={{this.onCenterChange}} as |calendar|>
           <calendar.Nav/>
           <calendar.Days/>
         </PowerCalendar>

@@ -2,8 +2,8 @@
   class="demo-range-calendar-with-pretty-range-ends-yo"
   @center={{this.center}}
   @selected={{this.range}}
-  @onCenterChange={{action (mut this.center) value="date"}}
-  @onSelect={{action (mut this.range) value="date"}} as |calendar|>
+  @onCenterChange={{this.onCenterChange}}
+  @onSelect={{this.onSelect}} as |calendar|>
   <calendar.Nav/>
   <calendar.Days/>
 </PowerCalendarRange>

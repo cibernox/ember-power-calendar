@@ -1,6 +1,6 @@
 <PowerCalendar
   @selected={{this.selected}}
-  @onSelect={{action (mut this.selected) value="date"}} as |calendar|>
+  @onSelect={{this.onSelect}} as |calendar|>
   <calendar.Nav/>
   <calendar.Days/>
 </PowerCalendar>

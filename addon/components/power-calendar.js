@@ -55,7 +55,7 @@ export default class extends Component {
       return this._selected;
     }
 
-    return this.args.selected;
+    return normalizeDate(this.args.selected);
   }
 
   set selected(v) {

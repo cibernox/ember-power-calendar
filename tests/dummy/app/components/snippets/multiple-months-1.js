@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 import { add } from 'ember-power-calendar-utils';
 
 export default class extends Component {
@@ -8,5 +9,15 @@ export default class extends Component {
 
   get nextMonthsCenter() {
     return add(this.center, 1, 'month');
+  }
+
+  @action
+  onCenterChange(selected) {
+    this.center = selected.date;
+  }
+
+  @action
+  onSelect(selected) {
+    this.selected = selected.date;
   }
 }

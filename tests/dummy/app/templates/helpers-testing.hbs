@@ -1,13 +1,13 @@
 <h3>Helpers testing</h3>
 <div class="calendar-center-1">
-  <PowerCalendar @center={{this.center1}} @onCenterChange={{action (mut this.center1) value="date"}} as |calendar|>
+  <PowerCalendar @center={{this.center1}} @onCenterChange={{fn this.onCenterChange 'center1'}} as |calendar|>
     <calendar.Nav/>
     <calendar.Days/>
   </PowerCalendar>
 </div>
 
 <div class="calendar-center-2">
-  <PowerCalendar class="calendar-center-2-calendar" @center={{this.center2}} @onCenterChange={{action (mut this.center2) value="date"}} as |calendar|>
+  <PowerCalendar class="calendar-center-2-calendar" @center={{this.center2}} @onCenterChange={{fn this.onCenterChange 'center2'}} as |calendar|>
     <calendar.Nav/>
     <calendar.Days/>
   </PowerCalendar>
@@ -21,7 +21,7 @@
 </div>
 
 <div class="calendar-center-4">
-  <PowerCalendar @tagName="" @center={{this.center4}} @onCenterChange={{action (mut this.center4) value="date"}} as |calendar|>
+  <PowerCalendar @tagName="" @center={{this.center4}} @onCenterChange={{fn this.onCenterChange 'center4'}} as |calendar|>
     <calendar.Nav/>
     <calendar.Days/>
   </PowerCalendar>
@@ -31,8 +31,8 @@
   <PowerCalendar
     @center={{this.center4}}
     @selected={{this.selected4}}
-    @onSelect={{action (mut this.selected4) value="date"}}
-    @onCenterChange={{action (mut this.center4) value="date"}} as |calendar|>
+    @onSelect={{fn this.onSelect 'selected4'}}
+    @onCenterChange={{fn this.onCenterChange 'center4'}} as |calendar|>
     <calendar.Nav/>
     <calendar.Days/>
   </PowerCalendar>
@@ -43,8 +43,8 @@
     @tagName=""
     @center={{this.center4}}
     @selected={{this.selected4}}
-    @onSelect={{action (mut this.selected4) value="date"}}
-    @onCenterChange={{action (mut this.center4) value="date"}} as |calendar|>
+    @onSelect={{fn this.onSelect 'selected4'}}
+    @onCenterChange={{fn this.onCenterChange 'center4'}} as |calendar|>
     <calendar.Nav/>
     <calendar.Days/>
   </PowerCalendar>
@@ -64,8 +64,8 @@
         @tagName=''
         @center={{this.center4}}
         @selected={{this.selected4}}
-        @onSelect={{action (mut this.selected4) value="date"}}
-        @onCenterChange={{action (mut this.center4) value="date"}} as |calendar|>
+        @onSelect={{fn this.onSelect 'selected4'}}
+        @onCenterChange={{fn this.onCenterChange 'center4'}} as |calendar|>
         <calendar.Nav/>
         <calendar.Days/>
       </PowerCalendar>

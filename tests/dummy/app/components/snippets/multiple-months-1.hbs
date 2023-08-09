@@ -2,8 +2,8 @@
   class='multiple-month-power-calendar-horizontal'
   @center={{this.center}}
   @selected={{this.selected}}
-  @onCenterChange={{action (mut this.center) value="date"}}
-  @onSelect={{action (mut this.selected) value="date"}} as |calendar|>
+  @onCenterChange={{this.onCenterChange}}
+  @onSelect={{this.onSelect}} as |calendar|>
   <calendar.Nav>
     <div class='month-name'>
       {{power-calendar-format-date calendar.center 'MMMM' locale=calendar.locale}}

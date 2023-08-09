@@ -9,9 +9,9 @@
   <dropdown.Content class="datepicker-demo-dropdown">
     <PowerCalendar class="demo-calendar-small"
       @center={{this.center}}
-      @onCenterChange={{action (mut this.center) value="date"}}
+      @onCenterChange={{this.onCenterChange}}
       @selected={{this.selected}}
-      @onSelect={{action (mut this.selected) value="date"}} as |calendar|>
+      @onSelect={{this.onSelect}} as |calendar|>
       <calendar.Nav/>
       <calendar.Days/>
     </PowerCalendar>
