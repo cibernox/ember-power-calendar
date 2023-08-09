@@ -6,10 +6,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   @media only screen and (max-width: $medium-breakpoint) {
     height: 200px;
   }
 }
+
 .main-page-headline-content {
   margin: 0;
   text-align: center;
@@ -17,30 +19,46 @@
   max-width: 580px;
   font-weight: 200;
   line-height: 1.42;
-  img { vertical-align: top; }
+
+  img {
+    vertical-align: top;
+  }
+
   @media only screen and (max-width: $small-breakpoint) {
     font-size: 34px;
-    img { height: 40px; }
+
+    img {
+      height: 40px;
+    }
   }
+
   @media only screen and (min-width: $small-breakpoint) {
     font-size: 42px;
-    img { height: 48px; }
+
+    img {
+      height: 48px;
+    }
   }
 }
+
 // Selling points
 .selling-points {
   @extend %wrapper;
+
   display: flex;
+
   @media only screen and (max-width: $small-breakpoint) {
     flex-direction: column;
   }
 }
+
 .selling-point {
   display: flex;
   padding: 2rem 0.5rem;
   flex: 1;
   flex-direction: column;
 }
+
 .selling-point-icon {
   width: 150px;
   height: auto;
@@ -50,6 +68,7 @@
 .selling-point-calendar {
   display: inline-block;
 }
+
 .selling-point-calendar-page {
   position: relative;
   border: 7px solid #444;
@@ -60,7 +79,9 @@
   padding: 0 15px;
   width: 150px;
   margin: 65px auto;
-  &:before, &:after {
+
+  &::before,
+  &::after {
     content: "";
     border: 4px solid white;
     display: block;
@@ -71,16 +92,20 @@
     position: absolute;
     top: -15px;
   }
-  &:before {
+
+  &::before {
     left: 15px;
   }
-  &:after {
+
+  &::after {
     right: 15px;
   }
 }
+
 .selling-point-calendar-page-ember-logo {
   margin-top: 5px;
 }
+
 .selling-point-calendar-page-number {
   font-size: 11px;
   position: absolute;
@@ -94,6 +119,7 @@
   flex-direction: column;
   justify-content: center;
   text-align: justify;
+
   h2 {
     font-weight: 400;
     font-size: 1.5em;

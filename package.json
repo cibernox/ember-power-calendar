@@ -5,8 +5,10 @@
   "scripts": {
     "build": "ember build --environment=production",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
-    "lint:css": "stylelint \"**/*.css\"",
+    "lint:css": "stylelint \"**/*.css\" --allow-empty-input",
     "lint:css:fix": "concurrently \"npm:lint:css -- --fix\"",
+    "lint:scss": "stylelint \"**/*.scss\" --allow-empty-input",
+    "lint:scss:fix": "concurrently \"npm:lint:scss -- --fix\"",
     "lint:fix": "concurrently \"npm:lint:*:fix\" --names \"fix:\"",
     "lint:hbs": "ember-template-lint .",
     "lint:hbs:fix": "ember-template-lint . --fix",
@@ -78,6 +80,7 @@
     "sass": "^1.64.2",
     "stylelint": "^15.10.2",
     "stylelint-config-standard": "^34.0.0",
+    "stylelint-config-standard-scss": "^10.0.0",
     "stylelint-prettier": "^4.0.2",
     "tracked-built-ins": "^3.1.1",
     "webpack": "^5.88.2"

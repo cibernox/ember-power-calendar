@@ -3,9 +3,11 @@
   background-color: $brand-color;
   color: white;
 }
+
 .main-header-nav {
   @extend %wrapper;
 }
+
 .main-header-logo {
   color: white;
   font-size: 30px;
@@ -14,51 +16,62 @@
   line-height: 30px;
   padding-top: 15px;
   height: 76px;
+
   .home-link {
     vertical-align: text-bottom;
     color: white;
   }
+
   img {
     height: 36px;
     width: 88px;
     vertical-align: -5%;
   }
 }
+
 .main-header-nav-links {
   display: flex;
 }
+
 .main-header-nav-link {
   color: inherit;
   font-weight: 500;
   padding-left: 1rem;
   padding-right: 1rem;
 }
+
 @media only screen and (max-width: $small-breakpoint) {
   .main-header {
     line-height: 44px;
   }
+
   .main-header-nav {
     padding-right: 0;
     padding-left: 0;
   }
+
   .main-header-logo {
     display: block;
     text-align: center;
   }
+
   .main-header-nav-links {
     justify-content: space-between;
-    background-color: rgba(black, 0.2);
+    background-color: rgb(black 0.2);
   }
 }
+
 @media only screen and (min-width: $small-breakpoint) {
   .main-header {
     line-height: 66px;
   }
+
   .main-header-nav {
     display: flex;
     justify-content: space-between;
     flex-direction: row-reverse;
   }
+
   .main-header-nav-link.active {
     background-color: white;
     color: $brand-color;
@@ -66,9 +79,10 @@
 }
 
 @keyframes calendar-page-flip {
-  0%   {
+  0% {
     transform: rotateX(90deg);
   }
+
   100% {
     transform: rotateX(0);
   }
@@ -78,14 +92,16 @@
   position: relative;
   width: 160px;
   height: 35px;
-  -webkit-perspective: 1000;
+  perspective: 1000;
   perspective: 300px;
   perspective-origin: 50% 0%;
   display: inline-block;
+
   .liquid-container {
     display: inline-flex;
   }
 }
+
 .header-calendar-ring {
   border: 3px solid $brand-color;
   display: block;
@@ -95,13 +111,16 @@
   border-radius: 8px;
   position: absolute;
   top: -5px;
+
   &.left {
     left: 20px;
   }
+
   &.right {
     right: 20px;
   }
 }
+
 .header-calendar-page {
   position: absolute;
   top: 0;
@@ -115,13 +134,14 @@
   transform-origin: 50% 0%;
   animation-timing-function: ease-out;
   background-color: $brand-color;
+
   &.run-animation {
-    animation: calendar-page-flip .4s;
+    animation: calendar-page-flip 0.4s;
   }
 }
+
 .calendar-page-number {
   font-size: 10px;
   position: absolute;
   left: 3px;
 }
-

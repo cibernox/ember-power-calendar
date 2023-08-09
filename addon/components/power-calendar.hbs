@@ -1,6 +1,6 @@
 {{#let (assign this.publicAPI (hash
-  Nav=(component (ensure-safe-component this.navComponent) calendar=(readonly this.publicAPI))
-  Days=(component (ensure-safe-component this.daysComponent) calendar=(readonly this.publicAPI))
+  Nav=(component (ensure-safe-component (@or @navComponent this.navComponent)) calendar=(readonly this.publicAPI))
+  Days=(component (ensure-safe-component (or @daysComponent this.daysComponent)) calendar=(readonly this.publicAPI))
 )) as |calendar|}}
   {{#let (element this.tagWithDefault) as |Tag|}}
     <Tag class="ember-power-calendar" ...attributes id={{calendar.uniqueId}}

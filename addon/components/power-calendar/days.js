@@ -205,7 +205,10 @@ export default class extends Component {
       return true;
     }
 
-    if (this.args.minDate && isBefore(date, startOf(this.args.minDate, 'day'))) {
+    if (
+      this.args.minDate &&
+      isBefore(date, startOf(this.args.minDate, 'day'))
+    ) {
       return true;
     }
 
