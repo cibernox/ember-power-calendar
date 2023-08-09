@@ -110,6 +110,9 @@
     "ember-element-helper": "^0.7.1",
     "ember-truth-helpers": "^3.1.0"
   },
+  "overrides": {
+    "ember-source": "$ember-source"
+  },
   "ember": {
     "edition": "octane"
   },
