@@ -6,6 +6,9 @@ on:
       - main
       - master
   pull_request: {}
+  schedule:
+    - cron: "0 3 * * 0" # every Sunday at 3am
+
 
 concurrency:
   group: ci-${{ github.head_ref || github.ref }}
@@ -13,6 +16,7 @@ concurrency:
 
 jobs:
   test:
+    if: "! contains(toJSON(github.event.commits.*.message), '[skip ci]')"
     name: "Tests"
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -23,13 +27,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
+          cache: npm
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
       - name: Lint
-        run: yarn lint
+        run: npm run lint
       - name: Run Tests
-        run: yarn test:ember
+        run: npm run test:ember
 
   floating:
     name: "Floating Dependencies"
@@ -41,11 +45,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
+          cache: npm
       - name: Install Dependencies
-        run: yarn install --no-lockfile
+        run: npm install --no-shrinkwrap
       - name: Run Tests
-        run: yarn test:ember
+        run: npm run test:ember
 
   try-scenarios:
     name: ${{ matrix.try-scenario }}
@@ -74,8 +78,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: yarn
+          cache: npm
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
       - name: Run Tests
-        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
+        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --skip-cleanup
