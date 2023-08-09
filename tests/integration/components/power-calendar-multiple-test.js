@@ -155,7 +155,7 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
 
     await render(hbs`
       <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.didChange}} as |calendar|>
-        <button {{on "click" (fn calendar.actions.select this.datesToSelect)}} id="test_button"></button>
+        <button type="button" {{on "click" (fn calendar.actions.select this.datesToSelect)}} id="test_button"></button>
       </PowerCalendarMultiple>
     `);
 

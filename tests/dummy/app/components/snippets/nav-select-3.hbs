@@ -1,6 +1,7 @@
 <PowerCalendar class="nav-with-number-input-demo" @center={{this.center3}} @onCenterChange={{this.onCenterChange}} as |cal|>
   <cal.Nav>
     {{format-date cal.center "MMMM"}}
+    {{! template-lint-disable require-input-label }}
     <input type="number" min="1940" max="2020"
       value={{format-date cal.center "YYYY"}}
       oninput={{fn this.changeYear cal}}>

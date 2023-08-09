@@ -181,7 +181,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
 
     await render(hbs`
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.didChange}} as |calendar|>
-        <button {{on "click" (fn calendar.actions.select this.rangeToSelect)}} id="test_button"></button>
+        <button type="button" {{on "click" (fn calendar.actions.select this.rangeToSelect)}} id="test_button"></button>
       </PowerCalendarRange>
     `);
     await click('#test_button');
@@ -508,8 +508,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     };
     await render(hbs`
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.didSelect}} @minRange={{2}} as |cal|>
-        <button id="select-invalid-range-end" {{on "click" (fn cal.actions.select this.invalidDay)}}>Select invalid date</button>
-        <button id="select-valid-range-end" {{on "click" (fn cal.actions.select this.validDay)}}>Select valid date</button>
+        <button type="button" id="select-invalid-range-end" {{on "click" (fn cal.actions.select this.invalidDay)}}>Select invalid date</button>
+        <button type="button" id="select-valid-range-end" {{on "click" (fn cal.actions.select this.validDay)}}>Select valid date</button>
       </PowerCalendarRange>
     `);
     await click('#select-invalid-range-end');
@@ -529,8 +529,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     };
     await render(hbs`
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.didSelect}} @maxRange={{2}} as |cal|>
-        <button id="select-invalid-range-end" {{on "click" (fn cal.actions.select this.invalidDay)}}>Select invalid date</button>
-        <button id="select-valid-range-end" {{on "click" (fn cal.actions.select this.validDay)}}>Select valid date</button>
+        <button type="button" id="select-invalid-range-end" {{on "click" (fn cal.actions.select this.invalidDay)}}>Select invalid date</button>
+        <button type="button" id="select-valid-range-end" {{on "click" (fn cal.actions.select this.validDay)}}>Select valid date</button>
       </PowerCalendarRange>
     `);
     await click('#select-invalid-range-end');

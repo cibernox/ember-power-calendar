@@ -1,3 +1,4 @@
+{{! template-lint-disable no-invalid-interactive }}
 <div
   class="ember-power-calendar-days"
   {{on "click" this.handleClick}}
@@ -8,7 +9,6 @@
       <div class="ember-power-calendar-weekday">{{wdn}}</div>
     {{/each}}
   </div>
-  {{! template-lint-disable no-invalid-interactive }}
   <div class="ember-power-calendar-day-grid" {{on "keydown" this.handleKeyDown}}>
     {{#each this.weeks key='id' as |week|}}
       <div class="ember-power-calendar-row ember-power-calendar-week" data-missing-days={{week.missingDays}}>

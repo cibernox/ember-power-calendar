@@ -13,7 +13,7 @@ export default class extends Controller {
   onCenterChange(property, selected) {
     this[property] = selected.date;
   }
-  
+
   @action
   onSelect(property, selected) {
     this[property] = selected.date;
