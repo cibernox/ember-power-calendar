@@ -38,9 +38,9 @@ module('Test Support | Helper | calendarCenter', function (hooks) {
     try {
       await calendarCenter('.non-exister-selector', new Date(2013, 8, 3));
     } catch (error) {
-      assert.equal(
+      assert.strictEqual(
         error.message,
-        'Assertion Failed: Could not find a calendar using selector: ".non-exister-selector"'
+        'Assertion Failed: Could not find a calendar using selector: ".non-exister-selector"',
       );
     }
   });

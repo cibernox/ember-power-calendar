@@ -4,7 +4,7 @@ import {
   isBefore,
   startOf,
   endOf,
-  weekday
+  weekday,
 } from 'ember-power-calendar-utils';
 
 export default class extends Component {
@@ -14,15 +14,16 @@ export default class extends Component {
     let lastDay = endOf(endOf(now, 'month'), 'isoWeek');
     let days = [];
     while (isBefore(day, lastDay)) {
-      if (weekday(day) !== 1 && weekday(day) !== 3) { // Skip Mon/Wed
+      if (weekday(day) !== 1 && weekday(day) !== 3) {
+        // Skip Mon/Wed
         let copy = new Date(day);
         let isCurrentMonth = copy.getMonth() === now.getMonth();
         days.push({
           date: copy,
-          isCurrentMonth
+          isCurrentMonth,
         });
       }
-      day = add(day, 1, "day");
+      day = add(day, 1, 'day');
     }
     return days;
   }

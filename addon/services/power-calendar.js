@@ -1,17 +1,22 @@
 import Service from '@ember/service';
-import { computed } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import { getDefaultLocale } from 'ember-power-calendar-utils';
 
 export default class extends Service {
   date = null;
 
-  // CPs
-  @computed
+  @tracked _local;
+
   get locale() {
+    if (this._local) {
+      return this._local;
+    }
+
     return getDefaultLocale();
   }
+
   set locale(value) {
-    return value;
+    this._local = value;
   }
 
   // Methods

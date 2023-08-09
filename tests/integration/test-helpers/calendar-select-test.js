@@ -35,7 +35,7 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
       .dom('.calendar-select-1 [data-date="2013-10-11"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The 11th of October is selected'
+        'The 11th of October is selected',
       );
   });
 
@@ -73,7 +73,7 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
       .dom('.calendar-select-1 [data-date="2013-09-03"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The 3rd of september is selected'
+        'The 3rd of september is selected',
       );
   });
 });

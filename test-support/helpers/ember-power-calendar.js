@@ -9,13 +9,13 @@ export default function () {
     'calendarCenter',
     async function (app, selector, newCenter) {
       return calendarCenter(selector, newCenter);
-    }
+    },
   );
 
   registerAsyncHelper(
     'calendarSelect',
     async function (app, selector, selected) {
       return calendarSelect(selector, selected);
-    }
+    },
   );
 }

@@ -34,7 +34,7 @@ function findComponentInstance(selector) {
   let calendarGuid = findCalendarGuid(selector);
   assert(
     `Could not find a calendar using selector: "${selector}"`,
-    calendarGuid
+    calendarGuid,
   );
   return window.__powerCalendars[calendarGuid];
 }
@@ -42,15 +42,15 @@ function findComponentInstance(selector) {
 export async function calendarCenter(selector, newCenter) {
   assert(
     '`calendarCenter` expect a Date object as second argument',
-    newCenter instanceof Date
+    newCenter instanceof Date,
   );
   let calendarComponent = findComponentInstance(selector);
-  let onCenterChange = calendarComponent.get('onCenterChange');
+  let onCenterChange = calendarComponent.args.onCenterChange;
   assert(
     "You cannot call `calendarCenter` on a component that doesn't has an `@onCenterChange` action",
-    !!onCenterChange
+    !!onCenterChange,
   );
-  let publicAPI = calendarComponent.get('publicAPI');
+  let publicAPI = calendarComponent.publicAPI;
   await run(() => publicAPI.actions.changeCenter(newCenter, publicAPI));
   return settled();
 }
@@ -60,7 +60,7 @@ export async function calendarSelect(selector, selected) {
   let calendarElement = findCalendarElement(selector);
   let daySelector = `${selector} [data-date="${formatDate(
     selected,
-    'YYYY-MM-DD'
+    'YYYY-MM-DD',
   )}"]`;
   let dayElement = calendarElement.querySelector(daySelector);
   if (!dayElement) {

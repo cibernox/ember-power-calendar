@@ -37,7 +37,7 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
     assert.expect(1);
     this.calendar = calendar;
     await render(
-      hbs`<PowerCalendar::Nav @calendar={{this.calendar}} @format="YYYY"/>`
+      hbs`<PowerCalendar::Nav @calendar={{this.calendar}} @format="YYYY"/>`,
     );
     assert.dom('.ember-power-calendar-nav-title').hasText('2013');
   });
@@ -58,7 +58,7 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
         { step: -1, unit: 'month' },
         { step: 1, unit: 'month' },
       ],
-      moved
+      moved,
     );
   });
 
@@ -70,7 +70,7 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
       moved.push({ step, unit });
     };
     await render(
-      hbs`<PowerCalendar::Nav @calendar={{this.calendar}} @unit="year"/>`
+      hbs`<PowerCalendar::Nav @calendar={{this.calendar}} @unit="year"/>`,
     );
     await click('.ember-power-calendar-nav-control--previous');
     await click('.ember-power-calendar-nav-control--next');
@@ -80,7 +80,7 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
         { step: -1, unit: 'year' },
         { step: 1, unit: 'year' },
       ],
-      moved
+      moved,
     );
   });
 });

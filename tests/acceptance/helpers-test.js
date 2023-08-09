@@ -11,11 +11,13 @@ module('Acceptance | helpers | calendarCenter', function (hooks) {
 
   test('`calendarCenter` invokes the `@onCenterChange` action of the target component inside the selector we pass it', async function (assert) {
     await visit('/helpers-testing');
+
     assert
       .dom('.calendar-center-1 .ember-power-calendar-nav-title')
       .hasText('October 2013');
 
     await calendarCenter('.calendar-center-1', new Date(2013, 8, 3));
+
     assert
       .dom('.calendar-center-1 .ember-power-calendar-nav-title')
       .hasText('September 2013', 'The nav component has updated');
@@ -49,11 +51,11 @@ module('Acceptance | helpers | calendarCenter', function (hooks) {
       .hasText('October 2013');
     return calendarCenter('.calendar-center-3', new Date(2013, 8, 3)).catch(
       (error) => {
-        assert.equal(
+        assert.strictEqual(
           error.message,
-          "Assertion Failed: You cannot call `calendarCenter` on a component that doesn't has an `@onCenterChange` action"
+          "Assertion Failed: You cannot call `calendarCenter` on a component that doesn't has an `@onCenterChange` action",
         );
-      }
+      },
     );
   });
 
@@ -63,11 +65,11 @@ module('Acceptance | helpers | calendarCenter', function (hooks) {
 
     return calendarCenter('.non-exister-selector', new Date(2013, 8, 3)).catch(
       (error) => {
-        assert.equal(
+        assert.strictEqual(
           error.message,
-          'Assertion Failed: Could not find a calendar using selector: ".non-exister-selector"'
+          'Assertion Failed: Could not find a calendar using selector: ".non-exister-selector"',
         );
-      }
+      },
     );
   });
 
@@ -103,7 +105,7 @@ module('Acceptance | helpers | calendarSelect', function (hooks) {
       .dom('.calendar-select-1 [data-date="2013-10-11"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The 11th of October is selected'
+        'The 11th of October is selected',
       );
   });
 
@@ -128,7 +130,7 @@ module('Acceptance | helpers | calendarSelect', function (hooks) {
       .dom('.calendar-select-1 [data-date="2013-09-03"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The 3rd of september is selected'
+        'The 3rd of september is selected',
       );
   });
 
@@ -154,7 +156,7 @@ module('Acceptance | helpers | calendarSelect', function (hooks) {
       .dom('.dropdown-content [data-date="2013-09-03"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The 3rd of september is selected'
+        'The 3rd of september is selected',
       );
   });
 });

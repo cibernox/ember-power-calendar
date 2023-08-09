@@ -1,6 +1,7 @@
+/* eslint-disable qunit/no-conditional-assertions */
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click } from '@ember/test-helpers';
+import { render, click, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { run } from '@ember/runloop';
 import { isSame, formatDate } from 'ember-power-calendar-utils';
@@ -33,31 +34,31 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       .dom('.ember-power-calendar-nav')
       .containsText(
         'February 2016',
-        'The calendar is centered in the month of the first selected date'
+        'The calendar is centered in the month of the first selected date',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-05"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The first selected day is selected'
+        'The first selected day is selected',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-09"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The second selected day is selected'
+        'The second selected day is selected',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-15"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The third selected day is selected'
+        'The third selected day is selected',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-08"]')
       .hasNoClass(
         'ember-power-calendar-day--selected',
-        "The days in between those aren't day is selected"
+        "The days in between those aren't day is selected",
       );
   });
 
@@ -66,25 +67,25 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
     this.didChange = (days, calendar, e) => {
       callsCount++;
       if (callsCount === 1) {
-        assert.equal(days.date.length, 1);
+        assert.strictEqual(days.date.length, 1);
         assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
       } else if (callsCount === 2) {
-        assert.equal(days.date.length, 2);
+        assert.strictEqual(days.date.length, 2);
         assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
         assert.ok(isSame(days.date[1], new Date(2013, 9, 15), 'day'));
       } else if (callsCount === 3) {
-        assert.equal(days.date.length, 3);
+        assert.strictEqual(days.date.length, 3);
         assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
         assert.ok(isSame(days.date[1], new Date(2013, 9, 15), 'day'));
         assert.ok(isSame(days.date[2], new Date(2013, 9, 9), 'day'));
       } else {
-        assert.equal(days.date.length, 2);
+        assert.strictEqual(days.date.length, 2);
         assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
         assert.ok(isSame(days.date[1], new Date(2013, 9, 9), 'day'));
       }
       assert.isCalendar(
         calendar,
-        "The second argument is the calendar's public API"
+        "The second argument is the calendar's public API",
       );
       assert.ok(e instanceof Event, 'The third argument is an event');
       this.set('selected', days.date);
@@ -102,6 +103,7 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       .doesNotExist('No days are selected');
 
     await click('.ember-power-calendar-day[data-date="2013-10-05"]');
+
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-05"]')
       .hasClass('ember-power-calendar-day--selected');
@@ -146,7 +148,7 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
     ].map((date) => ({ date }));
 
     this.didChange = (days) => {
-      assert.equal(days.date.length, 2);
+      assert.strictEqual(days.date.length, 2);
       assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
       assert.ok(isSame(days.date[1], new Date(2013, 9, 9), 'day'));
     };
@@ -195,13 +197,28 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-12"]')
       .hasClass('ember-power-calendar-day--selected');
-    assert.equal(formatDate(this.selected[0], 'YYYY-MM-DD'), '2013-10-05');
-    assert.equal(formatDate(this.selected[1], 'YYYY-MM-DD'), '2013-10-10');
-    assert.equal(formatDate(this.selected[2], 'YYYY-MM-DD'), '2013-10-12');
+    assert.strictEqual(
+      formatDate(this.selected[0], 'YYYY-MM-DD'),
+      '2013-10-05',
+    );
+    assert.strictEqual(
+      formatDate(this.selected[1], 'YYYY-MM-DD'),
+      '2013-10-10',
+    );
+    assert.strictEqual(
+      formatDate(this.selected[2], 'YYYY-MM-DD'),
+      '2013-10-12',
+    );
 
     await click('.ember-power-calendar-day[data-date="2013-10-10"]');
-    assert.equal(formatDate(this.selected[0], 'YYYY-MM-DD'), '2013-10-05');
-    assert.equal(formatDate(this.selected[1], 'YYYY-MM-DD'), '2013-10-12');
+    assert.strictEqual(
+      formatDate(this.selected[0], 'YYYY-MM-DD'),
+      '2013-10-05',
+    );
+    assert.strictEqual(
+      formatDate(this.selected[1], 'YYYY-MM-DD'),
+      '2013-10-12',
+    );
 
     await click('.ember-power-calendar-day[data-date="2013-10-12"]');
     await click('.ember-power-calendar-day[data-date="2013-10-05"]');

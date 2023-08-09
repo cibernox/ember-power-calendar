@@ -1,6 +1,6 @@
-import { computed, action, getProperties } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 import CalendarComponent from './power-calendar';
-import fallbackIfUndefined from '../utils/computed-fallback-if-undefined';
 import {
   normalizeDate,
   normalizeRangeActionValue,
@@ -15,56 +15,71 @@ import ownProp from 'ember-power-calendar/-private/utils/own-prop';
 import PowerCalendarRangeComponent from './power-calendar-range/days';
 
 export default class extends CalendarComponent {
-  @fallbackIfUndefined(false) proximitySelection;
+  @tracked _selected;
+
   daysComponent = PowerCalendarRangeComponent;
   _calendarType = 'range';
 
-  // CPs
-  @computed
+  get proximitySelection() {
+    return this.args.proximitySelection !== undefined
+      ? this.args.proximitySelection
+      : false;
+  }
+
   get minRange() {
+    if (this.args.minRange !== undefined) {
+      return this._formatRange(this.args.minRange);
+    }
+
     return 86400000;
   }
-  set minRange(v) {
-    if (typeof v === 'number') {
-      return v * 86400000;
-    }
-    return normalizeDuration(v === undefined ? 86400000 : v);
-  }
 
-  @computed
   get maxRange() {
+    if (this.args.maxRange !== undefined) {
+      return this._formatRange(this.args.maxRange);
+    }
+
     return null;
   }
-  set maxRange(v) {
-    if (typeof v === 'number') {
-      return v * 86400000;
-    }
-    return normalizeDuration(v === undefined ? 86400000 : v);
-  }
 
-  @computed
   get selected() {
+    if (this._selected) {
+      return this._selected;
+    }
+
+    if (this.args.selected) {
+      return {
+        start: normalizeDate(this.args.selected.start),
+        end: normalizeDate(this.args.selected.end),
+      };
+    }
+
     return { start: undefined, end: undefined };
   }
+
   set selected(v) {
     if (v === undefined || v === null) {
       v = {};
     }
-    return { start: normalizeDate(v.start), end: normalizeDate(v.end) };
+    this._selected = {
+      start: normalizeDate(v.start),
+      end: normalizeDate(v.end),
+    };
   }
 
-  @computed('center', 'powerCalendarService', 'selected.start')
   get currentCenter() {
-    let center = this.center;
+    let center = this.args.center;
     if (!center) {
       center = this.selected.start || this.powerCalendarService.getDate();
     }
     return normalizeDate(center);
   }
 
-  @computed('_publicAPI', 'minRange', 'maxRange')
   get publicAPI() {
-    let rangeOnlyAPI = this.getProperties('minRange', 'maxRange');
+    let rangeOnlyAPI = {
+      minRange: this.minRange,
+      maxRange: this.maxRange,
+    };
     return Object.assign(rangeOnlyAPI, this._publicAPI);
   }
 
@@ -74,7 +89,9 @@ export default class extends CalendarComponent {
     assert(
       'date must be either a Date, or a Range',
       date &&
-        (ownProp(date, 'start') || ownProp(date, 'end') || date instanceof Date)
+        (ownProp(date, 'start') ||
+          ownProp(date, 'end') ||
+          date instanceof Date),
     );
 
     let range;
@@ -94,15 +111,23 @@ export default class extends CalendarComponent {
       }
     }
 
-    if (this.onSelect) {
-      this.onSelect(range, calendar, e);
+    if (this.args.onSelect) {
+      this.args.onSelect(range, calendar, e);
     }
+  }
+
+  _formatRange(v) {
+    if (typeof v === 'number') {
+      return v * 86400000;
+    }
+
+    return normalizeDuration(v === undefined ? 86400000 : v);
   }
 
   // Methods
   _buildRange(day) {
     let selected = this.publicAPI.selected || { start: null, end: null };
-    let { start, end } = getProperties(selected, 'start', 'end');
+    let { start, end } = selected;
 
     if (this.proximitySelection) {
       return this._buildRangeByProximity(day, start, end);

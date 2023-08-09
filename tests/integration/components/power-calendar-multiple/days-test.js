@@ -113,14 +113,14 @@ module(
       assert
         .dom('.ember-power-calendar-day', weeks[0])
         .exists({ count: 5 }, 'The first week has 6 days');
-      assert.equal(
+      assert.strictEqual(
         weeks[0].dataset.missingDays,
         '2',
-        'It has a special data-attribute'
+        'It has a special data-attribute',
       );
       assert
         .dom('.ember-power-calendar-day', weeks[4])
         .exists({ count: 5 }, 'The last week has 4 days');
     });
-  }
+  },
 );

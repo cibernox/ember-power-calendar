@@ -6,20 +6,20 @@ export default class extends Component {
   @tracked center = null;
 
   months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
-  
+
   years = Array(...Array(80)).map((_, i) => `${i + 1940}`);
 
   @action

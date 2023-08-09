@@ -3,7 +3,9 @@
   Days=(component (ensure-safe-component this.daysComponent) calendar=(readonly this.publicAPI))
 )) as |calendar|}}
   {{#let (element this.tagWithDefault) as |Tag|}}
-    <Tag class="ember-power-calendar" ...attributes id={{calendar.uniqueId}}>
+    <Tag class="ember-power-calendar" ...attributes id={{calendar.uniqueId}}
+      {{will-destroy this.destroyElement}}
+    >
       {{#if (has-block)}}
         {{yield calendar}}
       {{else}}

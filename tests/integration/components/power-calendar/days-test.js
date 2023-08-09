@@ -4,6 +4,7 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { run } from '@ember/runloop';
 import require from 'require';
+import { TrackedObject } from 'tracked-built-ins';
 
 import ownProp from 'ember-power-calendar/-private/utils/own-prop';
 
@@ -18,14 +19,14 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     calendarService = this.owner.lookup('service:power-calendar');
     calendarService.set('date', new Date(2013, 9, 18));
     calendarService.set('locale', 'en-US');
-    calendar = {
+    calendar = new TrackedObject({
       center: calendarService.getDate(),
       locale: calendarService.get('locale'),
       actions: {
         moveCenter: () => {},
         select: () => {},
       },
-    };
+    });
   });
 
   test('[i18n] The name of the weekdays respect the locale set in the calendar service', async function (assert) {
@@ -33,19 +34,19 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.center = new Date(2016, 10, 15);
     calendarService.set('locale', 'fr');
     await render(
-      hbs`<PowerCalendar @center={{this.center}} as |cal|><cal.Days/></PowerCalendar>`
+      hbs`<PowerCalendar @center={{this.center}} as |cal|><cal.Days/></PowerCalendar>`,
     );
-    assert.equal(
+    assert.strictEqual(
       this.element
         .querySelector('.ember-power-calendar-weekdays')
         .textContent.replace(/\s+/g, ' ')
         .trim(),
-      'lun. mar. mer. jeu. ven. sam. dim.'
+      'lun. mar. mer. jeu. ven. sam. dim.',
     );
-    assert.equal(
+    assert.strictEqual(
       this.element.querySelectorAll('.ember-power-calendar-day')[0].dataset
         .date,
-      '2016-10-31'
+      '2016-10-31',
     );
   });
 
@@ -53,20 +54,21 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     assert.expect(2);
     this.calendar = calendar;
     await render(hbs`<PowerCalendar::Days @calendar={{this.calendar}}/>`);
-    assert.equal(
+    assert.strictEqual(
       this.element
         .querySelector('.ember-power-calendar-weekdays')
         .textContent.replace(/\s+/g, ' ')
         .trim(),
-      'Sun Mon Tue Wed Thu Fri Sat'
+      'Sun Mon Tue Wed Thu Fri Sat',
     );
-    run(() => this.set('calendar.locale', 'es'));
-    assert.equal(
+    run(() => (this.calendar.locale = 'es'));
+
+    assert.strictEqual(
       this.element
         .querySelector('.ember-power-calendar-weekdays')
         .textContent.replace(/\s+/g, ' ')
         .trim(),
-      'lun. mar. mié. jue. vie. sáb. dom.'
+      'lun. mar. mié. jue. vie. sáb. dom.',
     );
   });
 
@@ -76,7 +78,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.calendar = calendar;
     this.startOfWeek = '2';
     await render(
-      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @startOfWeek={{this.startOfWeek}}/>`
+      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @startOfWeek={{this.startOfWeek}}/>`,
     );
 
     assert
@@ -99,7 +101,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
       .dom(days[0])
       .hasText(
         '25',
-        'The first day of the first week is the 25th of September'
+        'The first day of the first week is the 25th of September',
       );
     assert
       .dom(days[days.length - 1])
@@ -114,7 +116,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
       .dom(days[0])
       .hasText(
         '27',
-        'The first day of the first week is the 25th of September'
+        'The first day of the first week is the 25th of September',
       );
     assert
       .dom(days[days.length - 1])
@@ -135,7 +137,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
       .dom(days[0])
       .hasText(
         '27',
-        'The first day of the first week is the 25th of September'
+        'The first day of the first week is the 25th of September',
       );
     assert
       .dom(days[days.length - 1])
@@ -145,41 +147,37 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
   test('The format of the weekdays can be changed passing `weekdayFormat="long|short|min"`', async function (assert) {
     this.calendar = calendar;
     await render(
-      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @weekdayFormat={{this.weekdayFormat}}/>`
+      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @weekdayFormat={{this.weekdayFormat}}/>`,
     );
-    assert.equal(
+    assert.strictEqual(
       this.element
         .querySelector('.ember-power-calendar-weekdays')
         .textContent.replace(/\s+/g, ' ')
         .trim(),
-      'Sun Mon Tue Wed Thu Fri Sat'
+      'Sun Mon Tue Wed Thu Fri Sat',
     );
     run(() => this.set('weekdayFormat', 'long'));
-    assert.equal(
+    assert.strictEqual(
       this.element
         .querySelector('.ember-power-calendar-weekdays')
         .textContent.replace(/\s+/g, ' ')
         .trim(),
-      'Sunday Monday Tuesday Wednesday Thursday Friday Saturday'
+      'Sunday Monday Tuesday Wednesday Thursday Friday Saturday',
     );
     run(() => this.set('weekdayFormat', 'min'));
+
+    let expectedResult = 'Su Mo Tu We Th Fr Sa';
     if (dateLibrary === 'luxon') {
-      assert.equal(
-        this.element
-          .querySelector('.ember-power-calendar-weekdays')
-          .textContent.replace(/\s+/g, ' ')
-          .trim(),
-        'S M T W T F S'
-      );
-    } else {
-      assert.equal(
-        this.element
-          .querySelector('.ember-power-calendar-weekdays')
-          .textContent.replace(/\s+/g, ' ')
-          .trim(),
-        'Su Mo Tu We Th Fr Sa'
-      );
+      expectedResult = 'S M T W T F S';
     }
+
+    assert.strictEqual(
+      this.element
+        .querySelector('.ember-power-calendar-weekdays')
+        .textContent.replace(/\s+/g, ' ')
+        .trim(),
+      expectedResult,
+    );
   });
 
   test("If it receives `showDaysAround=false` option, it doesn't show the days before or after the first day of the month", async function (assert) {
@@ -187,16 +185,16 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.calendar = calendar;
     calendar.locale = 'es';
     await render(
-      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @showDaysAround={{false}}/>`
+      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @showDaysAround={{false}}/>`,
     );
     let weeks = this.element.querySelectorAll('.ember-power-calendar-week');
     assert
       .dom('.ember-power-calendar-day', weeks[0])
       .exists({ count: 6 }, 'The first week has 6 days');
-    assert.equal(
+    assert.strictEqual(
       weeks[0].dataset.missingDays,
-      1,
-      'It has a special data-attribute'
+      '1',
+      'It has a special data-attribute',
     );
     assert
       .dom('.ember-power-calendar-day', weeks[4])
@@ -207,7 +205,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     assert.expect(1);
     this.calendar = calendar;
     await render(
-      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @dayClass="custom-day-class"/>`
+      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @dayClass="custom-day-class"/>`,
     );
     assert.dom('.ember-power-calendar-day').hasClass('custom-day-class');
   });
@@ -218,14 +216,14 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
       assert.ok(ownProp(day, 'isCurrentMonth'), 'the first argument is a day');
       assert.ok(
         ownProp(calendar, 'actions'),
-        'the second argument is the calendar'
+        'the second argument is the calendar',
       );
       assert.ok(Array.isArray(weeks), 'the third argument is arr');
       return 'some-computed-class';
     };
     this.calendar = calendar;
     await render(
-      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @dayClass={{this.classFn}}/>`
+      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @dayClass={{this.classFn}}/>`,
     );
     assert.dom('.ember-power-calendar-day').hasClass('some-computed-class');
   });
@@ -235,7 +233,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.calendar = calendar;
     this.center = new Date(2017, 11, 1);
     await render(
-      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @center={{this.center}}/>`
+      hbs`<PowerCalendar::Days @calendar={{this.calendar}} @center={{this.center}}/>`,
     );
     assert.dom('[data-date="2017-12-15"]').exists();
   });

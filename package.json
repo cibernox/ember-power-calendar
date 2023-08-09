@@ -79,6 +79,7 @@
     "stylelint": "^15.10.2",
     "stylelint-config-standard": "^34.0.0",
     "stylelint-prettier": "^4.0.2",
+    "tracked-built-ins": "^3.1.1",
     "webpack": "^5.88.2"
   },
   "keywords": [

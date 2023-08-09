@@ -1,12 +1,4 @@
 import Controller from '@ember/controller';
-import { computed } from '@ember/object';
-import {
-  add,
-  isBefore,
-  startOf,
-  endOf,
-  weekday,
-} from 'ember-power-calendar-utils';
 import TheDays0 from '../../../components/snippets/the-days-0';
 import TheDays1 from '../../../components/snippets/the-days-1';
 import TheDays2 from '../../../components/snippets/the-days-2';

@@ -7,7 +7,7 @@ module.exports = {
     this._super.included.apply(this, arguments);
     if (
       ['ember-power-calendar-moment', 'ember-power-calendar-luxon'].includes(
-        this.project.name()
+        this.project.name(),
       )
     ) {
       return;
@@ -20,7 +20,7 @@ module.exports = {
       for (let addonName in addons) {
         if (
           addons[addonName].pkg.keywords.indexOf(
-            'ember-power-calendar-adapter'
+            'ember-power-calendar-adapter',
           ) > -1
         ) {
           return true;
@@ -37,7 +37,7 @@ module.exports = {
 
     if (!hasMetaAddon(hostAppAddons) && !hasMetaAddon(parentAddons)) {
       throw new Error(
-        `You have installed "ember-power-calendar" but you don't have any of the required meta-addons to make it work, like 'ember-power-calendar-moment' or 'ember-power-calendar-luxon'`
+        `You have installed "ember-power-calendar" but you don't have any of the required meta-addons to make it work, like 'ember-power-calendar-moment' or 'ember-power-calendar-luxon'`,
       );
     }
   },

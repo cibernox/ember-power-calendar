@@ -1,5 +1,6 @@
 import CalendarComponent from './power-calendar';
-import { computed, action } from '@ember/object';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import {
   normalizeDate,
   isSame,
@@ -13,18 +14,22 @@ export default class extends CalendarComponent {
   daysComponent = PowerCalendarMultipleDaysComponent;
   _calendarType = 'multiple';
 
-  // CPs
-  @computed
+  @tracked _selected;
+
   get selected() {
-    return undefined;
-  }
-  set selected(v) {
-    return isArray(v) ? v.map(normalizeDate) : v;
+    if (this._selected) {
+      return this._selected;
+    }
+
+    return this.args.selected;
   }
 
-  @computed('center', 'powerCalendarService', 'selected')
+  set selected(v) {
+    this._selected = isArray(v) ? v.map(normalizeDate) : v;
+  }
+
   get currentCenter() {
-    let center = this.center;
+    let center = this.args.center;
     if (!center) {
       center = (this.selected || [])[0] || this.powerCalendarService.getDate();
     }
@@ -37,7 +42,7 @@ export default class extends CalendarComponent {
     assert(
       `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`,
       isArray(dayOrDays) ||
-        (dayOrDays instanceof Object && dayOrDays.date instanceof Date)
+        (dayOrDays instanceof Object && dayOrDays.date instanceof Date),
     );
 
     let days;
@@ -48,8 +53,8 @@ export default class extends CalendarComponent {
       days = [dayOrDays];
     }
 
-    if (this.onSelect) {
-      this.onSelect(this._buildCollection(days), calendar, e);
+    if (this.args.onSelect) {
+      this.args.onSelect(this._buildCollection(days), calendar, e);
     }
   }
 
@@ -59,7 +64,7 @@ export default class extends CalendarComponent {
 
     for (let day of days) {
       let index = selected.findIndex((selectedDate) =>
-        isSame(day.date, selectedDate, 'day')
+        isSame(day.date, selectedDate, 'day'),
       );
       if (index === -1) {
         selected = [...selected, day.date];

@@ -1,3 +1,4 @@
+/* eslint-disable qunit/no-conditional-assertions */
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
@@ -30,7 +31,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       .dom('.ember-power-calendar-nav')
       .containsText(
         'February 2016',
-        'The calendar is centered in the month of the selected date'
+        'The calendar is centered in the month of the selected date',
       );
     let allDaysInRangeAreSelected =
       this.element
@@ -53,13 +54,13 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2016-02-05"]')
       .hasClass(
         'ember-power-calendar-day--range-start',
-        'The start of the range has a special class'
+        'The start of the range has a special class',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-09"]')
       .hasClass(
         'ember-power-calendar-day--range-end',
-        'The end of the range has a special class'
+        'The end of the range has a special class',
       );
   });
 
@@ -78,7 +79,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       this.set('selected', range.date);
       assert.isCalendar(
         calendar,
-        "The second argument is the calendar's public API"
+        "The second argument is the calendar's public API",
       );
       assert.ok(e instanceof Event, 'The third argument is an event');
     };
@@ -97,38 +98,38 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The clicked date is selected'
+        'The clicked date is selected',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
       .hasClass(
         'ember-power-calendar-day--range-start',
-        'The clicked date is the start of the range'
+        'The clicked date is the start of the range',
       );
     await click('.ember-power-calendar-day[data-date="2013-10-15"]');
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The first clicked date is still selected'
+        'The first clicked date is still selected',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
       .hasClass(
         'ember-power-calendar-day--range-start',
-        'The first clicked date is still the start of the range'
+        'The first clicked date is still the start of the range',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The clicked date is selected'
+        'The clicked date is selected',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
       .hasClass(
         'ember-power-calendar-day--range-end',
-        'The clicked date is the end of the range'
+        'The clicked date is the end of the range',
       );
     let allDaysInBetweenAreSelected =
       this.element
@@ -145,9 +146,13 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
         .classList.contains('ember-power-calendar-day--selected');
     assert.ok(
       allDaysInBetweenAreSelected,
-      'All days in between are also selected'
+      'All days in between are also selected',
     );
-    assert.equal(numberOfCalls, 2, 'The onSelect action was called twice');
+    assert.strictEqual(
+      numberOfCalls,
+      2,
+      'The onSelect action was called twice',
+    );
   });
 
   test('When an range date object is passed, the range selection behavior is skipped', async function (assert) {
@@ -157,20 +162,21 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       date: { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) },
     };
     this.didChange = (range) => {
-      assert.ok(
+      let value =
         range &&
-          range.date &&
-          ownProp(range.date, 'start') &&
-          ownProp(range.date, 'end'),
-        'range selected has a start and end prop'
-      );
-      assert.ok(
+        range.date &&
+        ownProp(range.date, 'start') &&
+        ownProp(range.date, 'end');
+
+      assert.ok(value, 'range selected has a start and end prop');
+
+      value =
         range &&
-          range.date &&
-          range.date.start === undefined &&
-          range.date.end === undefined,
-        'selected range has undefined start and end date'
-      );
+        range.date &&
+        range.date.start === undefined &&
+        range.date.end === undefined;
+
+      assert.ok(value, 'selected range has undefined start and end date');
     };
 
     await render(hbs`
@@ -187,19 +193,23 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       date: { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) },
     });
     this.set('didChange', (range) => {
-      assert.ok(
+      let value =
         range &&
-          range.date &&
-          ownProp(range.date, 'start') &&
-          ownProp(range.date, 'end'),
-        'range selected has a start and end prop'
-      );
-      assert.ok(
+        range.date &&
+        ownProp(range.date, 'start') &&
+        ownProp(range.date, 'end');
+
+      assert.ok(value, 'range selected has a start and end prop');
+
+      value =
         range &&
-          range.date &&
-          isSame(range.date.start, this.rangeToSelect.date.start, 'day') &&
-          isSame(range.date.end, this.rangeToSelect.date.end, 'day'),
-        'selected range matches range to select passed to select action.'
+        range.date &&
+        isSame(range.date.start, this.rangeToSelect.date.start, 'day') &&
+        isSame(range.date.end, this.rangeToSelect.date.end, 'day');
+
+      assert.ok(
+        value,
+        'selected range matches range to select passed to select action.',
       );
     });
     await click('#test_button');
@@ -220,7 +230,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       this.set('selected', range.date);
       assert.isCalendar(
         calendar,
-        "The second argument is the calendar's public API"
+        "The second argument is the calendar's public API",
       );
       assert.ok(e instanceof Event, 'The third argument is an event');
     };
@@ -239,38 +249,38 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The clicked date is selected'
+        'The clicked date is selected',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
       .hasClass(
         'ember-power-calendar-day--range-start',
-        'The clicked date is the start of the range'
+        'The clicked date is the start of the range',
       );
     await click('.ember-power-calendar-day[data-date="2013-10-10"]');
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The first clicked date is still selected'
+        'The first clicked date is still selected',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
       .hasClass(
         'ember-power-calendar-day--range-start',
-        'The first clicked date is still the start of the range'
+        'The first clicked date is still the start of the range',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The clicked date is selected'
+        'The clicked date is selected',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
       .hasClass(
         'ember-power-calendar-day--range-end',
-        'The clicked date is the start of the range'
+        'The clicked date is the start of the range',
       );
     let allDaysInBetweenAreSelected =
       this.element
@@ -287,9 +297,13 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
         .classList.contains('ember-power-calendar-day--selected');
     assert.ok(
       allDaysInBetweenAreSelected,
-      'All days in between are also selected'
+      'All days in between are also selected',
     );
-    assert.equal(numberOfCalls, 2, 'The onSelect action was called twice');
+    assert.strictEqual(
+      numberOfCalls,
+      2,
+      'The onSelect action was called twice',
+    );
   });
 
   test('Passing `minRange` allows to determine the minimum length of a range (in days)', async function (assert) {
@@ -329,14 +343,14 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-12"]')
       .hasNoClass(
         'ember-power-calendar-day--selected',
-        "Clicking a day not long enough didn't select anything"
+        "Clicking a day not long enough didn't select anything",
       );
     await click('.ember-power-calendar-day[data-date="2013-10-13"]');
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-13"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'Clicking outside the range select it'
+        'Clicking outside the range select it',
       );
     let allDaysInBetweenAreSelected =
       this.element
@@ -347,7 +361,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
         .classList.contains('ember-power-calendar-day--selected');
     assert.ok(
       allDaysInBetweenAreSelected,
-      'the 11th and 12th day are selected'
+      'the 11th and 12th day are selected',
     );
   });
 
@@ -371,13 +385,13 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The clicked date is selected'
+        'The clicked date is selected',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
       .hasClass(
         'ember-power-calendar-day--range-start',
-        'The clicked date is the start of the range'
+        'The clicked date is the start of the range',
       );
 
     await click('.ember-power-calendar-day[data-date="2013-10-10"]');
@@ -385,19 +399,19 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
       .hasClass(
         'ember-power-calendar-day--selected',
-        'The clicked date is selected'
+        'The clicked date is selected',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
       .hasClass(
         'ember-power-calendar-day--range-start',
-        'The clicked date is the start of the range'
+        'The clicked date is the start of the range',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
       .hasClass(
         'ember-power-calendar-day--range-end',
-        'The clicked date is also the end of the range'
+        'The clicked date is also the end of the range',
       );
   });
 
@@ -417,7 +431,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       .dom('.formatted-min-range')
       .hasText(
         '259200000',
-        'when passed a number, it is interpreted as number of days'
+        'when passed a number, it is interpreted as number of days',
       );
     run(() => this.set('minRange', '1 week'));
     assert
@@ -428,7 +442,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       .dom('.formatted-min-range')
       .hasText(
         '60000',
-        'it can regognize humanized durations that use abbreviations'
+        'it can regognize humanized durations that use abbreviations',
       );
   });
 
@@ -490,7 +504,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       </PowerCalendarRange>
     `);
     await click('#select-invalid-range-end');
-    assert.equal(range, undefined, 'The actions has not been called');
+    assert.strictEqual(range, undefined, 'The actions has not been called');
     await click('#select-valid-range-end');
     assert.notEqual(range, undefined, 'The actions has been called now');
   });
@@ -511,7 +525,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       </PowerCalendarRange>
     `);
     await click('#select-invalid-range-end');
-    assert.equal(range, undefined, 'The actions has not been called');
+    assert.strictEqual(range, undefined, 'The actions has not been called');
     await click('#select-valid-range-end');
     assert.notEqual(range, undefined, 'The actions has been called now');
   });
@@ -548,39 +562,39 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2016-02-05"]')
       .hasClass(
         'ember-power-calendar-day--range-start',
-        'The start of the range has a special class'
+        'The start of the range has a special class',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-09"]')
       .hasClass(
         'ember-power-calendar-day--range-end',
-        'The end of the range has a special class'
+        'The end of the range has a special class',
       );
     await click('.ember-power-calendar-day[data-date="2016-02-10"]');
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-05"]')
       .hasClass(
         'ember-power-calendar-day--range-start',
-        'The start of the range has a special class'
+        'The start of the range has a special class',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-10"]')
       .hasClass(
         'ember-power-calendar-day--range-end',
-        'The end of the range has a special class'
+        'The end of the range has a special class',
       );
     await click('.ember-power-calendar-day[data-date="2016-02-04"]');
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-04"]')
       .hasClass(
         'ember-power-calendar-day--range-start',
-        'The start of the range has a special class'
+        'The start of the range has a special class',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-10"]')
       .hasClass(
         'ember-power-calendar-day--range-end',
-        'The end of the range has a special class'
+        'The end of the range has a special class',
       );
   });
 });

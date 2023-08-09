@@ -6,18 +6,18 @@ export default class extends Component {
   @tracked center2 = null;
 
   months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   groupedYears = [
@@ -50,7 +50,7 @@ export default class extends Component {
       options: Array(...Array(10)).map((_, i) => `${i + 2000}`),
     },
   ];
-  
+
   @action
   changeCenter2(unit, calendar, val) {
     let newCenter = calendar.center.clone()[unit](val);

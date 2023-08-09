@@ -1,9 +1,9 @@
-import Component from '@ember/component';
-import { computed, action } from '@ember/object';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { assert } from '@ember/debug';
-import templateLayout from '../../templates/components/power-calendar/days';
 import {
   add,
   endOf,
@@ -26,39 +26,40 @@ import {
 const WEEK_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 export default class extends Component {
-  layout = templateLayout;
-  tagName = '';
-  focusedId = undefined;
-  showDaysAround = true;
-  weekdayFormat = 'short'; // "min" | "short" | "long"
   @service('power-calendar') powerCalendarService;
 
-  // CPs
-  @computed('calendar.locale')
+  @tracked focusedId = undefined;
+
+  get weekdayFormat() {
+    return this.args.weekdayFormat || 'short'; // "min" | "short" | "long"
+  }
+
+  get showDaysAround() {
+    return this.args.showDaysAround !== undefined
+      ? this.args.showDaysAround
+      : true;
+  }
+
   get weekdaysMin() {
-    return withLocale(this.calendar.locale, getWeekdaysMin);
+    return withLocale(this.args.calendar.locale, getWeekdaysMin);
   }
 
-  @computed('calendar.locale')
   get weekdaysShort() {
-    return withLocale(this.calendar.locale, getWeekdaysShort);
+    return withLocale(this.args.calendar.locale, getWeekdaysShort);
   }
 
-  @computed('calendar.locale')
   get weekdays() {
-    return withLocale(this.calendar.locale, getWeekdays);
+    return withLocale(this.args.calendar.locale, getWeekdays);
   }
 
-  @computed('calendar.locale', 'startOfWeek', 'weekdaysShort')
   get localeStartOfWeek() {
-    let forcedStartOfWeek = this.startOfWeek;
+    let forcedStartOfWeek = this.args.startOfWeek;
     if (forcedStartOfWeek) {
       return parseInt(forcedStartOfWeek, 10);
     }
-    return localeStartOfWeek(this.calendar.locale);
+    return localeStartOfWeek(this.args.calendar.locale);
   }
 
-  @computed('localeStartOfWeek', 'weekdayFormat', 'calendar.locale')
   get weekdaysNames() {
     let { localeStartOfWeek, weekdayFormat } = this;
     let format = `weekdays${
@@ -70,29 +71,18 @@ export default class extends Component {
       .concat(weekdaysNames.slice(0, localeStartOfWeek));
   }
 
-  @computed(
-    'calendar',
-    'focusedId',
-    'localeStartOfWeek',
-    'minDate',
-    'maxDate',
-    'disabledDates.[]',
-    'maxLength',
-    'currentCenter'
-  )
   get days() {
     let today = this.powerCalendarService.getDate();
     let lastDay = this.lastDay();
     let day = this.firstDay();
     let days = [];
     while (isBefore(day, lastDay)) {
-      days.push(this.buildDay(day, today, this.calendar));
+      days.push(this.buildDay(day, today, this.args.calendar));
       day = add(day, 1, 'day');
     }
     return days;
   }
 
-  @computed('showDaysAround', 'days')
   get weeks() {
     let { showDaysAround, days } = this;
     let weeks = [];
@@ -112,11 +102,10 @@ export default class extends Component {
     return weeks;
   }
 
-  @computed('calendar.center', 'center', 'selected')
   get currentCenter() {
-    let center = this.center;
+    let center = this.args.center;
     if (!center) {
-      center = this.selected || this.calendar.center;
+      center = this.args.selected || this.args.calendar.center;
     }
     return normalizeDate(center);
   }
@@ -181,7 +170,7 @@ export default class extends Component {
       } else {
         return;
       }
-      this.set('focusedId', day.id);
+      this.focusedId = day.id;
       scheduleOnce('afterRender', this, '_focusDate', day.id);
     }
   }
@@ -206,26 +195,26 @@ export default class extends Component {
     return day;
   }
 
-  dayIsSelected(date, calendar = this.calendar) {
+  dayIsSelected(date, calendar = this.args.calendar) {
     return calendar.selected ? isSame(date, calendar.selected, 'day') : false;
   }
 
   dayIsDisabled(date) {
-    let isDisabled = !this.calendar.actions.select;
+    let isDisabled = !this.args.calendar.actions.select;
     if (isDisabled) {
       return true;
     }
 
-    if (this.minDate && isBefore(date, startOf(this.minDate, 'day'))) {
+    if (this.args.minDate && isBefore(date, startOf(this.args.minDate, 'day'))) {
       return true;
     }
 
-    if (this.maxDate && isAfter(date, endOf(this.maxDate, 'day'))) {
+    if (this.args.maxDate && isAfter(date, endOf(this.args.maxDate, 'day'))) {
       return true;
     }
 
-    if (this.disabledDates) {
-      let disabledInRange = this.disabledDates.some((d) => {
+    if (this.args.disabledDates) {
+      let disabledInRange = this.args.disabledDates.some((d) => {
         let isSameDay = isSame(date, d, 'day');
         let isWeekDayIncludes =
           WEEK_DAYS.indexOf(d) !== -1 && formatDate(date, 'ddd') === d;
@@ -249,19 +238,19 @@ export default class extends Component {
     let localeStartOfWeek = this.localeStartOfWeek;
     assert(
       'The center of the calendar is an invalid date.',
-      !isNaN(this.currentCenter.getTime())
+      !isNaN(this.currentCenter.getTime()),
     );
     let lastDay = endOf(this.currentCenter, 'month');
     return endOfWeek(lastDay, localeStartOfWeek);
   }
 
   _updateFocused(id) {
-    this.set('focusedId', id);
+    this.focusedId = id;
   }
 
   _focusDate(id) {
     let dayElement = document.querySelector(
-      `[data-power-calendar-id="${this.calendar.uniqueId}"] [data-date="${id}"]`
+      `[data-power-calendar-id="${this.args.calendar.uniqueId}"] [data-date="${id}"]`,
     );
     if (dayElement) {
       dayElement.focus();
@@ -275,8 +264,8 @@ export default class extends Component {
       let dateStr = dayEl.dataset.date;
       let day = this.days.find((d) => d.id === dateStr);
       if (day) {
-        if (this.calendar.actions.select) {
-          this.calendar.actions.select(day, this.calendar, e);
+        if (this.args.calendar.actions.select) {
+          this.args.calendar.actions.select(day, this.args.calendar, e);
         }
       }
     }

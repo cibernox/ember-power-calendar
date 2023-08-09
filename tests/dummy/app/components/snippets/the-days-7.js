@@ -7,6 +7,6 @@ export default class extends Component {
     new Date(2013, 0, 18),
     new Date(2013, 0, 21),
     new Date(2013, 0, 22),
-    new Date(2013, 0, 28)
+    new Date(2013, 0, 28),
   ];
 }

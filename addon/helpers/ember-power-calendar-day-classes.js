@@ -8,7 +8,7 @@ export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]) {
   classes.push(
     `ember-power-calendar-day--${
       day.isCurrentMonth ? 'current' : 'other'
-    }-month`
+    }-month`,
   );
   if (day.isSelected) {
     classes.push('ember-power-calendar-day--selected');

@@ -59,7 +59,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-nav')
       .containsText(
         'February 2016',
-        'The calendar is centered in passed month'
+        'The calendar is centered in passed month',
       );
     assert
       .dom('.ember-power-calendar-nav-control')
@@ -67,7 +67,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-29"]')
       .exists(
-        'The days in the calendar actually belong to the displayed month'
+        'The days in the calendar actually belong to the displayed month',
       );
   });
 
@@ -84,7 +84,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-nav')
       .containsText(
         'October 2013',
-        'The calendar is centered in current month'
+        'The calendar is centered in current month',
       );
     assert
       .dom('.ember-power-calendar-nav-control')
@@ -92,7 +92,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-26"]')
       .exists(
-        'The days in the calendar actually belong to the displayed month'
+        'The days in the calendar actually belong to the displayed month',
       );
   });
 
@@ -109,7 +109,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-nav')
       .containsText(
         'October 2013',
-        'The calendar is centered in current month'
+        'The calendar is centered in current month',
       );
     assert
       .dom('.ember-power-calendar-nav-control')
@@ -117,7 +117,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-26"]')
       .exists(
-        'The days in the calendar actually belong to the displayed month'
+        'The days in the calendar actually belong to the displayed month',
       );
   });
 
@@ -136,7 +136,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         .dom('.ember-power-calendar-nav')
         .containsText(
           'February 2016',
-          'The calendar is centered in passed month'
+          'The calendar is centered in passed month',
         );
       assert
         .dom('.ember-power-calendar-nav-control')
@@ -144,7 +144,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       assert
         .dom('.ember-power-calendar-day[data-date="2016-02-29"]')
         .exists(
-          'The days in the calendar actually belong to the displayed month'
+          'The days in the calendar actually belong to the displayed month',
         );
     });
 
@@ -152,13 +152,11 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       assert.expect(3);
       this.center = new Date(2016, 1, 5);
       this.onCenterChange = function (obj, calendar, e) {
-        assert.ok(
-          ownProp(obj, 'moment') && ownProp(obj, 'date'),
-          'The first argument is a compound moment/date object'
-        );
+        const value = ownProp(obj, 'moment') && ownProp(obj, 'date');
+        assert.ok(value, 'The first argument is a compound moment/date object');
         assert.isCalendar(
           calendar,
-          "The second argument is the calendar's public API"
+          "The second argument is the calendar's public API",
         );
         assert.ok(e instanceof Event, 'The third argument is an event');
       };
@@ -185,12 +183,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         .dom('.ember-power-calendar-nav')
         .containsText(
           'February 2016',
-          'The calendar is centered in the month of the selected date'
+          'The calendar is centered in the month of the selected date',
         );
       assert
         .dom('.ember-power-calendar-day[data-date="2016-02-29"]')
         .exists(
-          'The days in the calendar actually belong to the displayed month'
+          'The days in the calendar actually belong to the displayed month',
         );
       assert
         .dom('.ember-power-calendar-day--selected')
@@ -200,7 +198,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         .hasAttribute(
           'data-date',
           '2016-02-05',
-          'The passed `selected` is the selected day'
+          'The passed `selected` is the selected day',
         );
     });
   } else if (dateLibrary === 'luxon') {
@@ -218,7 +216,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         .dom('.ember-power-calendar-nav')
         .containsText(
           'February 2016',
-          'The calendar is centered in passed month'
+          'The calendar is centered in passed month',
         );
       assert
         .dom('.ember-power-calendar-nav-control')
@@ -226,7 +224,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       assert
         .dom('.ember-power-calendar-day[data-date="2016-02-29"]')
         .exists(
-          'The days in the calendar actually belong to the displayed month'
+          'The days in the calendar actually belong to the displayed month',
         );
     });
 
@@ -234,13 +232,14 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       assert.expect(3);
       this.center = new Date(2016, 1, 5);
       this.onCenterChange = function (obj, calendar, e) {
+        const value = ownProp(obj, 'datetime') && ownProp(obj, 'date');
         assert.ok(
-          ownProp(obj, 'datetime') && ownProp(obj, 'date'),
-          'The first argument is a compound date/datetime object'
+          value,
+          'The first argument is a compound date/datetime object',
         );
         assert.isCalendar(
           calendar,
-          "The second argument is the calendar's public API"
+          "The second argument is the calendar's public API",
         );
         assert.ok(e instanceof Event, 'The third argument is an event');
       };
@@ -267,12 +266,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         .dom('.ember-power-calendar-nav')
         .containsText(
           'February 2016',
-          'The calendar is centered in the month of the selected date'
+          'The calendar is centered in the month of the selected date',
         );
       assert
         .dom('.ember-power-calendar-day[data-date="2016-02-29"]')
         .exists(
-          'The days in the calendar actually belong to the displayed month'
+          'The days in the calendar actually belong to the displayed month',
         );
       assert
         .dom('.ember-power-calendar-day--selected')
@@ -282,7 +281,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         .hasAttribute(
           'data-date',
           '2016-02-05',
-          'The passed `selected` is the selected day'
+          'The passed `selected` is the selected day',
         );
     });
   }
@@ -303,7 +302,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-nav')
       .containsText(
         'February 2016',
-        'The calendar is centered in passed month'
+        'The calendar is centered in passed month',
       );
     assert
       .dom('.ember-power-calendar-nav-control--previous')
@@ -319,7 +318,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-nav')
       .containsText(
         'February 2016',
-        'The calendar is still centered in the the passed month'
+        'The calendar is still centered in the the passed month',
       );
   });
 
@@ -337,7 +336,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-nav')
       .containsText(
         'February 2016',
-        'The calendar is centered in passed month'
+        'The calendar is centered in passed month',
       );
     await click('.ember-power-calendar-nav-control--next');
     assert
@@ -359,14 +358,14 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-nav')
       .containsText(
         'October 2013',
-        'The calendar is centered in current month'
+        'The calendar is centered in current month',
       );
     await click('.ember-power-calendar-nav-control--next');
     assert
       .dom('.ember-power-calendar-nav')
       .containsText(
         'November 2013',
-        'The calendar is centered in the next month'
+        'The calendar is centered in the next month',
       );
   });
 
@@ -383,12 +382,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-nav')
       .containsText(
         'February 2016',
-        'The calendar is centered in the month of the selected date'
+        'The calendar is centered in the month of the selected date',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-29"]')
       .exists(
-        'The days in the calendar actually belong to the displayed month'
+        'The days in the calendar actually belong to the displayed month',
       );
     assert
       .dom('.ember-power-calendar-day--selected')
@@ -398,7 +397,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .hasAttribute(
         'data-date',
         '2016-02-05',
-        'The passed `selected` is the selected day'
+        'The passed `selected` is the selected day',
       );
   });
 
@@ -416,12 +415,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-nav')
       .containsText(
         'February 2016',
-        'The calendar is centered in the `center`, no on the `selected` date'
+        'The calendar is centered in the `center`, no on the `selected` date',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2016-02-29"]')
       .exists(
-        'The days in the calendar actually belong to the displayed month'
+        'The days in the calendar actually belong to the displayed month',
       );
     assert
       .dom('.ember-power-calendar-day--selected')
@@ -431,7 +430,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .hasAttribute(
         'data-date',
         '2016-03-05',
-        'The passed `selected` is the selected day'
+        'The passed `selected` is the selected day',
       );
   });
 
@@ -447,25 +446,25 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-01"]')
       .hasClass(
         'ember-power-calendar-day--current-month',
-        'Days of the current month have this class'
+        'Days of the current month have this class',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-31"]')
       .hasClass(
         'ember-power-calendar-day--current-month',
-        'Days of the current month have this class'
+        'Days of the current month have this class',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-09-30"]')
       .hasNoClass(
         'ember-power-calendar-day--current-month',
-        "Days of the previous month don't"
+        "Days of the previous month don't",
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-11-01"]')
       .hasNoClass(
         'ember-power-calendar-day--current-month',
-        "Days of the previous month don't"
+        "Days of the previous month don't",
       );
   });
 
@@ -481,7 +480,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-18"]')
       .hasClass(
         'ember-power-calendar-day--today',
-        'The current day has a special class'
+        'The current day has a special class',
       );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-19"]')
@@ -499,7 +498,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         <calendar.Days/>
       </PowerCalendar>
     `);
-    
+
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-18"]')
       .hasAttribute('disabled');
@@ -514,10 +513,10 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       </PowerCalendar>
     `);
     let dayElement = this.element.querySelector(
-      '.ember-power-calendar-day[data-date="2013-10-18"]'
+      '.ember-power-calendar-day[data-date="2013-10-18"]',
     );
     await focus(dayElement);
-    assert.equal(document.activeElement, dayElement);
+    assert.strictEqual(document.activeElement, dayElement);
   });
 
   test('If a day is focused, it gets a special hasClass', async function (assert) {
@@ -529,30 +528,30 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       </PowerCalendar>
     `);
     let dayElement = this.element.querySelector(
-      '.ember-power-calendar-day[data-date="2013-10-18"]'
+      '.ember-power-calendar-day[data-date="2013-10-18"]',
     );
     await focus(dayElement);
     assert
       .dom(dayElement)
       .hasClass(
         'ember-power-calendar-day--focused',
-        'The focused day gets a special class'
+        'The focused day gets a special class',
       );
     let anotherDayElement = this.element.querySelector(
-      '.ember-power-calendar-day[data-date="2013-10-21"]'
+      '.ember-power-calendar-day[data-date="2013-10-21"]',
     );
     await focus(anotherDayElement);
     assert
       .dom(dayElement)
       .hasNoClass(
         'ember-power-calendar-day--focused',
-        'The focused day gets a special class'
+        'The focused day gets a special class',
       );
     assert
       .dom(anotherDayElement)
       .hasClass(
         'ember-power-calendar-day--focused',
-        'The focused day gets a special class'
+        'The focused day gets a special class',
       );
   });
 
@@ -562,7 +561,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       assert.isDay(day, 'The first argument is a day object');
       assert.isCalendar(
         calendar,
-        "The second argument is the calendar's public API"
+        "The second argument is the calendar's public API",
       );
       assert.ok(e instanceof Event, 'The third argument is an event');
     };
@@ -607,41 +606,41 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-18"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-18"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-18"]',
+      ),
     );
 
     await triggerKeyEvent(
       '.ember-power-calendar-day[data-date="2013-10-18"]',
       'keydown',
-      37
+      37,
     ); // left arrow
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-17"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-17"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-17"]',
+      ),
     );
 
     await triggerKeyEvent(
       '.ember-power-calendar-day[data-date="2013-10-17"]',
       'keydown',
-      39
+      39,
     ); // right arrow
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-18"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-18"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-18"]',
+      ),
     );
   });
 
@@ -657,41 +656,41 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-18"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-18"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-18"]',
+      ),
     );
 
     await triggerKeyEvent(
       '.ember-power-calendar-day[data-date="2013-10-18"]',
       'keydown',
-      38
+      38,
     ); // left arrow
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-11"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-11"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-11"]',
+      ),
     );
 
     await triggerKeyEvent(
       '.ember-power-calendar-day[data-date="2013-10-17"]',
       'keydown',
-      40
+      40,
     ); // right arrow
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-18"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-18"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-18"]',
+      ),
     );
   });
 
@@ -919,7 +918,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .isNotDisabled('The 22nd is disabled');
 
     run(() =>
-      this.set('disabledDates', [new Date(2013, 9, 22), 'Tue', 'Thu', 'Sun'])
+      this.set('disabledDates', [new Date(2013, 9, 22), 'Tue', 'Thu', 'Sun']),
     );
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-14"]')
@@ -958,26 +957,26 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-15"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+      ),
     );
 
     await triggerKeyEvent(
       '.ember-power-calendar-day[data-date="2013-10-15"]',
       'keydown',
-      37
+      37,
     ); // left arrow
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-15"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+      ),
     );
   });
 
@@ -995,26 +994,26 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-18"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-18"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-18"]',
+      ),
     );
 
     await triggerKeyEvent(
       '.ember-power-calendar-day[data-date="2013-10-18"]',
       'keydown',
-      38
+      38,
     ); // up arrow
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-15"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+      ),
     );
   });
 
@@ -1032,26 +1031,26 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-15"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+      ),
     );
 
     await triggerKeyEvent(
       '.ember-power-calendar-day[data-date="2013-10-15"]',
       'keydown',
-      39
+      39,
     ); // right arrow
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-15"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+      ),
     );
   });
 
@@ -1069,26 +1068,26 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-11"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-11"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-11"]',
+      ),
     );
 
     await triggerKeyEvent(
       '.ember-power-calendar-day[data-date="2013-10-11"]',
       'keydown',
-      40
+      40,
     ); // down arrow
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
       .hasClass('ember-power-calendar-day--focused');
-    assert.equal(
+    assert.strictEqual(
       document.activeElement,
       this.element.querySelector(
-        '.ember-power-calendar-day[data-date="2013-10-15"]'
-      )
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+      ),
     );
   });
 
