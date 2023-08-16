@@ -1,19 +1,24 @@
 import DaysComponent from '../power-calendar/days';
-import fallbackIfUndefined from '../../utils/computed-fallback-if-undefined';
 import { isSame } from 'ember-power-calendar-utils';
 
 export default class extends DaysComponent {
-  @fallbackIfUndefined(Infinity) maxLength
+  get maxLength() {
+    return this.args.maxLength || Infinity;
+  }
 
   // Methods
-  dayIsSelected(date, calendar = this.calendar) {
+  dayIsSelected(date, calendar = this.args.calendar) {
     let selected = calendar.selected || [];
     return selected.some((d) => isSame(date, d, 'day'));
   }
 
   dayIsDisabled(date) {
-    let numSelected = (this.calendar.selected && this.calendar.selected.length) || 0;
+    let numSelected =
+      (this.args.calendar.selected && this.args.calendar.selected.length) || 0;
     let maxLength = this.maxLength || Infinity;
-    return super.dayIsDisabled(...arguments) || (numSelected >= maxLength && !this.dayIsSelected(date));
+    return (
+      super.dayIsDisabled(...arguments) ||
+      (numSelected >= maxLength && !this.dayIsSelected(date))
+    );
   }
 }

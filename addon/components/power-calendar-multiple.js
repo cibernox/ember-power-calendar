@@ -1,30 +1,33 @@
 import CalendarComponent from './power-calendar';
-import { computed, action } from '@ember/object';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import {
   normalizeDate,
   isSame,
-  normalizeMultipleActionValue
+  normalizeMultipleActionValue,
 } from 'ember-power-calendar-utils';
 import { assert } from '@ember/debug';
 import { isArray } from '@ember/array';
-import PowerCalendarMultipleDaysComponent from './power-calendar-multiple/days'
+import PowerCalendarMultipleDaysComponent from './power-calendar-multiple/days';
 
 export default class extends CalendarComponent {
-  daysComponent = PowerCalendarMultipleDaysComponent
-  _calendarType = 'multiple'
+  daysComponent = PowerCalendarMultipleDaysComponent;
+  _calendarType = 'multiple';
 
-  // CPs
-  @computed
+  @tracked _selected;
+
   get selected() {
-    return undefined;
-  }
-  set selected(v) {
-    return isArray(v) ? v.map(normalizeDate) : v;
+    if (this._selected) {
+      return this._selected;
+    }
+
+    const value = this.args.selected;
+
+    return isArray(value) ? value.map(normalizeDate) : value;
   }
 
-  @computed('center')
   get currentCenter() {
-    let center = this.center;
+    let center = this.args.center;
     if (!center) {
       center = (this.selected || [])[0] || this.powerCalendarService.getDate();
     }
@@ -36,7 +39,8 @@ export default class extends CalendarComponent {
   select(dayOrDays, calendar, e) {
     assert(
       `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`,
-      isArray(dayOrDays) || dayOrDays instanceof Object && dayOrDays.date instanceof Date
+      isArray(dayOrDays) ||
+        (dayOrDays instanceof Object && dayOrDays.date instanceof Date),
     );
 
     let days;
@@ -47,8 +51,8 @@ export default class extends CalendarComponent {
       days = [dayOrDays];
     }
 
-    if (this.onSelect) {
-      this.onSelect(this._buildCollection(days), calendar, e);
+    if (this.args.onSelect) {
+      this.args.onSelect(this._buildCollection(days), calendar, e);
     }
   }
 
@@ -57,7 +61,9 @@ export default class extends CalendarComponent {
     let selected = this.publicAPI.selected || [];
 
     for (let day of days) {
-      let index = selected.findIndex(selectedDate => isSame(day.date, selectedDate, "day"));
+      let index = selected.findIndex((selectedDate) =>
+        isSame(day.date, selectedDate, 'day'),
+      );
       if (index === -1) {
         selected = [...selected, day.date];
       } else {

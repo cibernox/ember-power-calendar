@@ -1,0 +1,31 @@
+<PowerCalendar
+  @center={{this.center}}
+  @onCenterChange={{this.onCenterChange}} as |calendar|>
+
+  <calendar.Nav>
+    <span class="with-invisible-select">
+      {{#let (format-date calendar.center 'MMMM') as |currentMonth|}}
+        {{currentMonth}}
+        {{! template-lint-disable require-input-label }}
+        <select onchange={{fn this.changeCenter "month" calendar}}>
+          {{#each this.months as |month|}}
+            <option value="{{month}}" selected={{eq month currentMonth}}>{{month}}</option>
+          {{/each}}
+        </select>
+      {{/let}}
+    </span>
+    <span class="with-invisible-select">
+      {{#let (format-date calendar.center 'YYYY') as |currentYear|}}
+        {{currentYear}}
+        {{! template-lint-disable require-input-label }}
+        <select onchange={{fn this.changeCenter "year" calendar}}>
+          {{#each this.years as |year|}}
+            <option value="{{year}}" selected={{eq year currentYear}}>{{year}}</option>
+          {{/each}}
+        </select>
+      {{/let}}
+    </span>
+  </calendar.Nav>
+
+  <calendar.Days/>
+</PowerCalendar>

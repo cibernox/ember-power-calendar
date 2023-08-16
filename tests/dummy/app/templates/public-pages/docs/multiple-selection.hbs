@@ -6,9 +6,9 @@
 
 <p>There is no much need of explanation, so lets see it in action. Play with it, click around and use the keyboard.</p>
 
-{{#code-example hbs="multiple-selection-1.hbs" js="multiple-selection-1-js.js" as |partialName|}}
-  {{partial partialName}}
-{{/code-example}}
+<CodeExample @hbs="multiple-selection-1.hbs" @js="multiple-selection-1.js">
+  {{component (ensure-safe-component this.multipleSelection1)}}
+</CodeExample>
 
 <p>
   When you want to select multiple dates, the <code>selected</code> property is, unsurprisingly, an array of dates.
@@ -28,7 +28,7 @@
 
 <p>
   Since what the <code>onSelect</code> action does is up to you, you can implement any logic you want, no
-  matter how <strike>absurd</strike> complex it is.
+  matter how <del>absurd</del> complex it is.
 </p>
 
 <p>
@@ -36,9 +36,9 @@
   which number is prime, selecting the lowest one in case of a tie.
 </p>
 
-{{#code-example hbs="multiple-selection-2.hbs" js="multiple-selection-2-js.js" as |partialName|}}
-  {{partial partialName}}
-{{/code-example}}
+<CodeExample @hbs="multiple-selection-2.hbs" @js="multiple-selection-2.js">
+  {{component (ensure-safe-component this.multipleSelection2)}}
+</CodeExample>
 
 <p>
   Why would anyone want to do that?! No clue.
@@ -49,17 +49,17 @@
   you can use this kind of calendar to perform order sensitive selections:
 </p>
 
-{{#code-example hbs="multiple-selection-3.hbs" as |partialName|}}
-  {{partial partialName}}
-{{/code-example}}
+<CodeExample @hbs="multiple-selection-3.hbs">
+  {{component (ensure-safe-component this.multipleSelection3)}}
+</CodeExample>
 
 <p>
   You can also set a <code>maxLength</code> property on the days component for the maximum number of days that can be selected
 </p>
 
-{{#code-example hbs="multiple-selection-4.hbs" as |partialName|}}
-  {{partial partialName}}
-{{/code-example}}
+<CodeExample @hbs="multiple-selection-4.hbs">
+  {{component (ensure-safe-component this.multipleSelection4)}}
+</CodeExample>
 
 <p>
   Now lest talk about serious business. Customization.

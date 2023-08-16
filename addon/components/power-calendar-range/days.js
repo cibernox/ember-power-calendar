@@ -1,4 +1,3 @@
-import { getProperties } from '@ember/object';
 import DaysComponent from '../power-calendar/days';
 import { isBetween, isSame, diff } from 'ember-power-calendar-utils';
 
@@ -6,7 +5,7 @@ export default class extends DaysComponent {
   // Methods
   buildDay(date, today, calendar) {
     let day = super.buildDay(...arguments);
-    let { start, end } = getProperties(calendar.selected || { start: null, end: null }, 'start', 'end');
+    let { start, end } = calendar.selected || { start: null, end: null };
     if (start && end) {
       day.isSelected = isBetween(date, start, end, 'day', '[]');
       day.isRangeStart = day.isSelected && isSame(date, start, 'day');
@@ -19,8 +18,9 @@ export default class extends DaysComponent {
         day.isRangeStart = day.isSelected = isSame(date, start, 'day');
         if (!day.isDisabled) {
           let diffInMs = Math.abs(diff(day.date, start));
-          day.isDisabled = diffInMs < calendar.minRange
-            || calendar.maxRange !== null && diffInMs > calendar.maxRange;
+          day.isDisabled =
+            diffInMs < calendar.minRange ||
+            (calendar.maxRange !== null && diffInMs > calendar.maxRange);
         }
       }
     }

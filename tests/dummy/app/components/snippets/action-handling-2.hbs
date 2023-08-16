@@ -1,0 +1,8 @@
+<PowerCalendar
+  @center={{this.center}}
+  @onCenterChange={{perform this.updateMonth}} as |calendar|>
+  <div class={{if calendar.loading 'loading-spiner-overlay'}}>
+    <calendar.Nav/>
+    <calendar.Days/>
+  </div>
+</PowerCalendar>

@@ -2,14 +2,16 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
+
 html {
   font-size: 100%;
   line-height: 1.6;
-  font-family: 'Open sans', sans-serif;
+  font-family: "Open sans", sans-serif;
   touch-action: manipulation;
 }
 
@@ -22,30 +24,42 @@ a {
   color: $link-color;
 }
 
-img, iframe {
+img,
+iframe {
   max-width: 100%;
 }
 
 /* Headings */
-h1, h2, h3, h4, h5, h6 {
-  margin-bottom: .5rem;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.5rem;
   font-weight: bold;
   line-height: 1.25;
   color: $headings-text-color;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
 }
+
 h1 {
   font-size: 2rem;
 }
+
 h2 {
   margin-top: 1rem;
   font-size: 1.5rem;
 }
+
 h3 {
   margin-top: 1.5rem;
   font-size: 1.25rem;
 }
-h4, h5, h6 {
+
+h4,
+h5,
+h6 {
   margin-top: 1rem;
   font-size: 1rem;
 }
@@ -57,7 +71,9 @@ p {
 }
 
 /* Lists */
-ul, ol, dl {
+ul,
+ol,
+dl {
   margin-top: 0;
   margin-bottom: 1rem;
 }
@@ -65,8 +81,9 @@ ul, ol, dl {
 dt {
   font-weight: bold;
 }
+
 dd {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Misc */
@@ -84,6 +101,7 @@ abbr {
   color: #555;
   text-transform: uppercase;
 }
+
 abbr[title] {
   cursor: help;
   border-bottom: 1px dotted #e5e5e5;
@@ -94,12 +112,13 @@ code,
 pre {
   font-family: Menlo, Monaco, "Courier New", monospace;
 }
+
 code {
   color: $code-text-color;
   padding: 0.2em 0;
   margin: 0;
   font-size: 75%;
-  background-color: rgba(0,0,0,0.04);
+  background-color: rgba(0, 0, 0, 4%);
   border-radius: 3px;
 
   &::before,
@@ -108,12 +127,13 @@ code {
     content: "\00a0";
   }
 }
+
 pre {
   max-width: calc(100vw - #{2 * $wrapper-padding});
   display: block;
   margin-top: 0;
   margin-bottom: 1rem;
-  font-size: .8rem;
+  font-size: 0.8rem;
   line-height: 1.4;
   white-space: pre;
   word-break: break-all;
@@ -121,6 +141,7 @@ pre {
   background-color: #f9f9f9;
   overflow-x: auto;
 }
+
 pre code {
   padding: 0;
   font-size: 100%;
@@ -129,7 +150,7 @@ pre code {
 
   &::before,
   &::after {
-    content: '';
+    content: "";
   }
 }
 
@@ -140,9 +161,10 @@ table {
   border: 1px solid #e5e5e5;
   border-collapse: collapse;
 }
+
 td,
 th {
-  padding: .25rem .5rem;
+  padding: 0.25rem 0.5rem;
   border: 1px solid #e5e5e5;
 }
 
@@ -151,6 +173,7 @@ th {
   margin-bottom: 1rem;
   border-radius: 4px;
 }
+
 .highlight pre {
   margin-bottom: 0;
 }

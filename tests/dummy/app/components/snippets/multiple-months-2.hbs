@@ -1,0 +1,13 @@
+<PowerCalendarRange
+  class='multiple-month-power-calendar-vertical'
+  @selected={{this.selected}}
+  @onSelect={{this.onSelect}} as |calendar|>
+  <div class='months-container'>
+    {{#each this.months as |month|}}
+      <calendar.Nav>
+        {{power-calendar-format-date month 'MMMM' locale=calendar.locale}}
+      </calendar.Nav>
+      <calendar.Days @center={{month}} @showDaysAround={{false}}/>
+    {{/each}}
+  </div>
+</PowerCalendarRange>

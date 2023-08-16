@@ -1,9 +1,9 @@
 <header class="main-header">
   <nav class="main-header-nav">
     <div class="main-header-nav-links">
-      {{#link-to 'public-pages.docs' class="main-header-nav-link"}}Docs{{/link-to}}
-      {{#link-to 'public-pages.cookbook' class="main-header-nav-link"}}Cookbook{{/link-to}}
-      {{#link-to 'public-pages.addons' class="main-header-nav-link"}}Addons{{/link-to}}
+      <LinkTo @route='public-pages.docs' class="main-header-nav-link">Docs</LinkTo>
+      <LinkTo @route='public-pages.cookbook' class="main-header-nav-link">Cookbook</LinkTo>
+      <LinkTo @route='public-pages.addons' class="main-header-nav-link">Addons</LinkTo>
       <a href="https://github.com/cibernox/ember-power-calendar" class="main-header-nav-link">Github</a>
     </div>
     <div class="main-header-logo">
@@ -18,8 +18,8 @@
           class="header-calendar"
           {{on "click" (perform this.flipPage)}}
         >
-          <div class="header-calendar-page {{if (eq day today) '' 'run-animation'}}">
-            <sub class="calendar-page-number">{{format-date day 'D'}}</sub>
+          <div class="header-calendar-page {{if (eq this.day this.today) '' 'run-animation'}}">
+            <sub class="calendar-page-number">{{format-date this.day 'D'}}</sub>
             Calendar
           </div>
           <div class="header-calendar-ring left"></div>

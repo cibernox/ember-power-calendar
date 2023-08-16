@@ -1,23 +1,22 @@
-import Component from '@ember/component';
-import { computed } from '@ember/object';
+import Component from '@glimmer/component';
 import {
   add,
   isBefore,
   startOf,
   endOf,
-  weekday
+  weekday,
 } from 'ember-power-calendar-utils';
 
 export default class extends Component {
-  @computed
   get days() {
     let now = new Date();
     let day = startOf(startOf(now, 'month'), 'isoWeek');
     let lastDay = endOf(endOf(now, 'month'), 'isoWeek');
     let days = [];
     while (isBefore(day, lastDay)) {
-      if (weekday(day) !== 1 && weekday(day) !== 3) { // Skip Mon/Wed
-        let copy = new Date(day)
+      if (weekday(day) !== 1 && weekday(day) !== 3) {
+        // Skip Mon/Wed
+        let copy = new Date(day);
         let isCurrentMonth = copy.getMonth() === now.getMonth();
         days.push({ date: copy, isCurrentMonth });
       }
@@ -26,7 +25,6 @@ export default class extends Component {
     return days;
   }
 
-  @computed('noMondays')
   get weeksWithoutMondaysOrWednesday() {
     let weeks = [];
     let i = 0;

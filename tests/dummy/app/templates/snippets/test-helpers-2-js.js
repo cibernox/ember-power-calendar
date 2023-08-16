@@ -1,3 +1,0 @@
-fillIn('.username', 'Tomster');
-calendarCenter('.events-calendar', nextWeek);
-// ...

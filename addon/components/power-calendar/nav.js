@@ -1,9 +1,11 @@
-import Component from '@ember/component';
-import templateLayout from '../../templates/components/power-calendar/nav';
+import Component from '@glimmer/component';
 
 export default class extends Component {
-  layout = templateLayout
-  tagName = ''
-  unit = 'month'
-  format = 'MMMM YYYY'
+  get unit() {
+    return this.args.unit || 'month';
+  }
+
+  get format() {
+    return this.args.format || 'MMMM YYYY';
+  }
 }

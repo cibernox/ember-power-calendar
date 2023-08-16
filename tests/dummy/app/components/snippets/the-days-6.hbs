@@ -1,0 +1,7 @@
+<PowerCalendar
+  @center={{this.wedding}}
+  @selected={{this.selected}}
+  @onSelect={{this.onSelect}} as |calendar|>
+  <calendar.Nav/>
+  <calendar.Days @minDate={{this.minDate}} @maxDate={{this.maxDate}}/>
+</PowerCalendar>

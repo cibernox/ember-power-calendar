@@ -1,8 +1,0 @@
-<PowerCalendar class="demo-calendar-small"
-  @center={{this.month}}
-  @navComponent="calendar-nav-with-year-buttons"
-  @onCenterChange={{action (mut this.month) value="date"}} as |calendar|>
-
-  <calendar.Nav/>
-  <calendar.Days/>
-</PowerCalendar>

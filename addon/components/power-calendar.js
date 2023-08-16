@@ -1,49 +1,43 @@
-import Component from '@ember/component';
-import { computed, action } from '@ember/object';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
-import templateLayout from '../templates/components/power-calendar';
 import { assert } from '@ember/debug';
 import {
   add,
   normalizeDate,
-  normalizeCalendarValue
+  normalizeCalendarValue,
 } from 'ember-power-calendar-utils';
-import PowerCalendarNavComponent from './power-calendar/nav'
-import PowerCalendarDaysComponent from './power-calendar/days'
+import PowerCalendarNavComponent from './power-calendar/nav';
+import PowerCalendarDaysComponent from './power-calendar/days';
 
 export default class extends Component {
-  @service('power-calendar') powerCalendarService
-  navComponent = PowerCalendarNavComponent
-  daysComponent = PowerCalendarDaysComponent
-  center = null
-  _calendarType = 'single'
-  layout = templateLayout
-  tagName = ''
+  @service('power-calendar') powerCalendarService;
+
+  @tracked center = null;
+  @tracked _calendarType = 'single';
+  @tracked _selected;
+
+  navComponent = PowerCalendarNavComponent;
+  daysComponent = PowerCalendarDaysComponent;
 
   // Lifecycle hooks
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
     this.registerCalendar();
-    if (this.onInit) {
-      this.onInit(this.publicAPI);
+    if (this.args.onInit) {
+      this.args.onInit(this.publicAPI);
     }
   }
 
-  willDestroy() {
-    super.willDestroy(...arguments);
-    this.unregisterCalendar();
-  }
-
-  // CPs
-  @computed('onSelect', 'onCenterChange')
   get publicActions() {
     let actions = {};
-    if (this.onSelect) {
-      actions.select = (...args) => this.select(...args)
+    if (this.args.onSelect) {
+      actions.select = (...args) => this.select(...args);
     }
-    if (this.onCenterChange) {
+    if (this.args.onCenterChange) {
       let changeCenter = (newCenter, calendar, e) => {
         return this.changeCenterTask.perform(newCenter, calendar, e);
       };
@@ -56,29 +50,30 @@ export default class extends Component {
     return actions;
   }
 
-  @computed
   get selected() {
-    return undefined;
-  }
-  set selected(v) {
-    return normalizeDate(v);
+    if (this._selected) {
+      return this._selected;
+    }
+
+    return normalizeDate(this.args.selected);
   }
 
-  @computed('center')
+  set selected(v) {
+    this._selected = normalizeDate(v);
+  }
+
   get currentCenter() {
-    let center = this.center;
+    let center = this.args.center;
     if (!center) {
-      center = this.selected || this.powerCalendarService.getDate()
+      center = this.selected || this.powerCalendarService.getDate();
     }
     return normalizeDate(center);
   }
 
-  @computed('_publicAPI')
   get publicAPI() {
     return this._publicAPI;
   }
 
-  @computed('selected', 'currentCenter', 'locale', 'powerCalendarService.locale', 'changeCenterTask.isRunning', 'publicActions')
   get _publicAPI() {
     return {
       uniqueId: guidFor(this),
@@ -86,33 +81,41 @@ export default class extends Component {
       selected: this.selected,
       loading: this.changeCenterTask.isRunning,
       center: this.currentCenter,
-      locale: this.locale || this.powerCalendarService.locale,
-      actions: this.publicActions
+      locale: this.args.locale || this.powerCalendarService.locale,
+      actions: this.publicActions,
     };
   }
 
-  @computed('tag')
   get tagWithDefault() {
-    if (this.tag === undefined || this.tag === null) {
+    if (this.args.tag === undefined || this.args.tag === null) {
       return 'div';
     }
-    return this.tag;
+    return this.args.tag;
   }
 
   // Actions
   @action
   select(day, calendar, e) {
-    if (this.onSelect) {
-      this.onSelect(day, calendar, e);
+    if (this.args.onSelect) {
+      this.args.onSelect(day, calendar, e);
     }
   }
 
+  @action
+  destroyElement() {
+    this.unregisterCalendar();
+  }
+
   // Tasks
-  @(task(function* (newCenter, calendar, e) {
-    assert('You attempted to move the center of a calendar that doesn\'t receive an `@onCenterChange` action.', typeof this.onCenterChange === 'function');
+  @task(function* (newCenter, calendar, e) {
+    assert(
+      "You attempted to move the center of a calendar that doesn't receive an `@onCenterChange` action.",
+      typeof this.args.onCenterChange === 'function',
+    );
     let value = normalizeCalendarValue({ date: newCenter });
-    yield this.onCenterChange(value, calendar, e);
-  })) changeCenterTask
+    yield this.args.onCenterChange(value, calendar, e);
+  })
+  changeCenterTask;
 
   // Methods
   registerCalendar() {

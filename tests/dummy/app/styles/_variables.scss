@@ -39,9 +39,8 @@ $medium-breakpoint: 748px; // 768px originally
 
 // Red
 $brand-color: #0078c9;
-$brand-color-brighter: lighten($brand-color, 10%);
+$brand-color-brighter: color.adjust($brand-color, $lightness: 10%);
 $link-color: $brand-color;
-
 $light-gray: #ddd;
 $gray: #888;
 

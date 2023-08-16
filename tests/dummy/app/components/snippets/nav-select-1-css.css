@@ -1,0 +1,9 @@
+.with-invisible-select {
+  position: relative;
+
+  select {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+}
