@@ -21,7 +21,7 @@ import {
   startOf,
   startOfWeek,
   withLocale,
-} from 'ember-power-calendar-utils';
+} from 'ember-power-calendar/utils';
 
 const WEEK_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 

@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { add } from 'ember-power-calendar-utils';
+import { add } from 'ember-power-calendar/utils';
 import { task, timeout, waitForQueue } from 'ember-concurrency';
 
 export default class extends Controller {

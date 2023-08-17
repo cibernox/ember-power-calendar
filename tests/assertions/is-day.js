@@ -1,4 +1,4 @@
-export default function isDay(context, day, message = 'Is a valid day object') {
+export default function isDay(day, message = 'Is a valid day object') {
   let result =
     typeof day.isCurrentMonth === 'boolean' &&
     typeof day.isToday === 'boolean' &&

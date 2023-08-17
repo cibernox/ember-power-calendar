@@ -1,6 +1,6 @@
 import ownProp from 'ember-power-calendar/-private/utils/own-prop';
 
-export default function isCalendar(_context, calendar, message) {
+export default function isCalendar(calendar, message) {
   let result =
     !!calendar &&
     ownProp(calendar, 'center') &&
