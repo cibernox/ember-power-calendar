@@ -5,7 +5,6 @@ import hbs from 'htmlbars-inline-precompile';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
 import require from 'require';
-import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 
 import ownProp from 'ember-power-calendar/-private/utils/own-prop';
 
@@ -13,7 +12,6 @@ const dateLibrary = require.has('luxon') ? 'luxon' : 'moment';
 
 module('Integration | Component | <PowerCalendar>', function (hooks) {
   setupRenderingTest(hooks);
-  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function () {
     let calendarService = this.owner.lookup('service:power-calendar');

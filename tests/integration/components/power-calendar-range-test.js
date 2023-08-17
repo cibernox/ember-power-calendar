@@ -5,13 +5,11 @@ import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { run } from '@ember/runloop';
 import { isSame } from 'ember-power-calendar-utils';
-import setupCustomAssertions from 'ember-cli-custom-assertions/test-support';
 
 import ownProp from 'ember-power-calendar/-private/utils/own-prop';
 
 module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   setupRenderingTest(hooks);
-  setupCustomAssertions(hooks);
 
   hooks.beforeEach(function () {
     let calendarService = this.owner.lookup('service:power-calendar');
