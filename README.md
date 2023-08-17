@@ -2,7 +2,6 @@
 
 [![CI](https://github.com/cibernox/ember-power-calendar/actions/workflows/ci.yml/badge.svg)](https://github.com/cibernox/ember-power-calendar/actions/workflows/ci.yml)
 [![Ember Observer Score](http://emberobserver.com/badges/ember-power-calendar.svg)](http://emberobserver.com/addons/ember-power-calendar)
-[![Code Climate](https://codeclimate.com/github/cibernox/ember-power-calendar/badges/gpa.svg)](https://codeclimate.com/github/cibernox/ember-power-calendar)
 [![npm version](https://badge.fury.io/js/ember-power-calendar.svg)](https://badge.fury.io/js/ember-power-calendar)
 
 Customizable Calendar Component for Ember.
