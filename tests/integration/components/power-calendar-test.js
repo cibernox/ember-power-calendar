@@ -121,7 +121,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   if (dateLibrary === 'moment') {
-    let moment = importSync('moment');
+    let moment = importSync('moment').default;
     test('when it receives a `moment()` in the `center` argument, it displays that month', async function (assert) {
       assert.expect(3);
       this.center = moment('2016-02-05');
