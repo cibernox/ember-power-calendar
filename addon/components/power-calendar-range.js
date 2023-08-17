@@ -8,7 +8,7 @@ import {
   isAfter,
   isBefore,
   normalizeDuration,
-} from 'ember-power-calendar-utils';
+} from 'ember-power-calendar/utils';
 import { assert } from '@ember/debug';
 
 import ownProp from 'ember-power-calendar/-private/utils/own-prop';

@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import { add } from 'ember-power-calendar-utils';
+import { add } from 'ember-power-calendar/utils';
 
 export default class extends Component {
   @tracked center = new Date('2016-05-17');

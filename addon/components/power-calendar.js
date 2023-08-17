@@ -9,7 +9,7 @@ import {
   add,
   normalizeDate,
   normalizeCalendarValue,
-} from 'ember-power-calendar-utils';
+} from 'ember-power-calendar/utils';
 import PowerCalendarNavComponent from './power-calendar/nav';
 import PowerCalendarDaysComponent from './power-calendar/days';
 

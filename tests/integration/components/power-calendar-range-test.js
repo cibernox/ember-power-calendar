@@ -4,7 +4,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { run } from '@ember/runloop';
-import { isSame } from 'ember-power-calendar-utils';
+import { isSame } from 'ember-power-calendar/utils';
 
 import ownProp from 'ember-power-calendar/-private/utils/own-prop';
 

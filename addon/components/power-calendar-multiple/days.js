@@ -1,5 +1,5 @@
 import DaysComponent from '../power-calendar/days';
-import { isSame } from 'ember-power-calendar-utils';
+import { isSame } from 'ember-power-calendar/utils';
 
 export default class extends DaysComponent {
   get maxLength() {

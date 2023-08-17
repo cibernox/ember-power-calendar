@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { getDefaultLocale } from 'ember-power-calendar-utils';
+import { getDefaultLocale } from 'ember-power-calendar/utils';
 
 export default class extends Service {
   date = null;
