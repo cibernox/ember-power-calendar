@@ -18,7 +18,6 @@ module.exports = function (defaults) {
   */
 
   const { maybeEmbroider } = require('@embroider/test-setup');
-  const webpack = require('webpack');
 
   return maybeEmbroider(app, {
     skipBabel: [
@@ -26,15 +25,5 @@ module.exports = function (defaults) {
         package: 'qunit',
       },
     ],
-    packagerOptions: {
-      webpackConfig: {
-        plugins: [
-          new webpack.IgnorePlugin({
-            // workaround for https://github.com/embroider-build/ember-auto-import/issues/578
-            resourceRegExp: /moment/,
-          }),
-        ],
-      },
-    },
   });
 };

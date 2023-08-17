@@ -74,8 +74,8 @@ export function diff(date1, date2) {
   return DateLibrary.diff(date1, date2);
 }
 
-export function normalizeDate(dateOrMoment) {
-  return DateLibrary.normalizeDate(dateOrMoment);
+export function normalizeDate(date) {
+  return DateLibrary.normalizeDate(date);
 }
 
 export function normalizeRangeActionValue(val) {
