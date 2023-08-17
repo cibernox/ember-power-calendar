@@ -5,6 +5,7 @@ import hbs from 'htmlbars-inline-precompile';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
 import require from 'require';
+import { importSync } from '@embroider/macros';
 
 import ownProp from 'ember-power-calendar/-private/utils/own-prop';
 
@@ -120,7 +121,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   if (dateLibrary === 'moment') {
-    let moment = require('moment').default;
+    let moment = importSync('moment');
     test('when it receives a `moment()` in the `center` argument, it displays that month', async function (assert) {
       assert.expect(3);
       this.center = moment('2016-02-05');
@@ -200,7 +201,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         );
     });
   } else if (dateLibrary === 'luxon') {
-    let { DateTime } = require('luxon');
+    let { DateTime } = importSync('luxon');
     test('when it receives a DateTime in the `center` argument, it displays that month', async function (assert) {
       assert.expect(3);
       this.center = DateTime.fromObject({ year: 2016, month: 2, day: 5 });
