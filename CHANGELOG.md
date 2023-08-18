@@ -1,4 +1,11 @@
 ## Master
+- [BREAKING] Drop support for node < 16 (#328)
+- [BREAKING] Drop support for Ember < 3.28 (#328)
+- [BREAKING] Update components to glimmer (#328)
+- [BREAKING] Update dependencies to latest version (#328)
+- [BREAKING] Replace imports from `ember-power-calendar-utils` to `ember-power-calendar/utils` (#329)
+- [BUGFIX] Add ember-auto-import as dependency (#328)
+- [Internal] Update to ember 4.12 & switch to glimmer components (#328)
 
 # 0.19.0
 - Many updates and fixes (see #303)
