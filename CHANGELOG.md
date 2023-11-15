@@ -1,5 +1,3 @@
-# master
-- [BREAKING] `ember-power-calendar-moment`, `ember-power-calendar-luxon`... must be registered in `app/app.js` (more details in https://ember-power-calendar.com/docs/installation => Choose your preferred date library) (#335)
 
 # 0.20.0
 - [BREAKING] Drop support for node < 16 (#328)
