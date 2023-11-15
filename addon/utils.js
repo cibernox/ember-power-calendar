@@ -1,119 +1,115 @@
-import {
-  dependencySatisfies,
-  macroCondition,
-  importSync,
-} from '@embroider/macros';
+let dateLib;
 
-const DateLibrary = (() => {
-  if (macroCondition(dependencySatisfies('ember-power-calendar-moment', '*'))) {
-    return importSync('ember-power-calendar-moment');
-  } else if (
-    macroCondition(dependencySatisfies('ember-power-calendar-luxon', '*'))
-  ) {
-    return importSync('ember-power-calendar-luxon');
-  } else {
+export function registerDateLibrary(dateLibrary) {
+  dateLib = dateLibrary;
+}
+
+function getDateLibrary() {
+  if (!dateLib) {
     throw new Error(
-      `You have installed "ember-power-calendar" but you don't have any of the required meta-addons to make it work, like 'ember-power-calendar-moment' or 'ember-power-calendar-luxon'. Please add to your app.`,
+      `You have installed "ember-power-calendar" but you don't have registered any of the required meta-addons to make it work, like 'ember-power-calendar-moment' or 'ember-power-calendar-luxon'. Please add to your app and register the meta package in app.js.`,
     );
   }
-})();
+
+  return dateLib;
+}
 
 export function add(date, quantity, unit) {
-  return DateLibrary.add(date, quantity, unit);
+  return getDateLibrary().add(date, quantity, unit);
 }
 
 export function formatDate(date, format, locale = null) {
-  return DateLibrary.formatDate(date, format, locale);
+  return getDateLibrary().formatDate(date, format, locale);
 }
 
 export function startOf(date, unit) {
-  return DateLibrary.startOf(date, unit);
+  return getDateLibrary().startOf(date, unit);
 }
 
 export function endOf(date, unit) {
-  return DateLibrary.endOf(date, unit);
+  return getDateLibrary().endOf(date, unit);
 }
 
 export function weekday(date) {
-  return DateLibrary.weekday(date);
+  return getDateLibrary().weekday(date);
 }
 
 export function isoWeekday(date) {
-  return DateLibrary.isoWeekday(date);
+  return getDateLibrary().isoWeekday(date);
 }
 
 export function getWeekdaysShort() {
-  return DateLibrary.getWeekdaysShort();
+  return getDateLibrary().getWeekdaysShort();
 }
 
 export function getWeekdaysMin() {
-  return DateLibrary.getWeekdaysMin();
+  return getDateLibrary().getWeekdaysMin();
 }
 
 export function getWeekdays() {
-  return DateLibrary.getWeekdays();
+  return getDateLibrary().getWeekdays();
 }
 
 export function isAfter(date1, date2) {
-  return DateLibrary.isAfter(date1, date2);
+  return getDateLibrary().isAfter(date1, date2);
 }
 
 export function isBefore(date1, date2) {
-  return DateLibrary.isBefore(date1, date2);
+  return getDateLibrary().isBefore(date1, date2);
 }
 
 export function isSame(date1, date2, unit) {
-  return DateLibrary.isSame(date1, date2, unit);
+  return getDateLibrary().isSame(date1, date2, unit);
 }
 
 export function isBetween(date, start, end, unit, inclusivity) {
-  return DateLibrary.isBetween(date, start, end, unit, inclusivity);
+  return getDateLibrary().isBetween(date, start, end, unit, inclusivity);
 }
 
 export function diff(date1, date2) {
-  return DateLibrary.diff(date1, date2);
+  return getDateLibrary().diff(date1, date2);
 }
 
 export function normalizeDate(date) {
-  return DateLibrary.normalizeDate(date);
+  return getDateLibrary().normalizeDate(date);
 }
 
 export function normalizeRangeActionValue(val) {
-  return DateLibrary.normalizeRangeActionValue(val);
+  return getDateLibrary().normalizeRangeActionValue(val);
 }
 
 export function normalizeMultipleActionValue(val) {
-  return DateLibrary.normalizeMultipleActionValue(val);
+  return getDateLibrary().normalizeMultipleActionValue(val);
 }
 
 export function normalizeCalendarDay(day) {
-  return DateLibrary.normalizeCalendarDay(day);
+  return getDateLibrary().normalizeCalendarDay(day);
 }
 
 export function withLocale(locale, fn) {
-  return DateLibrary.withLocale(locale, fn);
+  return getDateLibrary().withLocale(locale, fn);
 }
 
 export function normalizeCalendarValue(value) {
-  return DateLibrary.normalizeCalendarValue(value);
+  return getDateLibrary().normalizeCalendarValue(value);
 }
 
 export function normalizeDuration(value) {
-  return DateLibrary.normalizeDuration(value);
+  return getDateLibrary().normalizeDuration(value);
 }
 
 export function getDefaultLocale() {
-  return DateLibrary.getDefaultLocale();
+  return getDateLibrary().getDefaultLocale();
 }
 
 export function localeStartOfWeek(locale) {
-  return DateLibrary.localeStartOfWeek(locale);
+  return getDateLibrary().localeStartOfWeek(locale);
 }
 
 export function startOfWeek(day, startOfWeek) {
-  return DateLibrary.startOfWeek(day, startOfWeek);
+  return getDateLibrary().startOfWeek(day, startOfWeek);
 }
 
 export function endOfWeek(day, startOfWeek) {
-  return DateLibrary.endOfWeek(day, startOfWeek);
+  return getDateLibrary().endOfWeek(day, startOfWeek);
 }
