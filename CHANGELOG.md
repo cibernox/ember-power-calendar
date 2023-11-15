@@ -28,6 +28,7 @@
 - [ENHANCEMENT] Bump version of `element-closest-polyfill` to 0.0.2
 
 # 0.16.0
+- [ENHANCEMENT] Bump version of `mber-assign-helper` to 0.3.0
 
 ## 0.14.5
 - [BUGFIX] Don't set `center` to undefined in days component. Users may subclass it and define center
@@ -38,7 +39,6 @@
 
 ## 0.14.3
 - [BUGFIX] Remove deprecation by adding a setter for the locale to power-calendar service.
-
 
 ## 0.14.2
 - [BUGFIX] Both `minDate` and `maxDate` should form part of the range and therefore be selectables.
