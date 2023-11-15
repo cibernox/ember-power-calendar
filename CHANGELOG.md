@@ -1,5 +1,5 @@
 
-# 0.20.0
+## 0.20.0
 - [BREAKING] Drop support for node < 16 (#328)
 - [BREAKING] Drop support for Ember < 3.28 (#328)
 - [BREAKING] Update components to glimmer (#328)
@@ -8,27 +8,32 @@
 - [BUGFIX] Add ember-auto-import as dependency (#328)
 - [Internal] Update to ember 4.12 & switch to glimmer components (#328)
 
-# 0.19.0
+## 0.19.0
 - Many updates and fixes (see #303)
-# 0.18.0
+
+## 0.18.0
 - Replace deprecated usages of `{{#with}}` with `{{#let}}`.
-# 0.17.0
+
+## 0.17.0
 - Remove deprecated Ember.assign
 - [BUGFIX] Add `currentCenter` as a dependency for the `days` computed property.
 - Update dependencies to make it compatible with newer ember versions.
-# 0.16.5
+
+## 0.16.5
 - Fix `hasBlock` deprecation. 
 - Dependencies updates.
-# 0.16.4
+
+## 0.16.4
 - [BUGFIX] Update version of ember-element-helper for better embroider compatibility
-# 0.16.2
+
+## 0.16.2
 - [ENHANCEMENT] Relax dependency on ember-truth-helpers.
 
-# 0.16.1
+## 0.16.1
 - [ENHANCEMENT] Bump version of `element-closest-polyfill` to 0.0.2
 
-# 0.16.0
-- [ENHANCEMENT] Bump version of `mber-assign-helper` to 0.3.0
+## 0.16.0
+- [ENHANCEMENT] Bump version of `ember-assign-helper` to 0.3.0
 
 ## 0.14.5
 - [BUGFIX] Don't set `center` to undefined in days component. Users may subclass it and define center
