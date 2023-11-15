@@ -1,4 +1,17 @@
 
+
+## v0.21.0 (2023-11-15)
+
+#### :boom: Breaking Change
+* [#338](https://github.com/cibernox/ember-power-calendar/pull/338) Update `peerDependencies` moment & luxon ([@mkszepp](https://github.com/mkszepp))
+* [#335](https://github.com/cibernox/ember-power-calendar/pull/335) Add `registerDateLibrary` to allow register every date library & allow `ember-truth-helpers` v4 ([@mkszepp](https://github.com/mkszepp))
+
+#### :house: Internal
+* [#339](https://github.com/cibernox/ember-power-calendar/pull/339) Add release-it ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- [@mkszepp](https://github.com/mkszepp)
+
 ## 0.20.0
 - [BREAKING] Drop support for node < 16 (#328)
 - [BREAKING] Drop support for Ember < 3.28 (#328)
