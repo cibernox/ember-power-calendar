@@ -1,0 +1,10 @@
+# unconventional js
+/blueprints/*/files/
+/vendor/
+
+# compiled output
+/dist/
+/declarations/
+
+# misc
+/coverage/
