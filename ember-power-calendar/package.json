@@ -22,6 +22,8 @@
     "./vendor/*": "./vendor/*"
   },
   "files": [
+    "_index.scss",
+    "_index.less",
     "addon-main.cjs",
     "declarations",
     "dist",
