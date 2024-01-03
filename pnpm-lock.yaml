@@ -398,9 +398,6 @@ importers:
       ember-power-calendar-moment:
         specifier: ^0.4.0
         version: 0.4.0(ember-source@5.4.0)(moment@2.30.1)(webpack@5.89.0)
-      ember-power-select:
-        specifier: 8.0.0-beta.2
-        version: 8.0.0-beta.2(@ember/test-helpers@3.2.1)(ember-basic-dropdown@8.0.0-beta.3)(ember-source@5.4.0)
       ember-qunit:
         specifier: ^8.0.2
         version: 8.0.2(@ember/test-helpers@3.2.1)(ember-source@5.4.0)(qunit@2.20.0)

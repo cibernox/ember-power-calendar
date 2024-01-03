@@ -76,7 +76,6 @@
     "ember-basic-dropdown": "8.0.0-beta.3",
     "ember-cli-sass": "^11.0.1",
     "ember-power-calendar-moment": "^0.4.0",
-    "ember-power-select": "8.0.0-beta.2",
     "moment": "^2.30.1",
     "sass": "^1.69.7",
     "stylelint-config-standard-scss": "^12.0.0"
