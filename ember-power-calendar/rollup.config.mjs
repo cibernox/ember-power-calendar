@@ -12,12 +12,12 @@ export default [
   {
     input: './_index.scss',
     output: {
-      file: './vendor/ember-basic-dropdown.js',
+      file: './vendor/ember-power-calendar.js',
       assetFileNames: '[name][extname]',
     },
     plugins: [
       styles({
-        mode: ['extract', 'ember-basic-dropdown.css'],
+        mode: ['extract', 'ember-power-calendar.css'],
       }),
     ],
   },
