@@ -14,12 +14,20 @@
   "exports": {
     ".": "./dist/index.js",
     "./*": "./dist/*.js",
-    "./addon-main.js": "./addon-main.cjs"
+    "./addon-main.js": "./addon-main.cjs",
+    "./_index.less": "./_index.less",
+    "./_index.scss": "./_index.scss",
+    "./less/base.less": "./less/base.less",
+    "./scss/base.scss": "./scss/base.scss",
+    "./vendor/*": "./vendor/*"
   },
   "files": [
     "addon-main.cjs",
     "declarations",
-    "dist"
+    "dist",
+    "less",
+    "scss",
+    "vendor"
   ],
   "scripts": {
     "build": "rollup --config",
