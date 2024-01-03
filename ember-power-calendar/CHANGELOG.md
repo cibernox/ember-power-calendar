@@ -1,5 +1,14 @@
 
 
+
+## v0.22.0-beta.0 (2024-01-03)
+
+#### :boom: Breaking Change
+* [#342](https://github.com/cibernox/ember-power-calendar/pull/342) Addon to V2 ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- [@mkszepp](https://github.com/mkszepp)
+
 ## v0.21.0 (2023-11-15)
 
 #### :boom: Breaking Change
