@@ -1,0 +1,1 @@
+ember-power-calendar/CHANGELOG.md
