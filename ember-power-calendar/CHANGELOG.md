@@ -1,6 +1,15 @@
 
 
 
+
+## v0.22.0-beta.1 (2024-01-03)
+
+#### :bug: Bug Fix
+* [#343](https://github.com/cibernox/ember-power-calendar/pull/343) Fix export for scss/less files ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- [@mkszepp](https://github.com/mkszepp)
+
 ## v0.22.0-beta.0 (2024-01-03)
 
 #### :boom: Breaking Change
