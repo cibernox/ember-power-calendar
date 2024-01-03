@@ -1,26 +1,32 @@
-# ember-power-calendar
+# Ember Power Calendar
 
-[Short description of the addon.]
+[![CI](https://github.com/cibernox/ember-power-calendar/actions/workflows/ci.yml/badge.svg)](https://github.com/cibernox/ember-power-calendar/actions/workflows/ci.yml)
+[![Ember Observer Score](http://emberobserver.com/badges/ember-power-calendar.svg)](http://emberobserver.com/addons/ember-power-calendar)
+[![npm version](https://badge.fury.io/js/ember-power-calendar.svg)](https://badge.fury.io/js/ember-power-calendar)
+
+Customizable Calendar Component for Ember.
 
 ## Compatibility
 
-- Ember.js v4.8 or above
-- Embroider or ember-auto-import v2
+* Ember.js v3.28 or above
+* Ember CLI v3.28 or above
+* Node.js v16 or above
 
 ## Installation
 
-```
-ember install ember-power-calendar
-```
+`ember install ember-power-calendar`
+
 
 ## Usage
 
-[Longer description of how to use the addon in apps.]
+There are many possible ways to use it, for giving you just a taste of the API:
 
-## Contributing
+```hbs
+<PowerCalendar @selected={{this.arrival}} @onSelect={{this.onChange}} as |calendar|>
+  <calendar.Nav/>
+  <calendar.Days/>
+</PowerCalendar>
+```
 
-See the [Contributing](CONTRIBUTING.md) guide for details.
+Check the full documentation at www.ember-power-calendar.com
 
-## License
-
-This project is licensed under the [MIT License](LICENSE.md).
