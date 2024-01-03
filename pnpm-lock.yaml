@@ -168,6 +168,9 @@ importers:
       loader.js:
         specifier: ^4.7.0
         version: 4.7.0
+      memory-scroll:
+        specifier: ^1.0.2
+        version: 1.0.2
       moment:
         specifier: ^2.30.1
         version: 2.30.1
@@ -10243,6 +10246,15 @@ packages:
       map-age-cleaner: 0.1.3
       mimic-fn: 2.1.0
       p-is-promise: 2.1.0
+    dev: true
+
+  /memory-scroll@1.0.2:
+    resolution: {integrity: sha512-R88p0Mv/ih491do3iyDCD1nwufEwPa6XtnRFe44G1ML7rifR3IqzHBjzFHP33vhWQWDcnxOWj6JXjhZlDHbzyg==}
+    engines: {node: ^4.5 || 6.* || >= 7.*}
+    dependencies:
+      ember-cli-babel: 7.26.11
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /memory-streams@0.1.3:

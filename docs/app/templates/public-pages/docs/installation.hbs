@@ -6,11 +6,7 @@
 </p>
 
 <div class="highlight">
-  <pre>
-    <code class="language-text" data-lang="text">
-      $ ember install ember-power-calendar
-    </code>
-  </pre>
+  <pre class="language-command"><code class="language-command">$ ember install ember-power-calendar</code></pre>
 </div>
 
 <p>But this is not enough to put the calendar to work.</p>
@@ -56,15 +52,24 @@
 <h3>Add the styles</h3>
 
 <p>
-  This addon still requires Sass or Less, although support for people using vanilla CSS is coming.
+  If you use vanilla CSS, you need to add the following line into <code>app.js</code> or in any route/controller/component <code>.js/.ts</code> file:
 </p>
 
+<CodeBlock @language="js" @code="import 'ember-power-calendar/styles';" />
+
 <p>
-  If you are using Sass, all you need to do is import the addon styles with:
+  Instead of adding the styling in an <code>.js</code> file and depending from your build config you can also add the css in any template/component css file by using following line
+</p>
+
+{{!-- template-lint-disable no-potential-path-strings --}}
+<CodeBlock @language="css" @code="@import 'ember-power-calendar/vendor/ember-power-calendar.css';" />
+
+<p>
+  However, if you are using SASS or LESS you need to add an import statement to your styles.
 </p>
 
 <CodeSnippet @name="installation-1.scss" class="active" />
-<br>
+
 <p>
   Doing that will bring in all of the styles except those related to the size of the calendar.
   For defining the size of the calendar there is a mixin that takes the size of the cell

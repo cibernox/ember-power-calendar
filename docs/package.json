@@ -78,6 +78,7 @@
     "ember-power-calendar-moment": "^0.4.0",
     "ember-power-select": "8.0.0-beta.2",
     "moment": "^2.30.1",
+    "memory-scroll": "^1.0.2",
     "prismjs": "^1.29.0",
     "ember-prism": "^0.13.0",
     "sass": "^1.69.7",
