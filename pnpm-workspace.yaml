@@ -1,0 +1,4 @@
+packages:
+  - 'ember-power-calendar'
+  - 'test-app'
+  - 'docs'
