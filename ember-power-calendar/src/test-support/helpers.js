@@ -1,7 +1,9 @@
 import { run } from '@ember/runloop';
 import { assert } from '@ember/debug';
 import { click, settled, find } from '@ember/test-helpers';
-import { formatDate } from './utils';
+import { formatDate } from '../utils';
+
+export * from '../utils';
 
 function findCalendarElement(selector) {
   let target = find(selector);
