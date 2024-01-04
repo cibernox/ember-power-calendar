@@ -3,6 +3,18 @@
 
 
 
+
+## v0.22.0-beta.3 (2024-01-04)
+
+#### :bug: Bug Fix
+* [#347](https://github.com/cibernox/ember-power-calendar/pull/347) Fix less export & update ember-power-select / ember-basic-dropdown ([@mkszepp](https://github.com/mkszepp))
+
+#### :house: Internal
+* [#348](https://github.com/cibernox/ember-power-calendar/pull/348) Update power select ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- [@mkszepp](https://github.com/mkszepp)
+
 ## v0.22.0-beta.2 (2024-01-04)
 
 #### :boom: Breaking Change
