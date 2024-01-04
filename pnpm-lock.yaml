@@ -124,8 +124,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0(ember-source@5.4.0)(moment@2.30.1)
       ember-power-select:
-        specifier: 8.0.0-beta.3
-        version: 8.0.0-beta.3(@ember/test-helpers@3.2.1)(ember-basic-dropdown@8.0.0-beta.4)(ember-source@5.4.0)
+        specifier: 8.0.0-beta.4
+        version: 8.0.0-beta.4(@ember/test-helpers@3.2.1)(ember-basic-dropdown@8.0.0-beta.4)(ember-source@5.4.0)
       ember-prism:
         specifier: ^0.13.0
         version: 0.13.0(@babel/core@7.23.7)(ember-source@5.4.0)(webpack@5.89.0)
@@ -6646,8 +6646,8 @@ packages:
       - supports-color
     dev: true
 
-  /ember-power-select@8.0.0-beta.3(@ember/test-helpers@3.2.1)(ember-basic-dropdown@8.0.0-beta.4)(ember-source@5.4.0):
-    resolution: {integrity: sha512-c4OWjSyayqxYhpnA5jBh24fSo0fVgxcQvdD8daW9vqxLmD3OZp7QSFs5ffw+jkh98NQR7GQdHNtp0EPikERWiQ==}
+  /ember-power-select@8.0.0-beta.4(@ember/test-helpers@3.2.1)(ember-basic-dropdown@8.0.0-beta.4)(ember-source@5.4.0):
+    resolution: {integrity: sha512-r67JK4c01vNeMwOry3gTwwxFEdvji5VBKaA4ramvrzqgB4YH9UpHZHAxeUXVjKf4qCukWBRwfYNWDDAeYpeWDg==}
     peerDependencies:
       '@ember/test-helpers': ^2.9.4 || ^3.2.1
       ember-basic-dropdown: 8.0.0-beta.4
