@@ -73,8 +73,8 @@ importers:
         specifier: ^2.7.2
         version: 2.7.2(webpack@5.89.0)
       ember-basic-dropdown:
-        specifier: 8.0.0-beta.3
-        version: 8.0.0-beta.3(@ember/string@3.1.1)(@ember/test-helpers@3.2.1)(ember-source@5.4.0)(webpack@5.89.0)
+        specifier: 8.0.0-beta.4
+        version: 8.0.0-beta.4(@ember/string@3.1.1)(@ember/test-helpers@3.2.1)(ember-source@5.4.0)(webpack@5.89.0)
       ember-cli:
         specifier: ~5.4.1
         version: 5.4.1
@@ -124,8 +124,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0(ember-source@5.4.0)(moment@2.30.1)
       ember-power-select:
-        specifier: 8.0.0-beta.2
-        version: 8.0.0-beta.2(@ember/test-helpers@3.2.1)(ember-basic-dropdown@8.0.0-beta.3)(ember-source@5.4.0)
+        specifier: 8.0.0-beta.3
+        version: 8.0.0-beta.3(@ember/test-helpers@3.2.1)(ember-basic-dropdown@8.0.0-beta.4)(ember-source@5.4.0)
       ember-prism:
         specifier: ^0.13.0
         version: 0.13.0(@babel/core@7.23.7)(ember-source@5.4.0)(webpack@5.89.0)
@@ -354,8 +354,8 @@ importers:
         specifier: ^2.7.2
         version: 2.7.2(webpack@5.89.0)
       ember-basic-dropdown:
-        specifier: 8.0.0-beta.3
-        version: 8.0.0-beta.3(@ember/string@3.1.1)(@ember/test-helpers@3.2.1)(ember-source@5.4.0)(webpack@5.89.0)
+        specifier: 8.0.0-beta.4
+        version: 8.0.0-beta.4(@ember/string@3.1.1)(@ember/test-helpers@3.2.1)(ember-source@5.4.0)(webpack@5.89.0)
       ember-cli:
         specifier: ~5.4.1
         version: 5.4.1
@@ -5935,8 +5935,8 @@ packages:
       - supports-color
       - webpack
 
-  /ember-basic-dropdown@8.0.0-beta.3(@ember/string@3.1.1)(@ember/test-helpers@3.2.1)(ember-source@5.4.0)(webpack@5.89.0):
-    resolution: {integrity: sha512-PyA5OZ6VixT0HqYphTsfN0hLprTDyZyV2igbWHrJooHTjz2T9nOXo3SUFolsRxYg2Gc2gxYMHMfONbtI2gnQXA==}
+  /ember-basic-dropdown@8.0.0-beta.4(@ember/string@3.1.1)(@ember/test-helpers@3.2.1)(ember-source@5.4.0)(webpack@5.89.0):
+    resolution: {integrity: sha512-tSYJ4hclgYaUfW47+orrD/HRwzl+PYaDC5dfxIS0N/+Meb+gZ+oAFon5zwPMNNpiCoNT0dd1lNGf1MUVpk+ppg==}
     peerDependencies:
       '@ember/test-helpers': ^2.9.4 || ^3.2.1
       ember-source: ^3.28.0 || ^4.0.0 || >=5.0.0
@@ -6646,11 +6646,11 @@ packages:
       - supports-color
     dev: true
 
-  /ember-power-select@8.0.0-beta.2(@ember/test-helpers@3.2.1)(ember-basic-dropdown@8.0.0-beta.3)(ember-source@5.4.0):
-    resolution: {integrity: sha512-zk8qBlMT9UvJByzrQa3cfcOKl+WguvPbfOz+64x0K4NVi6TJJg8EM+wOk6aOg7NTxLXay7Ei4Cy2ebev8vnO3w==}
+  /ember-power-select@8.0.0-beta.3(@ember/test-helpers@3.2.1)(ember-basic-dropdown@8.0.0-beta.4)(ember-source@5.4.0):
+    resolution: {integrity: sha512-c4OWjSyayqxYhpnA5jBh24fSo0fVgxcQvdD8daW9vqxLmD3OZp7QSFs5ffw+jkh98NQR7GQdHNtp0EPikERWiQ==}
     peerDependencies:
       '@ember/test-helpers': ^2.9.4 || ^3.2.1
-      ember-basic-dropdown: 8.0.0-beta.3
+      ember-basic-dropdown: 8.0.0-beta.4
       ember-source: ^3.28.0 || ^4.0.0 || >=5.0.0
     dependencies:
       '@babel/core': 7.23.7
@@ -6661,7 +6661,7 @@ packages:
       '@embroider/util': 1.12.1(ember-source@5.4.0)
       decorator-transforms: 1.0.1(@babel/core@7.23.7)
       ember-assign-helper: 0.4.0
-      ember-basic-dropdown: 8.0.0-beta.3(@ember/string@3.1.1)(@ember/test-helpers@3.2.1)(ember-source@5.4.0)(webpack@5.89.0)
+      ember-basic-dropdown: 8.0.0-beta.4(@ember/string@3.1.1)(@ember/test-helpers@3.2.1)(ember-source@5.4.0)(webpack@5.89.0)
       ember-concurrency: 3.1.1(@babel/core@7.23.7)(ember-source@5.4.0)
       ember-source: 5.4.0(@babel/core@7.23.7)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
       ember-truth-helpers: 4.0.3(ember-source@5.4.0)
