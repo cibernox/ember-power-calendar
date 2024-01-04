@@ -6,7 +6,7 @@
     {{#if (has-block)}}
       {{yield @calendar}}
     {{else}}
-      {{power-calendar-format-date @calendar.center this.format locale=@calendar.locale}}
+      {{(power-calendar-format-date @calendar.center this.format locale=@calendar.locale)}}
     {{/if}}
   </div>
   {{#if @calendar.actions.changeCenter}}
