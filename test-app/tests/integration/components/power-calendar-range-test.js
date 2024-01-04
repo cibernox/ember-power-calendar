@@ -5,8 +5,7 @@ import { render, click } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { run } from '@ember/runloop';
 import { isSame } from 'ember-power-calendar/test-support/helpers';
-
-import ownProp from 'ember-power-calendar/-private/utils/own-prop';
+import ownProp from 'test-app/utils/own-prop';
 
 module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   setupRenderingTest(hooks);

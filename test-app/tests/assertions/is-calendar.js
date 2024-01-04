@@ -1,4 +1,4 @@
-import ownProp from 'ember-power-calendar/-private/utils/own-prop';
+import ownProp from 'test-app/utils/own-prop';
 
 export default function isCalendar(calendar, message) {
   let result =
