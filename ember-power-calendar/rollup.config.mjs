@@ -10,7 +10,7 @@ const addon = new Addon({
 export default [
   // Compile scss file for js import
   {
-    input: './_index.scss',
+    input: './ember-power-calendar.scss',
     output: {
       file: './vendor/ember-power-calendar.js',
       assetFileNames: '[name][extname]',
