@@ -76,7 +76,7 @@
     "ember-cli-sass": "^11.0.1",
     "ember-code-snippet": "git+https://git@github.com/ef4/ember-code-snippet.git#d054b697098ad52481c94a952ccf8d89ba1f25fe",
     "ember-power-calendar-moment": "^0.5.0",
-    "ember-power-select": "8.0.0-beta.3",
+    "ember-power-select": "8.0.0-beta.4",
     "moment": "^2.30.1",
     "memory-scroll": "^1.0.2",
     "prismjs": "^1.29.0",
