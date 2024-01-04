@@ -2,6 +2,15 @@
 
 
 
+
+## v0.22.0-beta.2 (2024-01-04)
+
+#### :boom: Breaking Change
+* [#345](https://github.com/cibernox/ember-power-calendar/pull/345) Move test import `ember-power-calendar/test-support` to `ember-power-calendar/test-support/helpers` ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- [@mkszepp](https://github.com/mkszepp)
+
 ## v0.22.0-beta.1 (2024-01-03)
 
 #### :bug: Bug Fix
