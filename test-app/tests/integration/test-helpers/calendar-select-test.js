@@ -1,8 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
-import { calendarSelect } from 'ember-power-calendar/test-support';
+import { hbs } from 'ember-cli-htmlbars';
+import { calendarSelect } from 'ember-power-calendar/test-support/helpers';
 
 module('Test Support | Helper | calendarSelect', function (hooks) {
   setupRenderingTest(hooks);

@@ -1,13 +1,12 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, focus, triggerKeyEvent } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { hbs } from 'ember-cli-htmlbars';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
 import require from 'require';
 import { importSync } from '@embroider/macros';
-
-import ownProp from 'ember-power-calendar/-private/utils/own-prop';
+import ownProp from 'test-app/utils/own-prop';
 
 const dateLibrary = require.has('luxon') ? 'luxon' : 'moment';
 

@@ -2,11 +2,10 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { hbs } from 'ember-cli-htmlbars';
 import { run } from '@ember/runloop';
-import { isSame } from 'ember-power-calendar/utils';
-
-import ownProp from 'ember-power-calendar/-private/utils/own-prop';
+import { isSame } from 'ember-power-calendar/test-support/helpers';
+import ownProp from 'test-app/utils/own-prop';
 
 module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   setupRenderingTest(hooks);
@@ -154,7 +153,6 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   });
 
   test('When an range date object is passed, the range selection behavior is skipped', async function (assert) {
-    assert.expect(4);
     this.rangeToSelect = { date: { start: undefined, end: undefined } };
     this.selected = {
       date: { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) },

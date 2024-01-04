@@ -10,8 +10,6 @@ import {
   normalizeDuration,
 } from '../utils';
 import { assert } from '@ember/debug';
-
-import ownProp from '../-private/utils/own-prop';
 import PowerCalendarRangeComponent from './power-calendar-range/days';
 
 export default class extends CalendarComponent {
@@ -172,4 +170,8 @@ export default class extends CalendarComponent {
 
     return normalizeRangeActionValue({ date: { start: day.date, end: null } });
   }
+}
+
+function ownProp(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
 }

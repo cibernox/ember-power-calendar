@@ -4,7 +4,7 @@ import { visit, click } from '@ember/test-helpers';
 import {
   calendarCenter,
   calendarSelect,
-} from 'ember-power-calendar/test-support';
+} from 'ember-power-calendar/test-support/helpers';
 
 module('Acceptance | helpers | calendarCenter', function (hooks) {
   setupApplicationTest(hooks);

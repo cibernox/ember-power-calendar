@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { add } from 'ember-power-calendar/utils';
+import { add } from 'ember-power-calendar/test-support/helpers';
 
 module('Unit | Utility | date-utils', function () {
   test('can add seconds', function (assert) {
