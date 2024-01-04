@@ -15,7 +15,7 @@
     ".": "./dist/index.js",
     "./*": "./dist/*.js",
     "./addon-main.js": "./addon-main.cjs",
-    "./_index.less": "./_index.less",
+    "./ember-power-calendar.less": "./ember-power-calendar.less",
     "./_index.scss": "./_index.scss",
     "./less/base.less": "./less/base.less",
     "./scss/base.scss": "./scss/base.scss",
@@ -23,10 +23,10 @@
   },
   "files": [
     "_index.scss",
-    "_index.less",
     "addon-main.cjs",
     "declarations",
     "dist",
+    "ember-power-calendar.less",
     "less",
     "scss",
     "vendor"
