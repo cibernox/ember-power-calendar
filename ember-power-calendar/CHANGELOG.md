@@ -4,6 +4,15 @@
 
 
 
+
+## v0.22.0-beta.4 (2024-01-09)
+
+#### :rocket: Enhancement
+* [#349](https://github.com/cibernox/ember-power-calendar/pull/349) Add option to use `ember-power-calendar.scss` ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- [@mkszepp](https://github.com/mkszepp)
+
 ## v0.22.0-beta.3 (2024-01-04)
 
 #### :bug: Bug Fix
