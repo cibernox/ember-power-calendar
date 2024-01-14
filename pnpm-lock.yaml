@@ -223,8 +223,8 @@ importers:
         specifier: ^1.13.4
         version: 1.13.4
       ember-assign-helper:
-        specifier: ^0.4.0
-        version: 0.4.0
+        specifier: ^0.5.0
+        version: 0.5.0(ember-source@5.4.0)
       ember-concurrency:
         specifier: ^3.1.1
         version: 3.1.1(@babel/core@7.23.7)(ember-source@5.4.0)
@@ -5891,6 +5891,18 @@ packages:
       ember-cli-htmlbars: 6.3.0
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /ember-assign-helper@0.5.0(ember-source@5.4.0):
+    resolution: {integrity: sha512-swH7FqmqB5iSeoKlU6X41iqw5HQ+EdBDyFDXmwytTyUd5GRvfGfZUn2SMUUGdyvo5FxXJWqMJ0rBT//EcGC0+Q==}
+    peerDependencies:
+      ember-source: ^3.28.0 || ^4.0.0 || >=5.0.0
+    dependencies:
+      '@embroider/addon-shim': 1.8.7
+      ember-source: 5.4.0(@babel/core@7.23.7)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /ember-auto-import@2.7.2(webpack@5.89.0):
     resolution: {integrity: sha512-pkWIljmJClYL17YBk8FjO7NrZPQoY9v0b+FooJvaHf/xlDQIBYVP7OaDHbNuNbpj7+wAwSDAnnwxjCoLsmm4cw==}
@@ -8896,6 +8908,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: true
