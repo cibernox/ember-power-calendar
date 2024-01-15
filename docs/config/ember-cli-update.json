@@ -11,8 +11,7 @@
           "codemodsSource": "ember-app-codemods-manifest@1",
           "isBaseBlueprint": true,
           "options": [
-            "--no-welcome",
-            "--ci-provider=travis"
+            "--no-welcome"
           ]
         }
       ]
