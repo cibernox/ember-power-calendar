@@ -3,6 +3,8 @@ import { assert } from '@ember/debug';
 import { click, settled, find } from '@ember/test-helpers';
 import { formatDate } from '../utils';
 
+export default {};
+
 export * from '../utils';
 
 function findCalendarElement(selector) {
