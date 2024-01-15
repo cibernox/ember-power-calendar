@@ -100,7 +100,8 @@
       "./components/power-calendar/nav.js": "./dist/_app_/components/power-calendar/nav.js",
       "./helpers/ember-power-calendar-day-classes.js": "./dist/_app_/helpers/ember-power-calendar-day-classes.js",
       "./helpers/power-calendar-format-date.js": "./dist/_app_/helpers/power-calendar-format-date.js",
-      "./services/power-calendar.js": "./dist/_app_/services/power-calendar.js"
+      "./services/power-calendar.js": "./dist/_app_/services/power-calendar.js",
+      "./test-support/helpers.js": "./dist/_app_/test-support/helpers.js"
     }
   },
   "peerDependencies": {
