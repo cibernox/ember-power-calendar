@@ -22,7 +22,9 @@ module.exports = {
   env: {
     browser: true,
   },
-  rules: {},
+  rules: {
+    'ember/no-runloop': 0,
+  },
   overrides: [
     // node files
     {
