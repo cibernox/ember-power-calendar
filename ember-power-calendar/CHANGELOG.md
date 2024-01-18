@@ -5,6 +5,15 @@
 
 
 
+
+## v0.22.0-beta.5 (2024-01-18)
+
+#### :house: Internal
+* [#365](https://github.com/cibernox/ember-power-calendar/pull/365) Update ember-cli to 5.5 ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- [@mkszepp](https://github.com/mkszepp)
+
 ## v0.22.0-beta.4 (2024-01-09)
 
 #### :rocket: Enhancement
