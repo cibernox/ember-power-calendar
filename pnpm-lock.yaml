@@ -121,8 +121,8 @@ importers:
         specifier: ^8.2.0
         version: 8.2.0(ember-source@5.5.0)
       ember-power-calendar-moment:
-        specifier: ^0.5.0
-        version: 0.5.0(ember-source@5.5.0)(moment@2.30.1)
+        specifier: ^0.5.1
+        version: 0.5.1(ember-source@5.5.0)(moment@2.30.1)
       ember-power-select:
         specifier: 8.0.0-beta.5
         version: 8.0.0-beta.5(@babel/core@7.23.7)(@ember/test-helpers@3.2.1)(ember-basic-dropdown@8.0.0-beta.5)(ember-source@5.5.0)
@@ -399,8 +399,8 @@ importers:
         specifier: ^8.2.0
         version: 8.2.0(ember-source@5.5.0)
       ember-power-calendar-moment:
-        specifier: ^0.5.0
-        version: 0.5.0(ember-source@5.5.0)(moment@2.30.1)
+        specifier: ^0.5.1
+        version: 0.5.1(ember-source@5.5.0)(moment@2.30.1)
       ember-qunit:
         specifier: ^8.0.2
         version: 8.0.2(@ember/test-helpers@3.2.1)(ember-source@5.5.0)(qunit@2.20.0)
@@ -539,7 +539,7 @@ packages:
     resolution: {integrity: sha512-lN85QRR+5IbYrMWM6Y4pE/noaQtg4pNiqeNGX60eqOfo6gtEj6uw/JagelB8vVztSd7R6M5n1+PQkDbHbBRU4g==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.23.0
+      '@babel/types': 7.23.6
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.21
       jsesc: 2.5.2
@@ -1680,7 +1680,7 @@ packages:
       '@babel/helper-hoist-variables': 7.22.5
       '@babel/helper-split-export-declaration': 7.22.6
       '@babel/parser': 7.23.6
-      '@babel/types': 7.23.0
+      '@babel/types': 7.23.6
       debug: 4.3.4
       globals: 11.12.0
     transitivePeerDependencies:
@@ -6735,8 +6735,8 @@ packages:
       - supports-color
     dev: true
 
-  /ember-power-calendar-moment@0.5.0(ember-source@5.5.0)(moment@2.30.1):
-    resolution: {integrity: sha512-+DtIpJaoXJrCJI05NiMANYvMf2xDLZ8i4CM7D4HGYr1e3M9GzVNN/5N7Uw1uB8g1eZAJhQKEex6LjKtkNYHWIw==}
+  /ember-power-calendar-moment@0.5.1(ember-source@5.5.0)(moment@2.30.1):
+    resolution: {integrity: sha512-l8poQV9/8XVsZvQHXhUDNSC7aGwCR5fnphpswm/83UvSK7iNCf2cVTmfDFZk7GCG2oPhgyX+IF2J1pUc8gQvjQ==}
     peerDependencies:
       ember-source: ^3.28.0 || ^4.0.0 || >=5.0.0
       moment: ^2.30.1
