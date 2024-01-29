@@ -54,7 +54,7 @@
     "ember-load-initializers": "^2.1.2",
     "ember-modifier": "^4.1.0",
     "ember-page-title": "^8.2.0",
-    "ember-power-calendar-moment": "^0.5.0",
+    "ember-power-calendar-moment": "^0.5.1",
     "ember-qunit": "^8.0.2",
     "ember-resolver": "^11.0.1",
     "ember-source": "~5.5.0",
