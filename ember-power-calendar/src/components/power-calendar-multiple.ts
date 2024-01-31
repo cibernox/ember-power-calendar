@@ -1,34 +1,49 @@
-import PowerCalendarComponent, {
-  type CalendarDay,
-  type PowerCalendarAPI,
-  type PowerCalendarArgs,
-  type PowerCalendarDay,
-  type PowerCalendarSignature,
-  type TCalendarType,
-} from './power-calendar.ts';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { guidFor } from '@ember/object/internals';
+import { inject as service } from '@ember/service';
+import { assert } from '@ember/debug';
+import { isArray } from '@ember/array';
 import { action } from '@ember/object';
+import { task } from 'ember-concurrency';
+import PowerCalendarMultipleDaysComponent from './power-calendar-multiple/days.ts';
+import PowerCalendarNavComponent from './power-calendar/nav.ts';
+import { publicActionsObject } from '../-private/utils.ts';
 import {
   normalizeDate,
   isSame,
   normalizeMultipleActionValue,
+  normalizeCalendarValue,
 } from '../utils.ts';
-import { assert } from '@ember/debug';
-import { isArray } from '@ember/array';
-import PowerCalendarMultipleDaysComponent from './power-calendar-multiple/days.ts';
+import type {
+  CalendarAPI,
+  CalendarDay,
+  PowerCalendarAPI,
+  PowerCalendarActions,
+  PowerCalendarArgs,
+  PowerCalendarDay,
+  PowerCalendarSignature,
+  SelectedDays,
+  TCalendarType,
+} from './power-calendar.ts';
+import type { ComponentLike } from '@glint/template';
+import type PowerCalendarService from '../services/power-calendar.ts';
 
 export interface PowerCalendarMultipleAPI
   extends Omit<PowerCalendarAPI, 'selected'> {
   selected?: Date[];
 }
 
+export type TPowerCalendarMultipleOnSelect = (
+  day: PowerCalendarDay[],
+  calendar: PowerCalendarMultipleAPI,
+  event: MouseEvent,
+) => void;
+
 interface PowerCalendarMultipleArgs
   extends Omit<PowerCalendarArgs, 'selected' | 'onSelect'> {
   selected?: Date[];
-  onSelect?: (
-    day: PowerCalendarDay[],
-    calendar: PowerCalendarMultipleAPI,
-    event: MouseEvent,
-  ) => void;
+  onSelect?: TPowerCalendarMultipleOnSelect;
 }
 
 interface PowerCalendarMultipleSignature
@@ -36,9 +51,34 @@ interface PowerCalendarMultipleSignature
   Args: PowerCalendarMultipleArgs;
 }
 
-export default class PowerCalendarMultipleComponent extends PowerCalendarComponent<PowerCalendarMultipleSignature> {
-  daysComponent = PowerCalendarMultipleDaysComponent;
-  _calendarType: TCalendarType = 'multiple';
+export default class PowerCalendarMultipleComponent extends Component<PowerCalendarMultipleSignature> {
+  @service declare powerCalendar: PowerCalendarService;
+
+  @tracked center = null;
+  @tracked _calendarType: TCalendarType = 'multiple';
+  @tracked _selected?: SelectedDays;
+
+  navComponent: ComponentLike<any> = PowerCalendarNavComponent;
+  daysComponent: ComponentLike<any> = PowerCalendarMultipleDaysComponent;
+
+  // Lifecycle hooks
+  constructor(owner: unknown, args: PowerCalendarMultipleArgs) {
+    super(owner, args);
+    this.registerCalendar();
+    if (this.args.onInit) {
+      this.args.onInit(this.publicAPI);
+    }
+  }
+
+  get publicActions(): PowerCalendarActions {
+    return publicActionsObject(
+      this.args.onSelect,
+      this.select,
+      this.args.onCenterChange,
+      this.changeCenterTask,
+      this.currentCenter,
+    );
+  }
 
   get selected(): Date[] | undefined {
     if (this._selected) {
@@ -50,7 +90,11 @@ export default class PowerCalendarMultipleComponent extends PowerCalendarCompone
     return isArray(value) ? value.map(normalizeDate) : value;
   }
 
-  get currentCenter() {
+  set selected(v: SelectedDays) {
+    this._selected = normalizeDate(v as Date | undefined);
+  }
+
+  get currentCenter(): Date {
     let center = this.args.center;
     if (!center) {
       center = (this.selected || [])[0] || this.powerCalendar.getDate();
@@ -58,13 +102,40 @@ export default class PowerCalendarMultipleComponent extends PowerCalendarCompone
     return normalizeDate(center);
   }
 
+  get publicAPI(): PowerCalendarAPI {
+    return {
+      uniqueId: guidFor(this),
+      type: this._calendarType,
+      selected: this.selected,
+      loading: this.changeCenterTask.isRunning,
+      center: this.currentCenter,
+      locale: this.args.locale || this.powerCalendar.locale,
+      actions: this.publicActions,
+    };
+  }
+
+  get tagWithDefault(): string {
+    if (this.args.tag === undefined || this.args.tag === null) {
+      return 'div';
+    }
+    return this.args.tag;
+  }
+
+  // Tasks
+  changeCenterTask = task(
+    async (newCenter: Date, calendar: PowerCalendarAPI, e: MouseEvent) => {
+      assert(
+        "You attempted to move the center of a calendar that doesn't receive an `@onCenterChange` action.",
+        typeof this.args.onCenterChange === 'function',
+      );
+      const value = normalizeCalendarValue({ date: newCenter });
+      await this.args.onCenterChange(value, calendar, e);
+    },
+  );
+
   // Actions
   @action
-  select(
-    dayOrDays: CalendarDay,
-    calendar: PowerCalendarMultipleAPI,
-    e: MouseEvent,
-  ) {
+  select(dayOrDays: CalendarDay, calendar: CalendarAPI, e: MouseEvent) {
     assert(
       `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`,
       isArray(dayOrDays) ||
@@ -82,10 +153,15 @@ export default class PowerCalendarMultipleComponent extends PowerCalendarCompone
     if (this.args.onSelect) {
       this.args.onSelect(
         this._buildCollection((days as PowerCalendarDay[]) ?? []),
-        calendar,
+        calendar as PowerCalendarMultipleAPI,
         e,
       );
     }
+  }
+
+  @action
+  destroyElement() {
+    this.unregisterCalendar();
   }
 
   // Methods
@@ -104,5 +180,23 @@ export default class PowerCalendarMultipleComponent extends PowerCalendarCompone
     }
 
     return normalizeMultipleActionValue({ date: selected });
+  }
+
+  // Methods
+  registerCalendar() {
+    if (window) {
+      // @ts-expect-error Property '__powerCalendars'
+      window.__powerCalendars = window.__powerCalendars || {}; // TODO: weakmap??
+      // @ts-expect-error Property '__powerCalendars'
+      window.__powerCalendars[this.publicAPI.uniqueId] = this;
+    }
+  }
+
+  unregisterCalendar() {
+    // @ts-expect-error Property '__powerCalendars'
+    if (window && window.__powerCalendars?.[guidFor(this)]) {
+      // @ts-expect-error Property '__powerCalendars'
+      delete window.__powerCalendars[guidFor(this)];
+    }
   }
 }

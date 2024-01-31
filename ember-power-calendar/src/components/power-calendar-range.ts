@@ -1,5 +1,13 @@
+import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { guidFor } from '@ember/object/internals';
+import { assert } from '@ember/debug';
+import { task } from 'ember-concurrency';
+import PowerCalendarRangeComponent from './power-calendar-range/days.ts';
+import PowerCalendarNavComponent from './power-calendar/nav.ts';
+import { publicActionsObject } from '../-private/utils.ts';
 import {
   normalizeDate,
   normalizeRangeActionValue,
@@ -7,16 +15,21 @@ import {
   isAfter,
   isBefore,
   normalizeDuration,
+  normalizeCalendarValue,
 } from '../utils.ts';
-import { assert } from '@ember/debug';
-import PowerCalendarRangeComponent from './power-calendar-range/days.ts';
-import PowerCalendarComponent, {
-  type PowerCalendarAPI,
-  type PowerCalendarSignature,
-  type PowerCalendarArgs,
-  type PowerCalendarDay,
-  type TCalendarType,
+import type {
+  PowerCalendarAPI,
+  PowerCalendarSignature,
+  PowerCalendarArgs,
+  PowerCalendarDay,
+  TCalendarType,
+  SelectedDays,
+  PowerCalendarActions,
+  CalendarDay,
+  CalendarAPI,
 } from './power-calendar.ts';
+import type { ComponentLike } from '@glint/template';
+import type PowerCalendarService from '../services/power-calendar.ts';
 
 export interface SelectedPowerCalendarRange {
   start?: Date;
@@ -29,17 +42,21 @@ export interface PowerCalendarRangeDay extends Omit<PowerCalendarDay, 'date'> {
 
 export const DAY_IN_MS = 86400000;
 
+export type TPowerCalendarRangeOnSelect = (
+  day: {
+    date: SelectedPowerCalendarRange;
+  },
+  calendar: PowerCalendarRangeAPI,
+  event: MouseEvent,
+) => void;
+
 interface PowerCalendarRangeArgs
   extends Omit<PowerCalendarArgs, 'selected' | 'onSelect'> {
   selected?: SelectedPowerCalendarRange;
   minRange?: number;
   maxRange?: number;
   proximitySelection?: boolean;
-  onSelect?: (
-    day: { date: SelectedPowerCalendarRange },
-    calendar: PowerCalendarRangeAPI,
-    event: MouseEvent,
-  ) => void;
+  onSelect?: TPowerCalendarRangeOnSelect;
 }
 
 interface PowerCalendarRangeSignature
@@ -50,34 +67,37 @@ interface PowerCalendarRangeSignature
 export interface PowerCalendarRangeAPI
   extends Omit<PowerCalendarAPI, 'selected'> {
   selected?: SelectedPowerCalendarRange;
-  minRange?: number;
-  maxRange?: number;
+  minRange?: number | null;
+  maxRange?: number | null;
 }
 
-export default class PowerCalendarRange extends PowerCalendarComponent<PowerCalendarRangeSignature> {
-  daysComponent = PowerCalendarRangeComponent;
+export default class PowerCalendarRange extends Component<PowerCalendarRangeSignature> {
+  @service declare powerCalendar: PowerCalendarService;
+
+  @tracked center = null;
   @tracked _calendarType: TCalendarType = 'range';
+  @tracked _selected?: SelectedDays;
 
-  get proximitySelection(): boolean {
-    return this.args.proximitySelection !== undefined
-      ? this.args.proximitySelection
-      : false;
+  navComponent: ComponentLike<any> = PowerCalendarNavComponent;
+  daysComponent: ComponentLike<any> = PowerCalendarRangeComponent;
+
+  // Lifecycle hooks
+  constructor(owner: unknown, args: PowerCalendarRangeArgs) {
+    super(owner, args);
+    this.registerCalendar();
+    if (this.args.onInit) {
+      this.args.onInit(this.publicAPI);
+    }
   }
 
-  get minRange(): number | null {
-    if (this.args.minRange !== undefined) {
-      return this._formatRange(this.args.minRange);
-    }
-
-    return DAY_IN_MS;
-  }
-
-  get maxRange(): number | null {
-    if (this.args.maxRange !== undefined) {
-      return this._formatRange(this.args.maxRange);
-    }
-
-    return null;
+  get publicActions(): PowerCalendarActions {
+    return publicActionsObject(
+      this.args.onSelect,
+      this.select,
+      this.args.onCenterChange,
+      this.changeCenterTask,
+      this.currentCenter,
+    );
   }
 
   get selected(): SelectedPowerCalendarRange {
@@ -105,7 +125,7 @@ export default class PowerCalendarRange extends PowerCalendarComponent<PowerCale
     };
   }
 
-  get currentCenter() {
+  get currentCenter(): Date {
     let center = this.args.center;
     if (!center) {
       center = this.selected.start || this.powerCalendar.getDate();
@@ -113,22 +133,65 @@ export default class PowerCalendarRange extends PowerCalendarComponent<PowerCale
     return normalizeDate(center);
   }
 
-  get publicAPI() {
-    const rangeOnlyAPI = {
+  get publicAPI(): PowerCalendarRangeAPI {
+    return {
+      uniqueId: guidFor(this),
+      type: this._calendarType,
+      selected: this.selected,
+      loading: this.changeCenterTask.isRunning,
+      center: this.currentCenter,
+      locale: this.args.locale || this.powerCalendar.locale,
+      actions: this.publicActions,
       minRange: this.minRange,
       maxRange: this.maxRange,
     };
-    return Object.assign(rangeOnlyAPI, this._publicAPI);
   }
+
+  get tagWithDefault(): string {
+    if (this.args.tag === undefined || this.args.tag === null) {
+      return 'div';
+    }
+    return this.args.tag;
+  }
+
+  get proximitySelection(): boolean {
+    return this.args.proximitySelection !== undefined
+      ? this.args.proximitySelection
+      : false;
+  }
+
+  get minRange(): number | null {
+    if (this.args.minRange !== undefined) {
+      return this._formatRange(this.args.minRange);
+    }
+
+    return DAY_IN_MS;
+  }
+
+  get maxRange(): number | null {
+    if (this.args.maxRange !== undefined) {
+      return this._formatRange(this.args.maxRange);
+    }
+
+    return null;
+  }
+
+  // Tasks
+  changeCenterTask = task(
+    async (newCenter: Date, calendar: PowerCalendarRangeAPI, e: MouseEvent) => {
+      assert(
+        "You attempted to move the center of a calendar that doesn't receive an `@onCenterChange` action.",
+        typeof this.args.onCenterChange === 'function',
+      );
+      const value = normalizeCalendarValue({ date: newCenter });
+      await this.args.onCenterChange(value, calendar, e);
+    },
+  );
 
   // Actions
   @action
-  select(
-    day: PowerCalendarRangeDay,
-    calendar: PowerCalendarRangeAPI,
-    e: MouseEvent,
-  ) {
-    const { date } = day;
+  select(day: CalendarDay, calendar: CalendarAPI, e: MouseEvent) {
+    const { date } = day as PowerCalendarRangeDay;
     assert(
       'date must be either a Date, or a Range',
       date &&
@@ -161,8 +224,13 @@ export default class PowerCalendarRange extends PowerCalendarComponent<PowerCale
     }
 
     if (this.args.onSelect) {
-      this.args.onSelect(range, calendar, e);
+      this.args.onSelect(range, calendar as PowerCalendarRangeAPI, e);
     }
+  }
+
+  @action
+  destroyElement() {
+    this.unregisterCalendar();
   }
 
   _formatRange(v: number | undefined) {
@@ -220,6 +288,24 @@ export default class PowerCalendarRange extends PowerCalendarComponent<PowerCale
     }
 
     return normalizeRangeActionValue({ date: { start: day.date, end: null } });
+  }
+
+  // Methods
+  registerCalendar() {
+    if (window) {
+      // @ts-expect-error Property '__powerCalendars'
+      window.__powerCalendars = window.__powerCalendars || {}; // TODO: weakmap??
+      // @ts-expect-error Property '__powerCalendars'
+      window.__powerCalendars[this.publicAPI.uniqueId] = this;
+    }
+  }
+
+  unregisterCalendar() {
+    // @ts-expect-error Property '__powerCalendars'
+    if (window && window.__powerCalendars?.[guidFor(this)]) {
+      // @ts-expect-error Property '__powerCalendars'
+      delete window.__powerCalendars[guidFor(this)];
+    }
   }
 }
 

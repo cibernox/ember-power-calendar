@@ -6,7 +6,7 @@ import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { assert } from '@ember/debug';
 import type { ComponentLike } from '@glint/template';
-import { add, normalizeDate, normalizeCalendarValue } from '../utils.ts';
+import { normalizeDate, normalizeCalendarValue } from '../utils.ts';
 import PowerCalendarNavComponent from './power-calendar/nav.ts';
 import PowerCalendarDaysComponent from './power-calendar/days.ts';
 import type PowerCalendarService from '../services/power-calendar.ts';
@@ -17,6 +17,7 @@ import type {
   SelectedPowerCalendarRange,
 } from './power-calendar-range.ts';
 import type { PowerCalendarMultipleAPI } from './power-calendar-multiple.ts';
+import { publicActionsObject } from '../-private/utils.ts';
 
 export type TCalendarType = 'multiple' | 'range' | 'single';
 export type TPowerCalendarMoveCenterUnit = 'year' | 'month';
@@ -56,6 +57,12 @@ export interface PowerCalendarActions {
   select?: (day: CalendarDay, calendar: CalendarAPI, event: MouseEvent) => void;
 }
 
+export type TPowerCalendarOnSelect = (
+  day: CalendarDay,
+  calendar: CalendarAPI,
+  event: MouseEvent,
+) => void;
+
 export interface PowerCalendarArgs {
   daysComponent?: string | ComponentLike<any>;
   locale: string;
@@ -66,21 +73,11 @@ export interface PowerCalendarArgs {
     event: MouseEvent,
   ) => void;
   onInit?: (calendar: PowerCalendarAPI) => void;
-  onSelect?: (
-    day: CalendarDay,
-    calendar: CalendarAPI,
-    event: MouseEvent,
-  ) => void;
+  onSelect?: TPowerCalendarOnSelect;
   selected?: SelectedDays;
   center?: Date;
   tag?: string;
 }
-
-// interface WindowWithCalendar extends Window {
-//   __powerCalendars?: Record<string, PowerCalendarComponent>;
-// }
-
-// declare var window: WindowWithCalendar;
 
 export type CalendarDay =
   | PowerCalendarDay
@@ -109,9 +106,7 @@ export interface PowerCalendarSignature {
   };
 }
 
-export default class PowerCalendarComponent<T> extends Component<
-  T & PowerCalendarSignature
-> {
+export default class PowerCalendarComponent extends Component<PowerCalendarSignature> {
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked center = null;
@@ -131,25 +126,13 @@ export default class PowerCalendarComponent<T> extends Component<
   }
 
   get publicActions(): PowerCalendarActions {
-    const actions: PowerCalendarActions = {};
-    if (this.args.onSelect) {
-      actions.select = (...args) => this.select(...args);
-    }
-    if (this.args.onCenterChange) {
-      const changeCenter = (
-        newCenter: Date,
-        calendar: PowerCalendarAPI,
-        e: MouseEvent,
-      ) => {
-        return this.changeCenterTask.perform(newCenter, calendar, e);
-      };
-      actions.changeCenter = changeCenter;
-      actions.moveCenter = (step, unit, calendar, e) => {
-        const newCenter = add(this.currentCenter, step, unit);
-        return changeCenter(newCenter, calendar, e);
-      };
-    }
-    return actions;
+    return publicActionsObject(
+      this.args.onSelect,
+      this.select,
+      this.args.onCenterChange,
+      this.changeCenterTask,
+      this.currentCenter,
+    );
   }
 
   get selected(): SelectedDays {
@@ -164,7 +147,7 @@ export default class PowerCalendarComponent<T> extends Component<
     this._selected = normalizeDate(v as Date | undefined);
   }
 
-  get currentCenter() {
+  get currentCenter(): Date {
     let center = this.args.center;
     if (!center) {
       center = (this.selected as Date) || this.powerCalendar.getDate();
@@ -172,7 +155,7 @@ export default class PowerCalendarComponent<T> extends Component<
     return normalizeDate(center);
   }
 
-  get publicAPI() {
+  get publicAPI(): PowerCalendarAPI {
     return this._publicAPI;
   }
 
@@ -188,24 +171,11 @@ export default class PowerCalendarComponent<T> extends Component<
     };
   }
 
-  get tagWithDefault() {
+  get tagWithDefault(): string {
     if (this.args.tag === undefined || this.args.tag === null) {
       return 'div';
     }
     return this.args.tag;
-  }
-
-  // Actions
-  @action
-  select(day: CalendarDay, calendar: PowerCalendarAPI, e: MouseEvent) {
-    if (this.args.onSelect) {
-      this.args.onSelect(day, calendar, e);
-    }
-  }
-
-  @action
-  destroyElement() {
-    this.unregisterCalendar();
   }
 
   // Tasks
@@ -219,6 +189,19 @@ export default class PowerCalendarComponent<T> extends Component<
       await this.args.onCenterChange(value, calendar, e);
     },
   );
+
+  // Actions
+  @action
+  select(day: CalendarDay, calendar: PowerCalendarAPI, e: MouseEvent) {
+    if (this.args.onSelect) {
+      this.args.onSelect(day, calendar, e);
+    }
+  }
+
+  @action
+  destroyElement() {
+    this.unregisterCalendar();
+  }
 
   // Methods
   registerCalendar() {
