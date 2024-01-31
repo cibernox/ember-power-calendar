@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { get, action } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { assert } from '@ember/debug';
@@ -21,20 +21,43 @@ import {
   startOf,
   startOfWeek,
   withLocale,
-} from '../../utils';
+} from '../../utils.ts';
+import type { CalendarAPI, PowerCalendarDay } from '../power-calendar.ts';
+import type PowerCalendarService from '../../services/power-calendar.ts';
 
 const WEEK_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-export default class extends Component {
-  @service('power-calendar') powerCalendarService;
+export interface PowerCalendarDaysArgs {
+  calendar: CalendarAPI;
+  dayClass?: string;
+  disabledDates?: Array<Date | string>;
+  maxDate?: Date;
+  minDate?: Date;
+  selected?: Date;
+  showDaysAround?: boolean;
+  startOfWeek?: string;
+  center?: Date;
+  weekdayFormat?: 'min' | 'short' | 'long';
+}
 
-  @tracked focusedId = undefined;
+export interface PowerCalendarDaysSignature {
+  Element: HTMLElement;
+  Args: PowerCalendarDaysArgs;
+  Blocks: {
+    default: [day: PowerCalendarDay, calendar: CalendarAPI, weeks: string[]];
+  };
+}
 
-  get weekdayFormat() {
+export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCalendarDaysSignature> {
+  @service declare powerCalendar: PowerCalendarService;
+
+  @tracked focusedId: string | null = null;
+
+  get weekdayFormat(): string {
     return this.args.weekdayFormat || 'short'; // "min" | "short" | "long"
   }
 
-  get showDaysAround() {
+  get showDaysAround(): boolean {
     return this.args.showDaysAround !== undefined
       ? this.args.showDaysAround
       : true;
@@ -52,7 +75,7 @@ export default class extends Component {
     return withLocale(this.args.calendar.locale, getWeekdays);
   }
 
-  get localeStartOfWeek() {
+  get localeStartOfWeek(): number {
     let forcedStartOfWeek = this.args.startOfWeek;
     if (forcedStartOfWeek) {
       return parseInt(forcedStartOfWeek, 10);
@@ -62,17 +85,21 @@ export default class extends Component {
 
   get weekdaysNames() {
     let { localeStartOfWeek, weekdayFormat } = this;
-    let format = `weekdays${
-      weekdayFormat === 'long' ? '' : weekdayFormat === 'min' ? 'Min' : 'Short'
-    }`;
-    let weekdaysNames = this[format];
+    let weekdaysNames;
+    if (weekdayFormat === 'long') {
+      weekdaysNames = this.weekdays;
+    } else if (weekdayFormat === 'min') {
+      weekdaysNames = this.weekdaysMin;
+    } else if (weekdayFormat === 'min') {
+      weekdaysNames = this.weekdaysShort;
+    }
     return weekdaysNames
       .slice(localeStartOfWeek)
       .concat(weekdaysNames.slice(0, localeStartOfWeek));
   }
 
   get days() {
-    let today = this.powerCalendarService.getDate();
+    let today = this.powerCalendar.getDate();
     let lastDay = this.lastDay();
     let day = this.firstDay();
     let days = [];
@@ -93,7 +120,7 @@ export default class extends Component {
         daysOfWeek = daysOfWeek.filter((d) => d.isCurrentMonth);
       }
       weeks.push({
-        id: `week-of-${daysOfWeek[0].id}`,
+        id: `week-of-${daysOfWeek[0]?.id}`,
         days: daysOfWeek,
         missingDays: 7 - daysOfWeek.length,
       });
@@ -112,8 +139,8 @@ export default class extends Component {
 
   // Actions
   @action
-  handleDayFocus(e) {
-    scheduleOnce('actions', this, this._updateFocused, e.target.dataset.date);
+  handleDayFocus(e: FocusEvent) {
+    scheduleOnce('actions', this, this._updateFocused, (e.target as HTMLElement).dataset['date']);
   }
 
   @action
@@ -122,61 +149,66 @@ export default class extends Component {
   }
 
   @action
-  handleKeyDown(e) {
+  handleKeyDown(e: KeyboardEvent) {
     let { focusedId } = this;
     if (focusedId) {
       let days = this.days;
-      let day, index;
+      let day, index: number | undefined;
       for (let i = 0; i < days.length; i++) {
-        if (days[i].id === focusedId) {
+        if (days[i]?.id === focusedId) {
           index = i;
           break;
         }
       }
-      if (e.keyCode === 38) {
+      
+      if (!index) {
+        return;
+      }
+      
+      if (e.key === 'ArrowUp') {
         e.preventDefault();
         let newIndex = Math.max(index - 7, 0);
         day = days[newIndex];
-        if (day.isDisabled) {
+        if (day?.isDisabled) {
           for (let i = newIndex + 1; i <= index; i++) {
             day = days[i];
-            if (!day.isDisabled) {
+            if (!day?.isDisabled) {
               break;
             }
           }
         }
-      } else if (e.keyCode === 40) {
+      } else if (e.key === 'ArrowDown') {
         e.preventDefault();
         let newIndex = Math.min(index + 7, days.length - 1);
         day = days[newIndex];
-        if (day.isDisabled) {
+        if (day?.isDisabled) {
           for (let i = newIndex - 1; i >= index; i--) {
             day = days[i];
-            if (!day.isDisabled) {
+            if (!day?.isDisabled) {
               break;
             }
           }
         }
-      } else if (e.keyCode === 37) {
+      } else if (e.key === 'ArrowLeft') {
         day = days[Math.max(index - 1, 0)];
-        if (day.isDisabled) {
+        if (day?.isDisabled) {
           return;
         }
-      } else if (e.keyCode === 39) {
+      } else if (e.key === 'ArrowRight') {
         day = days[Math.min(index + 1, days.length - 1)];
-        if (day.isDisabled) {
+        if (day?.isDisabled) {
           return;
         }
       } else {
         return;
       }
-      this.focusedId = day.id;
-      scheduleOnce('afterRender', this, '_focusDate', day.id);
+      this.focusedId = day?.id ?? null;
+      scheduleOnce('afterRender', this, this._focusDate, day?.id ?? '');
     }
   }
 
   // Methods
-  buildDay(date, today, calendar) {
+  buildDay(date: Date, today: Date, calendar: CalendarAPI): PowerCalendarDay {
     let id = formatDate(date, 'YYYY-MM-DD');
 
     return normalizeCalendarDay({
@@ -188,18 +220,18 @@ export default class extends Component {
       isCurrentMonth: date.getMonth() === this.currentCenter.getMonth(),
       isToday: isSame(date, today, 'day'),
       isSelected: this.dayIsSelected(date, calendar),
-    });
+    } as PowerCalendarDay);
   }
 
-  buildonSelectValue(day) {
+  buildonSelectValue(day: PowerCalendarDay) {
     return day;
   }
 
-  dayIsSelected(date, calendar = this.args.calendar) {
-    return calendar.selected ? isSame(date, calendar.selected, 'day') : false;
+  dayIsSelected(date: Date, calendar: CalendarAPI = this.args.calendar) {
+    return calendar.selected ? isSame(date, calendar.selected as Date, 'day') : false;
   }
 
-  dayIsDisabled(date) {
+  dayIsDisabled(date: Date) {
     let isDisabled = !this.args.calendar.actions.select;
     if (isDisabled) {
       return true;
@@ -218,9 +250,9 @@ export default class extends Component {
 
     if (this.args.disabledDates) {
       let disabledInRange = this.args.disabledDates.some((d) => {
-        let isSameDay = isSame(date, d, 'day');
+        let isSameDay = isSame(date, d as Date, 'day');
         let isWeekDayIncludes =
-          WEEK_DAYS.indexOf(d) !== -1 && formatDate(date, 'ddd') === d;
+          WEEK_DAYS.indexOf(d as string) !== -1 && formatDate(date, 'ddd') === d;
         return isSameDay || isWeekDayIncludes;
       });
 
@@ -247,12 +279,12 @@ export default class extends Component {
     return endOfWeek(lastDay, localeStartOfWeek);
   }
 
-  _updateFocused(id) {
-    this.focusedId = id;
+  _updateFocused(id?: string | null) {
+    this.focusedId = id ?? null;
   }
 
-  _focusDate(id) {
-    let dayElement = document.querySelector(
+  _focusDate(id: string) {
+    let dayElement: HTMLElement | null = document.querySelector(
       `[data-power-calendar-id="${this.args.calendar.uniqueId}"] [data-date="${id}"]`,
     );
     if (dayElement) {
@@ -261,10 +293,10 @@ export default class extends Component {
   }
 
   @action
-  handleClick(e) {
-    let dayEl = e.target.closest('[data-date]');
+  handleClick(e: MouseEvent) {
+    let dayEl: HTMLElement | null | undefined = (e.target as HTMLElement | null)?.closest('[data-date]');
     if (dayEl) {
-      let dateStr = dayEl.dataset.date;
+      let dateStr = dayEl.dataset['date'];
       let day = this.days.find((d) => d.id === dateStr);
       if (day) {
         if (this.args.calendar.actions.select) {

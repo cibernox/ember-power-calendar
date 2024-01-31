@@ -1,3 +1,3 @@
-import { registerDateLibrary } from './utils';
+import { registerDateLibrary } from './utils.ts';
 
 export { registerDateLibrary };

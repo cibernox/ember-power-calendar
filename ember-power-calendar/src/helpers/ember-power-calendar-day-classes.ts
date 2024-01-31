@@ -1,6 +1,12 @@
 import { helper } from '@ember/component/helper';
+import type { PowerCalendarAPI, PowerCalendarDay } from '../components/power-calendar.ts';
 
-export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]) {
+export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]: [
+  PowerCalendarDay,
+  PowerCalendarAPI,
+  string[],
+  string | ((day: PowerCalendarDay, calendar: PowerCalendarAPI, weeks: string[]) => string)
+]) {
   let classes = ['ember-power-calendar-day'];
   if (calendar.actions.select) {
     classes.push('ember-power-calendar-day--interactive');

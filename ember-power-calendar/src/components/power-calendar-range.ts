@@ -1,6 +1,5 @@
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import CalendarComponent from './power-calendar';
 import {
   normalizeDate,
   normalizeRangeActionValue,
@@ -8,31 +7,69 @@ import {
   isAfter,
   isBefore,
   normalizeDuration,
-} from '../utils';
+} from '../utils.ts';
 import { assert } from '@ember/debug';
-import PowerCalendarRangeComponent from './power-calendar-range/days';
+import PowerCalendarRangeComponent from './power-calendar-range/days.ts';
+import PowerCalendarComponent, {
+  type PowerCalendarAPI,
+  type PowerCalendarSignature,
+  type PowerCalendarArgs,
+  type PowerCalendarDay,
+  type TCalendarType
+} from './power-calendar.ts';
 
-export default class extends CalendarComponent {
-  @tracked _selected;
+export interface SelectedPowerCalendarRange {
+  start?: Date;
+  end?: Date;
+}
 
+export interface PowerCalendarRangeDay extends Omit<PowerCalendarDay, 'date'> {
+  date: SelectedPowerCalendarRange;
+}
+
+export const DAY_IN_MS = 86400000;
+
+interface PowerCalendarRangeArgs extends Omit<PowerCalendarArgs, 'selected' | 'onSelect'> {
+  selected?: SelectedPowerCalendarRange;
+  minRange?: number;
+  maxRange?: number;
+  proximitySelection?: boolean;
+  onSelect?: (
+    day: { date: SelectedPowerCalendarRange },
+    calendar: PowerCalendarRangeAPI,
+    event: MouseEvent
+  ) => void;
+}
+
+interface PowerCalendarRangeSignature extends Omit<PowerCalendarSignature, 'Args'> {
+  Args: PowerCalendarRangeArgs;
+}
+
+export interface PowerCalendarRangeAPI extends Omit<PowerCalendarAPI, 'selected'> {
+  selected?: SelectedPowerCalendarRange;
+  minRange?: number;
+  maxRange?: number;
+}
+
+export default class PowerCalendarRange extends PowerCalendarComponent<PowerCalendarRangeSignature> {
   daysComponent = PowerCalendarRangeComponent;
-  _calendarType = 'range';
+  @tracked _calendarType: TCalendarType = 'range';
 
-  get proximitySelection() {
+  get proximitySelection(): boolean {
     return this.args.proximitySelection !== undefined
       ? this.args.proximitySelection
       : false;
   }
 
-  get minRange() {
+  get minRange(): number | null {
     if (this.args.minRange !== undefined) {
       return this._formatRange(this.args.minRange);
     }
 
-    return 86400000;
+    return DAY_IN_MS;
   }
 
-  get maxRange() {
+  get maxRange(): number | null {
     if (this.args.maxRange !== undefined) {
       return this._formatRange(this.args.maxRange);
     }
@@ -40,9 +77,9 @@ export default class extends CalendarComponent {
     return null;
   }
 
-  get selected() {
+  get selected(): SelectedPowerCalendarRange {
     if (this._selected) {
-      return this._selected;
+      return this._selected as SelectedPowerCalendarRange;
     }
 
     if (this.args.selected) {
@@ -68,7 +105,7 @@ export default class extends CalendarComponent {
   get currentCenter() {
     let center = this.args.center;
     if (!center) {
-      center = this.selected.start || this.powerCalendarService.getDate();
+      center = this.selected.start || this.powerCalendar.getDate();
     }
     return normalizeDate(center);
   }
@@ -83,28 +120,29 @@ export default class extends CalendarComponent {
 
   // Actions
   @action
-  select({ date }, calendar, e) {
+  select(day: PowerCalendarRangeDay, calendar: PowerCalendarRangeAPI, e: MouseEvent) {
+    const { date } = day;
     assert(
       'date must be either a Date, or a Range',
       date &&
-        (ownProp(date, 'start') ||
-          ownProp(date, 'end') ||
+        (ownProp(date as SelectedPowerCalendarRange, 'start') ||
+          ownProp(date as SelectedPowerCalendarRange, 'end') ||
           date instanceof Date),
     );
 
-    let range;
+    let range: { date: SelectedPowerCalendarRange };
 
-    if (ownProp(date, 'start') && ownProp(date, 'end')) {
+    if (ownProp(date as SelectedPowerCalendarRange, 'start') && ownProp(date as SelectedPowerCalendarRange, 'end')) {
       range = { date };
     } else {
-      range = this._buildRange({ date });
+      range = this._buildRange({ date } as { date: Date });
     }
 
-    let { start, end } = range.date;
+    const { start, end } = range.date;
     if (start && end) {
-      let { minRange, maxRange } = this.publicAPI;
-      let diffInMs = Math.abs(diff(end, start));
-      if (diffInMs < minRange || (maxRange && diffInMs > maxRange)) {
+      const { minRange, maxRange } = this.publicAPI;
+      const diffInMs = Math.abs(diff(end, start));
+      if (diffInMs < (minRange ?? DAY_IN_MS) || (maxRange && diffInMs > maxRange)) {
         return;
       }
     }
@@ -114,17 +152,17 @@ export default class extends CalendarComponent {
     }
   }
 
-  _formatRange(v) {
+  _formatRange(v: number | undefined) {
     if (typeof v === 'number') {
-      return v * 86400000;
+      return v * DAY_IN_MS;
     }
 
-    return normalizeDuration(v === undefined ? 86400000 : v);
+    return normalizeDuration(v === undefined ? DAY_IN_MS : v);
   }
 
   // Methods
-  _buildRange(day) {
-    let selected = this.publicAPI.selected || { start: null, end: null };
+  _buildRange(day: { date: Date }) {
+    let selected = this.selected || { start: null, end: null };
     let { start, end } = selected;
 
     if (this.proximitySelection) {
@@ -134,7 +172,7 @@ export default class extends CalendarComponent {
     return this._buildDefaultRange(day, start, end);
   }
 
-  _buildRangeByProximity(day, start, end) {
+  _buildRangeByProximity(day: { date: Date }, start?: Date, end?: Date) {
     if (start && end) {
       let changeStart =
         Math.abs(diff(day.date, end)) > Math.abs(diff(day.date, start));
@@ -156,7 +194,7 @@ export default class extends CalendarComponent {
     return this._buildDefaultRange(day, start, end);
   }
 
-  _buildDefaultRange(day, start, end) {
+  _buildDefaultRange(day: { date: Date }, start?: Date, end?: Date) {
     if (start && !end) {
       if (isAfter(start, day.date)) {
         return normalizeRangeActionValue({
@@ -172,6 +210,6 @@ export default class extends CalendarComponent {
   }
 }
 
-function ownProp(obj, prop) {
+function ownProp<T = { [key: string | number]: any }>(obj: T, prop: keyof T) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }

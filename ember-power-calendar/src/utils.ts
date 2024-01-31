@@ -1,6 +1,8 @@
-let dateLib;
+import type { PowerCalendarDay } from "./components/power-calendar";
 
-export function registerDateLibrary(dateLibrary) {
+let dateLib: any;
+
+export function registerDateLibrary(dateLibrary: any) {
   dateLib = dateLibrary;
 }
 
@@ -14,27 +16,27 @@ function getDateLibrary() {
   return dateLib;
 }
 
-export function add(date, quantity, unit) {
+export function add(date: Date, quantity: number, unit: string) {
   return getDateLibrary().add(date, quantity, unit);
 }
 
-export function formatDate(date, format, locale = null) {
+export function formatDate(date: Date, format: string, locale: string | null = null) {
   return getDateLibrary().formatDate(date, format, locale);
 }
 
-export function startOf(date, unit) {
+export function startOf(date: Date, unit: string): Date {
   return getDateLibrary().startOf(date, unit);
 }
 
-export function endOf(date, unit) {
+export function endOf(date: Date, unit: string): Date {
   return getDateLibrary().endOf(date, unit);
 }
 
-export function weekday(date) {
+export function weekday(date: Date) {
   return getDateLibrary().weekday(date);
 }
 
-export function isoWeekday(date) {
+export function isoWeekday(date: Date) {
   return getDateLibrary().isoWeekday(date);
 }
 
@@ -50,51 +52,51 @@ export function getWeekdays() {
   return getDateLibrary().getWeekdays();
 }
 
-export function isAfter(date1, date2) {
+export function isAfter(date1: Date, date2: Date): boolean {
   return getDateLibrary().isAfter(date1, date2);
 }
 
-export function isBefore(date1, date2) {
+export function isBefore(date1: Date, date2?: Date): boolean {
   return getDateLibrary().isBefore(date1, date2);
 }
 
-export function isSame(date1, date2, unit) {
+export function isSame(date1: Date, date2: Date, unit: string): boolean {
   return getDateLibrary().isSame(date1, date2, unit);
 }
 
-export function isBetween(date, start, end, unit, inclusivity) {
+export function isBetween(date: Date, start: Date, end: Date, unit: string, inclusivity: string): boolean {
   return getDateLibrary().isBetween(date, start, end, unit, inclusivity);
 }
 
-export function diff(date1, date2) {
+export function diff(date1: Date, date2: Date): number {
   return getDateLibrary().diff(date1, date2);
 }
 
-export function normalizeDate(date) {
+export function normalizeDate(date?: Date): Date {
   return getDateLibrary().normalizeDate(date);
 }
 
-export function normalizeRangeActionValue(val) {
+export function normalizeRangeActionValue(val: any) {
   return getDateLibrary().normalizeRangeActionValue(val);
 }
 
-export function normalizeMultipleActionValue(val) {
+export function normalizeMultipleActionValue(val: any) {
   return getDateLibrary().normalizeMultipleActionValue(val);
 }
 
-export function normalizeCalendarDay(day) {
+export function normalizeCalendarDay(day: PowerCalendarDay) {
   return getDateLibrary().normalizeCalendarDay(day);
 }
 
-export function withLocale(locale, fn) {
+export function withLocale(locale: string, fn: () => void) {
   return getDateLibrary().withLocale(locale, fn);
 }
 
-export function normalizeCalendarValue(value) {
+export function normalizeCalendarValue(value: { date: Date }) {
   return getDateLibrary().normalizeCalendarValue(value);
 }
 
-export function normalizeDuration(value) {
+export function normalizeDuration(value: any) {
   return getDateLibrary().normalizeDuration(value);
 }
 
@@ -102,14 +104,14 @@ export function getDefaultLocale() {
   return getDateLibrary().getDefaultLocale();
 }
 
-export function localeStartOfWeek(locale) {
+export function localeStartOfWeek(locale: string) {
   return getDateLibrary().localeStartOfWeek(locale);
 }
 
-export function startOfWeek(day, startOfWeek) {
+export function startOfWeek(day: Date, startOfWeek: string | number) {
   return getDateLibrary().startOfWeek(day, startOfWeek);
 }
 
-export function endOfWeek(day, startOfWeek) {
+export function endOfWeek(day: Date, startOfWeek: string | number) {
   return getDateLibrary().endOfWeek(day, startOfWeek);
 }
