@@ -90,7 +90,7 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
       weekdaysNames = this.weekdays;
     } else if (weekdayFormat === 'min') {
       weekdaysNames = this.weekdaysMin;
-    } else if (weekdayFormat === 'min') {
+    } else {
       weekdaysNames = this.weekdaysShort;
     }
     return weekdaysNames
