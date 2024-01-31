@@ -11,8 +11,6 @@ import PowerCalendarNavComponent from './power-calendar/nav.ts';
 import PowerCalendarDaysComponent from './power-calendar/days.ts';
 import type PowerCalendarService from '../services/power-calendar.ts';
 import type { Moment } from 'moment';
-import type { TaskGenerator } from 'ember-concurrency';
-import { taskFor } from 'ember-concurrency-ts';
 import type { PowerCalendarRangeAPI, PowerCalendarRangeDay, SelectedPowerCalendarRange } from './power-calendar-range.ts';
 import type { PowerCalendarMultipleAPI } from './power-calendar-multiple.ts';
 
@@ -118,7 +116,7 @@ export default class PowerCalendarComponent<T> extends Component<T & PowerCalend
     }
     if (this.args.onCenterChange) {
       let changeCenter = (newCenter: Date, calendar: PowerCalendarAPI, e: MouseEvent) => {
-        return taskFor(this.changeCenterTask).perform(newCenter, calendar, e);
+        return this.changeCenterTask.perform(newCenter, calendar, e);
       };
       actions.changeCenter = changeCenter;
       actions.moveCenter = (step, unit, calendar, e) => {
@@ -158,7 +156,7 @@ export default class PowerCalendarComponent<T> extends Component<T & PowerCalend
       uniqueId: guidFor(this),
       type: this._calendarType,
       selected: this.selected,
-      loading: taskFor(this.changeCenterTask).isRunning,
+      loading: this.changeCenterTask.isRunning,
       center: this.currentCenter,
       locale: this.args.locale || this.powerCalendar.locale,
       actions: this.publicActions,
@@ -186,19 +184,14 @@ export default class PowerCalendarComponent<T> extends Component<T & PowerCalend
   }
 
   // Tasks
-  @task
-  *changeCenterTask(
-    newCenter: Date,
-    calendar: PowerCalendarAPI,
-    e: MouseEvent
-  ): TaskGenerator<void> {
+  changeCenterTask = task(async (newCenter: Date, calendar: PowerCalendarAPI, e: MouseEvent) => {
     assert(
       "You attempted to move the center of a calendar that doesn't receive an `@onCenterChange` action.",
       typeof this.args.onCenterChange === 'function',
     );
     let value = normalizeCalendarValue({ date: newCenter });
-    yield this.args.onCenterChange(value, calendar, e);
-  }
+    await this.args.onCenterChange(value, calendar, e);
+  });
 
   // Methods
   registerCalendar() {
