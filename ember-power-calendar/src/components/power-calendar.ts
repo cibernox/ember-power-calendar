@@ -11,13 +11,24 @@ import PowerCalendarNavComponent from './power-calendar/nav.ts';
 import PowerCalendarDaysComponent from './power-calendar/days.ts';
 import type PowerCalendarService from '../services/power-calendar.ts';
 import type { Moment } from 'moment';
-import type { PowerCalendarRangeAPI, PowerCalendarRangeDay, SelectedPowerCalendarRange } from './power-calendar-range.ts';
+import type {
+  PowerCalendarRangeAPI,
+  PowerCalendarRangeDay,
+  SelectedPowerCalendarRange,
+} from './power-calendar-range.ts';
 import type { PowerCalendarMultipleAPI } from './power-calendar-multiple.ts';
 
 export type TCalendarType = 'multiple' | 'range' | 'single';
 export type TPowerCalendarMoveCenterUnit = 'year' | 'month';
-export type SelectedDays = SelectedPowerCalendarRange | Date | Date[] | undefined;
-export type CalendarAPI = PowerCalendarAPI | PowerCalendarMultipleAPI | PowerCalendarRangeAPI;
+export type SelectedDays =
+  | SelectedPowerCalendarRange
+  | Date
+  | Date[]
+  | undefined;
+export type CalendarAPI =
+  | PowerCalendarAPI
+  | PowerCalendarMultipleAPI
+  | PowerCalendarRangeAPI;
 
 export interface PowerCalendarAPI {
   uniqueId: string;
@@ -31,12 +42,16 @@ export interface PowerCalendarAPI {
 }
 
 export interface PowerCalendarActions {
-  changeCenter?: (newCenter: Date, calendar: CalendarAPI, event: MouseEvent) => void;
+  changeCenter?: (
+    newCenter: Date,
+    calendar: CalendarAPI,
+    event: MouseEvent,
+  ) => void;
   moveCenter?: (
     step: number,
     unit: TPowerCalendarMoveCenterUnit,
     calendar: PowerCalendarAPI,
-    event: MouseEvent
+    event: MouseEvent,
   ) => void;
   select?: (day: CalendarDay, calendar: CalendarAPI, event: MouseEvent) => void;
 }
@@ -48,10 +63,14 @@ export interface PowerCalendarArgs {
   onCenterChange?: (
     newCenter: any,
     calendar: PowerCalendarAPI,
-    event: MouseEvent
+    event: MouseEvent,
   ) => void;
   onInit?: (calendar: PowerCalendarAPI) => void;
-  onSelect?: (day: CalendarDay, calendar: CalendarAPI, event: MouseEvent) => void;
+  onSelect?: (
+    day: CalendarDay,
+    calendar: CalendarAPI,
+    event: MouseEvent,
+  ) => void;
   selected?: SelectedDays;
   center?: Date;
   tag?: string;
@@ -90,7 +109,9 @@ export interface PowerCalendarSignature {
   };
 }
 
-export default class PowerCalendarComponent<T> extends Component<T & PowerCalendarSignature> {
+export default class PowerCalendarComponent<T> extends Component<
+  T & PowerCalendarSignature
+> {
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked center = null;
@@ -110,17 +131,21 @@ export default class PowerCalendarComponent<T> extends Component<T & PowerCalend
   }
 
   get publicActions(): PowerCalendarActions {
-    let actions: PowerCalendarActions = {};
+    const actions: PowerCalendarActions = {};
     if (this.args.onSelect) {
       actions.select = (...args) => this.select(...args);
     }
     if (this.args.onCenterChange) {
-      let changeCenter = (newCenter: Date, calendar: PowerCalendarAPI, e: MouseEvent) => {
+      const changeCenter = (
+        newCenter: Date,
+        calendar: PowerCalendarAPI,
+        e: MouseEvent,
+      ) => {
         return this.changeCenterTask.perform(newCenter, calendar, e);
       };
       actions.changeCenter = changeCenter;
       actions.moveCenter = (step, unit, calendar, e) => {
-        let newCenter = add(this.currentCenter, step, unit);
+        const newCenter = add(this.currentCenter, step, unit);
         return changeCenter(newCenter, calendar, e);
       };
     }
@@ -184,14 +209,16 @@ export default class PowerCalendarComponent<T> extends Component<T & PowerCalend
   }
 
   // Tasks
-  changeCenterTask = task(async (newCenter: Date, calendar: PowerCalendarAPI, e: MouseEvent) => {
-    assert(
-      "You attempted to move the center of a calendar that doesn't receive an `@onCenterChange` action.",
-      typeof this.args.onCenterChange === 'function',
-    );
-    let value = normalizeCalendarValue({ date: newCenter });
-    await this.args.onCenterChange(value, calendar, e);
-  });
+  changeCenterTask = task(
+    async (newCenter: Date, calendar: PowerCalendarAPI, e: MouseEvent) => {
+      assert(
+        "You attempted to move the center of a calendar that doesn't receive an `@onCenterChange` action.",
+        typeof this.args.onCenterChange === 'function',
+      );
+      const value = normalizeCalendarValue({ date: newCenter });
+      await this.args.onCenterChange(value, calendar, e);
+    },
+  );
 
   // Methods
   registerCalendar() {

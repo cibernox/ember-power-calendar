@@ -1,14 +1,19 @@
-import DaysComponent, { type PowerCalendarDaysArgs, type PowerCalendarDaysSignature } from '../power-calendar/days.ts';
+import DaysComponent, {
+  type PowerCalendarDaysArgs,
+  type PowerCalendarDaysSignature,
+} from '../power-calendar/days.ts';
 import { isSame } from '../../utils.ts';
 import type { PowerCalendarMultipleAPI } from '../power-calendar-multiple.ts';
 
-interface PowerCalendarMultipleDaysArgs extends Omit<PowerCalendarDaysArgs, 'selected'>  {
+interface PowerCalendarMultipleDaysArgs
+  extends Omit<PowerCalendarDaysArgs, 'selected'> {
   selected?: Date[];
   maxLength?: number;
 }
 
-interface PowerCalendarMultipleDaysSignature extends Omit<PowerCalendarDaysSignature, 'Args'> {
-  Args: PowerCalendarMultipleDaysArgs
+interface PowerCalendarMultipleDaysSignature
+  extends Omit<PowerCalendarDaysSignature, 'Args'> {
+  Args: PowerCalendarMultipleDaysArgs;
 }
 
 export default class PowerCalendarMultipleDaysComponent extends DaysComponent<PowerCalendarMultipleDaysSignature> {
@@ -17,15 +22,18 @@ export default class PowerCalendarMultipleDaysComponent extends DaysComponent<Po
   }
 
   // Methods
-  dayIsSelected(date: Date, calendar = this.args.calendar as PowerCalendarMultipleAPI) {
-    let selected = calendar.selected || [];
+  dayIsSelected(
+    date: Date,
+    calendar = this.args.calendar as PowerCalendarMultipleAPI,
+  ) {
+    const selected = calendar.selected || [];
     return selected.some((d) => isSame(date, d, 'day'));
   }
 
   dayIsDisabled(date: Date) {
     const calendar = this.args.calendar as PowerCalendarMultipleAPI;
-    let numSelected = (calendar.selected && calendar.selected.length) || 0;
-    let maxLength = this.maxLength || Infinity;
+    const numSelected = (calendar.selected && calendar.selected.length) || 0;
+    const maxLength = this.maxLength || Infinity;
     return (
       super.dayIsDisabled(date) ||
       (numSelected >= maxLength && !this.dayIsSelected(date))

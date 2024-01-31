@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { get, action } from '@ember/object';
+import { action } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { assert } from '@ember/debug';
@@ -48,7 +48,9 @@ export interface PowerCalendarDaysSignature {
   };
 }
 
-export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCalendarDaysSignature> {
+export default class PowerCalendarDaysComponent<T> extends Component<
+  T & PowerCalendarDaysSignature
+> {
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked focusedId: string | null = null;
@@ -76,7 +78,7 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
   }
 
   get localeStartOfWeek(): number {
-    let forcedStartOfWeek = this.args.startOfWeek;
+    const forcedStartOfWeek = this.args.startOfWeek;
     if (forcedStartOfWeek) {
       return parseInt(forcedStartOfWeek, 10);
     }
@@ -84,7 +86,7 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
   }
 
   get weekdaysNames() {
-    let { localeStartOfWeek, weekdayFormat } = this;
+    const { localeStartOfWeek, weekdayFormat } = this;
     let weekdaysNames;
     if (weekdayFormat === 'long') {
       weekdaysNames = this.weekdays;
@@ -99,10 +101,10 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
   }
 
   get days() {
-    let today = this.powerCalendar.getDate();
-    let lastDay = this.lastDay();
+    const today = this.powerCalendar.getDate();
+    const lastDay = this.lastDay();
     let day = this.firstDay();
-    let days = [];
+    const days = [];
     while (isBefore(day, lastDay)) {
       days.push(this.buildDay(day, today, this.args.calendar));
       day = add(day, 1, 'day');
@@ -111,8 +113,8 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
   }
 
   get weeks() {
-    let { showDaysAround, days } = this;
-    let weeks = [];
+    const { showDaysAround, days } = this;
+    const weeks = [];
     let i = 0;
     while (days[i]) {
       let daysOfWeek = days.slice(i, i + 7);
@@ -140,7 +142,12 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
   // Actions
   @action
   handleDayFocus(e: FocusEvent) {
-    scheduleOnce('actions', this, this._updateFocused, (e.target as HTMLElement).dataset['date']);
+    scheduleOnce(
+      'actions',
+      this,
+      this._updateFocused,
+      (e.target as HTMLElement).dataset['date'],
+    );
   }
 
   @action
@@ -150,9 +157,9 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
 
   @action
   handleKeyDown(e: KeyboardEvent) {
-    let { focusedId } = this;
+    const { focusedId } = this;
     if (focusedId) {
-      let days = this.days;
+      const days = this.days;
       let day, index: number | undefined;
       for (let i = 0; i < days.length; i++) {
         if (days[i]?.id === focusedId) {
@@ -160,14 +167,14 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
           break;
         }
       }
-      
+
       if (!index) {
         return;
       }
-      
+
       if (e.key === 'ArrowUp') {
         e.preventDefault();
-        let newIndex = Math.max(index - 7, 0);
+        const newIndex = Math.max(index - 7, 0);
         day = days[newIndex];
         if (day?.isDisabled) {
           for (let i = newIndex + 1; i <= index; i++) {
@@ -179,7 +186,7 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
         }
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
-        let newIndex = Math.min(index + 7, days.length - 1);
+        const newIndex = Math.min(index + 7, days.length - 1);
         day = days[newIndex];
         if (day?.isDisabled) {
           for (let i = newIndex - 1; i >= index; i--) {
@@ -209,7 +216,7 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
 
   // Methods
   buildDay(date: Date, today: Date, calendar: CalendarAPI): PowerCalendarDay {
-    let id = formatDate(date, 'YYYY-MM-DD');
+    const id = formatDate(date, 'YYYY-MM-DD');
 
     return normalizeCalendarDay({
       id,
@@ -228,11 +235,13 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
   }
 
   dayIsSelected(date: Date, calendar: CalendarAPI = this.args.calendar) {
-    return calendar.selected ? isSame(date, calendar.selected as Date, 'day') : false;
+    return calendar.selected
+      ? isSame(date, calendar.selected as Date, 'day')
+      : false;
   }
 
   dayIsDisabled(date: Date) {
-    let isDisabled = !this.args.calendar.actions.select;
+    const isDisabled = !this.args.calendar.actions.select;
     if (isDisabled) {
       return true;
     }
@@ -249,10 +258,11 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
     }
 
     if (this.args.disabledDates) {
-      let disabledInRange = this.args.disabledDates.some((d) => {
-        let isSameDay = isSame(date, d as Date, 'day');
-        let isWeekDayIncludes =
-          WEEK_DAYS.indexOf(d as string) !== -1 && formatDate(date, 'ddd') === d;
+      const disabledInRange = this.args.disabledDates.some((d) => {
+        const isSameDay = isSame(date, d as Date, 'day');
+        const isWeekDayIncludes =
+          WEEK_DAYS.indexOf(d as string) !== -1 &&
+          formatDate(date, 'ddd') === d;
         return isSameDay || isWeekDayIncludes;
       });
 
@@ -265,17 +275,17 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
   }
 
   firstDay() {
-    let firstDay = startOf(this.currentCenter, 'month');
+    const firstDay = startOf(this.currentCenter, 'month');
     return startOfWeek(firstDay, this.localeStartOfWeek);
   }
 
   lastDay() {
-    let localeStartOfWeek = this.localeStartOfWeek;
+    const localeStartOfWeek = this.localeStartOfWeek;
     assert(
       'The center of the calendar is an invalid date.',
       !isNaN(this.currentCenter.getTime()),
     );
-    let lastDay = endOf(this.currentCenter, 'month');
+    const lastDay = endOf(this.currentCenter, 'month');
     return endOfWeek(lastDay, localeStartOfWeek);
   }
 
@@ -284,7 +294,7 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
   }
 
   _focusDate(id: string) {
-    let dayElement: HTMLElement | null = document.querySelector(
+    const dayElement: HTMLElement | null = document.querySelector(
       `[data-power-calendar-id="${this.args.calendar.uniqueId}"] [data-date="${id}"]`,
     );
     if (dayElement) {
@@ -294,10 +304,12 @@ export default class PowerCalendarDaysComponent<T> extends Component<T & PowerCa
 
   @action
   handleClick(e: MouseEvent) {
-    let dayEl: HTMLElement | null | undefined = (e.target as HTMLElement | null)?.closest('[data-date]');
+    const dayEl: HTMLElement | null | undefined = (
+      e.target as HTMLElement | null
+    )?.closest('[data-date]');
     if (dayEl) {
-      let dateStr = dayEl.dataset['date'];
-      let day = this.days.find((d) => d.id === dateStr);
+      const dateStr = dayEl.dataset['date'];
+      const day = this.days.find((d) => d.id === dateStr);
       if (day) {
         if (this.args.calendar.actions.select) {
           this.args.calendar.actions.select(day, this.args.calendar, e);

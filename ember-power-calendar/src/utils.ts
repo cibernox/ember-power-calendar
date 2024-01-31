@@ -1,4 +1,4 @@
-import type { PowerCalendarDay } from "./components/power-calendar";
+import type { PowerCalendarDay } from './components/power-calendar';
 
 let dateLib: any;
 
@@ -20,7 +20,11 @@ export function add(date: Date, quantity: number, unit: string) {
   return getDateLibrary().add(date, quantity, unit);
 }
 
-export function formatDate(date: Date, format: string, locale: string | null = null) {
+export function formatDate(
+  date: Date,
+  format: string,
+  locale: string | null = null,
+) {
   return getDateLibrary().formatDate(date, format, locale);
 }
 
@@ -64,7 +68,13 @@ export function isSame(date1: Date, date2: Date, unit: string): boolean {
   return getDateLibrary().isSame(date1, date2, unit);
 }
 
-export function isBetween(date: Date, start: Date, end: Date, unit: string, inclusivity: string): boolean {
+export function isBetween(
+  date: Date,
+  start: Date,
+  end: Date,
+  unit: string,
+  inclusivity: string,
+): boolean {
   return getDateLibrary().isBetween(date, start, end, unit, inclusivity);
 }
 

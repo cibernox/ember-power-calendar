@@ -1,5 +1,8 @@
 import Component from '@glimmer/component';
-import type { CalendarAPI, TPowerCalendarMoveCenterUnit } from '../power-calendar.ts';
+import type {
+  CalendarAPI,
+  TPowerCalendarMoveCenterUnit,
+} from '../power-calendar.ts';
 
 interface PowerCalendarNavSignature {
   Args: {

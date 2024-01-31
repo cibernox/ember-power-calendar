@@ -1,12 +1,14 @@
-import DaysComponent, { type PowerCalendarDaysSignature } from '../power-calendar/days.ts';
+import DaysComponent, {
+  type PowerCalendarDaysSignature,
+} from '../power-calendar/days.ts';
 import { isBetween, isSame, diff } from '../../utils.ts';
 import type { PowerCalendarRangeAPI } from '../power-calendar-range.ts';
 
 export default class PowerCalendarRangeDaysComponent extends DaysComponent<PowerCalendarDaysSignature> {
   // Methods
   buildDay(date: Date, today: Date, calendar: PowerCalendarRangeAPI) {
-    let day = super.buildDay(date, today, calendar);
-    let { start, end } = calendar.selected || { start: null, end: null };
+    const day = super.buildDay(date, today, calendar);
+    const { start, end } = calendar.selected || { start: null, end: null };
     if (start && end) {
       day.isSelected = isBetween(date, start, end, 'day', '[]');
       day.isRangeStart = day.isSelected && isSame(date, start, 'day');
@@ -18,12 +20,14 @@ export default class PowerCalendarRangeDaysComponent extends DaysComponent<Power
       } else {
         day.isRangeStart = day.isSelected = isSame(date, start, 'day');
         if (!day.isDisabled) {
-          let diffInMs = Math.abs(diff(day.date, start));
+          const diffInMs = Math.abs(diff(day.date, start));
           const minRange = calendar.minRange;
           const maxRange = calendar.maxRange;
           day.isDisabled =
             (minRange && diffInMs < minRange) ||
-            (maxRange !== null && maxRange !== undefined && diffInMs > maxRange);
+            (maxRange !== null &&
+              maxRange !== undefined &&
+              diffInMs > maxRange);
         }
       }
     }

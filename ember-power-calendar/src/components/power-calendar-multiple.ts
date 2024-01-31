@@ -4,28 +4,35 @@ import PowerCalendarComponent, {
   type PowerCalendarArgs,
   type PowerCalendarDay,
   type PowerCalendarSignature,
-  type TCalendarType
+  type TCalendarType,
 } from './power-calendar.ts';
 import { action } from '@ember/object';
-import { normalizeDate, isSame, normalizeMultipleActionValue } from '../utils.ts';
+import {
+  normalizeDate,
+  isSame,
+  normalizeMultipleActionValue,
+} from '../utils.ts';
 import { assert } from '@ember/debug';
 import { isArray } from '@ember/array';
 import PowerCalendarMultipleDaysComponent from './power-calendar-multiple/days.ts';
 
-export interface PowerCalendarMultipleAPI extends Omit<PowerCalendarAPI, 'selected'> {
+export interface PowerCalendarMultipleAPI
+  extends Omit<PowerCalendarAPI, 'selected'> {
   selected?: Date[];
 }
 
-interface PowerCalendarMultipleArgs extends Omit<PowerCalendarArgs, 'selected' | 'onSelect'> {
+interface PowerCalendarMultipleArgs
+  extends Omit<PowerCalendarArgs, 'selected' | 'onSelect'> {
   selected?: Date[];
   onSelect?: (
     day: PowerCalendarDay[],
     calendar: PowerCalendarMultipleAPI,
-    event: MouseEvent
+    event: MouseEvent,
   ) => void;
 }
 
-interface PowerCalendarMultipleSignature extends Omit<PowerCalendarSignature, 'Args'> {
+interface PowerCalendarMultipleSignature
+  extends Omit<PowerCalendarSignature, 'Args'> {
   Args: PowerCalendarMultipleArgs;
 }
 
@@ -35,7 +42,7 @@ export default class PowerCalendarMultipleComponent extends PowerCalendarCompone
 
   get selected(): Date[] | undefined {
     if (this._selected) {
-      return this._selected as Date[] || undefined;
+      return (this._selected as Date[]) || undefined;
     }
 
     const value = this.args.selected;
@@ -53,7 +60,11 @@ export default class PowerCalendarMultipleComponent extends PowerCalendarCompone
 
   // Actions
   @action
-  select(dayOrDays: CalendarDay, calendar: PowerCalendarMultipleAPI, e: MouseEvent) {
+  select(
+    dayOrDays: CalendarDay,
+    calendar: PowerCalendarMultipleAPI,
+    e: MouseEvent,
+  ) {
     assert(
       `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`,
       isArray(dayOrDays) ||
@@ -69,7 +80,11 @@ export default class PowerCalendarMultipleComponent extends PowerCalendarCompone
     }
 
     if (this.args.onSelect) {
-      this.args.onSelect(this._buildCollection((days as PowerCalendarDay[]) ?? []), calendar, e);
+      this.args.onSelect(
+        this._buildCollection((days as PowerCalendarDay[]) ?? []),
+        calendar,
+        e,
+      );
     }
   }
 
@@ -77,8 +92,8 @@ export default class PowerCalendarMultipleComponent extends PowerCalendarCompone
   _buildCollection(days: PowerCalendarDay[]) {
     let selected = this.selected || [];
 
-    for (let day of days) {
-      let index = selected.findIndex((selectedDate) =>
+    for (const day of days) {
+      const index = selected.findIndex((selectedDate) =>
         isSame(day.date, selectedDate, 'day'),
       );
       if (index === -1) {

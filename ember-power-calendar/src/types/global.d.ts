@@ -17,7 +17,7 @@ declare module '@glint/environment-ember-loose/registry' {
     extends EmberTruthRegistry /* other addon registries */ {
     // local entries
   }
-  
+
   export default interface Registry
     extends EmbroiderUtilRegistry /* other registries here */ {
     // ...
@@ -27,7 +27,7 @@ declare module '@glint/environment-ember-loose/registry' {
     extends ReadonlyRegistry /* other registries here */ {
     // ...
   }
-  
+
   export default interface Registry
     extends AssignRegistry /* other registries here */ {
     // ...
