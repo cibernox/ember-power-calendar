@@ -200,3 +200,9 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
     }
   }
 }
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    PowerCalendarMultiple: typeof PowerCalendarMultipleComponent;
+  }
+}

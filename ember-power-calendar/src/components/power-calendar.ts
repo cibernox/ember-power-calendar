@@ -221,3 +221,9 @@ export default class PowerCalendarComponent extends Component<PowerCalendarSigna
     }
   }
 }
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    PowerCalendar: typeof PowerCalendarComponent;
+  }
+}

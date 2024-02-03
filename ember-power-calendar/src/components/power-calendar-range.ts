@@ -309,6 +309,12 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
   }
 }
 
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    PowerCalendarRange: typeof PowerCalendarRangeComponent;
+  }
+}
+
 function ownProp<T = { [key: string | number]: any }>(obj: T, prop: keyof T) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
