@@ -6,8 +6,6 @@ import { inject as service } from '@ember/service';
 import type {
   PowerCalendarDaysArgs,
   PowerCalendarDaysSignature,
-  TWeekdayFormat,
-  Week,
 } from '../power-calendar/days.ts';
 import {
   isBetween,
@@ -32,6 +30,8 @@ import {
   handleDayKeyDown,
   focusDate,
   handleClick,
+  type TWeekdayFormat,
+  type Week,
 } from '../../-private/days-utils.ts';
 import type { PowerCalendarDay } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';

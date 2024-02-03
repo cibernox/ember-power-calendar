@@ -25,17 +25,9 @@ import {
   buildDay,
   lastDay,
   handleClick,
+  type TWeekdayFormat,
+  type Week,
 } from '../../-private/days-utils.ts';
-
-export const WEEK_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-export type TWeekdayFormat = 'min' | 'short' | 'long';
-
-export interface Week {
-  id: string;
-  days: PowerCalendarDay[];
-  missingDays: number;
-}
 
 export interface PowerCalendarDaysArgs {
   calendar: CalendarAPI;

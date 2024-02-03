@@ -4,11 +4,6 @@ import type {
   PowerCalendarDay,
 } from '../components/power-calendar.ts';
 import {
-  WEEK_DAYS,
-  type TWeekdayFormat,
-  type Week,
-} from '../components/power-calendar/days.ts';
-import {
   endOf,
   endOfWeek,
   formatDate,
@@ -20,6 +15,15 @@ import {
   startOf,
   startOfWeek,
 } from '../utils.ts';
+
+export const WEEK_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+export type TWeekdayFormat = 'min' | 'short' | 'long';
+
+export interface Week {
+  id: string;
+  days: PowerCalendarDay[];
+  missingDays: number;
+}
 
 export function localeStartOfWeekOrFallback(
   startOfWeek: string | undefined,

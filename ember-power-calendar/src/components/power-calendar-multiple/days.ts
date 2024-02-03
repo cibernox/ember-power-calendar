@@ -25,14 +25,14 @@ import {
   handleDayKeyDown,
   focusDate,
   handleClick,
+  type TWeekdayFormat,
+  type Week,
 } from '../../-private/days-utils.ts';
 import type { CalendarAPI, PowerCalendarDay } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 import type {
   PowerCalendarDaysArgs,
   PowerCalendarDaysSignature,
-  TWeekdayFormat,
-  Week,
 } from '../power-calendar/days.ts';
 
 interface PowerCalendarMultipleDaysArgs
