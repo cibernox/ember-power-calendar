@@ -6,7 +6,11 @@ import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { assert } from '@ember/debug';
 import type { ComponentLike } from '@glint/template';
-import { normalizeDate, normalizeCalendarValue } from '../utils.ts';
+import {
+  normalizeDate,
+  normalizeCalendarValue,
+  type NormalizeCalendarValue,
+} from '../utils.ts';
 import PowerCalendarNavComponent from './power-calendar/nav.ts';
 import PowerCalendarDaysComponent from './power-calendar/days.ts';
 import type PowerCalendarService from '../services/power-calendar.ts';
@@ -68,7 +72,7 @@ export interface PowerCalendarArgs {
   locale: string;
   navComponent?: string | ComponentLike<any>;
   onCenterChange?: (
-    newCenter: any,
+    newCenter: NormalizeCalendarValue,
     calendar: PowerCalendarAPI,
     event: MouseEvent,
   ) => void;
@@ -219,11 +223,5 @@ export default class PowerCalendarComponent extends Component<PowerCalendarSigna
       // @ts-expect-error Property '__powerCalendars'
       delete window.__powerCalendars[guidFor(this)];
     }
-  }
-}
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    PowerCalendar: typeof PowerCalendarComponent;
   }
 }

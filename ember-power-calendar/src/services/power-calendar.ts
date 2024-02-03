@@ -3,7 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { getDefaultLocale } from '../utils.ts';
 
 export default class extends Service {
-  date = null;
+  date: Date | null = null;
 
   @tracked _local?: string;
 
@@ -20,7 +20,7 @@ export default class extends Service {
   }
 
   // Methods
-  getDate() {
+  getDate(): Date {
     return this.date || new Date();
   }
 }

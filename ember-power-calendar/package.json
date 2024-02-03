@@ -12,8 +12,14 @@
   "license": "MIT",
   "author": "Miguel Camba",
   "exports": {
-    ".": "./dist/index.js",
-    "./*": "./dist/*.js",
+    ".": {
+      "types": "./declarations/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./declarations/*.d.ts",
+      "default": "./dist/*.js"
+    },
     "./addon-main.js": "./addon-main.cjs",
     "./ember-power-calendar.less": "./ember-power-calendar.less",
     "./ember-power-calendar.scss": "./ember-power-calendar.scss",
@@ -21,6 +27,13 @@
     "./less/base.less": "./less/base.less",
     "./scss/base.scss": "./scss/base.scss",
     "./vendor/*": "./vendor/*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "declarations/*"
+      ]
+    }
   },
   "files": [
     "_index.scss",
@@ -34,7 +47,9 @@
     "vendor"
   ],
   "scripts": {
-    "build": "rollup --config",
+    "build": "concurrently 'npm:build:*'",
+    "build:js": "rollup --config",
+    "build:types": "glint --declaration",
     "lint": "concurrently 'npm:lint:*(!fix)' --names 'lint:'",
     "lint:fix": "concurrently 'npm:lint:*:fix' --names 'fix:'",
     "lint:hbs": "ember-template-lint . --no-error-on-unmatched-pattern",
@@ -42,13 +57,16 @@
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "lint:types": "glint",
-    "prepack": "pnpm build",
-    "start": "rollup --config --watch",
+    "prepack": "pnpm run build",
+    "start": "concurrently 'npm:start:*'",
+    "start:js": "rollup --config --watch --no-watch.clearScreen",
+    "start:types": "glint --declaration --watch",
     "test": "echo 'A v2 addon does not have tests, run tests in test-app'",
-    "prepare": "pnpm build"
+    "prepare": "pnpm run build"
   },
   "dependencies": {
     "@embroider/addon-shim": "^1.8.7",
+    "decorator-transforms": "^1.0.1",
     "@embroider/util": "^1.12.1",
     "@ember/render-modifiers": "^2.1.0",
     "@embroider/macros": "^1.13.4",
@@ -59,10 +77,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
-    "@babel/eslint-parser": "^7.23.3",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/plugin-proposal-decorators": "^7.23.9",
-    "@babel/plugin-transform-class-static-block": "^7.23.4",
     "@babel/runtime": "^7.23.9",
     "@babel/plugin-transform-typescript": "^7.23.6",
     "@babel/preset-typescript": "^7.23.3",

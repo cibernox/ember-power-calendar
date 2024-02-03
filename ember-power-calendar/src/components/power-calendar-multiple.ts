@@ -14,6 +14,7 @@ import {
   isSame,
   normalizeMultipleActionValue,
   normalizeCalendarValue,
+  type NormalizeMultipleActionValue,
 } from '../utils.ts';
 import type {
   CalendarAPI,
@@ -35,7 +36,7 @@ export interface PowerCalendarMultipleAPI
 }
 
 export type TPowerCalendarMultipleOnSelect = (
-  day: PowerCalendarDay[],
+  day: NormalizeMultipleActionValue,
   calendar: PowerCalendarMultipleAPI,
   event: MouseEvent,
 ) => void;
@@ -165,7 +166,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
   }
 
   // Methods
-  _buildCollection(days: PowerCalendarDay[]) {
+  _buildCollection(days: PowerCalendarDay[]): NormalizeMultipleActionValue {
     let selected = this.selected || [];
 
     for (const day of days) {
@@ -198,11 +199,5 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
       // @ts-expect-error Property '__powerCalendars'
       delete window.__powerCalendars[guidFor(this)];
     }
-  }
-}
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    PowerCalendarMultiple: typeof PowerCalendarMultipleComponent;
   }
 }

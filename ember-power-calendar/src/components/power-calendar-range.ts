@@ -16,6 +16,7 @@ import {
   isBefore,
   normalizeDuration,
   normalizeCalendarValue,
+  type NormalizeRangeActionValue,
 } from '../utils.ts';
 import type {
   PowerCalendarAPI,
@@ -32,20 +33,22 @@ import type { ComponentLike } from '@glint/template';
 import type PowerCalendarService from '../services/power-calendar.ts';
 
 export interface SelectedPowerCalendarRange {
-  start?: Date;
-  end?: Date;
+  start?: Date | null;
+  end?: Date | null;
 }
 
 export interface PowerCalendarRangeDay extends Omit<PowerCalendarDay, 'date'> {
   date: SelectedPowerCalendarRange;
 }
 
+export interface PowerCalendarRangeSelectDay {
+  date: SelectedPowerCalendarRange;
+}
+
 export const DAY_IN_MS = 86400000;
 
 export type TPowerCalendarRangeOnSelect = (
-  day: {
-    date: SelectedPowerCalendarRange;
-  },
+  day: NormalizeRangeActionValue,
   calendar: PowerCalendarRangeAPI,
   event: MouseEvent,
 ) => void;
@@ -191,21 +194,18 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
   // Actions
   @action
   select(day: CalendarDay, calendar: CalendarAPI, e: MouseEvent) {
-    const { date } = day as PowerCalendarRangeDay;
+    const { date } = day as NormalizeRangeActionValue;
     assert(
       'date must be either a Date, or a Range',
       date &&
-        (ownProp(date as SelectedPowerCalendarRange, 'start') ||
-          ownProp(date as SelectedPowerCalendarRange, 'end') ||
+        (ownProp(date, 'start') ||
+          ownProp(date, 'end') ||
           date instanceof Date),
     );
 
-    let range: { date: SelectedPowerCalendarRange };
+    let range: NormalizeRangeActionValue;
 
-    if (
-      ownProp(date as SelectedPowerCalendarRange, 'start') &&
-      ownProp(date as SelectedPowerCalendarRange, 'end')
-    ) {
+    if (ownProp(date, 'start') && ownProp(date, 'end')) {
       range = { date };
     } else {
       range = this._buildRange({ date } as { date: Date });
@@ -242,7 +242,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
   }
 
   // Methods
-  _buildRange(day: { date: Date }) {
+  _buildRange(day: { date: Date }): NormalizeRangeActionValue {
     const selected = this.selected || { start: null, end: null };
     const { start, end } = selected;
 
@@ -253,7 +253,11 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
     return this._buildDefaultRange(day, start, end);
   }
 
-  _buildRangeByProximity(day: { date: Date }, start?: Date, end?: Date) {
+  _buildRangeByProximity(
+    day: { date: Date },
+    start?: Date | null,
+    end?: Date | null,
+  ): NormalizeRangeActionValue {
     if (start && end) {
       const changeStart =
         Math.abs(diff(day.date, end)) > Math.abs(diff(day.date, start));
@@ -275,7 +279,11 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
     return this._buildDefaultRange(day, start, end);
   }
 
-  _buildDefaultRange(day: { date: Date }, start?: Date, end?: Date) {
+  _buildDefaultRange(
+    day: { date: Date },
+    start?: Date | null,
+    end?: Date | null,
+  ): NormalizeRangeActionValue {
     if (start && !end) {
       if (isAfter(start, day.date)) {
         return normalizeRangeActionValue({
@@ -306,12 +314,6 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
       // @ts-expect-error Property '__powerCalendars'
       delete window.__powerCalendars[guidFor(this)];
     }
-  }
-}
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    PowerCalendarRange: typeof PowerCalendarRangeComponent;
   }
 }
 

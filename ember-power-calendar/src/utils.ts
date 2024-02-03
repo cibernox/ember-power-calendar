@@ -1,4 +1,6 @@
+import type { Moment } from 'moment';
 import type { PowerCalendarDay } from './components/power-calendar';
+import type { PowerCalendarRangeSelectDay } from './components/power-calendar-range';
 
 let dateLib: any;
 
@@ -16,7 +18,34 @@ function getDateLibrary() {
   return dateLib;
 }
 
-export function add(date: Date, quantity: number, unit: string) {
+export interface NormalizeRangeActionValue {
+  date: {
+    start: Date | null;
+    end: Date | null;
+  };
+  moment?: {
+    start?: Date | Moment | null;
+    end?: Date | Moment | null;
+  };
+  datetime?: {
+    start?: Date | null;
+    end?: Date | null;
+  };
+}
+
+export interface NormalizeMultipleActionValue {
+  date: Date[];
+  moment?: Date[] | Moment[];
+  datetime?: Date[];
+}
+
+export interface NormalizeCalendarValue {
+  date: Date | undefined;
+  moment?: Date | undefined;
+  datetime?: Date | undefined;
+}
+
+export function add(date: Date, quantity: number, unit: string): Date {
   return getDateLibrary().add(date, quantity, unit);
 }
 
@@ -24,7 +53,7 @@ export function formatDate(
   date: Date,
   format: string,
   locale: string | null = null,
-) {
+): string {
   return getDateLibrary().formatDate(date, format, locale);
 }
 
@@ -36,23 +65,23 @@ export function endOf(date: Date, unit: string): Date {
   return getDateLibrary().endOf(date, unit);
 }
 
-export function weekday(date: Date) {
+export function weekday(date: Date): number {
   return getDateLibrary().weekday(date);
 }
 
-export function isoWeekday(date: Date) {
+export function isoWeekday(date: Date): number {
   return getDateLibrary().isoWeekday(date);
 }
 
-export function getWeekdaysShort() {
+export function getWeekdaysShort(): string[] {
   return getDateLibrary().getWeekdaysShort();
 }
 
-export function getWeekdaysMin() {
+export function getWeekdaysMin(): string[] {
   return getDateLibrary().getWeekdaysMin();
 }
 
-export function getWeekdays() {
+export function getWeekdays(): string[] {
   return getDateLibrary().getWeekdays();
 }
 
@@ -60,7 +89,7 @@ export function isAfter(date1: Date, date2: Date): boolean {
   return getDateLibrary().isAfter(date1, date2);
 }
 
-export function isBefore(date1: Date, date2?: Date): boolean {
+export function isBefore(date1: Date, date2?: Date | null): boolean {
   return getDateLibrary().isBefore(date1, date2);
 }
 
@@ -82,15 +111,19 @@ export function diff(date1: Date, date2: Date): number {
   return getDateLibrary().diff(date1, date2);
 }
 
-export function normalizeDate(date?: Date): Date {
+export function normalizeDate(date?: Date | null): Date {
   return getDateLibrary().normalizeDate(date);
 }
 
-export function normalizeRangeActionValue(val: any) {
+export function normalizeRangeActionValue(
+  val: PowerCalendarRangeSelectDay,
+): NormalizeRangeActionValue {
   return getDateLibrary().normalizeRangeActionValue(val);
 }
 
-export function normalizeMultipleActionValue(val: any) {
+export function normalizeMultipleActionValue(
+  val: any,
+): NormalizeMultipleActionValue {
   return getDateLibrary().normalizeMultipleActionValue(val);
 }
 
@@ -98,23 +131,25 @@ export function normalizeCalendarDay(day: PowerCalendarDay): PowerCalendarDay {
   return getDateLibrary().normalizeCalendarDay(day);
 }
 
-export function withLocale(locale: string, fn: () => void) {
+export function withLocale(locale: string, fn: () => void): string[] {
   return getDateLibrary().withLocale(locale, fn);
 }
 
-export function normalizeCalendarValue(value: { date: Date }) {
+export function normalizeCalendarValue(value: {
+  date: Date;
+}): NormalizeCalendarValue {
   return getDateLibrary().normalizeCalendarValue(value);
 }
 
-export function normalizeDuration(value: any) {
+export function normalizeDuration(value: any): number {
   return getDateLibrary().normalizeDuration(value);
 }
 
-export function getDefaultLocale() {
+export function getDefaultLocale(): string {
   return getDateLibrary().getDefaultLocale();
 }
 
-export function localeStartOfWeek(locale: string) {
+export function localeStartOfWeek(locale: string): number {
   return getDateLibrary().localeStartOfWeek(locale);
 }
 

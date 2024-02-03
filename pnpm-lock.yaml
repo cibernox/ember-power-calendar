@@ -225,6 +225,9 @@ importers:
       '@embroider/util':
         specifier: ^1.12.1
         version: 1.12.1(@glint/environment-ember-loose@1.3.0)(@glint/template@1.3.0)(ember-source@5.5.0)
+      decorator-transforms:
+        specifier: ^1.0.1
+        version: 1.1.0(@babel/core@7.23.9)
       ember-assign-helper:
         specifier: ^0.5.0
         version: 0.5.0(ember-source@5.5.0)
@@ -244,18 +247,6 @@ importers:
       '@babel/core':
         specifier: ^7.23.9
         version: 7.23.9
-      '@babel/eslint-parser':
-        specifier: ^7.23.3
-        version: 7.23.10(@babel/core@7.23.9)(eslint@8.56.0)
-      '@babel/plugin-proposal-class-properties':
-        specifier: ^7.18.6
-        version: 7.18.6(@babel/core@7.23.9)
-      '@babel/plugin-proposal-decorators':
-        specifier: ^7.23.9
-        version: 7.23.9(@babel/core@7.23.9)
-      '@babel/plugin-transform-class-static-block':
-        specifier: ^7.23.4
-        version: 7.23.4(@babel/core@7.23.9)
       '@babel/plugin-transform-typescript':
         specifier: ^7.23.6
         version: 7.23.6(@babel/core@7.23.9)
@@ -3422,8 +3413,8 @@ packages:
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
-  /@types/express-serve-static-core@4.17.42:
-    resolution: {integrity: sha512-ckM3jm2bf/MfB3+spLPWYPUH573plBFwpOhqQ2WottxYV85j1HQFlxmnTq57X1yHY9awZPig06hL/cLMgNWHIQ==}
+  /@types/express-serve-static-core@4.17.43:
+    resolution: {integrity: sha512-oaYtiBirUOPQGSWNGPWnzyAFJ0BP3cwvN4oWZQY+zUBwpVIGsKUkpBpSztp74drYcjavs7SKFZ4DX1V2QeN8rg==}
     dependencies:
       '@types/node': 20.11.16
       '@types/qs': 6.9.11
@@ -3435,7 +3426,7 @@ packages:
     resolution: {integrity: sha512-ejlPM315qwLpaQlQDTjPdsUFSc6ZsP4AN6AlWnogPjQ7CVi7PYF3YVz+CY3jE2pwYf7E/7HlDAN0rV2GxTG0HQ==}
     dependencies:
       '@types/body-parser': 1.19.5
-      '@types/express-serve-static-core': 4.17.42
+      '@types/express-serve-static-core': 4.17.43
       '@types/qs': 6.9.11
       '@types/serve-static': 1.15.5
     dev: true
@@ -4110,7 +4101,7 @@ packages:
     resolution: {integrity: sha512-LPuwb2P+NrQw3XhxGc36+XSvuBPopovXYTR9Ew++Du9Yb/bx5AzBfrIsBoj0EZUifjQU+sHL21sseZ3jerWO/A==}
     dependencies:
       call-bind: 1.0.5
-      is-array-buffer: 3.0.3
+      is-array-buffer: 3.0.4
 
   /array-equal@1.0.2:
     resolution: {integrity: sha512-gUHx76KtnhEgB3HOuFYiCm3FIdEs6ocM2asHvNTkfu/Y09qQVrrVVaOKENmS2KkSaGoxgXNqC+ZVtR/n0MOkSA==}
@@ -4148,8 +4139,8 @@ packages:
       call-bind: 1.0.5
       define-properties: 1.2.1
       es-abstract: 1.22.3
-      get-intrinsic: 1.2.2
-      is-array-buffer: 3.0.3
+      get-intrinsic: 1.2.3
+      is-array-buffer: 3.0.4
       is-shared-array-buffer: 1.0.2
 
   /arrify@1.0.1:
@@ -5287,7 +5278,7 @@ packages:
     resolution: {integrity: sha512-C3nQxfFZxFRVoJoGKKI8y3MOEo129NQ+FgQ08iye+Mk4zNZZGdjfs06bVTr+DBSlA66Q2VEcMki/cUCP4SercQ==}
     dependencies:
       function-bind: 1.1.2
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       set-function-length: 1.2.0
 
   /callsites@3.1.0:
@@ -6294,6 +6285,15 @@ packages:
       mimic-response: 3.1.0
     dev: true
 
+  /decorator-transforms@1.1.0(@babel/core@7.23.9):
+    resolution: {integrity: sha512-n3WCgc3PB2t9mLV4SJd87IjTbKeFUGw2sU5eEBYczSmcvj3guX4eMW4XOowlQqGk7I/da6+bwv1ydw1ZtNqWaw==}
+    dependencies:
+      '@babel/plugin-syntax-decorators': 7.23.3(@babel/core@7.23.9)
+      babel-import-util: 2.0.1
+    transitivePeerDependencies:
+      - '@babel/core'
+    dev: false
+
   /deep-extend@0.6.0:
     resolution: {integrity: sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==}
     engines: {node: '>=4.0.0'}
@@ -6335,7 +6335,7 @@ packages:
     resolution: {integrity: sha512-E7uGkTzkk1d0ByLeSc6ZsFS79Axg+m1P/VsgYsxHgiuc3tFSj+MjMIwe90FC4lOAZzNBdY7kkO2P2wKdsQ1vgQ==}
     engines: {node: '>= 0.4'}
     dependencies:
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       gopd: 1.0.1
       has-property-descriptors: 1.0.1
 
@@ -7740,7 +7740,7 @@ packages:
       es-set-tostringtag: 2.0.2
       es-to-primitive: 1.2.1
       function.prototype.name: 1.1.6
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       get-symbol-description: 1.0.0
       globalthis: 1.0.3
       gopd: 1.0.1
@@ -7749,7 +7749,7 @@ packages:
       has-symbols: 1.0.3
       hasown: 2.0.0
       internal-slot: 1.0.6
-      is-array-buffer: 3.0.3
+      is-array-buffer: 3.0.4
       is-callable: 1.2.7
       is-negative-zero: 2.0.2
       is-regex: 1.1.4
@@ -7777,11 +7777,15 @@ packages:
     resolution: {integrity: sha512-wd6JXUmyHmt8T5a2xreUwKcGPq6f1f+WwIJkijUqiGcJz1qqnZgP6XIK+QyIWU5lT7imeNxUll48bziG+TSYcA==}
     dev: true
 
+  /es-errors@1.0.0:
+    resolution: {integrity: sha512-yHV74THqMJUyFKkHyN7hyENcEZM3Dj2a2IrdClY+IT4BFQHkIVwlh8s6uZfjsFydMdNHv0F5mWgAA3ajFbsvVQ==}
+    engines: {node: '>= 0.4'}
+
   /es-get-iterator@1.1.3:
     resolution: {integrity: sha512-sPZmqHBe6JIiTfN5q2pEi//TwxmAFHwj/XEuYjTuse78i8KxaqMTTzxPoFKuzRpDpTJ+0NAbpfenkmH2rePtuw==}
     dependencies:
       call-bind: 1.0.5
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       has-symbols: 1.0.3
       is-arguments: 1.1.1
       is-map: 2.0.2
@@ -7798,7 +7802,7 @@ packages:
     resolution: {integrity: sha512-BuDyupZt65P9D2D2vA/zqcI3G5xRsklm5N3xCwuiy+/vKy8i0ifdsQP1sLgO4tZDSCaQUSnmC48khknGMV3D2Q==}
     engines: {node: '>= 0.4'}
     dependencies:
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       has-tostringtag: 1.0.2
       hasown: 2.0.0
 
@@ -8911,9 +8915,11 @@ packages:
     engines: {node: '>=18'}
     dev: true
 
-  /get-intrinsic@1.2.2:
-    resolution: {integrity: sha512-0gSo4ml/0j98Y3lngkFEot/zhiCeWsbYIlZ+uZOVgzLyLaUw7wxUL+nCTP0XJvJg1AXulJRI3UJi8GsbDuxdGA==}
+  /get-intrinsic@1.2.3:
+    resolution: {integrity: sha512-JIcZczvcMVE7AUOP+X72bh8HqHBRxFdz5PDHYtNG/lE3yk9b3KZBJlwFcTyPYjg3L4RLLmZJzvjxhaZVapxFrQ==}
+    engines: {node: '>= 0.4'}
     dependencies:
+      es-errors: 1.0.0
       function-bind: 1.1.2
       has-proto: 1.0.1
       has-symbols: 1.0.3
@@ -8957,7 +8963,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.5
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
 
   /get-tsconfig@4.7.2:
     resolution: {integrity: sha512-wuMsz4leaj5hbGgg4IvDU0bqJagpftG5l5cXIAvo8uZrqn0NJqwtfupTN00VnkQJPcIRrxYrm1Ue24btpCha2A==}
@@ -9221,7 +9227,7 @@ packages:
   /gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
     dependencies:
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
 
   /got@12.6.1:
     resolution: {integrity: sha512-mThBblvlAF1d4O5oqyvN+ZxLAYwIJK7bpMxgYqPD9okW0C3qm5FFn7k811QrcuEBwaogR3ngOFoCfs6mRv7teQ==}
@@ -9329,7 +9335,7 @@ packages:
   /has-property-descriptors@1.0.1:
     resolution: {integrity: sha512-VsX8eaIewvas0xnvinAe9bw4WfIeODpGYikiWYLH+dma0Jw6KHYqWiWfhQlgOVK8D6PvjubK5Uc4P0iIhIcNVg==}
     dependencies:
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
 
   /has-proto@1.0.1:
     resolution: {integrity: sha512-7qE+iP+O+bgF9clE5+UoBFzE65mlBiVj3tKCrlNQ0Ogwm0BjpT/gK4SlLYDMybDh5I3TCTKnPPa0oMG7JDYrhg==}
@@ -9771,7 +9777,7 @@ packages:
     resolution: {integrity: sha512-Xj6dv+PsbtwyPpEflsejS+oIZxmMlV44zAhG479uYu89MsjcYOhCFnNyKrkJrihbsiasQyY0afoCl/9BLR65bg==}
     engines: {node: '>= 0.4'}
     dependencies:
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       hasown: 2.0.0
       side-channel: 1.0.4
 
@@ -9813,12 +9819,12 @@ packages:
       has-tostringtag: 1.0.2
     dev: true
 
-  /is-array-buffer@3.0.3:
-    resolution: {integrity: sha512-4uU8qe5vJcW6tiP6HfaXsXPDN9pkcrp8DBCrvCkHQS08xeDEdLNbshLfIydPf3x7VDtGYKad/GkX3ujNfgxPaw==}
+  /is-array-buffer@3.0.4:
+    resolution: {integrity: sha512-wcjaerHw0ydZwfhiKbXJWLDY8A7yV7KhjQOpb83hGgGfId/aQa4TOvwyzn2PuswW2gPCYEL/nEAiSVpdOj1lXw==}
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.5
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
 
   /is-arrayish@0.2.1:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
@@ -12784,7 +12790,7 @@ packages:
       call-bind: 1.0.5
       define-properties: 1.2.1
       es-abstract: 1.22.3
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       iterate-value: 1.0.2
     dev: true
 
@@ -13537,7 +13543,7 @@ packages:
     engines: {node: '>=0.4'}
     dependencies:
       call-bind: 1.0.5
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       has-symbols: 1.0.3
       isarray: 2.0.5
 
@@ -13557,7 +13563,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.5
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       is-regex: 1.1.4
 
   /safe-regex@1.1.0:
@@ -13740,7 +13746,7 @@ packages:
     dependencies:
       define-data-property: 1.1.1
       function-bind: 1.1.2
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       gopd: 1.0.1
       has-property-descriptors: 1.0.1
 
@@ -13814,7 +13820,7 @@ packages:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
     dependencies:
       call-bind: 1.0.5
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       object-inspect: 1.13.1
 
   /signal-exit@3.0.7:
@@ -14234,7 +14240,7 @@ packages:
       call-bind: 1.0.5
       define-properties: 1.2.1
       es-abstract: 1.22.3
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       has-symbols: 1.0.3
       internal-slot: 1.0.6
       regexp.prototype.flags: 1.5.1
@@ -15027,7 +15033,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.5
-      get-intrinsic: 1.2.2
+      get-intrinsic: 1.2.3
       is-typed-array: 1.1.13
 
   /typed-array-byte-length@1.0.0:
