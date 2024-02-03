@@ -9,6 +9,7 @@
   },
   "compilerOptions": {
     "declarationDir": "declarations",
+    "allowJs": true,
 
     /**
       https://www.typescriptlang.org/tsconfig#rootDir
