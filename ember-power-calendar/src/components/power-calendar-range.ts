@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 import { guidFor } from '@ember/object/internals';
 import { assert } from '@ember/debug';
 import { task } from 'ember-concurrency';
-import PowerCalendarRangeComponent from './power-calendar-range/days.ts';
+import PowerCalendarRangeDaysComponent from './power-calendar-range/days.ts';
 import PowerCalendarNavComponent from './power-calendar/nav.ts';
 import { publicActionsObject } from '../-private/utils.ts';
 import {
@@ -71,7 +71,7 @@ export interface PowerCalendarRangeAPI
   maxRange?: number | null;
 }
 
-export default class PowerCalendarRange extends Component<PowerCalendarRangeSignature> {
+export default class PowerCalendarRangeComponent extends Component<PowerCalendarRangeSignature> {
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked center = null;
@@ -79,7 +79,7 @@ export default class PowerCalendarRange extends Component<PowerCalendarRangeSign
   @tracked _selected?: SelectedDays;
 
   navComponent: ComponentLike<any> = PowerCalendarNavComponent;
-  daysComponent: ComponentLike<any> = PowerCalendarRangeComponent;
+  daysComponent: ComponentLike<any> = PowerCalendarRangeDaysComponent;
 
   // Lifecycle hooks
   constructor(owner: unknown, args: PowerCalendarRangeArgs) {
