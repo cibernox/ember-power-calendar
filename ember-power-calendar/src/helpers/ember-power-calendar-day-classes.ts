@@ -3,7 +3,7 @@ import type {
   PowerCalendarAPI,
   PowerCalendarDay,
 } from '../components/power-calendar.ts';
-import type { Week } from '../components/power-calendar/days.ts';
+import type { Week } from '../-private/days-utils.ts';
 
 export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]: [
   PowerCalendarDay,
