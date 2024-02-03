@@ -3,17 +3,18 @@ import type {
   PowerCalendarAPI,
   PowerCalendarDay,
 } from '../components/power-calendar.ts';
+import type { Week } from '../components/power-calendar/days.ts';
 
 export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]: [
   PowerCalendarDay,
   PowerCalendarAPI,
-  string[],
+  Week[],
   (
     | string
     | ((
         day: PowerCalendarDay,
         calendar: PowerCalendarAPI,
-        weeks: string[],
+        weeks: Week[],
       ) => string)
   ),
 ]) {

@@ -94,7 +94,7 @@ export function normalizeMultipleActionValue(val: any) {
   return getDateLibrary().normalizeMultipleActionValue(val);
 }
 
-export function normalizeCalendarDay(day: PowerCalendarDay) {
+export function normalizeCalendarDay(day: PowerCalendarDay): PowerCalendarDay {
   return getDateLibrary().normalizeCalendarDay(day);
 }
 
@@ -118,10 +118,10 @@ export function localeStartOfWeek(locale: string) {
   return getDateLibrary().localeStartOfWeek(locale);
 }
 
-export function startOfWeek(day: Date, startOfWeek: string | number) {
+export function startOfWeek(day: Date, startOfWeek: string | number): Date {
   return getDateLibrary().startOfWeek(day, startOfWeek);
 }
 
-export function endOfWeek(day: Date, startOfWeek: string | number) {
+export function endOfWeek(day: Date, startOfWeek: string | number): Date {
   return getDateLibrary().endOfWeek(day, startOfWeek);
 }

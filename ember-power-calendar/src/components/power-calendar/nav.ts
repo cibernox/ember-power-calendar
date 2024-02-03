@@ -11,7 +11,7 @@ interface PowerCalendarNavSignature {
     unit: TPowerCalendarMoveCenterUnit;
   };
   Blocks: {
-    default: [CalendarAPI];
+    default: [calendar: CalendarAPI];
   };
 }
 
