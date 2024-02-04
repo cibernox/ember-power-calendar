@@ -11,6 +11,8 @@
           "codemodsSource": "ember-app-codemods-manifest@1",
           "isBaseBlueprint": true,
           "options": [
+            "--pnpm",
+            "--typescript",
             "--no-welcome"
           ]
         }
