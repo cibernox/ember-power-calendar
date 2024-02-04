@@ -1,7 +1,24 @@
 import { helper } from '@ember/component/helper';
+import type {
+  PowerCalendarAPI,
+  PowerCalendarDay,
+} from '../components/power-calendar.ts';
+import type { Week } from '../-private/days-utils.ts';
 
-export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]) {
-  let classes = ['ember-power-calendar-day'];
+export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]: [
+  PowerCalendarDay,
+  PowerCalendarAPI,
+  Week[],
+  (
+    | string
+    | ((
+        day: PowerCalendarDay,
+        calendar: PowerCalendarAPI,
+        weeks: Week[],
+      ) => string)
+  ),
+]) {
+  const classes = ['ember-power-calendar-day'];
   if (calendar.actions.select) {
     classes.push('ember-power-calendar-day--interactive');
   }
@@ -29,7 +46,7 @@ export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]) {
     if (typeof dayClass === 'string') {
       classes.push(dayClass);
     } else if (typeof dayClass === 'function') {
-      let k = dayClass(day, calendar, weeks);
+      const k = dayClass(day, calendar, weeks);
       if (k !== null && k !== undefined) {
         classes.push(k);
       }

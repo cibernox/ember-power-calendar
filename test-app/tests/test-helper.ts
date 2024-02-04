@@ -9,7 +9,9 @@ import isDay from './assertions/is-day';
 
 setApplication(Application.create(config.APP));
 
+// @ts-expect-error Property 'isCalendar' does not exist on type 'Assert'
 QUnit.assert.isCalendar = isCalendar;
+// @ts-expect-error Property 'isDay' does not exist on type 'Assert'
 QUnit.assert.isDay = isDay;
 
 setup(QUnit.assert);
