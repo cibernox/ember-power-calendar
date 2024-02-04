@@ -11,7 +11,7 @@ export default {};
 export * from '../utils.ts';
 
 function findCalendarElement(selector: string): Element | null | undefined {
-  let target = find(selector);
+  const target = find(selector);
 
   if (target) {
     if (target.classList.contains('ember-power-calendar')) {
@@ -26,7 +26,7 @@ function findCalendarElement(selector: string): Element | null | undefined {
 }
 
 function findCalendarGuid(selector: string): string | undefined {
-  let maybeCalendar = findCalendarElement(selector);
+  const maybeCalendar = findCalendarElement(selector);
   if (!maybeCalendar) {
     return;
   }
@@ -37,8 +37,13 @@ function findCalendarGuid(selector: string): string | undefined {
   }
 }
 
-function findComponentInstance(selector: string): PowerCalendarComponent | PowerCalendarMultipleComponent | PowerCalendarRangeComponent {
-  let calendarGuid = findCalendarGuid(selector);
+function findComponentInstance(
+  selector: string,
+):
+  | PowerCalendarComponent
+  | PowerCalendarMultipleComponent
+  | PowerCalendarRangeComponent {
+  const calendarGuid = findCalendarGuid(selector);
   assert(
     `Could not find a calendar using selector: "${selector}"`,
     calendarGuid,
@@ -47,30 +52,38 @@ function findComponentInstance(selector: string): PowerCalendarComponent | Power
   return window.__powerCalendars[calendarGuid];
 }
 
-export async function calendarCenter(selector: string, newCenter: Date): Promise<void> {
+export async function calendarCenter(
+  selector: string,
+  newCenter: Date,
+): Promise<void> {
   assert(
     '`calendarCenter` expect a Date object as second argument',
     newCenter instanceof Date,
   );
-  let calendarComponent = findComponentInstance(selector);
-  let onCenterChange = calendarComponent.args.onCenterChange;
+  const calendarComponent = findComponentInstance(selector);
+  const onCenterChange = calendarComponent.args.onCenterChange;
   assert(
     "You cannot call `calendarCenter` on a component that doesn't has an `@onCenterChange` action",
     !!onCenterChange,
   );
-  let publicAPI = calendarComponent.publicAPI;
-  run(() => publicAPI.actions.changeCenter!(newCenter, publicAPI, {} as MouseEvent));
+  const publicAPI = calendarComponent.publicAPI;
+  run(() =>
+    publicAPI.actions.changeCenter!(newCenter, publicAPI, {} as MouseEvent),
+  );
   return settled();
 }
 
-export async function calendarSelect(selector: string, selected: Date): Promise<void> {
+export async function calendarSelect(
+  selector: string,
+  selected: Date,
+): Promise<void> {
   assert('`calendarSelect` expect a Date object as second argument', selected);
-  let calendarElement = findCalendarElement(selector);
-  let daySelector = `${selector} [data-date="${formatDate(
+  const calendarElement = findCalendarElement(selector);
+  const daySelector = `${selector} [data-date="${formatDate(
     selected,
     'YYYY-MM-DD',
   )}"]`;
-  let dayElement = calendarElement?.querySelector(daySelector);
+  const dayElement = calendarElement?.querySelector(daySelector);
   if (!dayElement) {
     await calendarCenter(selector, selected);
   }
