@@ -1,7 +1,7 @@
 lockfileVersion: '6.0'
 
 settings:
-  autoInstallPeers: true
+  autoInstallPeers: false
   excludeLinksFromLockfile: false
 
 importers:
@@ -28,10 +28,6 @@ importers:
         version: 17.0.3
 
   docs:
-    dependencies:
-      ember-power-calendar:
-        specifier: workspace:*
-        version: link:../ember-power-calendar
     devDependencies:
       '@babel/core':
         specifier: ^7.23.9
@@ -63,6 +59,93 @@ importers:
       '@glimmer/tracking':
         specifier: ^1.1.2
         version: 1.1.2
+      '@glint/core':
+        specifier: ^1.3.0
+        version: 1.3.0(typescript@5.3.3)
+      '@glint/environment-ember-loose':
+        specifier: ^1.3.0
+        version: 1.3.0(@glimmer/component@1.1.2)(@glint/template@1.3.0)(@types/ember__array@4.0.10)(@types/ember__component@4.0.22)(@types/ember__controller@4.0.12)(@types/ember__object@4.0.12)(@types/ember__routing@4.0.21)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.1.0)
+      '@glint/environment-ember-template-imports':
+        specifier: ^1.2.1
+        version: 1.3.0(@glint/environment-ember-loose@1.3.0)(@glint/template@1.3.0)(@types/ember__component@4.0.22)(@types/ember__helper@4.0.7)(@types/ember__modifier@4.0.9)(@types/ember__routing@4.0.21)
+      '@glint/template':
+        specifier: ^1.3.0
+        version: 1.3.0
+      '@tsconfig/ember':
+        specifier: ^3.0.3
+        version: 3.0.3
+      '@types/ember':
+        specifier: ^4.0.11
+        version: 4.0.11(@babel/core@7.23.9)
+      '@types/ember__application':
+        specifier: ^4.0.11
+        version: 4.0.11(@babel/core@7.23.9)
+      '@types/ember__array':
+        specifier: ^4.0.10
+        version: 4.0.10(@babel/core@7.23.9)
+      '@types/ember__component':
+        specifier: ^4.0.22
+        version: 4.0.22(@babel/core@7.23.9)
+      '@types/ember__controller':
+        specifier: ^4.0.12
+        version: 4.0.12(@babel/core@7.23.9)
+      '@types/ember__debug':
+        specifier: ^4.0.8
+        version: 4.0.8(@babel/core@7.23.9)
+      '@types/ember__destroyable':
+        specifier: ^4.0.5
+        version: 4.0.5
+      '@types/ember__engine':
+        specifier: ^4.0.11
+        version: 4.0.11(@babel/core@7.23.9)
+      '@types/ember__error':
+        specifier: ^4.0.6
+        version: 4.0.6
+      '@types/ember__helper':
+        specifier: ^4.0.7
+        version: 4.0.7(@babel/core@7.23.9)
+      '@types/ember__modifier':
+        specifier: ^4.0.9
+        version: 4.0.9(@babel/core@7.23.9)
+      '@types/ember__object':
+        specifier: ^4.0.12
+        version: 4.0.12(@babel/core@7.23.9)
+      '@types/ember__owner':
+        specifier: ^4.0.9
+        version: 4.0.9
+      '@types/ember__polyfills':
+        specifier: ^4.0.6
+        version: 4.0.6
+      '@types/ember__routing':
+        specifier: ^4.0.21
+        version: 4.0.21(@babel/core@7.23.9)
+      '@types/ember__runloop':
+        specifier: ^4.0.9
+        version: 4.0.9(@babel/core@7.23.9)
+      '@types/ember__service':
+        specifier: ^4.0.9
+        version: 4.0.9(@babel/core@7.23.9)
+      '@types/ember__string':
+        specifier: ^3.16.3
+        version: 3.16.3
+      '@types/ember__template':
+        specifier: ^4.0.6
+        version: 4.0.6
+      '@types/ember__test':
+        specifier: ^4.0.6
+        version: 4.0.6(@babel/core@7.23.9)
+      '@types/ember__utils':
+        specifier: ^4.0.7
+        version: 4.0.7(@babel/core@7.23.9)
+      '@types/qunit':
+        specifier: ^2.19.10
+        version: 2.19.10
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^6.20.0
+        version: 6.20.0(@typescript-eslint/parser@6.20.0)(eslint@8.56.0)(typescript@5.3.3)
+      '@typescript-eslint/parser':
+        specifier: ^6.20.0
+        version: 6.20.0(eslint@8.56.0)(typescript@5.3.3)
       broccoli-asset-rev:
         specifier: ^3.0.0
         version: 3.0.0
@@ -120,15 +203,18 @@ importers:
       ember-page-title:
         specifier: ^8.2.1
         version: 8.2.1(ember-source@5.6.0)
+      ember-power-calendar:
+        specifier: workspace:*
+        version: link:../ember-power-calendar
       ember-power-calendar-moment:
         specifier: ^0.5.1
         version: 0.5.1(@glint/template@1.3.0)(ember-source@5.6.0)(moment@2.30.1)
       ember-power-select:
         specifier: 8.0.0-beta.5
-        version: 8.0.0-beta.5(@babel/core@7.23.9)(@ember/test-helpers@3.2.1)(ember-basic-dropdown@8.0.0-beta.5)(ember-source@5.6.0)
+        version: 8.0.0-beta.5(@babel/core@7.23.9)(@ember/test-helpers@3.2.1)(@glint/environment-ember-loose@1.3.0)(@glint/template@1.3.0)(ember-basic-dropdown@8.0.0-beta.5)(ember-source@5.6.0)
       ember-prism:
         specifier: ^0.13.0
-        version: 0.13.0(@babel/core@7.23.9)(ember-source@5.6.0)(webpack@5.90.1)
+        version: 0.13.0(@babel/core@7.23.9)(@glint/template@1.3.0)(ember-source@5.6.0)(webpack@5.90.1)
       ember-qunit:
         specifier: ^8.0.2
         version: 8.0.2(@ember/test-helpers@3.2.1)(@glint/template@1.3.0)(ember-source@5.6.0)(qunit@2.20.0)
@@ -174,6 +260,9 @@ importers:
       moment:
         specifier: ^2.30.1
         version: 2.30.1
+      postcss:
+        specifier: ^8.4.33
+        version: 8.4.33
       prettier:
         specifier: ^3.2.4
         version: 3.2.5
@@ -186,6 +275,9 @@ importers:
       qunit-dom:
         specifier: ^3.0.0
         version: 3.0.0
+      rsvp:
+        specifier: ^4.8.5
+        version: 4.8.5
       sass:
         specifier: ^1.69.7
         version: 1.70.0
@@ -204,6 +296,9 @@ importers:
       tracked-built-ins:
         specifier: ^3.3.0
         version: 3.3.0
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
       webpack:
         specifier: ^5.90.0
         version: 5.90.1
@@ -213,9 +308,6 @@ importers:
       '@ember/render-modifiers':
         specifier: ^2.1.0
         version: 2.1.0(@babel/core@7.23.9)(@glint/template@1.3.0)(ember-source@5.6.0)
-      '@ember/test-helpers':
-        specifier: ^2.9.4 || ^3.2.1
-        version: 3.2.1(@glint/template@1.3.0)(ember-source@5.6.0)(webpack@5.90.1)
       '@embroider/addon-shim':
         specifier: ^1.8.7
         version: 1.8.7
@@ -237,9 +329,6 @@ importers:
       ember-element-helper:
         specifier: ^0.8.5
         version: 0.8.5(@glint/environment-ember-loose@1.3.0)(@glint/template@1.3.0)(ember-source@5.6.0)
-      ember-source:
-        specifier: ^3.28.0 || ^4.0.0 || >=5.0.0
-        version: 5.6.0(@babel/core@7.23.9)(@glimmer/component@1.1.2)(@glint/template@1.3.0)(rsvp@4.8.5)(webpack@5.90.1)
       ember-truth-helpers:
         specifier: ^4.0.3
         version: 4.0.3(ember-source@5.6.0)
@@ -256,6 +345,9 @@ importers:
       '@babel/runtime':
         specifier: ^7.23.9
         version: 7.23.9
+      '@ember/test-helpers':
+        specifier: ^3.2.1
+        version: 3.2.1(@glint/template@1.3.0)(ember-source@5.6.0)(webpack@5.90.1)
       '@embroider/addon-dev':
         specifier: ^4.1.3
         version: 4.2.0(@glint/template@1.3.0)(rollup@4.9.6)
@@ -355,6 +447,9 @@ importers:
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
+      ember-source:
+        specifier: ~5.6.0
+        version: 5.6.0(@babel/core@7.23.9)(@glimmer/component@1.1.2)(@glint/template@1.3.0)(rsvp@4.8.5)(webpack@5.90.1)
       ember-template-lint:
         specifier: ^5.13.0
         version: 5.13.0
@@ -394,12 +489,18 @@ importers:
       rollup-plugin-styles:
         specifier: ^4.0.0
         version: 4.0.0(rollup@4.9.6)
+      rsvp:
+        specifier: ^4.8.5
+        version: 4.8.5
       sass:
         specifier: ^1.69.7
         version: 1.70.0
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
+      webpack:
+        specifier: ^5.90.1
+        version: 5.90.1
 
   test-app:
     devDependencies:
@@ -616,6 +717,9 @@ importers:
       moment:
         specifier: ^2.30.1
         version: 2.30.1
+      postcss:
+        specifier: ^8.4.33
+        version: 8.4.33
       prettier:
         specifier: ^3.2.4
         version: 3.2.5
@@ -625,6 +729,9 @@ importers:
       qunit-dom:
         specifier: ^3.0.0
         version: 3.0.0
+      rsvp:
+        specifier: ^4.8.5
+        version: 4.8.5
       sass:
         specifier: ^1.69.7
         version: 1.70.0
@@ -2038,6 +2145,7 @@ packages:
       - '@glint/template'
       - supports-color
       - webpack
+    dev: true
 
   /@ember/test-waiters@3.1.0:
     resolution: {integrity: sha512-bb9h95ktG2wKY9+ja1sdsFBdOms2lB19VWs8wmNpzgHv1NCetonBoV5jHBV4DHt0uS1tg9z66cZqhUVlYs96KQ==}
@@ -2049,6 +2157,7 @@ packages:
       semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
+    dev: true
 
   /@embroider/addon-dev@4.2.0(@glint/template@1.3.0)(rollup@4.9.6):
     resolution: {integrity: sha512-sXCTu4KAdjBv0gf8bglFirYFe4n0sfshszBoD3uRbX0VMVxfX1Yy6+Op5kOHcj3y9aD/MsxSDhYF7but8N/sRw==}
@@ -2844,7 +2953,7 @@ packages:
     engines: {node: '>= 8'}
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
-      fastq: 1.17.0
+      fastq: 1.17.1
     dev: true
 
   /@npmcli/fs@1.1.1:
@@ -3705,7 +3814,7 @@ packages:
       ignore: 5.3.1
       natural-compare: 1.4.0
       semver: 7.5.4
-      ts-api-utils: 1.0.3(typescript@5.3.3)
+      ts-api-utils: 1.1.0(typescript@5.3.3)
       typescript: 5.3.3
     transitivePeerDependencies:
       - supports-color
@@ -3754,7 +3863,7 @@ packages:
       '@typescript-eslint/utils': 6.20.0(eslint@8.56.0)(typescript@5.3.3)
       debug: 4.3.4
       eslint: 8.56.0
-      ts-api-utils: 1.0.3(typescript@5.3.3)
+      ts-api-utils: 1.1.0(typescript@5.3.3)
       typescript: 5.3.3
     transitivePeerDependencies:
       - supports-color
@@ -3781,7 +3890,7 @@ packages:
       is-glob: 4.0.3
       minimatch: 9.0.3
       semver: 7.5.4
-      ts-api-utils: 1.0.3(typescript@5.3.3)
+      ts-api-utils: 1.1.0(typescript@5.3.3)
       typescript: 5.3.3
     transitivePeerDependencies:
       - supports-color
@@ -4025,10 +4134,8 @@ packages:
       indent-string: 4.0.0
     dev: true
 
-  /ajv-formats@2.1.1(ajv@8.12.0):
+  /ajv-formats@2.1.1:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
-    peerDependencies:
-      ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -4248,14 +4355,15 @@ packages:
       is-string: 1.0.7
     dev: true
 
-  /arraybuffer.prototype.slice@1.0.2:
-    resolution: {integrity: sha512-yMBKppFur/fbHu9/6USUe03bZ4knMYiwFBcyiaXB8Go0qNehwX6inYPzK9U0NeQvGxKthcmHcaR8P5MStSRBAw==}
+  /arraybuffer.prototype.slice@1.0.3:
+    resolution: {integrity: sha512-bMxMKAjg13EBSVscxTaYA4mRc5t1UAXa2kXiGTNfZ079HIWXEkKmkgFrh/nJqamaLSrXO5H4WFFkPEaLJWbs3A==}
     engines: {node: '>= 0.4'}
     dependencies:
       array-buffer-byte-length: 1.0.1
       call-bind: 1.0.5
       define-properties: 1.2.1
       es-abstract: 1.22.3
+      es-errors: 1.3.0
       get-intrinsic: 1.2.3
       is-array-buffer: 3.0.4
       is-shared-array-buffer: 1.0.2
@@ -5234,7 +5342,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001583
+      caniuse-lite: 1.0.30001584
       electron-to-chromium: 1.4.656
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.3)
@@ -5432,13 +5540,13 @@ packages:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
       browserslist: 4.22.3
-      caniuse-lite: 1.0.30001583
+      caniuse-lite: 1.0.30001584
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: true
 
-  /caniuse-lite@1.0.30001583:
-    resolution: {integrity: sha512-acWTYaha8xfhA/Du/z4sNZjHUWjkiuoAi2LM+T/aL+kemKQgPT1xBb/YKjlQ0Qo8gvbHsGNplrEJ+9G3gL7i4Q==}
+  /caniuse-lite@1.0.30001584:
+    resolution: {integrity: sha512-LOz7CCQ9M1G7OjJOF9/mzmqmj3jE/7VOmrfw6Mgs0E8cjOsbRXQJHsPBfmBOXDskXKrHLyyW3n7kpDW/4BsfpQ==}
 
   /capture-exit@2.0.0:
     resolution: {integrity: sha512-PiT/hQmTonHhl/HFGN+Lx3JJUznrVYJ3+AQsnthneZbvW7x+f08Tk7yLJTLEOUvBTbduLeeBkxEaYXUOUrRq6g==}
@@ -7171,7 +7279,7 @@ packages:
       heimdalljs-logger: 0.1.10
       http-proxy: 1.18.1
       inflection: 2.0.1
-      inquirer: 9.2.13
+      inquirer: 9.2.14
       is-git-url: 1.0.0
       is-language-code: 3.1.0
       isbinaryfile: 5.0.0
@@ -7437,7 +7545,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-power-select@8.0.0-beta.5(@babel/core@7.23.9)(@ember/test-helpers@3.2.1)(ember-basic-dropdown@8.0.0-beta.5)(ember-source@5.6.0):
+  /ember-power-select@8.0.0-beta.5(@babel/core@7.23.9)(@ember/test-helpers@3.2.1)(@glint/environment-ember-loose@1.3.0)(@glint/template@1.3.0)(ember-basic-dropdown@8.0.0-beta.5)(ember-source@5.6.0):
     resolution: {integrity: sha512-TMkVDhxSISdDHsDGxRRbQ3aBo8Ny6eVwCrjmWui5irU2paib1Z0Tx5HwvE/s02/NQ0dgutgNoe/lybP+E9dV+g==}
     peerDependencies:
       '@ember/test-helpers': ^2.9.4 || ^3.2.1
@@ -7460,7 +7568,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-prism@0.13.0(@babel/core@7.23.9)(ember-source@5.6.0)(webpack@5.90.1):
+  /ember-prism@0.13.0(@babel/core@7.23.9)(@glint/template@1.3.0)(ember-source@5.6.0)(webpack@5.90.1):
     resolution: {integrity: sha512-+vbrlXAxO8kw3pJCdtNuuQItANEP9dJ/UPxPPFX6hvbbGTAS5JYz6VG4SyNEJ4vBG1MxkwHirYywiDZIbaD8hQ==}
     engines: {node: 12.* || 14.* || >= 16}
     dependencies:
@@ -7851,7 +7959,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       array-buffer-byte-length: 1.0.1
-      arraybuffer.prototype.slice: 1.0.2
+      arraybuffer.prototype.slice: 1.0.3
       available-typed-arrays: 1.0.6
       call-bind: 1.0.5
       es-set-tostringtag: 2.0.2
@@ -7894,8 +8002,8 @@ packages:
     resolution: {integrity: sha512-wd6JXUmyHmt8T5a2xreUwKcGPq6f1f+WwIJkijUqiGcJz1qqnZgP6XIK+QyIWU5lT7imeNxUll48bziG+TSYcA==}
     dev: true
 
-  /es-errors@1.0.0:
-    resolution: {integrity: sha512-yHV74THqMJUyFKkHyN7hyENcEZM3Dj2a2IrdClY+IT4BFQHkIVwlh8s6uZfjsFydMdNHv0F5mWgAA3ajFbsvVQ==}
+  /es-errors@1.3.0:
+    resolution: {integrity: sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==}
     engines: {node: '>= 0.4'}
 
   /es-get-iterator@1.1.3:
@@ -8499,8 +8607,8 @@ packages:
     engines: {node: '>= 4.9.1'}
     dev: true
 
-  /fastq@1.17.0:
-    resolution: {integrity: sha512-zGygtijUMT7jnk3h26kUms3BkSDp4IfIKjmnqI2tvx6nuBfiF1UqOxbnLfzdv+apBy+53oaImsKtMw/xYbW+1w==}
+  /fastq@1.17.1:
+    resolution: {integrity: sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==}
     dependencies:
       reusify: 1.0.4
     dev: true
@@ -9036,7 +9144,7 @@ packages:
     resolution: {integrity: sha512-JIcZczvcMVE7AUOP+X72bh8HqHBRxFdz5PDHYtNG/lE3yk9b3KZBJlwFcTyPYjg3L4RLLmZJzvjxhaZVapxFrQ==}
     engines: {node: '>= 0.4'}
     dependencies:
-      es-errors: 1.0.0
+      es-errors: 1.3.0
       function-bind: 1.1.2
       has-proto: 1.0.1
       has-symbols: 1.0.3
@@ -9869,9 +9977,9 @@ packages:
       wrap-ansi: 6.2.0
     dev: true
 
-  /inquirer@9.2.13:
-    resolution: {integrity: sha512-mUlJNemjYioZgaZXqEFlQ0z9GD8/o+pavIF3JyhzWLX4Xa9M1wioGMCxQEFmps70un9lrah2WaBl3kSRVcoV3g==}
-    engines: {node: '>=14.18.0'}
+  /inquirer@9.2.14:
+    resolution: {integrity: sha512-4ByIMt677Iz5AvjyKrDpzaepIyMewNvDcvwpVVRZNmy9dLakVoVgdCHZXbK1SlVJra1db0JZ6XkJyHsanpdrdQ==}
+    engines: {node: '>=18'}
     dependencies:
       '@ljharb/through': 2.3.12
       ansi-escapes: 4.3.2
@@ -13783,7 +13891,7 @@ packages:
     dependencies:
       '@types/json-schema': 7.0.15
       ajv: 8.12.0
-      ajv-formats: 2.1.1(ajv@8.12.0)
+      ajv-formats: 2.1.1
       ajv-keywords: 5.1.0(ajv@8.12.0)
 
   /scss-tokenizer@0.4.3:
@@ -15073,9 +15181,9 @@ packages:
     resolution: {integrity: sha512-0z3j8R7MCjy10kc/g+qg7Ln3alJTodw9aDuVWZa3uiWqfuBMKeAeP2ocWcxoyM3D73yz3Jt/Pu4qPr4wHSdB/Q==}
     dev: true
 
-  /ts-api-utils@1.0.3(typescript@5.3.3):
-    resolution: {integrity: sha512-wNMeqtMz5NtwpT/UZGY5alT+VoKdSsOOP/kqHFcUW1P/VRhH2wJ48+DN2WwUliNbQ976ETwDL0Ifd2VVvgonvg==}
-    engines: {node: '>=16.13.0'}
+  /ts-api-utils@1.1.0(typescript@5.3.3):
+    resolution: {integrity: sha512-bcczrNe+mzZK1MNAmiBS2BpGLYrjkQ1gTctTH5QlQYIxhTN1gr7znSy5RWTk01ArhxOxhjkEediDp7yOm2BC2w==}
+    engines: {node: '>=18'}
     peerDependencies:
       typescript: '>=4.2.0'
     dependencies:
