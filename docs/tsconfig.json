@@ -10,8 +10,8 @@
     "baseUrl": ".",
     "allowJs": true,
     "paths": {
-      "test-app/tests/*": ["tests/*"],
-      "test-app/*": ["app/*"],
+      "docs/tests/*": ["tests/*"],
+      "docs/*": ["app/*"],
       "*": ["types/*"]
     }
   }
