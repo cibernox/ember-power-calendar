@@ -14,7 +14,6 @@ import {
 import PowerCalendarNavComponent from './power-calendar/nav.ts';
 import PowerCalendarDaysComponent from './power-calendar/days.ts';
 import type PowerCalendarService from '../services/power-calendar.ts';
-import type { Moment } from 'moment';
 import type {
   PowerCalendarRangeAPI,
   PowerCalendarRangeDay,
@@ -92,7 +91,8 @@ export interface PowerCalendarDay {
   id: string; // A unique identified of the day. It has the format YYYY-MM-DD
   number: number; // The day's number. From 1 to 31
   date: Date; //	The native Date object representing that day.
-  moment: Moment; //	The moment representing that day. (only when ember-power-calendar-moment is installed)
+  moment?: unknown; //	The moment representing that day. (only when ember-power-calendar-moment is installed)
+  datetime?: unknown; //	The luxon representing that day. (only when ember-power-calendar-luxon is installed)
   isFocused: boolean; //	It is true when the the cell of that day has the focus
   isCurrentMonth: boolean; //	It is true for those days in the current day, and false for those days for the previous/next months shown around.
   isToday: boolean; //	It is true if this day is today
@@ -156,7 +156,7 @@ export default class PowerCalendarComponent extends Component<PowerCalendarSigna
     if (!center) {
       center = (this.selected as Date) || this.powerCalendar.getDate();
     }
-    return normalizeDate(center);
+    return normalizeDate(center) || this.powerCalendar.getDate();
   }
 
   get publicAPI(): PowerCalendarAPI {

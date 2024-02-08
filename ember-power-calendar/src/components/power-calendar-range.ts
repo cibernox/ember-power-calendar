@@ -133,7 +133,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
     if (!center) {
       center = this.selected.start || this.powerCalendar.getDate();
     }
-    return normalizeDate(center);
+    return normalizeDate(center) || this.powerCalendar.getDate();
   }
 
   get publicAPI(): PowerCalendarRangeAPI {
@@ -165,7 +165,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
 
   get minRange(): number | null {
     if (this.args.minRange !== undefined) {
-      return this._formatRange(this.args.minRange);
+      return this._formatRange(this.args.minRange) as number;
     }
 
     return DAY_IN_MS;
@@ -173,7 +173,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
 
   get maxRange(): number | null {
     if (this.args.maxRange !== undefined) {
-      return this._formatRange(this.args.maxRange);
+      return this._formatRange(this.args.maxRange) as number;
     }
 
     return null;
@@ -270,7 +270,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
       });
     }
 
-    if (isBefore(day.date, start)) {
+    if (start && isBefore(day.date, start)) {
       return normalizeRangeActionValue({
         date: { start: day.date, end: null },
       });

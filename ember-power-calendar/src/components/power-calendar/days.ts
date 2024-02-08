@@ -66,15 +66,15 @@ export default class PowerCalendarDaysComponent extends Component<PowerCalendarD
   }
 
   get weekdaysMin(): string[] {
-    return withLocale(this.args.calendar.locale, getWeekdaysMin);
+    return withLocale(this.args.calendar.locale, getWeekdaysMin) as string[];
   }
 
   get weekdaysShort(): string[] {
-    return withLocale(this.args.calendar.locale, getWeekdaysShort);
+    return withLocale(this.args.calendar.locale, getWeekdaysShort) as string[];
   }
 
   get weekdays(): string[] {
-    return withLocale(this.args.calendar.locale, getWeekdays);
+    return withLocale(this.args.calendar.locale, getWeekdays) as string[];
   }
 
   get localeStartOfWeek(): number {
@@ -127,7 +127,7 @@ export default class PowerCalendarDaysComponent extends Component<PowerCalendarD
     if (!center) {
       center = this.args.selected || this.args.calendar.center;
     }
-    return normalizeDate(center);
+    return normalizeDate(center) || this.args.calendar.center;
   }
 
   // Actions

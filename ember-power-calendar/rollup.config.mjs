@@ -41,7 +41,7 @@ export default [
         'components/**/*.js',
         'helpers/*.js',
         'services/*.js',
-        'test-support/helpers.js'
+        'test-support/helpers.js',
       ]),
 
       // These are the modules that should get reexported into the traditional

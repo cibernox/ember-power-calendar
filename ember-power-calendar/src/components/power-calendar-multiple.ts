@@ -88,7 +88,21 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
 
     const value = this.args.selected;
 
-    return isArray(value) ? value.map(normalizeDate) : value;
+    if (!isArray(value)) {
+      return value;
+    }
+
+    const selected: Date[] = [];
+
+    for (const date of value) {
+      const normalizedDate = normalizeDate(date);
+      if (!(normalizedDate instanceof Date)) {
+        continue;
+      }
+      selected.push(normalizedDate);
+    }
+
+    return selected;
   }
 
   set selected(v: SelectedDays) {
@@ -100,7 +114,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
     if (!center) {
       center = (this.selected || [])[0] || this.powerCalendar.getDate();
     }
-    return normalizeDate(center);
+    return normalizeDate(center) || this.powerCalendar.getDate();
   }
 
   get publicAPI(): PowerCalendarAPI {
