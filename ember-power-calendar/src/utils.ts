@@ -23,7 +23,7 @@ export interface DateLibrary {
     inclusivity?: string,
   ) => boolean;
   diff: (date1: Date, date2: Date) => number;
-  normalizeDate: (date?: unknown) => Date; // date could be null, number. Date, Moment, undefined...
+  normalizeDate: (date?: unknown) => Date | undefined; // date could be null, number. Date, Moment, undefined...
   normalizeRangeActionValue: (
     val: PowerCalendarRangeSelectDay,
   ) => NormalizeRangeActionValue;
