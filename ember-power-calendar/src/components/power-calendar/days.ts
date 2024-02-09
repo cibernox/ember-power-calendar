@@ -12,8 +12,9 @@ import {
   isSame,
   normalizeDate,
   withLocale,
+  type PowerCalendarDay,
 } from '../../utils.ts';
-import type { CalendarAPI, PowerCalendarDay } from '../power-calendar.ts';
+import type { CalendarAPI } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 import {
   firstDay,
@@ -66,15 +67,15 @@ export default class PowerCalendarDaysComponent extends Component<PowerCalendarD
   }
 
   get weekdaysMin(): string[] {
-    return withLocale(this.args.calendar.locale, getWeekdaysMin);
+    return withLocale(this.args.calendar.locale, getWeekdaysMin) as string[];
   }
 
   get weekdaysShort(): string[] {
-    return withLocale(this.args.calendar.locale, getWeekdaysShort);
+    return withLocale(this.args.calendar.locale, getWeekdaysShort) as string[];
   }
 
   get weekdays(): string[] {
-    return withLocale(this.args.calendar.locale, getWeekdays);
+    return withLocale(this.args.calendar.locale, getWeekdays) as string[];
   }
 
   get localeStartOfWeek(): number {
@@ -127,7 +128,7 @@ export default class PowerCalendarDaysComponent extends Component<PowerCalendarD
     if (!center) {
       center = this.args.selected || this.args.calendar.center;
     }
-    return normalizeDate(center);
+    return normalizeDate(center) || this.args.calendar.center;
   }
 
   // Actions
@@ -158,7 +159,7 @@ export default class PowerCalendarDaysComponent extends Component<PowerCalendarD
       this,
       focusDate,
       this.args.calendar.uniqueId,
-      this.focusedId,
+      this.focusedId ?? '',
     );
   }
 

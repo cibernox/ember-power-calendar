@@ -1,10 +1,98 @@
 import type { Moment } from 'moment';
-import type { PowerCalendarDay } from './components/power-calendar';
-import type { PowerCalendarRangeSelectDay } from './components/power-calendar-range';
+import type { DateTimeMaybeValid } from 'luxon';
 
-let dateLib: any;
+export interface DateLibrary {
+  add: (date: Date, quantity: number, unit: string) => Date;
+  formatDate: (date: Date, format: string, locale: string | null) => string;
+  startOf: (date: Date, unit: string) => Date;
+  endOf: (date: Date, unit: string) => Date;
+  weekday: (date: Date) => number;
+  isoWeekday: (date: Date) => number;
+  getWeekdaysShort: () => string[];
+  getWeekdaysMin: () => string[];
+  getWeekdays: () => string[];
+  isAfter: (date1: Date, date2: Date) => boolean;
+  isBefore: (date1: Date, date2: Date) => boolean;
+  isSame: (date1: Date, date2: Date, unit: string) => boolean;
+  isBetween: (
+    date: Date,
+    start: Date,
+    end: Date,
+    unit?: string,
+    inclusivity?: string,
+  ) => boolean;
+  diff: (date1: Date, date2: Date) => number;
+  normalizeDate: (date?: unknown) => Date | undefined; // date could be null, number. Date, Moment, undefined...
+  normalizeRangeActionValue: (
+    val: RangeActionValue,
+  ) => NormalizeRangeActionValue;
+  normalizeMultipleActionValue: (val: {
+    date: Date[];
+  }) => NormalizeMultipleActionValue;
+  normalizeCalendarDay: (day: PowerCalendarDay) => PowerCalendarDay;
+  withLocale: (locale: string, fn: () => unknown) => unknown;
+  normalizeCalendarValue: (value: { date: Date }) => NormalizeCalendarValue;
+  normalizeDuration: (value: unknown) => number | null | undefined;
+  getDefaultLocale: () => string;
+  localeStartOfWeek: (locale: string) => number;
+  startOfWeek: (day: Date, startOfWeek: number) => Date;
+  endOfWeek: (day: Date, startOfWeek: number) => Date;
+}
 
-export function registerDateLibrary(dateLibrary: any) {
+export interface NormalizeRangeActionValue {
+  date: {
+    start?: Date | null;
+    end?: Date | null;
+  };
+  moment?: {
+    start?: Date | Moment | null;
+    end?: Date | Moment | null;
+  };
+  datetime?: {
+    start?: Date | DateTimeMaybeValid | null;
+    end?: Date | DateTimeMaybeValid | null;
+  };
+}
+
+export interface NormalizeMultipleActionValue {
+  date: Date[];
+  moment?: Date[] | Moment[];
+  datetime?: Date[] | DateTimeMaybeValid[];
+}
+
+export interface NormalizeCalendarValue {
+  date: Date | undefined;
+  moment?: Moment;
+  datetime?: DateTimeMaybeValid;
+}
+
+export interface RangeActionValue {
+  date: SelectedPowerCalendarRange;
+}
+
+export interface SelectedPowerCalendarRange {
+  start?: Date | null;
+  end?: Date | null;
+}
+
+export interface PowerCalendarDay {
+  id: string; // A unique identified of the day. It has the format YYYY-MM-DD
+  number: number; // The day's number. From 1 to 31
+  date: Date; //	The native Date object representing that day.
+  moment?: Moment; //	The moment representing that day. (only when ember-power-calendar-moment is installed)
+  datetime?: DateTimeMaybeValid; //	The luxon representing that day. (only when ember-power-calendar-luxon is installed)
+  isFocused: boolean; //	It is true when the the cell of that day has the focus
+  isCurrentMonth: boolean; //	It is true for those days in the current day, and false for those days for the previous/next months shown around.
+  isToday: boolean; //	It is true if this day is today
+  isSelected: boolean; //	It is true if the date of this day is the selected one. In multiple select it is true if the date of this day is among the selected ones. In range selects, it is true if the date if this day is in the range, including both ends.
+  isRangeStart?: boolean; //	It is true if this day is the beginning of a range. It is false in non-range calendars
+  isRangeEnd?: boolean; //	It is true if this day is the end of a range. It is false in non-range calendars
+  isDisabled: boolean; //	It is true if days are not in range for range calendars or are included in disabled dates.
+}
+
+let dateLib: DateLibrary;
+
+export function registerDateLibrary(dateLibrary: DateLibrary) {
   dateLib = dateLibrary;
 }
 
@@ -16,33 +104,6 @@ function getDateLibrary() {
   }
 
   return dateLib;
-}
-
-export interface NormalizeRangeActionValue {
-  date: {
-    start: Date | null;
-    end: Date | null;
-  };
-  moment?: {
-    start?: Date | Moment | null;
-    end?: Date | Moment | null;
-  };
-  datetime?: {
-    start?: Date | null;
-    end?: Date | null;
-  };
-}
-
-export interface NormalizeMultipleActionValue {
-  date: Date[];
-  moment?: Date[] | Moment[];
-  datetime?: Date[];
-}
-
-export interface NormalizeCalendarValue {
-  date: Date | undefined;
-  moment?: Date | undefined;
-  datetime?: Date | undefined;
 }
 
 export function add(date: Date, quantity: number, unit: string): Date {
@@ -89,7 +150,7 @@ export function isAfter(date1: Date, date2: Date): boolean {
   return getDateLibrary().isAfter(date1, date2);
 }
 
-export function isBefore(date1: Date, date2?: Date | null): boolean {
+export function isBefore(date1: Date, date2: Date): boolean {
   return getDateLibrary().isBefore(date1, date2);
 }
 
@@ -111,19 +172,19 @@ export function diff(date1: Date, date2: Date): number {
   return getDateLibrary().diff(date1, date2);
 }
 
-export function normalizeDate(date?: Date | null): Date {
+export function normalizeDate(date?: unknown): Date | undefined {
   return getDateLibrary().normalizeDate(date);
 }
 
 export function normalizeRangeActionValue(
-  val: PowerCalendarRangeSelectDay,
+  val: RangeActionValue,
 ): NormalizeRangeActionValue {
   return getDateLibrary().normalizeRangeActionValue(val);
 }
 
-export function normalizeMultipleActionValue(
-  val: any,
-): NormalizeMultipleActionValue {
+export function normalizeMultipleActionValue(val: {
+  date: Date[];
+}): NormalizeMultipleActionValue {
   return getDateLibrary().normalizeMultipleActionValue(val);
 }
 
@@ -131,7 +192,7 @@ export function normalizeCalendarDay(day: PowerCalendarDay): PowerCalendarDay {
   return getDateLibrary().normalizeCalendarDay(day);
 }
 
-export function withLocale(locale: string, fn: () => void): string[] {
+export function withLocale(locale: string, fn: () => unknown): unknown {
   return getDateLibrary().withLocale(locale, fn);
 }
 
@@ -141,7 +202,7 @@ export function normalizeCalendarValue(value: {
   return getDateLibrary().normalizeCalendarValue(value);
 }
 
-export function normalizeDuration(value: any): number {
+export function normalizeDuration(value: unknown): number | null | undefined {
   return getDateLibrary().normalizeDuration(value);
 }
 
@@ -153,10 +214,10 @@ export function localeStartOfWeek(locale: string): number {
   return getDateLibrary().localeStartOfWeek(locale);
 }
 
-export function startOfWeek(day: Date, startOfWeek: string | number): Date {
+export function startOfWeek(day: Date, startOfWeek: number): Date {
   return getDateLibrary().startOfWeek(day, startOfWeek);
 }
 
-export function endOfWeek(day: Date, startOfWeek: string | number): Date {
+export function endOfWeek(day: Date, startOfWeek: number): Date {
   return getDateLibrary().endOfWeek(day, startOfWeek);
 }

@@ -12,6 +12,7 @@ import {
   isSame,
   normalizeDate,
   withLocale,
+  type PowerCalendarDay,
 } from '../../utils.ts';
 import type { PowerCalendarMultipleAPI } from '../power-calendar-multiple.ts';
 import {
@@ -28,7 +29,7 @@ import {
   type TWeekdayFormat,
   type Week,
 } from '../../-private/days-utils.ts';
-import type { CalendarAPI, PowerCalendarDay } from '../power-calendar.ts';
+import type { CalendarAPI } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 import type {
   PowerCalendarDaysArgs,
@@ -62,15 +63,15 @@ export default class PowerCalendarMultipleDaysComponent extends Component<PowerC
   }
 
   get weekdaysMin(): string[] {
-    return withLocale(this.args.calendar.locale, getWeekdaysMin);
+    return withLocale(this.args.calendar.locale, getWeekdaysMin) as string[];
   }
 
   get weekdaysShort(): string[] {
-    return withLocale(this.args.calendar.locale, getWeekdaysShort);
+    return withLocale(this.args.calendar.locale, getWeekdaysShort) as string[];
   }
 
   get weekdays(): string[] {
-    return withLocale(this.args.calendar.locale, getWeekdays);
+    return withLocale(this.args.calendar.locale, getWeekdays) as string[];
   }
 
   get localeStartOfWeek(): number {
@@ -126,7 +127,7 @@ export default class PowerCalendarMultipleDaysComponent extends Component<PowerC
         ? this.args.selected[0]
         : this.args.calendar.center;
     }
-    return normalizeDate(center);
+    return normalizeDate(center) || this.args.calendar.center;
   }
 
   get maxLength(): number {

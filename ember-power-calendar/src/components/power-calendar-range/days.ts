@@ -18,6 +18,7 @@ import {
   getWeekdaysShort,
   getWeekdays,
   normalizeDate,
+  type PowerCalendarDay,
 } from '../../utils.ts';
 import type { PowerCalendarRangeAPI } from '../power-calendar-range.ts';
 import {
@@ -33,7 +34,6 @@ import {
   type TWeekdayFormat,
   type Week,
 } from '../../-private/days-utils.ts';
-import type { PowerCalendarDay } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 
 interface PowerCalendarMultipleDaysArgs
@@ -65,15 +65,15 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
   }
 
   get weekdaysMin(): string[] {
-    return withLocale(this.args.calendar.locale, getWeekdaysMin);
+    return withLocale(this.args.calendar.locale, getWeekdaysMin) as string[];
   }
 
   get weekdaysShort(): string[] {
-    return withLocale(this.args.calendar.locale, getWeekdaysShort);
+    return withLocale(this.args.calendar.locale, getWeekdaysShort) as string[];
   }
 
   get weekdays(): string[] {
-    return withLocale(this.args.calendar.locale, getWeekdays);
+    return withLocale(this.args.calendar.locale, getWeekdays) as string[];
   }
 
   get localeStartOfWeek(): number {
@@ -117,7 +117,7 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
     if (!center) {
       center = this.args.selected?.start || this.args.calendar.center;
     }
-    return normalizeDate(center);
+    return normalizeDate(center) || this.args.calendar.center;
   }
 
   // Actions
