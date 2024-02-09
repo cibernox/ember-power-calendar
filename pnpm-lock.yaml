@@ -429,6 +429,9 @@ importers:
       '@types/ember__utils':
         specifier: ^4.0.7
         version: 4.0.7(@babel/core@7.23.9)
+      '@types/luxon':
+        specifier: ^3.4.2
+        version: 3.4.2
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.19.1
         version: 6.21.0(@typescript-eslint/parser@6.21.0)(eslint@8.56.0)(typescript@5.3.3)
@@ -3685,6 +3688,10 @@ packages:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
       '@types/node': 20.11.16
+    dev: true
+
+  /@types/luxon@3.4.2:
+    resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
     dev: true
 
   /@types/mdast@3.0.15:

@@ -18,6 +18,7 @@ import {
   getWeekdaysShort,
   getWeekdays,
   normalizeDate,
+  type PowerCalendarDay,
 } from '../../utils.ts';
 import type { PowerCalendarRangeAPI } from '../power-calendar-range.ts';
 import {
@@ -33,7 +34,6 @@ import {
   type TWeekdayFormat,
   type Week,
 } from '../../-private/days-utils.ts';
-import type { PowerCalendarDay } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 
 interface PowerCalendarMultipleDaysArgs

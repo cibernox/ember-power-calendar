@@ -17,31 +17,24 @@ import {
   normalizeDuration,
   normalizeCalendarValue,
   type NormalizeRangeActionValue,
+  type PowerCalendarDay,
+  type SelectedPowerCalendarRange,
 } from '../utils.ts';
 import type {
   PowerCalendarAPI,
   PowerCalendarSignature,
   PowerCalendarArgs,
-  PowerCalendarDay,
   TCalendarType,
   SelectedDays,
   PowerCalendarActions,
   CalendarDay,
   CalendarAPI,
 } from './power-calendar.ts';
+import type Owner from '@ember/owner';
 import type { ComponentLike } from '@glint/template';
 import type PowerCalendarService from '../services/power-calendar.ts';
 
-export interface SelectedPowerCalendarRange {
-  start?: Date | null;
-  end?: Date | null;
-}
-
 export interface PowerCalendarRangeDay extends Omit<PowerCalendarDay, 'date'> {
-  date: SelectedPowerCalendarRange;
-}
-
-export interface PowerCalendarRangeSelectDay {
   date: SelectedPowerCalendarRange;
 }
 
@@ -85,7 +78,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
   daysComponent: ComponentLike<any> = PowerCalendarRangeDaysComponent;
 
   // Lifecycle hooks
-  constructor(owner: unknown, args: PowerCalendarRangeArgs) {
+  constructor(owner: Owner, args: PowerCalendarRangeArgs) {
     super(owner, args);
     this.registerCalendar();
     if (this.args.onInit) {

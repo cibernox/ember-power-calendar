@@ -1,8 +1,5 @@
 import { assert } from '@ember/debug';
-import type {
-  CalendarAPI,
-  PowerCalendarDay,
-} from '../components/power-calendar.ts';
+import type { CalendarAPI } from '../components/power-calendar.ts';
 import {
   endOf,
   endOfWeek,
@@ -14,6 +11,7 @@ import {
   normalizeCalendarDay,
   startOf,
   startOfWeek,
+  type PowerCalendarDay,
 } from '../utils.ts';
 
 export const WEEK_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];

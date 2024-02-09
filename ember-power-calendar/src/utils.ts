@@ -1,6 +1,5 @@
 import type { Moment } from 'moment';
-import type { PowerCalendarDay } from './components/power-calendar';
-import type { PowerCalendarRangeSelectDay } from './components/power-calendar-range';
+import type { DateTimeMaybeValid } from 'luxon';
 
 export interface DateLibrary {
   add: (date: Date, quantity: number, unit: string) => Date;
@@ -25,7 +24,7 @@ export interface DateLibrary {
   diff: (date1: Date, date2: Date) => number;
   normalizeDate: (date?: unknown) => Date | undefined; // date could be null, number. Date, Moment, undefined...
   normalizeRangeActionValue: (
-    val: PowerCalendarRangeSelectDay,
+    val: RangeActionValue,
   ) => NormalizeRangeActionValue;
   normalizeMultipleActionValue: (val: {
     date: Date[];
@@ -50,21 +49,45 @@ export interface NormalizeRangeActionValue {
     end?: Date | Moment | null;
   };
   datetime?: {
-    start?: Date | null;
-    end?: Date | null;
+    start?: Date | DateTimeMaybeValid | null;
+    end?: Date | DateTimeMaybeValid | null;
   };
 }
 
 export interface NormalizeMultipleActionValue {
   date: Date[];
   moment?: Date[] | Moment[];
-  datetime?: Date[];
+  datetime?: Date[] | DateTimeMaybeValid[];
 }
 
 export interface NormalizeCalendarValue {
   date: Date | undefined;
-  moment?: unknown;
-  datetime?: unknown;
+  moment?: Moment;
+  datetime?: DateTimeMaybeValid;
+}
+
+export interface RangeActionValue {
+  date: SelectedPowerCalendarRange;
+}
+
+export interface SelectedPowerCalendarRange {
+  start?: Date | null;
+  end?: Date | null;
+}
+
+export interface PowerCalendarDay {
+  id: string; // A unique identified of the day. It has the format YYYY-MM-DD
+  number: number; // The day's number. From 1 to 31
+  date: Date; //	The native Date object representing that day.
+  moment?: Moment; //	The moment representing that day. (only when ember-power-calendar-moment is installed)
+  datetime?: DateTimeMaybeValid; //	The luxon representing that day. (only when ember-power-calendar-luxon is installed)
+  isFocused: boolean; //	It is true when the the cell of that day has the focus
+  isCurrentMonth: boolean; //	It is true for those days in the current day, and false for those days for the previous/next months shown around.
+  isToday: boolean; //	It is true if this day is today
+  isSelected: boolean; //	It is true if the date of this day is the selected one. In multiple select it is true if the date of this day is among the selected ones. In range selects, it is true if the date if this day is in the range, including both ends.
+  isRangeStart?: boolean; //	It is true if this day is the beginning of a range. It is false in non-range calendars
+  isRangeEnd?: boolean; //	It is true if this day is the end of a range. It is false in non-range calendars
+  isDisabled: boolean; //	It is true if days are not in range for range calendars or are included in disabled dates.
 }
 
 let dateLib: DateLibrary;
@@ -154,7 +177,7 @@ export function normalizeDate(date?: unknown): Date | undefined {
 }
 
 export function normalizeRangeActionValue(
-  val: PowerCalendarRangeSelectDay,
+  val: RangeActionValue,
 ): NormalizeRangeActionValue {
   return getDateLibrary().normalizeRangeActionValue(val);
 }

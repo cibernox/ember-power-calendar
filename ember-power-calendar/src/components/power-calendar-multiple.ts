@@ -15,6 +15,7 @@ import {
   normalizeMultipleActionValue,
   normalizeCalendarValue,
   type NormalizeMultipleActionValue,
+  type PowerCalendarDay,
 } from '../utils.ts';
 import type {
   CalendarAPI,
@@ -22,11 +23,11 @@ import type {
   PowerCalendarAPI,
   PowerCalendarActions,
   PowerCalendarArgs,
-  PowerCalendarDay,
   PowerCalendarSignature,
   SelectedDays,
   TCalendarType,
 } from './power-calendar.ts';
+import type Owner from '@ember/owner';
 import type { ComponentLike } from '@glint/template';
 import type PowerCalendarService from '../services/power-calendar.ts';
 
@@ -63,7 +64,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
   daysComponent: ComponentLike<any> = PowerCalendarMultipleDaysComponent;
 
   // Lifecycle hooks
-  constructor(owner: unknown, args: PowerCalendarMultipleArgs) {
+  constructor(owner: Owner, args: PowerCalendarMultipleArgs) {
     super(owner, args);
     this.registerCalendar();
     if (this.args.onInit) {

@@ -12,6 +12,7 @@ import {
   isSame,
   normalizeDate,
   withLocale,
+  type PowerCalendarDay,
 } from '../../utils.ts';
 import type { PowerCalendarMultipleAPI } from '../power-calendar-multiple.ts';
 import {
@@ -28,7 +29,7 @@ import {
   type TWeekdayFormat,
   type Week,
 } from '../../-private/days-utils.ts';
-import type { CalendarAPI, PowerCalendarDay } from '../power-calendar.ts';
+import type { CalendarAPI } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 import type {
   PowerCalendarDaysArgs,

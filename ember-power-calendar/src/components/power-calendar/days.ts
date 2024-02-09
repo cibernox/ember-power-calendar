@@ -12,8 +12,9 @@ import {
   isSame,
   normalizeDate,
   withLocale,
+  type PowerCalendarDay,
 } from '../../utils.ts';
-import type { CalendarAPI, PowerCalendarDay } from '../power-calendar.ts';
+import type { CalendarAPI } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 import {
   firstDay,
@@ -158,7 +159,7 @@ export default class PowerCalendarDaysComponent extends Component<PowerCalendarD
       this,
       focusDate,
       this.args.calendar.uniqueId,
-      this.focusedId,
+      this.focusedId ?? '',
     );
   }
 
