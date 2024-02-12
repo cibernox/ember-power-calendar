@@ -6,6 +6,23 @@
 
 
 
+
+## v0.22.0-beta.6 (2024-02-12)
+
+#### :boom: Breaking Change
+* [#387](https://github.com/cibernox/ember-power-calendar/pull/387) Update ember-concurrency to v4 and move to peerDependencies ([@mkszepp](https://github.com/mkszepp))
+* [#381](https://github.com/cibernox/ember-power-calendar/pull/381) Convert Addon to Typescript & add glint ([@mkszepp](https://github.com/mkszepp))
+
+#### :rocket: Enhancement
+* [#386](https://github.com/cibernox/ember-power-calendar/pull/386) Add interface for date library & fix some types ([@mkszepp](https://github.com/mkszepp))
+
+#### :house: Internal
+* [#384](https://github.com/cibernox/ember-power-calendar/pull/384) Add glint in docs ([@mkszepp](https://github.com/mkszepp))
+* [#383](https://github.com/cibernox/ember-power-calendar/pull/383) Stricter dep management ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- [@mkszepp](https://github.com/mkszepp)
+
 ## v0.22.0-beta.5 (2024-01-18)
 
 #### :house: Internal
