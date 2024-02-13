@@ -7,6 +7,15 @@
 
 
 
+
+## v0.22.0-beta.7 (2024-02-13)
+
+#### :bug: Bug Fix
+* [#393](https://github.com/cibernox/ember-power-calendar/pull/393) Remove moment & luxon types from interfaces ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- [@mkszepp](https://github.com/mkszepp)
+
 ## v0.22.0-beta.6 (2024-02-12)
 
 #### :boom: Breaking Change
