@@ -55,9 +55,17 @@ interface PowerCalendarRangeArgs
   onSelect?: TPowerCalendarRangeOnSelect;
 }
 
+export interface PowerCalendarRangeDefaultBlock extends PowerCalendarRangeAPI {
+  NavComponent: ComponentLike<any>;
+  DaysComponent: ComponentLike<any>;
+}
+
 interface PowerCalendarRangeSignature
-  extends Omit<PowerCalendarSignature, 'Args'> {
+  extends Omit<PowerCalendarSignature, 'Args' | 'Blocks'> {
   Args: PowerCalendarRangeArgs;
+  Blocks: {
+    default: [PowerCalendarRangeDefaultBlock];
+  };
 }
 
 export interface PowerCalendarRangeAPI

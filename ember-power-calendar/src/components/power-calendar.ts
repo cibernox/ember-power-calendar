@@ -84,6 +84,11 @@ export interface PowerCalendarArgs {
   tag?: string;
 }
 
+export interface PowerCalendarDefaultBlock extends PowerCalendarAPI {
+  NavComponent: ComponentLike<any>;
+  DaysComponent: ComponentLike<any>;
+}
+
 export type CalendarDay =
   | PowerCalendarDay
   | PowerCalendarRangeDay
@@ -93,7 +98,7 @@ export interface PowerCalendarSignature {
   Element: HTMLElement;
   Args: PowerCalendarArgs;
   Blocks: {
-    default: [calendar: any];
+    default: [PowerCalendarDefaultBlock];
   };
 }
 
