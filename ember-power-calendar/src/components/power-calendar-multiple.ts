@@ -48,9 +48,17 @@ interface PowerCalendarMultipleArgs
   onSelect?: TPowerCalendarMultipleOnSelect;
 }
 
+interface PowerCalendarMultipleDefaultBlock extends PowerCalendarMultipleAPI {
+  NavComponent: ComponentLike<any>;
+  DaysComponent: ComponentLike<any>;
+}
+
 interface PowerCalendarMultipleSignature
   extends Omit<PowerCalendarSignature, 'Args'> {
   Args: PowerCalendarMultipleArgs;
+  Blocks: {
+    default: [PowerCalendarMultipleDefaultBlock];
+  };
 }
 
 export default class PowerCalendarMultipleComponent extends Component<PowerCalendarMultipleSignature> {
