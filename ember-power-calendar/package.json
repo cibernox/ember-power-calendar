@@ -130,7 +130,7 @@
     "rsvp": "^4.8.5",
     "sass": "^1.69.7",
     "typescript": "^5.3.3",
-    "webpack": "^5.90.1"
+    "webpack": "^5.90.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
