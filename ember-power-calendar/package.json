@@ -76,7 +76,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
-    "@babel/runtime": "^7.23.9",
+    "@babel/runtime": "^7.24.0",
     "@babel/plugin-transform-typescript": "^7.23.6",
     "@babel/preset-typescript": "^7.23.3",
     "@ember/test-helpers": "^3.2.1",
