@@ -8,6 +8,15 @@
 
 
 
+
+## v0.22.0-beta.8 (2024-03-05)
+
+#### :bug: Bug Fix
+* [#395](https://github.com/cibernox/ember-power-calendar/pull/395) Fix TS block interface ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- [@mkszepp](https://github.com/mkszepp)
+
 ## v0.22.0-beta.7 (2024-02-13)
 
 #### :bug: Bug Fix
