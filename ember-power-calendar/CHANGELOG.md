@@ -9,6 +9,14 @@
 
 
 
+## v1.0.0 (2024-03-12)
+
+Braking parts:
+
+* Addon is now a V2 addon
+* Addon is now written in Typescript
+* You need to add `ember-concurrency` (v4) to your dependencies
+
 ## v0.22.0-beta.8 (2024-03-05)
 
 #### :bug: Bug Fix
