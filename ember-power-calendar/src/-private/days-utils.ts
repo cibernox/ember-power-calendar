@@ -188,7 +188,7 @@ export function buildDay(
     date: new Date(date),
     isDisabled: isDisabled,
     isFocused: focusedId === id,
-    isCurrentMonth: date.getMonth() === currentCenter.getMonth(),
+    isCurrentMonth: isSame(date, currentCenter, 'month'),
     isToday: isSame(date, today, 'day'),
     isSelected: dayIsSelected(date, calendar),
   } as PowerCalendarDay);
