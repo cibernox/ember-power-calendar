@@ -10,7 +10,6 @@ Customizable Calendar Component for Ember.
 
 * Ember.js v3.28 or above
 * Ember CLI v3.28 or above
-* Node.js v18 or above
 
 ## Installation
 
