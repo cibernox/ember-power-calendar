@@ -9,6 +9,19 @@
 
 
 
+
+## v1.0.1 (2024-03-15)
+
+#### :bug: Bug Fix
+* [#429](https://github.com/cibernox/ember-power-calendar/pull/429) Use datelibrary to compare months ([@eltonvus](https://github.com/eltonvus))
+
+#### :house: Internal
+* [#430](https://github.com/cibernox/ember-power-calendar/pull/430) Remove NodeJs info (not necessary for v2 addon) ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 2
+- Elton ([@eltonvus](https://github.com/eltonvus))
+- [@mkszepp](https://github.com/mkszepp)
+
 ## v1.0.0 (2024-03-12)
 
 Braking parts:
