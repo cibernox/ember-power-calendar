@@ -124,7 +124,7 @@
     "node-sass": "^9.0.0",
     "postcss": "^8.4.36",
     "prettier": "^3.2.2",
-    "prettier-plugin-ember-template-tag": "^2.0.0",
+    "prettier-plugin-ember-template-tag": "^2.0.1",
     "rollup": "^4.12.1",
     "rollup-plugin-styles": "^4.0.0",
     "rsvp": "^4.8.5",
