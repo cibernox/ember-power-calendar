@@ -204,8 +204,8 @@ importers:
         specifier: workspace:*
         version: link:../ember-power-calendar
       ember-power-calendar-moment:
-        specifier: ^1.0.0
-        version: 1.0.0(@babel/core@7.24.0)(@glint/template@1.3.0)(ember-power-calendar@ember-power-calendar)(moment@2.30.1)
+        specifier: ^1.0.2
+        version: 1.0.2(@babel/core@7.24.0)(@glint/template@1.3.0)(ember-power-calendar@ember-power-calendar)(moment@2.30.1)
       ember-power-select:
         specifier: ^8.0.0
         version: 8.0.0(@babel/core@7.24.0)(@ember/test-helpers@3.3.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.3.0)(@glint/template@1.3.0)(ember-basic-dropdown@8.0.0)(ember-concurrency@4.0.1)(ember-source@5.7.0)
@@ -670,8 +670,8 @@ importers:
         specifier: workspace:*
         version: link:../ember-power-calendar
       ember-power-calendar-moment:
-        specifier: ^1.0.0
-        version: 1.0.0(@babel/core@7.24.0)(@glint/template@1.3.0)(ember-power-calendar@ember-power-calendar)(moment@2.30.1)
+        specifier: ^1.0.2
+        version: 1.0.2(@babel/core@7.24.0)(@glint/template@1.3.0)(ember-power-calendar@ember-power-calendar)(moment@2.30.1)
       ember-qunit:
         specifier: ^8.0.2
         version: 8.0.2(@ember/test-helpers@3.3.0)(@glint/template@1.3.0)(ember-source@5.7.0)(qunit@2.20.1)
@@ -7569,8 +7569,8 @@ packages:
       - supports-color
     dev: true
 
-  /ember-power-calendar-moment@1.0.0(@babel/core@7.24.0)(@glint/template@1.3.0)(ember-power-calendar@ember-power-calendar)(moment@2.30.1):
-    resolution: {integrity: sha512-2prmZjbEYfU4Yn3GBRG3MVsMHdaJNpTIUGe/YHT6vAbEmOymfQuMcda12XqgGWXAd7EEJJnDOSHvSanAGHg2NQ==}
+  /ember-power-calendar-moment@1.0.2(@babel/core@7.24.0)(@glint/template@1.3.0)(ember-power-calendar@ember-power-calendar)(moment@2.30.1):
+    resolution: {integrity: sha512-yU77SXeceCO3njNSYnq1vhwzA4jiZuALmpyrsd/IVWLKgFOKK/aDqppZo+Hds3dXmQQFGA/kozPSZRfN5R+VDw==}
     peerDependencies:
       ember-power-calendar: '*'
       moment: ^2.30.1
