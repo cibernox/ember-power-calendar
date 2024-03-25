@@ -77,7 +77,7 @@
   "devDependencies": {
     "@babel/core": "^7.24.0",
     "@babel/runtime": "^7.24.0",
-    "@babel/plugin-transform-typescript": "^7.23.6",
+    "@babel/plugin-transform-typescript": "^7.24.1",
     "@babel/preset-typescript": "^7.23.3",
     "@ember/test-helpers": "^3.2.1",
     "@embroider/addon-dev": "^4.1.3",
