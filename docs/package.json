@@ -85,7 +85,7 @@
     "ember-page-title": "^8.2.2",
     "ember-power-calendar": "workspace:*",
     "ember-power-calendar-moment": "^1.0.2",
-    "ember-power-select": "^8.0.2",
+    "ember-power-select": "^8.1.0",
     "ember-prism": "^0.13.0",
     "ember-qunit": "^8.0.2",
     "ember-resolver": "^11.0.1",
