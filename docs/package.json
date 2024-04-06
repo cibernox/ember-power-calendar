@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "ember build --environment=production",
+    "build:gh-page": "ember build --environment=production buildGhPage",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
     "lint:css": "stylelint \"**/*.css\"",
     "lint:css:fix": "concurrently \"npm:lint:css -- --fix\"",
