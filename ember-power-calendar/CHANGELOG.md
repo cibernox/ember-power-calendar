@@ -10,6 +10,15 @@
 
 
 
+
+## v1.0.2 (2024-04-08)
+
+#### :bug: Bug Fix
+* [#466](https://github.com/cibernox/ember-power-calendar/pull/466) Fix use of dataset API in findCalendarGuid test-helper ([@nickschot](https://github.com/nickschot))
+
+#### Committers: 1
+- Nick Schot ([@nickschot](https://github.com/nickschot))
+
 ## v1.0.1 (2024-03-15)
 
 #### :bug: Bug Fix
