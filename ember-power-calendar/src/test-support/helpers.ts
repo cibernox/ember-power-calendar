@@ -33,7 +33,7 @@ function findCalendarGuid(selector: string): string | undefined {
   if (maybeCalendar.classList.contains('ember-power-calendar')) {
     return maybeCalendar.id;
   } else {
-    return (maybeCalendar as HTMLElement).dataset['dataPowerCalendarId'];
+    return (maybeCalendar as HTMLElement).dataset['powerCalendarId'];
   }
 }
 
