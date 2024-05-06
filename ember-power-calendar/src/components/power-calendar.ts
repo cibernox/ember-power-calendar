@@ -121,6 +121,11 @@ export default class PowerCalendarComponent extends Component<PowerCalendarSigna
     }
   }
 
+  willDestroy(): void {
+    super.willDestroy();
+    this.unregisterCalendar();
+  }
+
   get publicActions(): PowerCalendarActions {
     return publicActionsObject(
       this.args.onSelect,
@@ -192,11 +197,6 @@ export default class PowerCalendarComponent extends Component<PowerCalendarSigna
     if (this.args.onSelect) {
       this.args.onSelect(day, calendar, e);
     }
-  }
-
-  @action
-  destroyElement() {
-    this.unregisterCalendar();
   }
 
   // Methods
