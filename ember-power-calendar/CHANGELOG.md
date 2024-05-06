@@ -1,15 +1,11 @@
 
+## v1.1.0 (2024-05-06)
 
+#### :rocket: Enhancement
+* [#485](https://github.com/cibernox/ember-power-calendar/pull/485) Remove `@ember/render-modifiers` ([@mkszepp](https://github.com/mkszepp))
 
-
-
-
-
-
-
-
-
-
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
 
 ## v1.0.2 (2024-04-08)
 
