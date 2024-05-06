@@ -94,6 +94,11 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
     }
   }
 
+  willDestroy(): void {
+    super.willDestroy();
+    this.unregisterCalendar();
+  }
+
   get publicActions(): PowerCalendarActions {
     return publicActionsObject(
       this.args.onSelect,
@@ -227,11 +232,6 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
     if (this.args.onSelect) {
       this.args.onSelect(range, calendar as PowerCalendarRangeAPI, e);
     }
-  }
-
-  @action
-  destroyElement() {
-    this.unregisterCalendar();
   }
 
   _formatRange(v: number | undefined) {

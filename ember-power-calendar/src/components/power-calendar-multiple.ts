@@ -80,6 +80,11 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
     }
   }
 
+  willDestroy(): void {
+    super.willDestroy();
+    this.unregisterCalendar();
+  }
+
   get publicActions(): PowerCalendarActions {
     return publicActionsObject(
       this.args.onSelect,
@@ -181,11 +186,6 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
         e,
       );
     }
-  }
-
-  @action
-  destroyElement() {
-    this.unregisterCalendar();
   }
 
   // Methods
