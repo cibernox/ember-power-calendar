@@ -18,6 +18,9 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+    fastboot: {
+      hostWhitelist: ['localhost:4200', 'ember-power-calendar.com'],
+    },
   };
 
   if (environment === 'development') {
