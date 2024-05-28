@@ -90,15 +90,15 @@
   $cell-size: null,
   $cell-width: $cell-size,
   $cell-height: $cell-size,
-  $cell-with-spacing-width: $cell-width + 2px,
+  $cell-with-spacing-width: calc(#{$cell-width} + 2px)
   $row-padding-top: 0,
   $row-padding-bottom: 0,
   $row-padding-left: 0,
   $row-padding-right: 0,
-  $row-width: (
-    $cell-with-spacing-width * 7 - 2px + $row-padding-left + $row-padding-right,
+  $row-width: calc(
+    #{$cell-with-spacing-width} * 7 - 2px + #{$row-padding-left} + #{$row-padding-right},
   ),
-  $row-height: $cell-height + 2px,
+  $row-height: calc(#{$cell-height} + 2px),
   $primary-color: #0078c9,
   $nav-button-color: $primary-color,
   $nav-button-color--focus: lighten($nav-button-color, 20%),
@@ -124,53 +124,53 @@
 
   .ember-power-calendar-week:first-child {
     &[data-missing-days="1"] {
-      padding-left: $cell-with-spacing-width * 1;
+      padding-left: calc(#{$cell-with-spacing-width} * 1);
     }
 
     &[data-missing-days="2"] {
-      padding-left: $cell-with-spacing-width * 2;
+      padding-left: calc(#{$cell-with-spacing-width} * 2);
     }
 
     &[data-missing-days="3"] {
-      padding-left: $cell-with-spacing-width * 3;
+      padding-left: calc(#{$cell-with-spacing-width} * 3);
     }
 
     &[data-missing-days="4"] {
-      padding-left: $cell-with-spacing-width * 4;
+      padding-left: calc(#{$cell-with-spacing-width} * 4);
     }
 
     &[data-missing-days="5"] {
-      padding-left: $cell-with-spacing-width * 5;
+      padding-left: calc(#{$cell-with-spacing-width} * 5);
     }
 
     &[data-missing-days="6"] {
-      padding-left: $cell-with-spacing-width * 6;
+      padding-left: calc(#{$cell-with-spacing-width} * 6);
     }
   }
 
   .ember-power-calendar-week:last-child {
     &[data-missing-days="1"] {
-      padding-right: $cell-with-spacing-width * 1;
+      padding-right: calc(#{$cell-with-spacing-width} * 1);
     }
 
     &[data-missing-days="2"] {
-      padding-right: $cell-with-spacing-width * 2;
+      padding-right: calc(#{$cell-with-spacing-width} * 2);
     }
 
     &[data-missing-days="3"] {
-      padding-right: $cell-with-spacing-width * 3;
+      padding-right: calc(#{$cell-with-spacing-width} * 3);
     }
 
     &[data-missing-days="4"] {
-      padding-right: $cell-with-spacing-width * 4;
+      padding-right: calc(#{$cell-with-spacing-width} * 4);
     }
 
     &[data-missing-days="5"] {
-      padding-right: $cell-with-spacing-width * 5;
+      padding-right: calc(#{$cell-with-spacing-width} * 5);
     }
 
     &[data-missing-days="6"] {
-      padding-right: $cell-with-spacing-width * 6;
+      padding-right: calc(#{$cell-with-spacing-width} * 6);
     }
   }
 
