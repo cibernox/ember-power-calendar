@@ -124,53 +124,53 @@
   width: $row-width;
 
   .ember-power-calendar-week:first-child {
-    &[data-missing-days='1'] {
+    &[data-missing-days="1"] {
       padding-left: calc(#{$cell-with-spacing-width} * 1);
     }
 
-    &[data-missing-days='2'] {
+    &[data-missing-days="2"] {
       padding-left: calc(#{$cell-with-spacing-width} * 2);
     }
 
-    &[data-missing-days='3'] {
+    &[data-missing-days="3"] {
       padding-left: calc(#{$cell-with-spacing-width} * 3);
     }
 
-    &[data-missing-days='4'] {
+    &[data-missing-days="4"] {
       padding-left: calc(#{$cell-with-spacing-width} * 4);
     }
 
-    &[data-missing-days='5'] {
+    &[data-missing-days="5"] {
       padding-left: calc(#{$cell-with-spacing-width} * 5);
     }
 
-    &[data-missing-days='6'] {
+    &[data-missing-days="6"] {
       padding-left: calc(#{$cell-with-spacing-width} * 6);
     }
   }
 
   .ember-power-calendar-week:last-child {
-    &[data-missing-days='1'] {
+    &[data-missing-days="1"] {
       padding-right: calc(#{$cell-with-spacing-width} * 1);
     }
 
-    &[data-missing-days='2'] {
+    &[data-missing-days="2"] {
       padding-right: calc(#{$cell-with-spacing-width} * 2);
     }
 
-    &[data-missing-days='3'] {
+    &[data-missing-days="3"] {
       padding-right: calc(#{$cell-with-spacing-width} * 3);
     }
 
-    &[data-missing-days='4'] {
+    &[data-missing-days="4"] {
       padding-right: calc(#{$cell-with-spacing-width} * 4);
     }
 
-    &[data-missing-days='5'] {
+    &[data-missing-days="5"] {
       padding-right: calc(#{$cell-with-spacing-width} * 5);
     }
 
-    &[data-missing-days='6'] {
+    &[data-missing-days="6"] {
       padding-right: calc(#{$cell-with-spacing-width} * 6);
     }
   }
