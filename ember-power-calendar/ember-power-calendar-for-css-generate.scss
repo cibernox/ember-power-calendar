@@ -1,0 +1,9 @@
+:root {
+  --ember-power-calendar-cell-size: 35px;
+}
+
+@import './ember-power-calendar.scss';
+
+.ember-power-calendar {
+  @include ember-power-calendar($cell-size: 'var(--ember-power-calendar-cell-size)');
+}
