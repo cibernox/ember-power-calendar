@@ -156,7 +156,7 @@
     }
   },
   "peerDependencies": {
-    "@ember/test-helpers": "^2.9.4 || ^3.2.1",
+    "@ember/test-helpers": "^2.9.4 || ^3.2.1 || ^4.0.0",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
     "ember-concurrency": "^4.0.2",
