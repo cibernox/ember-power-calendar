@@ -33,6 +33,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       
       - run: pnpm build
+      - run: pnpm i -f # re-sync injected deps
 
       - name: Lint
         run: pnpm --filter docs lint
@@ -59,6 +60,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       
       - run: pnpm build
+      - run: pnpm i -f # re-sync injected deps
       
       - name: Run Tests
         run: pnpm --filter docs test:ember
@@ -86,6 +88,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       
       - run: pnpm build
+      - run: pnpm i -f # re-sync injected deps
         
       - name: Run Tests
         run: pnpm --filter docs build

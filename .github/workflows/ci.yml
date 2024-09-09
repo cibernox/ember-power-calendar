@@ -32,6 +32,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       
       - run: pnpm build
+      - run: pnpm i -f # re-sync injected deps
 
       - name: Lint
         run: pnpm --filter ember-power-calendar lint
@@ -58,6 +59,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       
       - run: pnpm build
+      - run: pnpm i -f # re-sync injected deps
         
       - name: Run Tests
         run: pnpm --filter test-app test:ember
@@ -83,6 +85,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       
       - run: pnpm build
+      - run: pnpm i -f # re-sync injected deps
         
       - name: Run Tests
         run: pnpm --filter test-app test:ember
@@ -126,6 +129,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       
       - run: pnpm build
+      - run: pnpm i -f # re-sync injected deps
         
       - name: Run Tests
         env:
