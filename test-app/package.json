@@ -26,6 +26,11 @@
     "test:ember": "ember test",
     "test:ember-try": "ember try:one"
   },
+  "dependenciesMeta": {
+    "ember-power-calendar": {
+      "injected": true
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.24.7",
     "@ember/optional-features": "^2.1.0",
