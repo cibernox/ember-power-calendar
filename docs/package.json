@@ -25,12 +25,17 @@
     "test": "concurrently \"pnpm:lint\" \"pnpm:test:*\" --names \"lint,test:\"",
     "test:ember": "ember test"
   },
+  "dependenciesMeta": {
+    "ember-power-calendar": {
+      "injected": true
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.24.7",
     "@ember/optional-features": "^2.1.0",
     "@ember/string": "^3.1.1",
-    "@ember/test-helpers": "^3.3.0",
-    "@embroider/macros": "^1.16.4",
+    "@ember/test-helpers": "^4.0.4",
+    "@embroider/macros": "^1.16.6",
     "@embroider/test-setup": "^4.0.0",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",

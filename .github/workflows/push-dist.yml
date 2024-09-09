@@ -25,9 +25,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: pnpm
+          cache: 'pnpm'
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      
+      - run: pnpm build
+      - run: pnpm i -f # re-sync injected deps
+
       - uses: kategengler/put-built-npm-package-contents-on-branch@v2.0.0
         with:
           branch: dist

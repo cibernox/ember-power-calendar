@@ -17,19 +17,22 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2.2.4
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: pnpm
+          cache: 'pnpm'
 
       - name: 'Install dependencies'
         run: pnpm install --frozen-lockfile
+      
+      - run: pnpm build
+      - run: pnpm i -f # re-sync injected deps
 
       - name: Lint
         run: pnpm --filter ember-power-calendar lint
@@ -40,20 +43,23 @@ jobs:
     needs: lint
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
-      - uses: pnpm/action-setup@v2.2.4
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
           
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: pnpm
+          cache: 'pnpm'
           
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      
+      - run: pnpm build
+      - run: pnpm i -f # re-sync injected deps
         
       - name: Run Tests
         run: pnpm --filter test-app test:ember
@@ -64,19 +70,22 @@ jobs:
     needs: lint
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
-      - uses: pnpm/action-setup@v2.2.4
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
           
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: pnpm
+          cache: 'pnpm'
           
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      
+      - run: pnpm build
+      - run: pnpm i -f # re-sync injected deps
         
       - name: Run Tests
         run: pnpm --filter test-app test:ember
@@ -104,20 +113,23 @@ jobs:
           - embroider-optimized
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
-      - uses: pnpm/action-setup@v2.2.4
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
           
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: pnpm
+          cache: 'pnpm'
           
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      
+      - run: pnpm build
+      - run: pnpm i -f # re-sync injected deps
         
       - name: Run Tests
         env:
