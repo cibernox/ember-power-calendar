@@ -1,4 +1,22 @@
 
+
+## v1.2.0 (2024-09-09)
+
+#### :rocket: Enhancement
+* [#525](https://github.com/cibernox/ember-power-calendar/pull/525) Allow `@ember/test-helpers` v4 as dependency ([@mkszepp](https://github.com/mkszepp))
+* [#497](https://github.com/cibernox/ember-power-calendar/pull/497) Add support for css variables to mixin ([@HanneloreVerbraekel](https://github.com/HanneloreVerbraekel))
+
+#### :bug: Bug Fix
+* [#520](https://github.com/cibernox/ember-power-calendar/pull/520) Add missing mixin css part in generated css file (vanilla css) ([@mkszepp](https://github.com/mkszepp))
+
+#### :house: Internal
+* [#526](https://github.com/cibernox/ember-power-calendar/pull/526) Update dependencies ([@mkszepp](https://github.com/mkszepp))
+* [#489](https://github.com/cibernox/ember-power-calendar/pull/489) Add addon blueprint config & update ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 2
+- Hannelore Verbraekel ([@HanneloreVerbraekel](https://github.com/HanneloreVerbraekel))
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 ## v1.1.0 (2024-05-06)
 
 #### :rocket: Enhancement
