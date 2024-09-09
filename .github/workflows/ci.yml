@@ -30,6 +30,8 @@ jobs:
 
       - name: 'Install dependencies'
         run: pnpm install --frozen-lockfile
+      
+      - run: pnpm build
 
       - name: Lint
         run: pnpm --filter ember-power-calendar lint
@@ -54,6 +56,8 @@ jobs:
           
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      
+      - run: pnpm build
         
       - name: Run Tests
         run: pnpm --filter test-app test:ember
@@ -77,6 +81,8 @@ jobs:
           
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      
+      - run: pnpm build
         
       - name: Run Tests
         run: pnpm --filter test-app test:ember
@@ -118,6 +124,8 @@ jobs:
           
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      
+      - run: pnpm build
         
       - name: Run Tests
         env:

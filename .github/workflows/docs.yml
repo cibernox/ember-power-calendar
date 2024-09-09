@@ -31,6 +31,8 @@ jobs:
 
       - name: 'Install dependencies'
         run: pnpm install --frozen-lockfile
+      
+      - run: pnpm build
 
       - name: Lint
         run: pnpm --filter docs lint
@@ -56,6 +58,8 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       
+      - run: pnpm build
+      
       - name: Run Tests
         run: pnpm --filter docs test:ember
 
@@ -80,6 +84,8 @@ jobs:
           
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      
+      - run: pnpm build
         
       - name: Run Tests
         run: pnpm --filter docs build
