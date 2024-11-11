@@ -1,6 +1,7 @@
 import { babel } from '@rollup/plugin-babel';
 import { Addon } from '@embroider/addon-dev/rollup';
-import styles from 'rollup-plugin-styles';
+import sass from 'rollup-plugin-sass';
+import postcss from 'postcss';
 
 const addon = new Addon({
   srcDir: 'src',
@@ -16,8 +17,25 @@ export default [
       assetFileNames: '[name][extname]',
     },
     plugins: [
-      styles({
-        mode: ['extract', 'ember-power-calendar.css'],
+      sass({
+        output: './vendor/ember-power-calendar.css',
+      }),
+    ],
+  },
+  {
+    input: './ember-power-calendar-for-css-generate.scss',
+    output: {
+      file: './vendor/ember-power-calendar.js',
+      assetFileNames: '[name][extname]',
+    },
+    plugins: [
+      sass({
+        processor: (css) =>
+          postcss()
+            .process(css, {
+              from: undefined,
+            })
+            .then((result) => result.css),
       }),
     ],
   },
