@@ -17,7 +17,7 @@ module.exports = async function () {
             '@ember/test-helpers': '^2.9.3',
             'ember-qunit': '^6.2.0',
           },
-          override: {
+          overrides: {
             '@glimmer/component': '^1.1.2',
           },
         },
@@ -29,7 +29,7 @@ module.exports = async function () {
             'ember-resolver': '^8.0.0',
             'ember-source': '~4.4.0',
           },
-          override: {
+          overrides: {
             '@glimmer/component': '^1.1.2',
           },
         },
@@ -41,7 +41,7 @@ module.exports = async function () {
             'ember-resolver': '^11.0.0',
             'ember-source': '~4.8.0',
           },
-          override: {
+          overrides: {
             '@glimmer/component': '^1.1.2',
           },
         },
