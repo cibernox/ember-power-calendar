@@ -120,7 +120,6 @@
     "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-n": "^17.10.2",
     "eslint-plugin-prettier": "^5.2.1",
-    "node-sass": "^9.0.0",
     "postcss": "^8.4.45",
     "prettier": "^3.3.3",
     "prettier-plugin-ember-template-tag": "^2.0.2",
