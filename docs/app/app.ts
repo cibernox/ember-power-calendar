@@ -4,6 +4,21 @@ import loadInitializers from 'ember-load-initializers';
 import config from 'docs/config/environment';
 import { registerDateLibrary } from 'ember-power-calendar';
 import DateUtils from 'ember-power-calendar-moment';
+// @ts-expect-error no types shipped from prismjs
+import Prism from 'prismjs';
+import 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace';
+import 'prismjs/components/prism-css';
+import 'prismjs/components/prism-scss';
+import 'prismjs/components/prism-less';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-handlebars';
+import 'prismjs/components/prism-markup-templating';
+// @ts-expect-error no types shipped from prismjs-glimmer
+import { setup } from 'prismjs-glimmer';
+
+import 'prismjs/themes/prism.css';
+
+setup(Prism);
 
 registerDateLibrary(DateUtils);
 
