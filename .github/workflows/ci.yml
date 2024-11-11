@@ -15,13 +15,13 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: 9
 
       - uses: actions/setup-node@v4
         with:
@@ -30,7 +30,7 @@ jobs:
 
       - name: 'Install dependencies'
         run: pnpm install --frozen-lockfile
-      
+
       - run: pnpm build
       - run: pnpm i -f # re-sync injected deps
 
@@ -38,55 +38,55 @@ jobs:
         run: pnpm --filter ember-power-calendar lint
 
   test:
-    name: "Tests"
+    name: 'Tests'
     runs-on: ubuntu-latest
     needs: lint
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: pnpm/action-setup@v3
         with:
-          version: 8
-          
+          version: 9
+
       - name: Install Node
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
           cache: 'pnpm'
-          
+
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      
+
       - run: pnpm build
       - run: pnpm i -f # re-sync injected deps
-        
+
       - name: Run Tests
         run: pnpm --filter test-app test:ember
 
   floating:
-    name: "Floating Dependencies"
+    name: 'Floating Dependencies'
     runs-on: ubuntu-latest
     needs: lint
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: pnpm/action-setup@v3
         with:
-          version: 8
-          
+          version: 9
+
       - uses: actions/setup-node@v4
         with:
           node-version: 18.x
           cache: 'pnpm'
-          
+
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      
+
       - run: pnpm build
       - run: pnpm i -f # re-sync injected deps
-        
+
       - name: Run Tests
         run: pnpm --filter test-app test:ember
 
@@ -114,23 +114,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: pnpm/action-setup@v3
         with:
-          version: 8
-          
+          version: 9
+
       - name: Install Node
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
           cache: 'pnpm'
-          
+
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      
+
       - run: pnpm build
       - run: pnpm i -f # re-sync injected deps
-        
+
       - name: Run Tests
         env:
           EMBER_TRY_SCENARIO: ${{ matrix.try-scenario }}
