@@ -1,0 +1,1 @@
+{"version":3,"file":"power-calendar.d.ts","sourceRoot":"","sources":["../../src/services/power-calendar.ts"],"names":[],"mappings":"AAAA,OAAO,OAAO,MAAM,gBAAgB,CAAC;AAIrC,MAAM,CAAC,OAAO,MAAO,SAAQ,OAAO;IAClC,IAAI,EAAE,IAAI,GAAG,IAAI,CAAQ;IAEhB,MAAM,CAAC,EAAE,MAAM,CAAC;IAEzB,IAAI,MAAM,IAAI,MAAM,CAMnB;IAED,IAAI,MAAM,CAAC,KAAK,EARF,MAQE,EAEf;IAGD,OAAO,IAAI,IAAI;CAGhB"}
