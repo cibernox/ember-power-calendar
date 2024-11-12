@@ -4,9 +4,6 @@ module.exports = {
   root: true,
   // Only use overrides
   // https://github.com/ember-cli/eslint-plugin-ember?tab=readme-ov-file#gtsgjs
-  rules: {
-    'ember/no-runloop': 0,
-  },
   overrides: [
     {
       files: ['**/*.js', '**/*.ts'],
@@ -26,6 +23,7 @@ module.exports = {
         'import/extensions': ['error', 'always', { ignorePackages: true }],
         // Add any custom rules here
         '@typescript-eslint/no-explicit-any': 0,
+        'ember/no-runloop': 0,
       },
     },
     // ts files
@@ -43,6 +41,7 @@ module.exports = {
         'import/extensions': ['error', 'always', { ignorePackages: true }],
         // Add any custom rules here
         '@typescript-eslint/no-explicit-any': 0,
+        'ember/no-runloop': 0,
       },
     },
     {
