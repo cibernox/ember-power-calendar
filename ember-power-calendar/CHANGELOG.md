@@ -1,5 +1,20 @@
 
 
+
+## v1.3.0 (2024-11-12)
+
+#### :rocket: Enhancement
+* [#530](https://github.com/cibernox/ember-power-calendar/pull/530) Allow `@glimmer/component` v2 ([@mkszepp](https://github.com/mkszepp))
+
+#### :memo: Documentation
+* [#529](https://github.com/cibernox/ember-power-calendar/pull/529) Remove `ember-prism`, use `primsjs` in docs ([@mkszepp](https://github.com/mkszepp))
+
+#### :house: Internal
+* [#528](https://github.com/cibernox/ember-power-calendar/pull/528) Replace scss to css compiler while rollup ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 ## v1.2.0 (2024-09-09)
 
 #### :rocket: Enhancement
