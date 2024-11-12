@@ -156,7 +156,7 @@ importers:
         specifier: ^2.10.0
         version: 2.10.0(@glint/template@1.5.0)(webpack@5.96.1)
       ember-basic-dropdown:
-        specifier: ^8.3.0
+        specifier: ^8.4.0
         version: 8.4.0(@ember/string@4.0.0)(@ember/test-helpers@4.0.4)(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.5.0)(@glint/template@1.5.0)(ember-source@5.12.0)
       ember-cli:
         specifier: ~5.12.0
@@ -213,8 +213,8 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2(@babel/core@7.26.0)(@glint/template@1.5.0)(ember-power-calendar@1.2.0)(moment@2.30.1)
       ember-power-select:
-        specifier: ^8.3.1
-        version: 8.3.1(@babel/core@7.26.0)(@ember/test-helpers@4.0.4)(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.5.0)(@glint/template@1.5.0)(ember-basic-dropdown@8.4.0)(ember-concurrency@4.0.2)(ember-source@5.12.0)
+        specifier: ^8.4.0
+        version: 8.4.0(@babel/core@7.26.0)(@ember/test-helpers@4.0.4)(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.5.0)(@glint/template@1.5.0)(ember-basic-dropdown@8.4.0)(ember-concurrency@4.0.2)(ember-source@5.12.0)
       ember-qunit:
         specifier: ^8.1.1
         version: 8.1.1(@ember/test-helpers@4.0.4)(@glint/template@1.5.0)(ember-source@5.12.0)(qunit@2.22.0)
@@ -625,7 +625,7 @@ importers:
         specifier: ^2.10.0
         version: 2.10.0(@glint/template@1.5.0)(webpack@5.96.1)
       ember-basic-dropdown:
-        specifier: ^8.3.0
+        specifier: ^8.4.0
         version: 8.4.0(@ember/string@4.0.0)(@ember/test-helpers@4.0.4)(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.5.0)(@glint/template@1.5.0)(ember-source@5.12.0)
       ember-cli:
         specifier: ~5.12.0
@@ -7173,11 +7173,11 @@ packages:
       - supports-color
     dev: true
 
-  /ember-power-select@8.3.1(@babel/core@7.26.0)(@ember/test-helpers@4.0.4)(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.5.0)(@glint/template@1.5.0)(ember-basic-dropdown@8.4.0)(ember-concurrency@4.0.2)(ember-source@5.12.0):
-    resolution: {integrity: sha512-lGA9kabSpjl+jb3nC366k1ThVGTMksNzv6v5QvEkw+sIRqLJTwXcLP1fnj+JkXQcpD4DEYyd4fVzSA/us8c3yw==}
+  /ember-power-select@8.4.0(@babel/core@7.26.0)(@ember/test-helpers@4.0.4)(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.5.0)(@glint/template@1.5.0)(ember-basic-dropdown@8.4.0)(ember-concurrency@4.0.2)(ember-source@5.12.0):
+    resolution: {integrity: sha512-Kxur31Gxc6Va7djphIjiRayZFQXRVseBNK0zCDAK7P19iXzNI8vtptkYQJ9Wgr1QftIu5N+ksJ4pMySqCQq7QQ==}
     peerDependencies:
       '@ember/test-helpers': ^2.9.4 || ^3.2.1 || ^4.0.2
-      '@glimmer/component': ^1.1.2
+      '@glimmer/component': ^1.1.2 || ^2.0.0
       '@glimmer/tracking': ^1.1.2
       ember-basic-dropdown: ^8.2.0
       ember-concurrency: ^4.0.2
