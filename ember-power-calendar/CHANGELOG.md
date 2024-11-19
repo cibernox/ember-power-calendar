@@ -1,6 +1,18 @@
 
 
 
+
+## v1.3.1 (2024-11-19)
+
+#### :bug: Bug Fix
+* [#535](https://github.com/cibernox/ember-power-calendar/pull/535) Fix default variable values (css calc isn't working correctly) ([@mkszepp](https://github.com/mkszepp))
+
+#### :house: Internal
+* [#536](https://github.com/cibernox/ember-power-calendar/pull/536) Add fastboot in test-app ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 ## v1.3.0 (2024-11-12)
 
 #### :rocket: Enhancement
