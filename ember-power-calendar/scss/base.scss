@@ -95,9 +95,9 @@
   $row-padding-bottom: 0px,
   $row-padding-left: 0px,
   $row-padding-right: 0px,
-  $row-width:
-    calc(
-      #{$cell-with-spacing-width} * 7 - 2px + #{$row-padding-left} + #{$row-padding-right}
+  $row-width: calc(
+      #{$cell-with-spacing-width} * 7 - 2px + #{$row-padding-left} +
+        #{$row-padding-right}
     ),
   $row-height: calc(#{$cell-height} + 2px),
   $primary-color: #0078c9,

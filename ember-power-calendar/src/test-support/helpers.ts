@@ -49,6 +49,7 @@ function findComponentInstance(
     calendarGuid,
   );
   // @ts-expect-error Property '__powerCalendars'
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return window.__powerCalendars[calendarGuid];
 }
 
