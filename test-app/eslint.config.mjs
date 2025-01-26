@@ -82,6 +82,9 @@ export default ts.config(
         ...globals.browser,
       },
     },
+    rules: {
+      'ember/no-runloop': 0,
+    },
   },
   {
     files: ['**/*.{ts,gts}'],
@@ -97,6 +100,7 @@ export default ts.config(
       qunit,
     },
     rules: {
+      'ember/no-runloop': 0,
       'qunit/require-expect': 'off',
     },
   },
