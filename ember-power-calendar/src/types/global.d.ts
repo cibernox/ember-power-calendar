@@ -8,12 +8,10 @@ export interface AssignRegistry {
 }
 
 export interface ReadonlyRegistry {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
 declare module '@glint/environment-ember-loose/registry' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   export default interface Registry
     extends EmberTruthRegistry,
       EmbroiderUtilRegistry,

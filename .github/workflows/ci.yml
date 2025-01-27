@@ -19,10 +19,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 8
+      - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4
         with:
@@ -45,10 +42,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 8
+      - uses: pnpm/action-setup@v4
 
       - name: Install Node
         uses: actions/setup-node@v4
@@ -72,10 +66,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 8
+      - uses: pnpm/action-setup@v4
 
       - uses: actions/setup-node@v4
         with:
@@ -117,10 +108,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 8
+      - uses: pnpm/action-setup@v4
 
       - name: Install Node
         uses: actions/setup-node@v4

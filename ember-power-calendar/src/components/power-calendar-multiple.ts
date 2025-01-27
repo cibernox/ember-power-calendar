@@ -210,6 +210,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
   registerCalendar() {
     if (window) {
       // @ts-expect-error Property '__powerCalendars'
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       window.__powerCalendars = window.__powerCalendars || {}; // TODO: weakmap??
       // @ts-expect-error Property '__powerCalendars'
       window.__powerCalendars[this.publicAPI.uniqueId] = this;
