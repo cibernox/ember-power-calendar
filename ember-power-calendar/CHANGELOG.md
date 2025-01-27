@@ -2,6 +2,25 @@
 
 
 
+
+## v1.4.0 (2025-01-27)
+
+#### :rocket: Enhancement
+* [#539](https://github.com/cibernox/ember-power-calendar/pull/539) Allow `@ember/test-helpers` v5.x and update ember-cli to 6.1 ([@mkszepp](https://github.com/mkszepp))
+
+#### :bug: Bug Fix
+* [#538](https://github.com/cibernox/ember-power-calendar/pull/538) Fix css variable in vendor css ([@mkszepp](https://github.com/mkszepp))
+
+#### :memo: Documentation
+* [#537](https://github.com/cibernox/ember-power-calendar/pull/537) Update `date-fns` meta package link ([@mkszepp](https://github.com/mkszepp))
+
+#### :house: Internal
+* [#540](https://github.com/cibernox/ember-power-calendar/pull/540) Update ember-basic-dropdown & ember-power-select ([@mkszepp](https://github.com/mkszepp))
+* [#539](https://github.com/cibernox/ember-power-calendar/pull/539) Allow `@ember/test-helpers` v5.x and update ember-cli to 6.1 ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 ## v1.3.1 (2024-11-19)
 
 #### :bug: Bug Fix
