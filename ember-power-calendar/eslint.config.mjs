@@ -79,11 +79,6 @@ export default ts.config(
     },
     extends: [...ts.configs.recommendedTypeChecked, ember.configs.gts],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-misused-promises': 'off',
-      '@typescript-eslint/unbound-method': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
-      '@typescript-eslint/await-thenable': 'off',
       'ember/no-runloop': 0,
     },
   },

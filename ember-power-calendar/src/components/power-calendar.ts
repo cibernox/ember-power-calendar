@@ -3,7 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { inject as service } from '@ember/service';
-import { task } from 'ember-concurrency';
+import { task, type TaskInstance } from 'ember-concurrency';
 import { assert } from '@ember/debug';
 import type { ComponentLike } from '@glint/template';
 import {
@@ -52,13 +52,13 @@ export interface PowerCalendarActions {
     newCenter: Date,
     calendar: CalendarAPI,
     event: MouseEvent,
-  ) => void;
+  ) => TaskInstance<void>;
   moveCenter?: (
     step: number,
     unit: TPowerCalendarMoveCenterUnit,
     calendar: PowerCalendarAPI,
     event: MouseEvent,
-  ) => void;
+  ) => Promise<void>;
   select?: (day: CalendarDay, calendar: CalendarAPI, event: MouseEvent) => void;
 }
 
@@ -69,14 +69,14 @@ export type TPowerCalendarOnSelect = (
 ) => void;
 
 export interface PowerCalendarArgs {
-  daysComponent?: string | ComponentLike<any>;
+  daysComponent?: string | ComponentLike<PowerCalendarDaysComponent>;
   locale: string;
-  navComponent?: string | ComponentLike<any>;
+  navComponent?: string | ComponentLike<PowerCalendarNavComponent>;
   onCenterChange?: (
     newCenter: NormalizeCalendarValue,
     calendar: PowerCalendarAPI,
     event: MouseEvent,
-  ) => void;
+  ) => Promise<void>;
   onInit?: (calendar: PowerCalendarAPI) => void;
   onSelect?: TPowerCalendarOnSelect;
   selected?: SelectedDays;
@@ -85,8 +85,8 @@ export interface PowerCalendarArgs {
 }
 
 export interface PowerCalendarDefaultBlock extends PowerCalendarAPI {
-  NavComponent: ComponentLike<any>;
-  DaysComponent: ComponentLike<any>;
+  NavComponent: ComponentLike<PowerCalendarNavComponent>;
+  DaysComponent: ComponentLike<PowerCalendarDaysComponent>;
 }
 
 export type CalendarDay =
@@ -109,8 +109,8 @@ export default class PowerCalendarComponent extends Component<PowerCalendarSigna
   @tracked _calendarType: TCalendarType = 'single';
   @tracked _selected?: SelectedDays;
 
-  navComponent: ComponentLike<any> = PowerCalendarNavComponent;
-  daysComponent: ComponentLike<any> = PowerCalendarDaysComponent;
+  navComponent = PowerCalendarNavComponent;
+  daysComponent = PowerCalendarDaysComponent;
 
   // Lifecycle hooks
   constructor(owner: Owner, args: PowerCalendarArgs) {
@@ -129,7 +129,7 @@ export default class PowerCalendarComponent extends Component<PowerCalendarSigna
   get publicActions(): PowerCalendarActions {
     return publicActionsObject(
       this.args.onSelect,
-      this.select,
+      this.select.bind(this),
       this.args.onCenterChange,
       this.changeCenterTask,
       this.currentCenter,
@@ -206,14 +206,17 @@ export default class PowerCalendarComponent extends Component<PowerCalendarSigna
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       window.__powerCalendars = window.__powerCalendars || {}; // TODO: weakmap??
       // @ts-expect-error Property '__powerCalendars'
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       window.__powerCalendars[this.publicAPI.uniqueId] = this;
     }
   }
 
   unregisterCalendar() {
     // @ts-expect-error Property '__powerCalendars'
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (window && window.__powerCalendars?.[guidFor(this)]) {
       // @ts-expect-error Property '__powerCalendars'
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       delete window.__powerCalendars[guidFor(this)];
     }
   }

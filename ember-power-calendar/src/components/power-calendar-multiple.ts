@@ -23,7 +23,6 @@ import type {
   PowerCalendarAPI,
   PowerCalendarActions,
   PowerCalendarArgs,
-  PowerCalendarSignature,
   SelectedDays,
   TCalendarType,
 } from './power-calendar.ts';
@@ -32,8 +31,9 @@ import type { ComponentLike } from '@glint/template';
 import type PowerCalendarService from '../services/power-calendar.ts';
 
 export interface PowerCalendarMultipleAPI
-  extends Omit<PowerCalendarAPI, 'selected'> {
+  extends Omit<PowerCalendarAPI, 'selected' | 'DaysComponent'> {
   selected?: Date[];
+  DaysComponent: ComponentLike<PowerCalendarMultipleDaysComponent>;
 }
 
 export type TPowerCalendarMultipleOnSelect = (
@@ -43,18 +43,19 @@ export type TPowerCalendarMultipleOnSelect = (
 ) => void;
 
 interface PowerCalendarMultipleArgs
-  extends Omit<PowerCalendarArgs, 'selected' | 'onSelect'> {
+  extends Omit<PowerCalendarArgs, 'selected' | 'daysComponent' | 'onSelect'> {
   selected?: Date[];
+  daysComponent?: string | ComponentLike<PowerCalendarMultipleDaysComponent>;
   onSelect?: TPowerCalendarMultipleOnSelect;
 }
 
 interface PowerCalendarMultipleDefaultBlock extends PowerCalendarMultipleAPI {
-  NavComponent: ComponentLike<any>;
-  DaysComponent: ComponentLike<any>;
+  NavComponent: ComponentLike<PowerCalendarNavComponent>;
+  DaysComponent: ComponentLike<PowerCalendarMultipleDaysComponent>;
 }
 
-interface PowerCalendarMultipleSignature
-  extends Omit<PowerCalendarSignature, 'Args'> {
+interface PowerCalendarMultipleSignature {
+  Element: HTMLElement;
   Args: PowerCalendarMultipleArgs;
   Blocks: {
     default: [PowerCalendarMultipleDefaultBlock];
@@ -68,8 +69,8 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
   @tracked _calendarType: TCalendarType = 'multiple';
   @tracked _selected?: SelectedDays;
 
-  navComponent: ComponentLike<any> = PowerCalendarNavComponent;
-  daysComponent: ComponentLike<any> = PowerCalendarMultipleDaysComponent;
+  navComponent = PowerCalendarNavComponent;
+  daysComponent = PowerCalendarMultipleDaysComponent;
 
   // Lifecycle hooks
   constructor(owner: Owner, args: PowerCalendarMultipleArgs) {
@@ -88,7 +89,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
   get publicActions(): PowerCalendarActions {
     return publicActionsObject(
       this.args.onSelect,
-      this.select,
+      this.select.bind(this),
       this.args.onCenterChange,
       this.changeCenterTask,
       this.currentCenter,
@@ -213,14 +214,17 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       window.__powerCalendars = window.__powerCalendars || {}; // TODO: weakmap??
       // @ts-expect-error Property '__powerCalendars'
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       window.__powerCalendars[this.publicAPI.uniqueId] = this;
     }
   }
 
   unregisterCalendar() {
     // @ts-expect-error Property '__powerCalendars'
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (window && window.__powerCalendars?.[guidFor(this)]) {
       // @ts-expect-error Property '__powerCalendars'
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       delete window.__powerCalendars[guidFor(this)];
     }
   }

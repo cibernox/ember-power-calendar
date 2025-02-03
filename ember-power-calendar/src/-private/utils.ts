@@ -5,7 +5,7 @@ import type {
   PowerCalendarActions,
   TPowerCalendarOnSelect,
 } from '../components/power-calendar';
-import { add } from '../utils.ts';
+import { add, type NormalizeCalendarValue } from '../utils.ts';
 import type { TPowerCalendarRangeOnSelect } from '../components/power-calendar-range';
 import type { TPowerCalendarMultipleOnSelect } from '../components/power-calendar-multiple.ts';
 
@@ -17,7 +17,11 @@ export function publicActionsObject(
     | undefined,
   select: (day: CalendarDay, calendar: CalendarAPI, e: MouseEvent) => void,
   onCenterChange:
-    | ((newCenter: any, calendar: CalendarAPI, event: MouseEvent) => void)
+    | ((
+        newCenter: NormalizeCalendarValue,
+        calendar: CalendarAPI,
+        event: MouseEvent,
+      ) => Promise<void>)
     | undefined,
   changeCenterTask: TaskForAsyncTaskFunction<
     unknown,
@@ -38,9 +42,9 @@ export function publicActionsObject(
       return changeCenterTask.perform(newCenter, calendar, e);
     };
     actions.changeCenter = changeCenter;
-    actions.moveCenter = (step, unit, calendar, e) => {
+    actions.moveCenter = async (step, unit, calendar, e) => {
       const newCenter = add(currentCenter, step, unit);
-      return changeCenter(newCenter, calendar, e);
+      return await changeCenter(newCenter, calendar, e);
     };
   }
 
