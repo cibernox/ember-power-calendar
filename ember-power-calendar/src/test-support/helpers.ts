@@ -1,4 +1,3 @@
-import { run } from '@ember/runloop';
 import { assert } from '@ember/debug';
 import { click, settled, find } from '@ember/test-helpers';
 import { formatDate } from '../utils.ts';
@@ -49,7 +48,7 @@ function findComponentInstance(
     calendarGuid,
   );
   // @ts-expect-error Property '__powerCalendars'
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
   return window.__powerCalendars[calendarGuid];
 }
 
@@ -68,9 +67,7 @@ export async function calendarCenter(
     !!onCenterChange,
   );
   const publicAPI = calendarComponent.publicAPI;
-  run(() =>
-    publicAPI.actions.changeCenter!(newCenter, publicAPI, {} as MouseEvent),
-  );
+  await publicAPI.actions.changeCenter!(newCenter, publicAPI, {} as MouseEvent);
   return settled();
 }
 

@@ -22,7 +22,6 @@ import {
 } from '../utils.ts';
 import type {
   PowerCalendarAPI,
-  PowerCalendarSignature,
   PowerCalendarArgs,
   TCalendarType,
   SelectedDays,
@@ -56,12 +55,12 @@ interface PowerCalendarRangeArgs
 }
 
 export interface PowerCalendarRangeDefaultBlock extends PowerCalendarRangeAPI {
-  NavComponent: ComponentLike<any>;
-  DaysComponent: ComponentLike<any>;
+  NavComponent: ComponentLike<PowerCalendarNavComponent>;
+  DaysComponent: ComponentLike<PowerCalendarRangeDaysComponent>;
 }
 
-interface PowerCalendarRangeSignature
-  extends Omit<PowerCalendarSignature, 'Args' | 'Blocks'> {
+interface PowerCalendarRangeSignature {
+  Element: HTMLElement;
   Args: PowerCalendarRangeArgs;
   Blocks: {
     default: [PowerCalendarRangeDefaultBlock];
@@ -82,8 +81,8 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
   @tracked _calendarType: TCalendarType = 'range';
   @tracked _selected?: SelectedDays;
 
-  navComponent: ComponentLike<any> = PowerCalendarNavComponent;
-  daysComponent: ComponentLike<any> = PowerCalendarRangeDaysComponent;
+  navComponent = PowerCalendarNavComponent;
+  daysComponent = PowerCalendarRangeDaysComponent;
 
   // Lifecycle hooks
   constructor(owner: Owner, args: PowerCalendarRangeArgs) {
@@ -102,7 +101,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
   get publicActions(): PowerCalendarActions {
     return publicActionsObject(
       this.args.onSelect,
-      this.select,
+      this.select.bind(this),
       this.args.onCenterChange,
       this.changeCenterTask,
       this.currentCenter,
@@ -306,19 +305,22 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       window.__powerCalendars = window.__powerCalendars || {}; // TODO: weakmap??
       // @ts-expect-error Property '__powerCalendars'
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       window.__powerCalendars[this.publicAPI.uniqueId] = this;
     }
   }
 
   unregisterCalendar() {
     // @ts-expect-error Property '__powerCalendars'
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (window && window.__powerCalendars?.[guidFor(this)]) {
       // @ts-expect-error Property '__powerCalendars'
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       delete window.__powerCalendars[guidFor(this)];
     }
   }
 }
 
-function ownProp<T = { [key: string | number]: any }>(obj: T, prop: keyof T) {
+function ownProp<T = { [key: string | number]: never }>(obj: T, prop: keyof T) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }

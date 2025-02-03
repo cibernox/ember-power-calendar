@@ -140,14 +140,14 @@ export default class PowerCalendarMultipleDaysComponent extends Component<PowerC
     scheduleOnce(
       'actions',
       this,
-      this._updateFocused,
+      this._updateFocused.bind(this),
       (e.target as HTMLElement).dataset['date'],
     );
   }
 
   @action
   handleDayBlur(): void {
-    scheduleOnce('actions', this, this._updateFocused, null);
+    scheduleOnce('actions', this, this._updateFocused.bind(this), null);
   }
 
   @action
