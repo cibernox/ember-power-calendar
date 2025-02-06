@@ -226,6 +226,13 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
       // @ts-expect-error Property '__powerCalendars'
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       delete window.__powerCalendars[guidFor(this)];
+
+      // @ts-expect-error Property '__powerCalendars'
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      if (Object.keys(window.__powerCalendars).length === 0) {
+        // @ts-expect-error Property '__powerCalendars'
+        delete window.__powerCalendars;
+      }
     }
   }
 }
