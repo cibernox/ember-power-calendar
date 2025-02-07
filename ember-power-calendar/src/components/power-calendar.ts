@@ -70,7 +70,7 @@ export type TPowerCalendarOnSelect = (
 
 export interface PowerCalendarArgs {
   daysComponent?: string | ComponentLike<PowerCalendarDaysComponent>;
-  locale: string;
+  locale?: string;
   navComponent?: string | ComponentLike<PowerCalendarNavComponent>;
   onCenterChange?: (
     newCenter: NormalizeCalendarValue,
@@ -85,8 +85,8 @@ export interface PowerCalendarArgs {
 }
 
 export interface PowerCalendarDefaultBlock extends PowerCalendarAPI {
-  NavComponent: ComponentLike<PowerCalendarNavComponent>;
-  DaysComponent: ComponentLike<PowerCalendarDaysComponent>;
+  Nav: ComponentLike<PowerCalendarNavComponent>;
+  Days: ComponentLike<PowerCalendarDaysComponent>;
 }
 
 export type CalendarDay =
