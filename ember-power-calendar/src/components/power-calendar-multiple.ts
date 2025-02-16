@@ -6,8 +6,12 @@ import { assert } from '@ember/debug';
 import { isArray } from '@ember/array';
 import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
-import PowerCalendarMultipleDaysComponent from './power-calendar-multiple/days.ts';
-import PowerCalendarNavComponent from './power-calendar/nav.ts';
+import PowerCalendarMultipleDaysComponent, {
+  type PowerCalendarMultipleDaysSignature,
+} from './power-calendar-multiple/days.ts';
+import PowerCalendarNavComponent, {
+  type PowerCalendarNavSignature,
+} from './power-calendar/nav.ts';
 import { publicActionsObject } from '../-private/utils.ts';
 import {
   normalizeDate,
@@ -33,7 +37,7 @@ import type PowerCalendarService from '../services/power-calendar.ts';
 export interface PowerCalendarMultipleAPI
   extends Omit<PowerCalendarAPI, 'selected' | 'DaysComponent'> {
   selected?: Date[];
-  DaysComponent: ComponentLike<PowerCalendarMultipleDaysComponent>;
+  DaysComponent: ComponentLike<PowerCalendarMultipleDaysSignature>;
 }
 
 export type TPowerCalendarMultipleOnSelect = (
@@ -45,13 +49,13 @@ export type TPowerCalendarMultipleOnSelect = (
 interface PowerCalendarMultipleArgs
   extends Omit<PowerCalendarArgs, 'selected' | 'daysComponent' | 'onSelect'> {
   selected?: Date[];
-  daysComponent?: string | ComponentLike<PowerCalendarMultipleDaysComponent>;
+  daysComponent?: string | ComponentLike<PowerCalendarMultipleDaysSignature>;
   onSelect?: TPowerCalendarMultipleOnSelect;
 }
 
 interface PowerCalendarMultipleDefaultBlock extends PowerCalendarMultipleAPI {
-  Nav: ComponentLike<PowerCalendarNavComponent>;
-  Days: ComponentLike<PowerCalendarMultipleDaysComponent>;
+  Nav: ComponentLike<PowerCalendarNavSignature>;
+  Days: ComponentLike<PowerCalendarMultipleDaysSignature>;
 }
 
 interface PowerCalendarMultipleSignature {

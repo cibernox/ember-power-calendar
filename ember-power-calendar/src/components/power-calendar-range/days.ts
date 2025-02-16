@@ -44,12 +44,12 @@ interface PowerCalendarMultipleDaysArgs
   };
 }
 
-interface PowerCalendarRangeSignature
+export interface PowerCalendarRangeDaysSignature
   extends Omit<PowerCalendarDaysSignature, 'Args'> {
   Args: PowerCalendarMultipleDaysArgs;
 }
 
-export default class PowerCalendarRangeDaysComponent extends Component<PowerCalendarRangeSignature> {
+export default class PowerCalendarRangeDaysComponent extends Component<PowerCalendarRangeDaysSignature> {
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked focusedId: string | null = null;

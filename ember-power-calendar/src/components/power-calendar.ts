@@ -13,8 +13,12 @@ import {
   type PowerCalendarDay,
   type SelectedPowerCalendarRange,
 } from '../utils.ts';
-import PowerCalendarNavComponent from './power-calendar/nav.ts';
-import PowerCalendarDaysComponent from './power-calendar/days.ts';
+import PowerCalendarNavComponent, {
+  type PowerCalendarNavSignature,
+} from './power-calendar/nav.ts';
+import PowerCalendarDaysComponent, {
+  type PowerCalendarDaysSignature,
+} from './power-calendar/days.ts';
 import type Owner from '@ember/owner';
 import type PowerCalendarService from '../services/power-calendar.ts';
 import type {
@@ -69,9 +73,9 @@ export type TPowerCalendarOnSelect = (
 ) => void;
 
 export interface PowerCalendarArgs {
-  daysComponent?: string | ComponentLike<PowerCalendarDaysComponent>;
+  daysComponent?: string | ComponentLike<PowerCalendarDaysSignature>;
   locale?: string;
-  navComponent?: string | ComponentLike<PowerCalendarNavComponent>;
+  navComponent?: string | ComponentLike<PowerCalendarNavSignature>;
   onCenterChange?: (
     newCenter: NormalizeCalendarValue,
     calendar: PowerCalendarAPI,
@@ -85,8 +89,8 @@ export interface PowerCalendarArgs {
 }
 
 export interface PowerCalendarDefaultBlock extends PowerCalendarAPI {
-  Nav: ComponentLike<PowerCalendarNavComponent>;
-  Days: ComponentLike<PowerCalendarDaysComponent>;
+  Nav: ComponentLike<PowerCalendarNavSignature>;
+  Days: ComponentLike<PowerCalendarDaysSignature>;
 }
 
 export type CalendarDay =
