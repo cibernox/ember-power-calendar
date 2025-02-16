@@ -42,7 +42,7 @@ interface PowerCalendarMultipleDaysArgs
   maxLength?: number;
 }
 
-interface PowerCalendarMultipleDaysSignature
+export interface PowerCalendarMultipleDaysSignature
   extends Omit<PowerCalendarDaysSignature, 'Args'> {
   Args: PowerCalendarMultipleDaysArgs;
 }

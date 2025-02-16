@@ -4,7 +4,7 @@ import type {
   TPowerCalendarMoveCenterUnit,
 } from '../power-calendar.ts';
 
-interface PowerCalendarNavSignature {
+export interface PowerCalendarNavSignature {
   Args: {
     calendar: CalendarAPI;
     format: string;
