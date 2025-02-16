@@ -13,8 +13,12 @@ import {
   type PowerCalendarDay,
   type SelectedPowerCalendarRange,
 } from '../utils.ts';
-import PowerCalendarNavComponent, { type PowerCalendarNavSignature } from './power-calendar/nav.ts';
-import PowerCalendarDaysComponent, { type PowerCalendarDaysSignature } from './power-calendar/days.ts';
+import PowerCalendarNavComponent, {
+  type PowerCalendarNavSignature,
+} from './power-calendar/nav.ts';
+import PowerCalendarDaysComponent, {
+  type PowerCalendarDaysSignature,
+} from './power-calendar/days.ts';
 import type Owner from '@ember/owner';
 import type PowerCalendarService from '../services/power-calendar.ts';
 import type {

@@ -5,8 +5,12 @@ import { inject as service } from '@ember/service';
 import { guidFor } from '@ember/object/internals';
 import { assert } from '@ember/debug';
 import { task } from 'ember-concurrency';
-import PowerCalendarRangeDaysComponent, { type PowerCalendarRangeDaysSignature } from './power-calendar-range/days.ts';
-import PowerCalendarNavComponent, { type PowerCalendarNavSignature } from './power-calendar/nav.ts';
+import PowerCalendarRangeDaysComponent, {
+  type PowerCalendarRangeDaysSignature,
+} from './power-calendar-range/days.ts';
+import PowerCalendarNavComponent, {
+  type PowerCalendarNavSignature,
+} from './power-calendar/nav.ts';
 import { publicActionsObject } from '../-private/utils.ts';
 import {
   normalizeDate,

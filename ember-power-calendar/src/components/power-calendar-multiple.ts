@@ -6,8 +6,12 @@ import { assert } from '@ember/debug';
 import { isArray } from '@ember/array';
 import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
-import PowerCalendarMultipleDaysComponent, { type PowerCalendarMultipleDaysSignature } from './power-calendar-multiple/days.ts';
-import PowerCalendarNavComponent, { type PowerCalendarNavSignature } from './power-calendar/nav.ts';
+import PowerCalendarMultipleDaysComponent, {
+  type PowerCalendarMultipleDaysSignature,
+} from './power-calendar-multiple/days.ts';
+import PowerCalendarNavComponent, {
+  type PowerCalendarNavSignature,
+} from './power-calendar/nav.ts';
 import { publicActionsObject } from '../-private/utils.ts';
 import {
   normalizeDate,
