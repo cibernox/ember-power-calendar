@@ -80,7 +80,7 @@ export interface PowerCalendarArgs {
     newCenter: NormalizeCalendarValue,
     calendar: PowerCalendarAPI,
     event: MouseEvent,
-  ) => Promise<void>;
+  ) => Promise<void> | void;
   onInit?: (calendar: PowerCalendarAPI) => void;
   onSelect?: TPowerCalendarOnSelect;
   selected?: SelectedDays;

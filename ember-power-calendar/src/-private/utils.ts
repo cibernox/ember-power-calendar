@@ -21,7 +21,7 @@ export function publicActionsObject(
         newCenter: NormalizeCalendarValue,
         calendar: CalendarAPI,
         event: MouseEvent,
-      ) => Promise<void>)
+      ) => Promise<void> | void)
     | undefined,
   changeCenterTask: TaskForAsyncTaskFunction<
     unknown,
