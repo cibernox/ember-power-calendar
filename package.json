@@ -1,0 +1,138 @@
+{
+  "name": "ember-power-calendar",
+  "version": "1.5.2",
+  "description": "Powerful and customizable calendar component for Ember",
+  "keywords": [
+    "ember-addon"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/cibernox/ember-power-calendar.git"
+  },
+  "license": "MIT",
+  "author": "Miguel Camba",
+  "exports": {
+    ".": {
+      "types": "./declarations/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./declarations/*.d.ts",
+      "default": "./dist/*.js"
+    },
+    "./addon-main.js": "./addon-main.cjs",
+    "./ember-power-calendar.less": "./ember-power-calendar.less",
+    "./ember-power-calendar.scss": "./ember-power-calendar.scss",
+    "./_index.scss": "./_index.scss",
+    "./less/base.less": "./less/base.less",
+    "./scss/base.scss": "./scss/base.scss",
+    "./vendor/*": "./vendor/*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "declarations/*"
+      ]
+    }
+  },
+  "files": [
+    "_index.scss",
+    "addon-main.cjs",
+    "declarations",
+    "dist",
+    "ember-power-calendar.less",
+    "ember-power-calendar.scss",
+    "less",
+    "scss",
+    "vendor"
+  ],
+  "scripts": {
+    "build": "rollup --config",
+    "format": "prettier . --cache --write",
+    "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
+    "lint:fix": "concurrently \"pnpm:lint:*:fix\" --names \"fix:\" --prefixColors auto && pnpm run format",
+    "lint:format": "prettier . --cache --check",
+    "lint:hbs": "ember-template-lint . --no-error-on-unmatched-pattern",
+    "lint:hbs:fix": "ember-template-lint . --fix --no-error-on-unmatched-pattern",
+    "lint:js": "eslint . --cache",
+    "lint:js:fix": "eslint . --fix",
+    "lint:types": "glint",
+    "start": "rollup --config --watch",
+    "test": "echo 'A v2 addon does not have tests, run tests in test-app'"
+  },
+  "dependencies": {
+    "@embroider/addon-shim": "^1.9.0",
+    "decorator-transforms": "^2.3.0",
+    "@embroider/util": "^1.13.2",
+    "@embroider/macros": "^1.16.10",
+    "ember-assign-helper": "^0.5.0",
+    "ember-element-helper": "^0.8.6",
+    "ember-truth-helpers": "^4.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.7",
+    "@babel/eslint-parser": "^7.26.5",
+    "@babel/plugin-transform-typescript": "^7.26.7",
+    "@babel/runtime": "^7.26.7",
+    "@embroider/addon-dev": "^7.1.1",
+    "@ember/test-helpers": "^5.0.0",
+    "@eslint/js": "^9.19.0",
+    "@glint/core": "^1.5.2",
+    "@glint/environment-ember-loose": "^1.5.2",
+    "@glint/environment-ember-template-imports": "^1.5.2",
+    "@glint/template": "^1.5.2",
+    "@glimmer/component": "^2.0.0",
+    "@glimmer/tracking": "^1.1.2",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@tsconfig/ember": "^3.0.9",
+    "babel-plugin-ember-template-compilation": "^2.3.0",
+    "concurrently": "^9.1.2",
+    "ember-concurrency": "^4.0.2",
+    "ember-source": "~6.1.0",
+    "ember-template-lint": "^6.1.0",
+    "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-ember": "^12.3.3",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^17.15.1",
+    "globals": "^15.14.0",
+    "postcss": "^8.5.1",
+    "prettier": "^3.4.2",
+    "prettier-plugin-ember-template-tag": "^2.0.4",
+    "rollup": "^4.32.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-sass": "^1.15.2",
+    "sass": "^1.83.4",
+    "typescript": "~5.7.3",
+    "typescript-eslint": "^8.21.0",
+    "webpack": "^5.97.1"
+  },
+  "peerDependencies": {
+    "@ember/test-helpers": "^2.9.4 || ^3.2.1 || ^4.0.4 || ^5.0.0",
+    "@glimmer/component": "^1.1.2 || ^2.0.0",
+    "@glimmer/tracking": "^1.1.2",
+    "ember-concurrency": "^4.0.2",
+    "ember-source": "^3.28.0 || ^4.0.0 || >=5.0.0"
+  },
+  "ember": {
+    "edition": "octane"
+  },
+  "ember-addon": {
+    "version": 2,
+    "type": "addon",
+    "main": "addon-main.cjs",
+    "app-js": {
+      "./components/power-calendar-multiple.js": "./dist/_app_/components/power-calendar-multiple.js",
+      "./components/power-calendar-multiple/days.js": "./dist/_app_/components/power-calendar-multiple/days.js",
+      "./components/power-calendar-range.js": "./dist/_app_/components/power-calendar-range.js",
+      "./components/power-calendar-range/days.js": "./dist/_app_/components/power-calendar-range/days.js",
+      "./components/power-calendar.js": "./dist/_app_/components/power-calendar.js",
+      "./components/power-calendar/days.js": "./dist/_app_/components/power-calendar/days.js",
+      "./components/power-calendar/nav.js": "./dist/_app_/components/power-calendar/nav.js",
+      "./helpers/ember-power-calendar-day-classes.js": "./dist/_app_/helpers/ember-power-calendar-day-classes.js",
+      "./helpers/power-calendar-format-date.js": "./dist/_app_/helpers/power-calendar-format-date.js",
+      "./services/power-calendar.js": "./dist/_app_/services/power-calendar.js",
+      "./test-support/helpers.js": "./dist/_app_/test-support/helpers.js"
+    }
+  }
+}
