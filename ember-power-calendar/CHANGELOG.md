@@ -4,6 +4,15 @@
 
 
 
+
+## v1.5.1 (2025-02-22)
+
+#### :bug: Bug Fix
+* [#547](https://github.com/cibernox/ember-power-calendar/pull/547) Typing: Make `format` and `unit` optional in Nav signature ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 ## v1.5.0 (2025-02-22)
 
 #### :rocket: Enhancement
