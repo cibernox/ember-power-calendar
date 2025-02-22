@@ -5,6 +5,15 @@
 
 
 
+
+## v1.5.2 (2025-02-22)
+
+#### :bug: Bug Fix
+* [#548](https://github.com/cibernox/ember-power-calendar/pull/548) Typing: Remove `calendar` from default blocks (not necessary to pass) ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 ## v1.5.1 (2025-02-22)
 
 #### :bug: Bug Fix
