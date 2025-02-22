@@ -89,8 +89,15 @@ export interface PowerCalendarArgs {
 }
 
 export interface PowerCalendarDefaultBlock extends PowerCalendarAPI {
-  Nav: ComponentLike<PowerCalendarNavSignature>;
-  Days: ComponentLike<PowerCalendarDaysSignature>;
+  Nav: ComponentLike<{
+    Args: Omit<PowerCalendarNavSignature['Args'], 'calendar'>;
+    Blocks: PowerCalendarNavSignature['Blocks'];
+  }>;
+  Days: ComponentLike<{
+    Element: PowerCalendarDaysSignature['Element'];
+    Args: Omit<PowerCalendarDaysSignature['Args'], 'calendar'>;
+    Blocks: PowerCalendarDaysSignature['Blocks'];
+  }>;
 }
 
 export type CalendarDay =
