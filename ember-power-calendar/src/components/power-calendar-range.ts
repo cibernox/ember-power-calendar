@@ -59,8 +59,15 @@ interface PowerCalendarRangeArgs
 }
 
 export interface PowerCalendarRangeDefaultBlock extends PowerCalendarRangeAPI {
-  Nav: ComponentLike<PowerCalendarNavSignature>;
-  Days: ComponentLike<PowerCalendarRangeDaysSignature>;
+  Nav: ComponentLike<{
+    Args: Omit<PowerCalendarNavSignature['Args'], 'calendar'>;
+    Blocks: PowerCalendarNavSignature['Blocks'];
+  }>;
+  Days: ComponentLike<{
+    Element: PowerCalendarRangeDaysSignature['Element'];
+    Args: Omit<PowerCalendarRangeDaysSignature['Args'], 'calendar'>;
+    Blocks: PowerCalendarRangeDaysSignature['Blocks'];
+  }>;
 }
 
 interface PowerCalendarRangeSignature {

@@ -54,8 +54,15 @@ interface PowerCalendarMultipleArgs
 }
 
 interface PowerCalendarMultipleDefaultBlock extends PowerCalendarMultipleAPI {
-  Nav: ComponentLike<PowerCalendarNavSignature>;
-  Days: ComponentLike<PowerCalendarMultipleDaysSignature>;
+  Nav: ComponentLike<{
+    Args: Omit<PowerCalendarNavSignature['Args'], 'calendar'>;
+    Blocks: PowerCalendarNavSignature['Blocks'];
+  }>;
+  Days: ComponentLike<{
+    Element: PowerCalendarMultipleDaysSignature['Element'];
+    Args: Omit<PowerCalendarMultipleDaysSignature['Args'], 'calendar'>;
+    Blocks: PowerCalendarMultipleDaysSignature['Blocks'];
+  }>;
 }
 
 interface PowerCalendarMultipleSignature {
