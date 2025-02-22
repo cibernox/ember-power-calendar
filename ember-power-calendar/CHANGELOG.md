@@ -3,6 +3,23 @@
 
 
 
+
+## v1.5.0 (2025-02-22)
+
+#### :rocket: Enhancement
+* [#541](https://github.com/cibernox/ember-power-calendar/pull/541) Improve typescript story ([@mkszepp](https://github.com/mkszepp))
+
+#### :bug: Bug Fix
+* [#546](https://github.com/cibernox/ember-power-calendar/pull/546) Typing: Allow `void` for onCenterChange return ([@mkszepp](https://github.com/mkszepp))
+* [#545](https://github.com/cibernox/ember-power-calendar/pull/545) Fix `ComponentLike` (glint) ([@mkszepp](https://github.com/mkszepp))
+* [#544](https://github.com/cibernox/ember-power-calendar/pull/544) Fix typing for glint ([@mkszepp](https://github.com/mkszepp))
+* [#543](https://github.com/cibernox/ember-power-calendar/pull/543) Fix memory leak of `window.__powerCalendars` (remove hash when empty) ([@apellerano-pw](https://github.com/apellerano-pw))
+* [#541](https://github.com/cibernox/ember-power-calendar/pull/541) Improve typescript story ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 2
+- Andrew Pellerano ([@apellerano-pw](https://github.com/apellerano-pw))
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 ## v1.4.0 (2025-01-27)
 
 #### :rocket: Enhancement
