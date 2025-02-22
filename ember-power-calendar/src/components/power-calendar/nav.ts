@@ -7,8 +7,8 @@ import type {
 export interface PowerCalendarNavSignature {
   Args: {
     calendar: CalendarAPI;
-    format: string;
-    unit: TPowerCalendarMoveCenterUnit;
+    format?: string;
+    unit?: TPowerCalendarMoveCenterUnit;
   };
   Blocks: {
     default: [calendar: CalendarAPI];
