@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
-import { inject as service } from '@ember/service';
+import service from '../-private/service.ts';
 import { task, type TaskInstance } from 'ember-concurrency';
 import { assert } from '@ember/debug';
 import type { ComponentLike } from '@glint/template';
