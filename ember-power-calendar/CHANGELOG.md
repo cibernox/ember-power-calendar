@@ -6,6 +6,15 @@
 
 
 
+
+## v1.5.3 (2025-03-31)
+
+#### :bug: Bug Fix
+* [#549](https://github.com/cibernox/ember-power-calendar/pull/549) Cleanup @ember/service deprecation ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 ## v1.5.2 (2025-02-22)
 
 #### :bug: Bug Fix
