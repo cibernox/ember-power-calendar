@@ -4,11 +4,20 @@ import { render, click, focus, triggerKeyEvent } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
-import require from 'require';
-import { importSync } from '@embroider/macros';
+import {
+  dependencySatisfies,
+  macroCondition,
+  importSync,
+} from '@embroider/macros';
 import ownProp from 'test-app/utils/own-prop';
 
-const dateLibrary = require.has('luxon') ? 'luxon' : 'moment';
+let dateLibrary = '';
+
+if (macroCondition(dependencySatisfies('moment', '*'))) {
+  dateLibrary = 'moment';
+} else if (macroCondition(dependencySatisfies('luxon', '*'))) {
+  dateLibrary = 'luxon';
+}
 
 module('Integration | Component | <PowerCalendar>', function (hooks) {
   setupRenderingTest(hooks);
@@ -1138,8 +1147,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
 
   test('user can provide `@tag` attribute', async function (assert) {
     assert.expect(1);
-    await render(hbs` 
-      <PowerCalendar @tag="li" /> 
+    await render(hbs`
+      <PowerCalendar @tag="li" />
     `);
     assert
       .dom('li.ember-power-calendar')
@@ -1148,8 +1157,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
 
   test('user can provide empty `@tag` attribute', async function (assert) {
     assert.expect(1);
-    await render(hbs` 
-      <PowerCalendar @tag="" /> 
+    await render(hbs`
+      <PowerCalendar @tag="" />
     `);
     assert
       .dom('.ember-power-calendar')
