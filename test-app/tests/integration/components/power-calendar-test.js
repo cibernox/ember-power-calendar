@@ -19,6 +19,8 @@ if (macroCondition(dependencySatisfies('moment', '*'))) {
   dateLibrary = 'luxon';
 }
 
+console.log(dateLibrary);
+
 module('Integration | Component | <PowerCalendar>', function (hooks) {
   setupRenderingTest(hooks);
 
@@ -129,7 +131,11 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   if (dateLibrary === 'moment') {
-    let moment = importSync('moment').default;
+    let moment;
+    if (macroCondition(dependencySatisfies('moment', '*'))) {
+      moment = importSync('moment').default;
+    }
+
     test('when it receives a `moment()` in the `center` argument, it displays that month', async function (assert) {
       assert.expect(3);
       this.center = moment('2016-02-05');
@@ -209,7 +215,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         );
     });
   } else if (dateLibrary === 'luxon') {
-    let { DateTime } = importSync('luxon');
+    let DateTime;
+
+    if (macroCondition(dependencySatisfies('luxon', '*'))) {
+      DateTime = importSync('luxon').default.DateTime;
+    }
+
     test('when it receives a DateTime in the `center` argument, it displays that month', async function (assert) {
       assert.expect(3);
       this.center = DateTime.fromObject({ year: 2016, month: 2, day: 5 });

@@ -3,11 +3,22 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { run } from '@ember/runloop';
-import require from 'require';
 import { TrackedObject } from 'tracked-built-ins';
 import ownProp from 'test-app/utils/own-prop';
 
-const dateLibrary = require.has('luxon') ? 'luxon' : 'moment';
+import {
+  dependencySatisfies,
+  macroCondition
+} from '@embroider/macros';
+
+let dateLibrary = '';
+
+if (macroCondition(dependencySatisfies('moment', '*'))) {
+  dateLibrary = 'moment';
+} else if (macroCondition(dependencySatisfies('luxon', '*'))) {
+  dateLibrary = 'luxon';
+}
+
 let calendarService;
 let calendar;
 

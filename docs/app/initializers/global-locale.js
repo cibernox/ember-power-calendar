@@ -1,7 +1,16 @@
-import require from 'require';
-import { importSync } from '@embroider/macros';
+import {
+  dependencySatisfies,
+  macroCondition,
+  importSync,
+} from '@embroider/macros';
 
-const dateLibrary = require.has('luxon') ? 'luxon' : 'moment';
+let dateLibrary = '';
+
+if (macroCondition(dependencySatisfies('moment', '*'))) {
+  dateLibrary = 'moment';
+} else if (macroCondition(dependencySatisfies('luxon', '*'))) {
+  dateLibrary = 'luxon';
+}
 
 export default {
   initialize() {
