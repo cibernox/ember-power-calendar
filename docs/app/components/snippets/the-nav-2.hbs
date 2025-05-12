@@ -1,16 +1,35 @@
-<PowerCalendar class="demo-calendar-small"
+<PowerCalendar
+  class="demo-calendar-small"
   @center={{this.month}}
-  @onCenterChange={{this.onCenterChange}} as |calendar|>
+  @onCenterChange={{this.onCenterChange}}
+  as |calendar|
+>
 
   <nav class="ember-power-calendar-nav">
-    <button type="button" class="ember-power-calendar-nav-control" {{on "click" (fn calendar.actions.moveCenter -12 'month')}}>«</button>
-    <button type="button" class="ember-power-calendar-nav-control" {{on "click" (fn calendar.actions.moveCenter -1 'month')}}>‹</button>
+    <button
+      type="button"
+      class="ember-power-calendar-nav-control"
+      {{on "click" (fn calendar.actions.moveCenter -12 "month")}}
+    >«</button>
+    <button
+      type="button"
+      class="ember-power-calendar-nav-control"
+      {{on "click" (fn calendar.actions.moveCenter -1 "month")}}
+    >‹</button>
     <div class="ember-power-calendar-nav-title">
-      {{format-date calendar.center 'MMMM YYYY'}}
+      {{format-date calendar.center "MMMM YYYY"}}
     </div>
-    <button class="ember-power-calendar-nav-control" {{on "click" (fn calendar.actions.moveCenter 1 'month')}} type="button">›</button>
-    <button class="ember-power-calendar-nav-control" {{on "click" (fn calendar.actions.moveCenter 12 'month')}} type="button">»</button>
+    <button
+      class="ember-power-calendar-nav-control"
+      {{on "click" (fn calendar.actions.moveCenter 1 "month")}}
+      type="button"
+    >›</button>
+    <button
+      class="ember-power-calendar-nav-control"
+      {{on "click" (fn calendar.actions.moveCenter 12 "month")}}
+      type="button"
+    >»</button>
   </nav>
 
-  <calendar.Days/>
+  <calendar.Days />
 </PowerCalendar>

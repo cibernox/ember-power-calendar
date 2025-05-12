@@ -14,9 +14,6 @@
       "docs/*": ["app/*"],
       "*": ["types/*"]
     },
-    "types": [
-      "ember-source/types",
-      "./node_modules/@types/prismjs"
-    ]
+    "types": ["ember-source/types", "./node_modules/@types/prismjs"]
   }
 }

@@ -2,22 +2,47 @@
 <section class="docs">
   <nav class="side-nav">
     <header class="side-nav-header">Getting started</header>
-    <LinkTo @route='public-pages.docs.index' class="side-nav-link">Overview</LinkTo>
-    <LinkTo @route='public-pages.docs.installation' class="side-nav-link">Installation &amp; setup</LinkTo>
-    <LinkTo @route='public-pages.docs.how-to-use-it' class="side-nav-link">How to use it</LinkTo>
-    <LinkTo @route='public-pages.docs.action-handling' class="side-nav-link">Action handling</LinkTo>
-    <LinkTo @route='public-pages.docs.range-selection' class="side-nav-link">Range selection</LinkTo>
-    <LinkTo @route='public-pages.docs.multiple-selection' class="side-nav-link">Multiple selection</LinkTo>
+    <LinkTo
+      @route="public-pages.docs.index"
+      class="side-nav-link"
+    >Overview</LinkTo>
+    <LinkTo
+      @route="public-pages.docs.installation"
+      class="side-nav-link"
+    >Installation &amp; setup</LinkTo>
+    <LinkTo @route="public-pages.docs.how-to-use-it" class="side-nav-link">How
+      to use it</LinkTo>
+    <LinkTo
+      @route="public-pages.docs.action-handling"
+      class="side-nav-link"
+    >Action handling</LinkTo>
+    <LinkTo
+      @route="public-pages.docs.range-selection"
+      class="side-nav-link"
+    >Range selection</LinkTo>
+    <LinkTo
+      @route="public-pages.docs.multiple-selection"
+      class="side-nav-link"
+    >Multiple selection</LinkTo>
     <header class="side-nav-header">Basic customization</header>
-    <LinkTo @route='public-pages.docs.i18n' class="side-nav-link">I18n</LinkTo>
-    <LinkTo @route='public-pages.docs.the-nav' class="side-nav-link">The nav</LinkTo>
-    <LinkTo @route='public-pages.docs.the-days' class="side-nav-link">The days</LinkTo>
+    <LinkTo @route="public-pages.docs.i18n" class="side-nav-link">I18n</LinkTo>
+    <LinkTo @route="public-pages.docs.the-nav" class="side-nav-link">The nav</LinkTo>
+    <LinkTo @route="public-pages.docs.the-days" class="side-nav-link">The days</LinkTo>
     <header class="side-nav-header">Other</header>
-    <LinkTo @route='public-pages.docs.test-helpers' class="side-nav-link">Test helpers</LinkTo>
-    <LinkTo @route='public-pages.docs.api-reference' class="side-nav-link">API reference</LinkTo>
+    <LinkTo @route="public-pages.docs.test-helpers" class="side-nav-link">Test
+      helpers</LinkTo>
+    <LinkTo @route="public-pages.docs.api-reference" class="side-nav-link">API
+      reference</LinkTo>
   </nav>
   <section class="doc-page">
-    <PowerSelect @selected={{this.currentSection}} @options={{this.groupedSections}} @onChange={{this.visit}} @searchField="text" @triggerClass="section-selector" as |option|>
+    <PowerSelect
+      @selected={{this.currentSection}}
+      @options={{this.groupedSections}}
+      @onChange={{this.visit}}
+      @searchField="text"
+      @triggerClass="section-selector"
+      as |option|
+    >
       {{option.text}}
     </PowerSelect>
     {{outlet}}

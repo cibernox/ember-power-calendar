@@ -1,17 +1,28 @@
-<PowerCalendar class="nav-with-power-select-demo" @center={{this.center2}} @onCenterChange={{this.onCenterChange}} as |cal|>
+<PowerCalendar
+  class="nav-with-power-select-demo"
+  @center={{this.center2}}
+  @onCenterChange={{this.onCenterChange}}
+  as |cal|
+>
   <cal.Nav>
-    <PowerSelect @options={{this.months}}
+    <PowerSelect
+      @options={{this.months}}
       @selected={{format-date cal.center "MMMM"}}
       @matchTriggerWidth={{false}}
-      @onChange={{fn this.changeCenter2 "month" cal}} as |month|>
+      @onChange={{fn this.changeCenter2 "month" cal}}
+      as |month|
+    >
       {{month}}
     </PowerSelect>
-    <PowerSelect @options={{this.groupedYears}}
+    <PowerSelect
+      @options={{this.groupedYears}}
       @selected={{format-date cal.center "YYYY"}}
-      @onChange={{fn this.changeCenter2 "year" cal}} as |year|>
+      @onChange={{fn this.changeCenter2 "year" cal}}
+      as |year|
+    >
       {{year}}
     </PowerSelect>
   </cal.Nav>
 
-  <cal.Days/>}
+  <cal.Days />}
 </PowerCalendar>

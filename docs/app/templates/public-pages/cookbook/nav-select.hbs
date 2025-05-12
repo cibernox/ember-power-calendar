@@ -1,21 +1,28 @@
 <h1 class="doc-page-title">Nav with select</h1>
 
 <p>
-  A couple people asked me if I was considering adding a feature present in the well known
-  <a href="http://dbushell.github.io/Pikaday/">Pickaday</a> library where you can click in
-  the month or year to quicky navigate to far away dates.
+  A couple people asked me if I was considering adding a feature present in the
+  well known
+  <a href="http://dbushell.github.io/Pikaday/">Pickaday</a>
+  library where you can click in the month or year to quicky navigate to far
+  away dates.
 </p>
 
 <p>
-  The answer I gave was that I wasn't considering it, but not because I don't think it is a good
-  pattern, but because the flexible nature of Ember Power Calendar makes it unnecesary!
+  The answer I gave was that I wasn't considering it, but not because I don't
+  think it is a good pattern, but because the flexible nature of Ember Power
+  Calendar makes it unnecesary!
 </p>
 
 <p>
   Let's build it in a few lines of code.
 </p>
 
-<CodeExample @js="nav-select-1.js" @hbs="nav-select-1.hbs" @css="nav-select-1-css.css">
+<CodeExample
+  @js="nav-select-1.js"
+  @hbs="nav-select-1.hbs"
+  @css="nav-select-1-css.css"
+>
   {{component (ensure-safe-component this.navSelect1)}}
 </CodeExample>
 
@@ -24,23 +31,29 @@
 </p>
 
 <p>
-  We pass a block to the <code>calendar.Nav</code> component to replace the default markup with the name of the component
-  with our own markup. In that markup we add two invisible select on top of the text of the month and year that
-  when interacted call an action that builds a new date and pass it to <code>calendar.actions.changeCenter</code> public action
-  to center the calendar on that action.
+  We pass a block to the
+  <code>calendar.Nav</code>
+  component to replace the default markup with the name of the component with
+  our own markup. In that markup we add two invisible select on top of the text
+  of the month and year that when interacted call an action that builds a new
+  date and pass it to
+  <code>calendar.actions.changeCenter</code>
+  public action to center the calendar on that action.
 </p>
 
 <p>
-  The markup itself is a bit verbose because we're coding a select outselves, but the logic is easy to follow.
+  The markup itself is a bit verbose because we're coding a select outselves,
+  but the logic is easy to follow.
 </p>
 
 <p>
-  Ember Power Calendar prefers to let users enhance the calendar themselves instead of attempting to
-  imagine all the possible scenarios.
+  Ember Power Calendar prefers to let users enhance the calendar themselves
+  instead of attempting to imagine all the possible scenarios.
 </p>
 
 <p>
-  What if you prefer to use Ember Power Select with the years grouped by decade and some fancy animations instead of a native select?
+  What if you prefer to use Ember Power Select with the years grouped by decade
+  and some fancy animations instead of a native select?
 </p>
 
 <CodeExample @js="nav-select-2.js" @hbs="nav-select-2.hbs">
@@ -48,7 +61,9 @@
 </CodeExample>
 
 <p>
-  Or maybe an <code>&lt;input type="number"&gt;</code> for the year only?
+  Or maybe an
+  <code>&lt;input type="number"&gt;</code>
+  for the year only?
 </p>
 
 <CodeExample @js="nav-select-3.js" @hbs="nav-select-3.hbs">
@@ -56,8 +71,8 @@
 </CodeExample>
 
 <p>
-  Since you can replace any part of the component by your own code and templates,
-  there is no limits in what you can do.
+  Since you can replace any part of the component by your own code and
+  templates, there is no limits in what you can do.
 </p>
 
 <p>
@@ -65,6 +80,12 @@
 </p>
 
 <div class="doc-page-nav">
-  <LinkTo @route="public-pages.cookbook.datepicker" class="doc-page-nav-link-prev">&lt; Datepicker</LinkTo>
-  <LinkTo @route="public-pages.cookbook.multiple-months" class="doc-page-nav-link-next">Multiple months &gt;</LinkTo>
+  <LinkTo
+    @route="public-pages.cookbook.datepicker"
+    class="doc-page-nav-link-prev"
+  >&lt; Datepicker</LinkTo>
+  <LinkTo
+    @route="public-pages.cookbook.multiple-months"
+    class="doc-page-nav-link-next"
+  >Multiple months &gt;</LinkTo>
 </div>
