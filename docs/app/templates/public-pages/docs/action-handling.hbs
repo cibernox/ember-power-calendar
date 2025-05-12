@@ -1,13 +1,16 @@
 <h1 class="doc-page-title">Action handling</h1>
 
 <p>
-  Ember Power Calendar aims to be very customizable and because of that it also has to be very explicit
-  about its behaviour, even if that makes it slightly verbose.
+  Ember Power Calendar aims to be very customizable and because of that it also
+  has to be very explicit about its behaviour, even if that makes it slightly
+  verbose.
 </p>
 
 <p>
-  The data flow from the app to the addon is strictly unidirectional. Data comes into the component,
-  and actions are fired from the inside. The user must handle those actions in order for <strong>anything</strong>
+  The data flow from the app to the addon is strictly unidirectional. Data comes
+  into the component, and actions are fired from the inside. The user must
+  handle those actions in order for
+  <strong>anything</strong>
   to happen.
 </p>
 
@@ -16,15 +19,23 @@
 <h3><code>onCenterChange</code></h3>
 
 <p>
-  In the previous section we mentioned that if you pass <code>center=someDate</code> to the component, that
-  month is displayed. If that option gets updates the calendar will render the new month. That means that you can create
-  your own interface to navigate months, it only has to update the <code>center</code> property.
+  In the previous section we mentioned that if you pass
+  <code>center=someDate</code>
+  to the component, that month is displayed. If that option gets updates the
+  calendar will render the new month. That means that you can create your own
+  interface to navigate months, it only has to update the
+  <code>center</code>
+  property.
 </p>
 
 <p>
-  However, it would be inconvenient to force everyone to do that, so if you pass <code>onCenterChange</code> action to
-  the component, the <code>calendar.Nav</code> component gets some built-in controls to navigate to the previous and next month.
-  Use that action to update the displayed month and you have a navigable calendar!
+  However, it would be inconvenient to force everyone to do that, so if you pass
+  <code>onCenterChange</code>
+  action to the component, the
+  <code>calendar.Nav</code>
+  component gets some built-in controls to navigate to the previous and next
+  month. Use that action to update the displayed month and you have a navigable
+  calendar!
 </p>
 
 <CodeExample @hbs="action-handling-1.hbs">
@@ -32,51 +43,69 @@
 </CodeExample>
 
 <p>
-  Making this interaction so explicit might seem verbose. It does force you to type a few characters for the simplest use case, but in exchange makes some usages that are
-  usually very hard to implement extremely simple.
+  Making this interaction so explicit might seem verbose. It does force you to
+  type a few characters for the simplest use case, but in exchange makes some
+  usages that are usually very hard to implement extremely simple.
 </p>
 
 <p>
-  For example, imagine that changing to a different month needs to make an ajax call to the server to gather
-  all the events that are going to happen that month (we haven't seen how to display events on the calendar,
-  but use your imagination) before showing the next month. While those events are loaded,
-  we want to hold changing the month and show a loading state with an animated spinner.
+  For example, imagine that changing to a different month needs to make an ajax
+  call to the server to gather all the events that are going to happen that
+  month (we haven't seen how to display events on the calendar, but use your
+  imagination) before showing the next month. While those events are loaded, we
+  want to hold changing the month and show a loading state with an animated
+  spinner.
 </p>
 
-<p>It doesn't seem like the kind of thing you'd dare to attempt with bootstrap-datepicker, right?</p>
+<p>It doesn't seem like the kind of thing you'd dare to attempt with
+  bootstrap-datepicker, right?</p>
 
 <CodeExample @hbs="action-handling-2.hbs" @js="action-handling-2.js">
   {{component (ensure-safe-component this.actionHandling2)}}
 </CodeExample>
 
 <p>
-  While the calendar is performing a task, its yielded public API has the <code>loading</code>
-  flag enabled, and since you can interleave the subcomponents in your own markup, you use
-  that flag to create an overlay.
+  While the calendar is performing a task, its yielded public API has the
+  <code>loading</code>
+  flag enabled, and since you can interleave the subcomponents in your own
+  markup, you use that flag to create an overlay.
 </p>
 
 <p>
-  No black magic. Just the way you usually manage sync actions in your own code. Ember Power Calendar is
-  promise-aware and task-aware, all the way down.
+  No black magic. Just the way you usually manage sync actions in your own code.
+  Ember Power Calendar is promise-aware and task-aware, all the way down.
 </p>
 
 <h3><code>onSelect</code></h3>
 
 <p>
-  One very common use case of a calendar is to select one (or many) days. For that purpose it exposes an <code>onSelect</code>
+  One very common use case of a calendar is to select one (or many) days. For
+  that purpose it exposes an
+  <code>onSelect</code>
   action that is called when the user clicks (or presses Enter over) a day.
 </p>
 
 <p>
-  That action is fired with a <code>day</code> object as first argument. This object built by Ember Power Calendar
-  contains many useful information that we will explore in detail, but for now we'll hold to the idea that it
-  has a <code>date</code> property that contains a native <code>Date</code> object and a <code>moment</code> property
-  that contains the same value but wrapped by <em>MomentJS</em>, so you can use the one you prefer.
+  That action is fired with a
+  <code>day</code>
+  object as first argument. This object built by Ember Power Calendar contains
+  many useful information that we will explore in detail, but for now we'll hold
+  to the idea that it has a
+  <code>date</code>
+  property that contains a native
+  <code>Date</code>
+  object and a
+  <code>moment</code>
+  property that contains the same value but wrapped by
+  <em>MomentJS</em>, so you can use the one you prefer.
 </p>
 
 <p>
-  Like with the previous action, it's your responsibility to react to this action, but in the most typical case you
-  just want to update the <code>selected</code> value. Let's see how to do it, and we are going to use the plain <code>Date</code>
+  Like with the previous action, it's your responsibility to react to this
+  action, but in the most typical case you just want to update the
+  <code>selected</code>
+  value. Let's see how to do it, and we are going to use the plain
+  <code>Date</code>
   version of the date.
 </p>
 
@@ -91,25 +120,40 @@
 </p>
 
 <p>
-  To begin with, the days of the calendar highlight when you hover them. This is because the presence of an
-  <code>onSelect</code> action makes the component enter an interactive mode, which adds a class to it.
+  To begin with, the days of the calendar highlight when you hover them. This is
+  because the presence of an
+  <code>onSelect</code>
+  action makes the component enter an interactive mode, which adds a class to
+  it.
 </p>
 
 <p>
-  Also, if you inspect the html, you'll see that the days are now <code>&lt;button&gt;</code>s instead of <code>&lt;div&gt;</code>s.
-  This, besides of making them clickable to select a day, makes them focusable, which is important to make
-  the component accessible. The currently focused day is shown with a blue underline, and once one day is focused
-  you can use the arrows, <kbd>TAB</kbd>, <kbd>ENTER</kbd> and <kbd>SPACE</kbd> keys to move around and interact with the component.
+  Also, if you inspect the html, you'll see that the days are now
+  <code>&lt;button&gt;</code>s instead of
+  <code>&lt;div&gt;</code>s. This, besides of making them clickable to select a
+  day, makes them focusable, which is important to make the component
+  accessible. The currently focused day is shown with a blue underline, and once
+  one day is focused you can use the arrows,
+  <kbd>TAB</kbd>,
+  <kbd>ENTER</kbd>
+  and
+  <kbd>SPACE</kbd>
+  keys to move around and interact with the component.
 </p>
-
 
 <p>
-  This action is fired when the selection changes, but the selection doesn't need to be a single date.
-  It can be a range or a set of sparse dates! The next page is all about this topic.
+  This action is fired when the selection changes, but the selection doesn't
+  need to be a single date. It can be a range or a set of sparse dates! The next
+  page is all about this topic.
 </p>
-
 
 <div class="doc-page-nav">
-  <LinkTo @route="public-pages.docs.how-to-use-it" class="doc-page-nav-link-prev">&lt; How to use it</LinkTo>
-  <LinkTo @route="public-pages.docs.range-selection" class="doc-page-nav-link-next">Date ranges &gt;</LinkTo>
+  <LinkTo
+    @route="public-pages.docs.how-to-use-it"
+    class="doc-page-nav-link-prev"
+  >&lt; How to use it</LinkTo>
+  <LinkTo
+    @route="public-pages.docs.range-selection"
+    class="doc-page-nav-link-next"
+  >Date ranges &gt;</LinkTo>
 </div>

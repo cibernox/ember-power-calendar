@@ -1,23 +1,38 @@
 <h1 class="doc-page-title">Range selection</h1>
 
 <p>
-  The most common use case of calendars is selecting a single day. The second most common one is selecting a
-  duration, aka, a range.
+  The most common use case of calendars is selecting a single day. The second
+  most common one is selecting a duration, aka, a range.
 </p>
 
 <p>
-  The only differences in the API between a calendar for selecting a single day and a calendar
-  for selecting a range are that the name of the component is now <code>power-calendar-range</code> and that
-  the <code>selected</code> option has to implement the <code>Range</code> interface.
-  It might sound scary, but it only means that it has to be an object with <code>start</code> and <code>end</code>
+  The only differences in the API between a calendar for selecting a single day
+  and a calendar for selecting a range are that the name of the component is now
+  <code>power-calendar-range</code>
+  and that the
+  <code>selected</code>
+  option has to implement the
+  <code>Range</code>
+  interface. It might sound scary, but it only means that it has to be an object
+  with
+  <code>start</code>
+  and
+  <code>end</code>
   properties.
 </p>
 
 <p>
-  The same <code>onSelect</code> action used in the previous chapter to select one date,
-  is now used to select a range. The object that this action receives has a <code>date</code> and
-  either <code>moment</code> or <code>datetime</code> properties, each one containing a range with the
-  dates in native Date objects or in momentJS/Luxon.DateTime objects.
+  The same
+  <code>onSelect</code>
+  action used in the previous chapter to select one date, is now used to select
+  a range. The object that this action receives has a
+  <code>date</code>
+  and either
+  <code>moment</code>
+  or
+  <code>datetime</code>
+  properties, each one containing a range with the dates in native Date objects
+  or in momentJS/Luxon.DateTime objects.
 </p>
 
 <p>
@@ -29,8 +44,8 @@
 </CodeExample>
 
 <p>
-  All the days in the range are selected, and the ends of the range have some special
-  classes so you can style them differently.
+  All the days in the range are selected, and the ends of the range have some
+  special classes so you can style them differently.
 </p>
 
 <p>
@@ -46,31 +61,42 @@
 <h3>The <code>minRange</code> and <code>maxRange</code> option</h3>
 
 <p>
-  Usually the only restriction in ranges is that they have to start in one day and end in a different day,
-  but sometimes you want to be more restrictive on the length of the range, so the <code>minRange</code> and
-  <code>maxRange</code> cover this they way you expect them to.
+  Usually the only restriction in ranges is that they have to start in one day
+  and end in a different day, but sometimes you want to be more restrictive on
+  the length of the range, so the
+  <code>minRange</code>
+  and
+  <code>maxRange</code>
+  cover this they way you expect them to.
 </p>
 
 <p>
-  Those options accept a <code>number</code> and a <code>string</code>. If you are using Moment, it can also
-  take a <code>moment.Duration</code> object, and if you are using Luxon a <code>Luxon.Duration</code> one.
-  The default minimum range is one day, so the range has to start in a different date from where it begins and
-  there is no maximum range.
+  Those options accept a
+  <code>number</code>
+  and a
+  <code>string</code>. If you are using Moment, it can also take a
+  <code>moment.Duration</code>
+  object, and if you are using Luxon a
+  <code>Luxon.Duration</code>
+  one. The default minimum range is one day, so the range has to start in a
+  different date from where it begins and there is no maximum range.
 </p>
 
-<p>If you want to force the user to pick a range of at least 3 days you can just pass a number:</p>
+<p>If you want to force the user to pick a range of at least 3 days you can just
+  pass a number:</p>
 
 <CodeExample @hbs="range-selection-3.hbs">
   {{component (ensure-safe-component this.rangeSelection3)}}
 </CodeExample>
 
 <p>
-  Notice that once you select one end of the range the days that cannot be selected are disabled automatically.
+  Notice that once you select one end of the range the days that cannot be
+  selected are disabled automatically.
 </p>
 
 <p>
-  This property accepts humanized durations which makes it very nice to use with different units other than days.
-  Let's make the range be of at most one week.
+  This property accepts humanized durations which makes it very nice to use with
+  different units other than days. Let's make the range be of at most one week.
 </p>
 
 <CodeExample @hbs="range-selection-4.hbs">
@@ -78,8 +104,13 @@
 </CodeExample>
 
 <p>
-  As you'd expect, you can also use the abbreviations accepted by <code>MomentJs</code> and
-  combine <code>minRange</code> and <code>maxRange</code> as you want.
+  As you'd expect, you can also use the abbreviations accepted by
+  <code>MomentJs</code>
+  and combine
+  <code>minRange</code>
+  and
+  <code>maxRange</code>
+  as you want.
 </p>
 
 <CodeExample @hbs="range-selection-5.hbs">
@@ -87,7 +118,8 @@
 </CodeExample>
 
 <p>
-  If you want to allow ranges to begin and end on the same day, pass <code>minRange=0</code>.
+  If you want to allow ranges to begin and end on the same day, pass
+  <code>minRange=0</code>.
 </p>
 
 <CodeExample @hbs="range-selection-6.hbs">
@@ -96,9 +128,11 @@
 
 <h3>The <code>proximitySelection</code> option</h3>
 <p>
-  This option changes the behaviour of date selection after a choosing a start and an end date. The default behaviour
-  on the third click will select a new start date of a brand new range. With this flag enabled, once you have a range,
-  clicking a third time will move the closest of the extremes, narrowing or extending the range.
+  This option changes the behaviour of date selection after a choosing a start
+  and an end date. The default behaviour on the third click will select a new
+  start date of a brand new range. With this flag enabled, once you have a
+  range, clicking a third time will move the closest of the extremes, narrowing
+  or extending the range.
 </p>
 
 <CodeExample @hbs="range-selection-7.hbs">
@@ -110,6 +144,12 @@
 </p>
 
 <div class="doc-page-nav">
-  <LinkTo @route="public-pages.docs.action-handling" class="doc-page-nav-link-prev">&lt; Action handling</LinkTo>
-  <LinkTo @route="public-pages.docs.multiple-selection" class="doc-page-nav-link-next">Multiple selection &gt;</LinkTo>
+  <LinkTo
+    @route="public-pages.docs.action-handling"
+    class="doc-page-nav-link-prev"
+  >&lt; Action handling</LinkTo>
+  <LinkTo
+    @route="public-pages.docs.multiple-selection"
+    class="doc-page-nav-link-next"
+  >Multiple selection &gt;</LinkTo>
 </div>

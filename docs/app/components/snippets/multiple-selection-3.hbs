@@ -3,14 +3,16 @@
 <PowerCalendarMultiple
   @center={{this.center}}
   @selected={{this.preferredDates}}
-  @onSelect={{this.onSelect}} as |calendar|>
-  <calendar.Nav/>
-  <calendar.Days/>
+  @onSelect={{this.onSelect}}
+  as |calendar|
+>
+  <calendar.Nav />
+  <calendar.Days />
 </PowerCalendarMultiple>
 
 Preferred dates:
 <ol>
   {{#each this.preferredDates as |d|}}
-    <li>{{format-date d 'LLL'}}</li>
+    <li>{{format-date d "LLL"}}</li>
   {{/each}}
 </ol>

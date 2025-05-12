@@ -1,13 +1,15 @@
 <h1 class="doc-page-title">System-wide config</h1>
 
 <p>
-  There is a fair amount of option on this component that allow to configure how it looks and how it behaves,
-  if you want all the calendars of your app to always behave the same, it can be tiring to pass the same options
-  over and over.
+  There is a fair amount of option on this component that allow to configure how
+  it looks and how it behaves, if you want all the calendars of your app to
+  always behave the same, it can be tiring to pass the same options over and
+  over.
 </p>
 
 <p>
-  Is there a way of changing the defaults of the component(s) in a way that you don't have to pass the same options everywhere?
+  Is there a way of changing the defaults of the component(s) in a way that you
+  don't have to pass the same options everywhere?
 </p>
 
 <p>
@@ -15,14 +17,18 @@
 </p>
 
 <p>
-  Inside your app's <code>/app/components/</code> folder create a <code>power-calendar.js</code>
-  file that exports a component inherits from the one provided by the addon, and define on it the
-  values you want them to be the new defaults.
+  Inside your app's
+  <code>/app/components/</code>
+  folder create a
+  <code>power-calendar.js</code>
+  file that exports a component inherits from the one provided by the addon, and
+  define on it the values you want them to be the new defaults.
 </p>
 
 <p>
-  By example, if you develop a nicer <code>&lt;calendar.Nav/&gt;</code> component that you want to user
-  in every calendars, you could do this:
+  By example, if you develop a nicer
+  <code>&lt;calendar.Nav/&gt;</code>
+  component that you want to user in every calendars, you could do this:
 </p>
 
 <CodeSnippet @name="system-wide-config-1-js.js" />
@@ -32,10 +38,15 @@
 </p>
 
 <p>
-  In this example the component is also named <code>&lt;PowerCalendar /&gt;</code> but if you want the default
-  component to still be available, just define it in a file with a different name.
+  In this example the component is also named
+  <code>&lt;PowerCalendar /&gt;</code>
+  but if you want the default component to still be available, just define it in
+  a file with a different name.
 </p>
 
 <div class="doc-page-nav">
-  <LinkTo @route="public-pages.cookbook.datepicker" class="doc-page-nav-link-next">Datepicker &gt;</LinkTo>
+  <LinkTo
+    @route="public-pages.cookbook.datepicker"
+    class="doc-page-nav-link-next"
+  >Datepicker &gt;</LinkTo>
 </div>

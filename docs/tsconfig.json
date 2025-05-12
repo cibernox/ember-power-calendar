@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/ember/tsconfig.json",
+  "extends": "@tsconfig/ember",
   "glint": {
     "environment": ["ember-loose", "ember-template-imports"]
   },
@@ -14,9 +14,6 @@
       "docs/*": ["app/*"],
       "*": ["types/*"]
     },
-    "types": [
-      "./node_modules/ember-source/types/stable",
-      "./node_modules/@types/prismjs"
-    ]
+    "types": ["ember-source/types", "./node_modules/@types/prismjs"]
   }
 }

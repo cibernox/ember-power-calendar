@@ -1,45 +1,59 @@
 <section class="main-page-headline">
   <h1 class="main-page-headline-content">
     Powerful and customizable calendar component for
-    <img src="/ember_logo.png" alt="ember">
+    <img src="/ember_logo.png" alt="ember" />
   </h1>
 </section>
 <section class="selling-points">
   <article class="selling-point">
-    <img src="/calendar-range-icon.svg" alt="calendar range icon" class="selling-point-icon">
+    <img
+      src="/calendar-range-icon.svg"
+      alt="calendar range icon"
+      class="selling-point-icon"
+    />
     <div class="selling-point-text">
       <h2>Feature rich</h2>
       Out of the box support for mouse and keyboard, highlighting, events,
-      selection, esparse-dates and ranges, it gives you the tools to
-      build the awesome calendar your app needs.
+      selection, esparse-dates and ranges, it gives you the tools to build the
+      awesome calendar your app needs.
     </div>
   </article>
 
   <article class="selling-point">
     <div class="selling-point-calendar-page">
-      <sub class="selling-point-calendar-page-number">{{format-date this.today 'D'}}</sub>
-      <img src="/ember-word-logo.svg" alt="Ember" class="selling-point-calendar-page-ember-logo">
+      <sub class="selling-point-calendar-page-number">{{format-date
+          this.today
+          "D"
+        }}</sub>
+      <img
+        src="/ember-word-logo.svg"
+        alt="Ember"
+        class="selling-point-calendar-page-ember-logo"
+      />
     </div>
     <div class="selling-point-text">
       <h2>With Ember for Ember</h2>
-      Built in Ember for Ember apps, it works like you expect it to so
-      it blends naturally into your usual worlflow like it you built it
-      yourself.
+      Built in Ember for Ember apps, it works like you expect it to so it blends
+      naturally into your usual worlflow like it you built it yourself.
     </div>
   </article>
 
   <article class="selling-point">
-    <img src="/calendar-customized-icon.svg" alt="calendar customized icon" class="selling-point-icon">
+    <img
+      src="/calendar-customized-icon.svg"
+      alt="calendar customized icon"
+      class="selling-point-icon"
+    />
     <div class="selling-point-text">
       <h2>Personalize it your way</h2>
-      Designed inside out to allow you to adjust it
-      the way you want. Custom days, a different grid, popups...
-      Multiple extension point allow you to tame it to your taste.
+      Designed inside out to allow you to adjust it the way you want. Custom
+      days, a different grid, popups... Multiple extension point allow you to
+      tame it to your taste.
     </div>
   </article>
 </section>
 <div class="text-center get-started">
-  <LinkTo @route='public-pages.docs.index' class="get-started-button">
+  <LinkTo @route="public-pages.docs.index" class="get-started-button">
     Get started
   </LinkTo>
 </div>

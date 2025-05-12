@@ -1,9 +1,25 @@
 <nav class="ember-power-calendar-nav">
-  <button class="ember-power-calendar-nav-control" {{on "click" (fn @calendar.actions.moveCenter -12 'month')}} type="button">«</button>
-  <button class="ember-power-calendar-nav-control" {{on "click" (fn @calendar.actions.moveCenter -1 'month')}} type="button">‹</button>
+  <button
+    class="ember-power-calendar-nav-control"
+    {{on "click" (fn @calendar.actions.moveCenter -12 "month")}}
+    type="button"
+  >«</button>
+  <button
+    class="ember-power-calendar-nav-control"
+    {{on "click" (fn @calendar.actions.moveCenter -1 "month")}}
+    type="button"
+  >‹</button>
   <div class="ember-power-calendar-nav-title">
-    {{format-date @calendar.center 'MMMM YYYY'}}
+    {{format-date @calendar.center "MMMM YYYY"}}
   </div>
-  <button class="ember-power-calendar-nav-control" {{on "click" (fn @calendar.actions.moveCenter 1 'month')}} type="button">›</button>
-  <button class="ember-power-calendar-nav-control" {{on "click" (fn @calendar.actions.moveCenter 12 'month')}} type="button">»</button>
+  <button
+    class="ember-power-calendar-nav-control"
+    {{on "click" (fn @calendar.actions.moveCenter 1 "month")}}
+    type="button"
+  >›</button>
+  <button
+    class="ember-power-calendar-nav-control"
+    {{on "click" (fn @calendar.actions.moveCenter 12 "month")}}
+    type="button"
+  >»</button>
 </nav>

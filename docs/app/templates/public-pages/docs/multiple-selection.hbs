@@ -1,39 +1,55 @@
 <h1 class="doc-page-title">Multiple dates</h1>
 
 <p>
-  The last use case is allowing the user to select several non-consecutive dates. Enter <code>power-calendar-multiple</code>.
+  The last use case is allowing the user to select several non-consecutive
+  dates. Enter
+  <code>power-calendar-multiple</code>.
 </p>
 
-<p>There is no much need of explanation, so lets see it in action. Play with it, click around and use the keyboard.</p>
+<p>There is no much need of explanation, so lets see it in action. Play with it,
+  click around and use the keyboard.</p>
 
 <CodeExample @hbs="multiple-selection-1.hbs" @js="multiple-selection-1.js">
   {{component (ensure-safe-component this.multipleSelection1)}}
 </CodeExample>
 
 <p>
-  When you want to select multiple dates, the <code>selected</code> property is, unsurprisingly, an array of dates.
+  When you want to select multiple dates, the
+  <code>selected</code>
+  property is, unsurprisingly, an array of dates.
 </p>
 
 <p>
-  Every time you select a day, the <code>onSelect</code> action is called not with the date, but with an object.
-  That object has a <code>date</code> property, containing the selected value as a native Javascript date, and
-  if you have decided to use <strong>Moment.js</strong>, a <code>moment</code> property containing the same dates
-  as a moment object, or a <code>datetime</code> property containing the array Luxon.DateTime if you are using Luxon.
+  Every time you select a day, the
+  <code>onSelect</code>
+  action is called not with the date, but with an object. That object has a
+  <code>date</code>
+  property, containing the selected value as a native Javascript date, and if
+  you have decided to use
+  <strong>Moment.js</strong>, a
+  <code>moment</code>
+  property containing the same dates as a moment object, or a
+  <code>datetime</code>
+  property containing the array Luxon.DateTime if you are using Luxon.
 </p>
 
 <p>
-  It's worth noticing that clicking on a selected day unselects it and that the days are passed in the
-  order they are clicked.
+  It's worth noticing that clicking on a selected day unselects it and that the
+  days are passed in the order they are clicked.
 </p>
 
 <p>
-  Since what the <code>onSelect</code> action does is up to you, you can implement any logic you want, no
-  matter how <del>absurd</del> complex it is.
+  Since what the
+  <code>onSelect</code>
+  action does is up to you, you can implement any logic you want, no matter how
+  <del>absurd</del>
+  complex it is.
 </p>
 
 <p>
-  By example, let's implement a calendar that allows you to click on any day, and when you do, it selects the nearest day
-  which number is prime, selecting the lowest one in case of a tie.
+  By example, let's implement a calendar that allows you to click on any day,
+  and when you do, it selects the nearest day which number is prime, selecting
+  the lowest one in case of a tie.
 </p>
 
 <CodeExample @hbs="multiple-selection-2.hbs" @js="multiple-selection-2.js">
@@ -45,8 +61,9 @@
 </p>
 
 <p>
-  Another thing to note is that selection order is preserved. The last clicked element is at the last position of the array, so
-  you can use this kind of calendar to perform order sensitive selections:
+  Another thing to note is that selection order is preserved. The last clicked
+  element is at the last position of the array, so you can use this kind of
+  calendar to perform order sensitive selections:
 </p>
 
 <CodeExample @hbs="multiple-selection-3.hbs">
@@ -54,7 +71,10 @@
 </CodeExample>
 
 <p>
-  You can also set a <code>maxLength</code> property on the days component for the maximum number of days that can be selected
+  You can also set a
+  <code>maxLength</code>
+  property on the days component for the maximum number of days that can be
+  selected
 </p>
 
 <CodeExample @hbs="multiple-selection-4.hbs">
@@ -66,6 +86,10 @@
 </p>
 
 <div class="doc-page-nav">
-  <LinkTo @route="public-pages.docs.range-selection" class="doc-page-nav-link-prev">&lt; Range selection</LinkTo>
-  <LinkTo @route="public-pages.docs.i18n" class="doc-page-nav-link-next">I18n &gt;</LinkTo>
+  <LinkTo
+    @route="public-pages.docs.range-selection"
+    class="doc-page-nav-link-prev"
+  >&lt; Range selection</LinkTo>
+  <LinkTo @route="public-pages.docs.i18n" class="doc-page-nav-link-next">I18n
+    &gt;</LinkTo>
 </div>

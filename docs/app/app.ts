@@ -2,6 +2,7 @@ import Application from '@ember/application';
 import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from 'docs/config/environment';
+import { importSync, isDevelopingApp, macroCondition } from '@embroider/macros';
 import { registerDateLibrary } from 'ember-power-calendar';
 import DateUtils from 'ember-power-calendar-moment';
 import Prism from 'prismjs';
@@ -16,6 +17,10 @@ import 'prismjs/components/prism-markup-templating';
 import { setup } from 'prismjs-glimmer';
 
 import 'prismjs/themes/prism.css';
+
+if (macroCondition(isDevelopingApp())) {
+  importSync('./deprecation-workflow');
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
 setup(Prism);

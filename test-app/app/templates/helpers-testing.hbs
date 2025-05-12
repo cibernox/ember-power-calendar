@@ -1,29 +1,43 @@
 <h3>Helpers testing</h3>
 <div class="calendar-center-1">
-  <PowerCalendar @center={{this.center1}} @onCenterChange={{fn this.onCenterChange 'center1'}} as |calendar|>
-    <calendar.Nav/>
-    <calendar.Days/>
+  <PowerCalendar
+    @center={{this.center1}}
+    @onCenterChange={{fn this.onCenterChange "center1"}}
+    as |calendar|
+  >
+    <calendar.Nav />
+    <calendar.Days />
   </PowerCalendar>
 </div>
 
 <div class="calendar-center-2">
-  <PowerCalendar class="calendar-center-2-calendar" @center={{this.center2}} @onCenterChange={{fn this.onCenterChange 'center2'}} as |calendar|>
-    <calendar.Nav/>
-    <calendar.Days/>
+  <PowerCalendar
+    class="calendar-center-2-calendar"
+    @center={{this.center2}}
+    @onCenterChange={{fn this.onCenterChange "center2"}}
+    as |calendar|
+  >
+    <calendar.Nav />
+    <calendar.Days />
   </PowerCalendar>
 </div>
 
 <div class="calendar-center-3">
   <PowerCalendar @center={{this.center3}} as |calendar|>
-    <calendar.Nav/>
-    <calendar.Days/>
+    <calendar.Nav />
+    <calendar.Days />
   </PowerCalendar>
 </div>
 
 <div class="calendar-center-4">
-  <PowerCalendar @tagName="" @center={{this.center4}} @onCenterChange={{fn this.onCenterChange 'center4'}} as |calendar|>
-    <calendar.Nav/>
-    <calendar.Days/>
+  <PowerCalendar
+    @tagName=""
+    @center={{this.center4}}
+    @onCenterChange={{fn this.onCenterChange "center4"}}
+    as |calendar|
+  >
+    <calendar.Nav />
+    <calendar.Days />
   </PowerCalendar>
 </div>
 
@@ -31,10 +45,12 @@
   <PowerCalendar
     @center={{this.center4}}
     @selected={{this.selected4}}
-    @onSelect={{fn this.onSelect 'selected4'}}
-    @onCenterChange={{fn this.onCenterChange 'center4'}} as |calendar|>
-    <calendar.Nav/>
-    <calendar.Days/>
+    @onSelect={{fn this.onSelect "selected4"}}
+    @onCenterChange={{fn this.onCenterChange "center4"}}
+    as |calendar|
+  >
+    <calendar.Nav />
+    <calendar.Days />
   </PowerCalendar>
 </div>
 
@@ -43,10 +59,12 @@
     @tagName=""
     @center={{this.center4}}
     @selected={{this.selected4}}
-    @onSelect={{fn this.onSelect 'selected4'}}
-    @onCenterChange={{fn this.onCenterChange 'center4'}} as |calendar|>
-    <calendar.Nav/>
-    <calendar.Days/>
+    @onSelect={{fn this.onSelect "selected4"}}
+    @onCenterChange={{fn this.onCenterChange "center4"}}
+    as |calendar|
+  >
+    <calendar.Nav />
+    <calendar.Days />
   </PowerCalendar>
 </div>
 
@@ -54,21 +72,19 @@
   <BasicDropdown as |dropdown|>
     <dropdown.Trigger>
       {{! template-lint-disable require-input-label }}
-      <input
-        value={{this.selected4}}
-        name="date"
-        readonly="true"
-      >
+      <input value={{this.selected4}} name="date" readonly="true" />
     </dropdown.Trigger>
     <dropdown.Content class="dropdown-content">
       <PowerCalendar
-        @tagName=''
+        @tagName=""
         @center={{this.center4}}
         @selected={{this.selected4}}
-        @onSelect={{fn this.onSelect 'selected4'}}
-        @onCenterChange={{fn this.onCenterChange 'center4'}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        @onSelect={{fn this.onSelect "selected4"}}
+        @onCenterChange={{fn this.onCenterChange "center4"}}
+        as |calendar|
+      >
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
     </dropdown.Content>
   </BasicDropdown>

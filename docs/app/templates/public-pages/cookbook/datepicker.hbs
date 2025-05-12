@@ -1,18 +1,23 @@
 <h1 class="doc-page-title">Datepicker</h1>
 
 <p>
-  One very common use case of calendars is as part of another datepicker component. That is, a calendar associated
-  with an input field, in which when the input is clicked, the calendar appears in a floating box to ease choosing a date.
+  One very common use case of calendars is as part of another datepicker
+  component. That is, a calendar associated with an input field, in which when
+  the input is clicked, the calendar appears in a floating box to ease choosing
+  a date.
 </p>
 
 <p>
-  It might seem that this would take a lot of code, but the Ember ecosystem is amazing, and there are already
-  some components that act as building blocks for other components that we can leverage.
+  It might seem that this would take a lot of code, but the Ember ecosystem is
+  amazing, and there are already some components that act as building blocks for
+  other components that we can leverage.
 </p>
 
 <p>
-  One of them is <a href="https://github.com/cibernox/ember-basic-dropdown">Ember Basic Dropdown</a>. It does only one thing,
-  but it does it well: Display a floating box next to another element when that element is clicked.
+  One of them is
+  <a href="https://github.com/cibernox/ember-basic-dropdown">Ember Basic
+    Dropdown</a>. It does only one thing, but it does it well: Display a
+  floating box next to another element when that element is clicked.
 </p>
 
 <p>Let's build a naive datepicker in 20 lines of code!</p>
@@ -22,27 +27,36 @@
 </CodeExample>
 
 <p>
-  We've just <em>composed</em> two battle-tested community addons into an entirely new component
-  without a single line of Javascript! How cool is that?
+  We've just
+  <em>composed</em>
+  two battle-tested community addons into an entirely new component without a
+  single line of Javascript! How cool is that?
 </p>
 
 <p>
-  You can style it in any way you want, add wrapper divs like the ones required by some CSS frameworks
-  (I'm looking at you, Bootstrap), format the text of the input using some helper.
-  You could also modify it to use a textarea or to format ranges in a breeze.
+  You can style it in any way you want, add wrapper divs like the ones required
+  by some CSS frameworks (I'm looking at you, Bootstrap), format the text of the
+  input using some helper. You could also modify it to use a textarea or to
+  format ranges in a breeze.
 </p>
 
 <p>
   Admittedly, there is some room for refinement.
 </p>
 <p>
-  For example, you could want to close the dropdown when a day is selected or allow
-  the users to type on the input and parse the date as they type, but this gives
-  a starting point for anyone to create - and publish ;) - their own datepicker component.
+  For example, you could want to close the dropdown when a day is selected or
+  allow the users to type on the input and parse the date as they type, but this
+  gives a starting point for anyone to create - and publish ;) - their own
+  datepicker component.
 </p>
 
-
 <div class="doc-page-nav">
-  <LinkTo @route="public-pages.cookbook.index" class="doc-page-nav-link-prev">&lt; System-wide config</LinkTo>
-  <LinkTo @route="public-pages.cookbook.nav-select" class="doc-page-nav-link-next">Nav with select &gt;</LinkTo>
+  <LinkTo
+    @route="public-pages.cookbook.index"
+    class="doc-page-nav-link-prev"
+  >&lt; System-wide config</LinkTo>
+  <LinkTo
+    @route="public-pages.cookbook.nav-select"
+    class="doc-page-nav-link-next"
+  >Nav with select &gt;</LinkTo>
 </div>

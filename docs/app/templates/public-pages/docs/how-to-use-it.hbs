@@ -1,14 +1,22 @@
 <h1 class="doc-page-title">How to use it</h1>
 
 <p>
-  This component is built with a technique known as <em>Contextual Components</em>. If you haven't
-  heard of it, check <a href="https://guides.emberjs.com/v2.8.0/components/wrapping-content-in-a-component/#toc_sharing-component-data-with-its-wrapped-content">the official guides</a> for some background.
+  This component is built with a technique known as
+  <em>Contextual Components</em>. If you haven't heard of it, check
+  <a
+    href="https://guides.emberjs.com/v2.8.0/components/wrapping-content-in-a-component/#toc_sharing-component-data-with-its-wrapped-content"
+  >the official guides</a>
+  for some background.
 </p>
 
 <p>
-  The basic usage is pretty simple. There are no mandatory fields. Just invoke the <code>power-calendar</code> component and yield
-  the calendar to the block. Once inside the block, the yielded calendar has a couple of components inside,
-  but the one you probably care most about is named <code>days</code>.
+  The basic usage is pretty simple. There are no mandatory fields. Just invoke
+  the
+  <code>power-calendar</code>
+  component and yield the calendar to the block. Once inside the block, the
+  yielded calendar has a couple of components inside, but the one you probably
+  care most about is named
+  <code>days</code>.
 </p>
 
 <CodeExample @hbs="how-to-use-it-1.hbs">
@@ -16,19 +24,25 @@
 </CodeExample>
 
 <p>
-  Nice, but not very interesting. The <code>calendar.Days</code> component renders a grid of days, and it is smart enough to display
-  the current month but that's it. Let's see how to show a different month.
+  Nice, but not very interesting. The
+  <code>calendar.Days</code>
+  component renders a grid of days, and it is smart enough to display the
+  current month but that's it. Let's see how to show a different month.
 </p>
 
 <h3><code>center</code></h3>
 
 <p>
-  To make the calendar render centered on a different month just pass <code>center=someDate</code> and the calendar will
-  display the month of that date.
+  To make the calendar render centered on a different month just pass
+  <code>center=someDate</code>
+  and the calendar will display the month of that date.
 </p>
 <p>
-  It is important to note that <code>center</code> is a date in which we center our attention but not necessarily the center of the time window
-  we display. In the month view (the default) it doesn't matter if that date is the 1st day or the 31st, the rendered month will be the same.
+  It is important to note that
+  <code>center</code>
+  is a date in which we center our attention but not necessarily the center of
+  the time window we display. In the month view (the default) it doesn't matter
+  if that date is the 1st day or the 31st, the rendered month will be the same.
   Let's render October of 2013.
 </p>
 
@@ -37,9 +51,11 @@
 </CodeExample>
 
 <p>
-  The month above is November of 2013, but that's hard to know if there is nothing else telling us. The second
-  component that the calendar has and that you will find yourself using often is <code>calendar.Nav</code>.
-  This component displays the name of the month and, optionally, some actions to navigate to the previous/next month.
+  The month above is November of 2013, but that's hard to know if there is
+  nothing else telling us. The second component that the calendar has and that
+  you will find yourself using often is
+  <code>calendar.Nav</code>. This component displays the name of the month and,
+  optionally, some actions to navigate to the previous/next month.
 </p>
 
 <CodeExample @hbs="how-to-use-it-3.hbs" @js="how-to-use-it-3.js">
@@ -47,14 +63,26 @@
 </CodeExample>
 
 <p>
-  Oh, and by the way, ember-power-calendar and all its sub-components can receive native <code>Date</code>, and depending
-  on wether you installed <strong>ember-power-calendar-moment</strong> or <strong>ember-power-calendar-luxon</strong>, also <code>moment</code> objects
-  or Luxon's <code>DateTime</code> instances.
-  All options that are dates can take values of any type, and all actions that this component fires will contain dates in both formats too.
+  Oh, and by the way, ember-power-calendar and all its sub-components can
+  receive native
+  <code>Date</code>, and depending on wether you installed
+  <strong>ember-power-calendar-moment</strong>
+  or
+  <strong>ember-power-calendar-luxon</strong>, also
+  <code>moment</code>
+  objects or Luxon's
+  <code>DateTime</code>
+  instances. All options that are dates can take values of any type, and all
+  actions that this component fires will contain dates in both formats too.
 </p>
 
 <p>
-  Most of the time however, you just want the <code>nav</code> and <code>days</code> components rendered. For this scenario, simply invoke <code>power-calendar</code>
+  Most of the time however, you just want the
+  <code>nav</code>
+  and
+  <code>days</code>
+  components rendered. For this scenario, simply invoke
+  <code>power-calendar</code>
   without a block, like so:
 </p>
 
@@ -65,7 +93,9 @@
 <h3><code>selected</code></h3>
 
 <p>
-  Sometimes you want a day of the month to be highlighted. To do it pass <code>selected=someDate</code> to the component.
+  Sometimes you want a day of the month to be highlighted. To do it pass
+  <code>selected=someDate</code>
+  to the component.
 </p>
 
 <CodeExample @hbs="how-to-use-it-4.hbs" @js="how-to-use-it-4.js">
@@ -73,18 +103,32 @@
 </CodeExample>
 
 <p>
-  You can see that the calendar shows the selected date in blue. You may have also noticed that
-  despite only passing a <code>selected</code> option, the month is not the current one. That is because in the
-  absence of a specific <code>center</code>, the calendar will show the month of the selected date. If both options
-  are provided, <code>center</code> <strong>always</strong> prevails.
+  You can see that the calendar shows the selected date in blue. You may have
+  also noticed that despite only passing a
+  <code>selected</code>
+  option, the month is not the current one. That is because in the absence of a
+  specific
+  <code>center</code>, the calendar will show the month of the selected date. If
+  both options are provided,
+  <code>center</code>
+  <strong>always</strong>
+  prevails.
 </p>
 
 <p>
-  Enough of static calendars. If you just wanted to display a static grid of days you probably wouldn't be using an ember-addon for that.
-  You want to navigate months, you want to select days and ranges. Let's see how to do these things in the next chapter.
+  Enough of static calendars. If you just wanted to display a static grid of
+  days you probably wouldn't be using an ember-addon for that. You want to
+  navigate months, you want to select days and ranges. Let's see how to do these
+  things in the next chapter.
 </p>
 
 <div class="doc-page-nav">
-  <LinkTo @route="public-pages.docs.installation" class="doc-page-nav-link-prev">&lt; Installation &amp; setup</LinkTo>
-  <LinkTo @route="public-pages.docs.action-handling" class="doc-page-nav-link-next">Action handling &gt;</LinkTo>
+  <LinkTo
+    @route="public-pages.docs.installation"
+    class="doc-page-nav-link-prev"
+  >&lt; Installation &amp; setup</LinkTo>
+  <LinkTo
+    @route="public-pages.docs.action-handling"
+    class="doc-page-nav-link-next"
+  >Action handling &gt;</LinkTo>
 </div>

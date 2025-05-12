@@ -22,7 +22,7 @@
 @import "components/docs";
 
 // Docs
-@import 'docs/code-example';
+@import "docs/code-example";
 @include ember-code-example($brand-color);
 
 // Misc

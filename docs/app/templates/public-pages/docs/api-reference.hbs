@@ -1,16 +1,16 @@
 <h1 class="doc-page-title">API Reference</h1>
 
 <p>
-  Ember Power Calendar aims to allow users to create the ideal calendar they need
-  using only the properties and actions defined in its public API, so it is important
-  to have a comprehensive list of all the available options.
+  Ember Power Calendar aims to allow users to create the ideal calendar they
+  need using only the properties and actions defined in its public API, so it is
+  important to have a comprehensive list of all the available options.
 </p>
 
 <h3>The <code>day</code> object</h3>
 
 <p>
-  The day object is an object received by many actions, blocks and components and one of the
-  interfaces you will use more often.
+  The day object is an object received by many actions, blocks and components
+  and one of the interfaces you will use more often.
 </p>
 
 <table>
@@ -25,7 +25,8 @@
     <tr>
       <td>id</td>
       <td><code>String</code></td>
-      <td>A unique identified of the day. It has the format <code>YYYY-MM-DD</code></td>
+      <td>A unique identified of the day. It has the format
+        <code>YYYY-MM-DD</code></td>
     </tr>
     <tr>
       <td>number</td>
@@ -40,12 +41,20 @@
     <tr>
       <td>moment</td>
       <td><code>MomentJS</code></td>
-      <td>The <code>moment</code> representing that day. (only when <strong>ember-power-calendar-moment</strong> is installed)</td>
+      <td>The
+        <code>moment</code>
+        representing that day. (only when
+        <strong>ember-power-calendar-moment</strong>
+        is installed)</td>
     </tr>
     <tr>
       <td>datetime</td>
       <td><code>DateTime</code></td>
-      <td>The Luxon's <code>DateTime</code> instance representing that day. (only when <strong>ember-power-calendar-luxon</strong> is installed)</td>
+      <td>The Luxon's
+        <code>DateTime</code>
+        instance representing that day. (only when
+        <strong>ember-power-calendar-luxon</strong>
+        is installed)</td>
     </tr>
     <tr>
       <td>isFocused</td>
@@ -55,7 +64,8 @@
     <tr>
       <td>isCurrentMonth</td>
       <td><code>Boolean</code></td>
-      <td>It is true for those days in the current day, and false for those days for the previous/next months shown around.</td>
+      <td>It is true for those days in the current day, and false for those days
+        for the previous/next months shown around.</td>
     </tr>
     <tr>
       <td>isToday</td>
@@ -65,17 +75,22 @@
     <tr>
       <td>isSelected</td>
       <td><code>Boolean</code></td>
-      <td>It is true if the date of this day is the selected one. In multiple select it is true if the date of this day is among the selected ones. In range selects, it is true if the date if this day is in the range, including both ends.</td>
+      <td>It is true if the date of this day is the selected one. In multiple
+        select it is true if the date of this day is among the selected ones. In
+        range selects, it is true if the date if this day is in the range,
+        including both ends.</td>
     </tr>
     <tr>
       <td>isRangeStart</td>
       <td><code>Boolean</code></td>
-      <td>It is true if this day is the beginning of a range. It is false in non-range calendars</td>
+      <td>It is true if this day is the beginning of a range. It is false in
+        non-range calendars</td>
     </tr>
     <tr>
       <td>isRangeEnd</td>
       <td><code>Boolean</code></td>
-      <td>It is true if this day is the end of a range. It is false in non-range calendars</td>
+      <td>It is true if this day is the end of a range. It is false in non-range
+        calendars</td>
     </tr>
   </tbody>
 </table>
@@ -83,7 +98,8 @@
 <h3>The <code>calendar</code> object</h3>
 
 {{! template-lint-disable no-whitespace-for-layout }}
-<pre>
+<pre
+>
   {
     uniqueId: &lt;string&gt;, // Contains the unique of this instance of EmberPowerSelect. It's of the form `ember1234`.
     selected: &lt;Date&gt;,   // The selected date

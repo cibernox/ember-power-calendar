@@ -1,8 +1,14 @@
-<PowerSelect @triggerClass="i18n-select-demo" @options={{this.locales}} @selected={{this.calendarService.locale}} @onChange={{this.changeAppWideLocale}} as |locale|>
+<PowerSelect
+  @triggerClass="i18n-select-demo"
+  @options={{this.locales}}
+  @selected={{this.calendarService.locale}}
+  @onChange={{this.changeAppWideLocale}}
+  as |locale|
+>
   {{locale}}
 </PowerSelect>
-<br>
+<br />
 <PowerCalendar as |calendar|>
-  <calendar.Nav/>
-  <calendar.Days/>
+  <calendar.Nav />
+  <calendar.Days />
 </PowerCalendar>

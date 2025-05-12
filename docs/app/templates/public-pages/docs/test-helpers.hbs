@@ -1,15 +1,19 @@
 <h1 class="doc-page-title">Test helpers</h1>
 
-<br>
+<br />
 <h2>Acceptance Tests</h2>
 
 <p>
-  Ember Power Calendar provides two acceptance helpers (<code>calendarCenter</code> and <code>calendarSelect</code>)
-  that make it nicer to interact with the component during tests.
+  Ember Power Calendar provides two acceptance helpers (<code
+  >calendarCenter</code>
+  and
+  <code>calendarSelect</code>) that make it nicer to interact with the component
+  during tests.
 </p>
 
 <p>
-  To use those helpers in acceptance tests you need to register them in the <code>/tests/helpers/start-app.js</code>
+  To use those helpers in acceptance tests you need to register them in the
+  <code>/tests/helpers/start-app.js</code>
   file.
 </p>
 
@@ -17,53 +21,75 @@
   For that import the registration function and invoke it immedialty.
 </p>
 
-
 <CodeSnippet @name="test-helpers-1-js.js" />
 
 <p>
-  <strong>Important note:</strong> Since version 0.6.0, all the test helpers can also be imported like
-  <code>import { calendarCenter, calendarSelect } from 'ember-power-calendar/test-support/helpers';</code> and used
-  indistinctly in acceptance or integration tests, with or without async/await. If you use this approach
-  you don't need to register them as global helpers anymore.
+  <strong>Important note:</strong>
+  Since version 0.6.0, all the test helpers can also be imported like
+  <code>import { calendarCenter, calendarSelect } from
+    'ember-power-calendar/test-support/helpers';</code>
+  and used indistinctly in acceptance or integration tests, with or without
+  async/await. If you use this approach you don't need to register them as
+  global helpers anymore.
 </p>
 
 <h3><code>calendarCenter(cssSelector, dateOrMoment)</code></h3>
 
 <p>
-  This async helper allows you to move the center (change the month) of the calendar in the given selector
-  without interacting with the nav.
+  This async helper allows you to move the center (change the month) of the
+  calendar in the given selector without interacting with the nav.
 </p>
 
 <CodeSnippet @name="test-helpers-2-js.js" />
 
-<p>If the calendar does not have an <code>onCenterChange</code> action it will throw a helpful error message.</p>
+<p>If the calendar does not have an
+  <code>onCenterChange</code>
+  action it will throw a helpful error message.</p>
 
 <h3><code>calendarSelect(cssSelector, dateOrMoment)</code></h3>
 
 <p>
-  Use this helper to select a day of the calendar like if you clicked on it. If to do so the calendar
-  has to display a different month, it will do that automatically.
+  Use this helper to select a day of the calendar like if you clicked on it. If
+  to do so the calendar has to display a different month, it will do that
+  automatically.
 </p>
 
 <CodeSnippet @name="test-helpers-3-js.js" />
 
 <p>
-  If you are dealing with a multiple or range calendar you can just call it more than once.
+  If you are dealing with a multiple or range calendar you can just call it more
+  than once.
 </p>
 
 <p>
-  <strong>Note:</strong> Remember to whitelist <code>calendarCenter</code> and <code>calendarSelect</code> in the list of allowed
-  globals in your <code>tests/.jshintrc</code> or <code>tests/.eslintrc.js</code> manifest.
+  <strong>Note:</strong>
+  Remember to whitelist
+  <code>calendarCenter</code>
+  and
+  <code>calendarSelect</code>
+  in the list of allowed globals in your
+  <code>tests/.jshintrc</code>
+  or
+  <code>tests/.eslintrc.js</code>
+  manifest.
 </p>
 
 <h2>Integration Tests</h2>
 
 <p>
-  Just import the helpers like <code>import { calendarCenter, calendarSelect } from 'ember-power-calendar/test-support/helpers';</code>
+  Just import the helpers like
+  <code>import { calendarCenter, calendarSelect } from
+    'ember-power-calendar/test-support/helpers';</code>
   and use them as any other helper 😀
 </p>
 
 <div class="doc-page-nav">
-  <LinkTo @route="public-pages.docs.the-days" class="doc-page-nav-link-prev">&lt; The days</LinkTo>
-  <LinkTo @route="public-pages.docs.api-reference" class="doc-page-nav-link-next">Api reference &gt;</LinkTo>
+  <LinkTo
+    @route="public-pages.docs.the-days"
+    class="doc-page-nav-link-prev"
+  >&lt; The days</LinkTo>
+  <LinkTo
+    @route="public-pages.docs.api-reference"
+    class="doc-page-nav-link-next"
+  >Api reference &gt;</LinkTo>
 </div>

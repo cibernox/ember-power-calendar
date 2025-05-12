@@ -3,7 +3,8 @@ import config from 'test-app/config/environment';
 import * as QUnit from 'qunit';
 import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';
-import { start } from 'ember-qunit';
+import { loadTests } from 'ember-qunit/test-loader';
+import { start, setupEmberOnerrorValidation } from 'ember-qunit';
 import isCalendar from './assertions/is-calendar';
 import isDay from './assertions/is-day';
 
@@ -15,5 +16,6 @@ QUnit.assert.isCalendar = isCalendar;
 QUnit.assert.isDay = isDay;
 
 setup(QUnit.assert);
-
+setupEmberOnerrorValidation();
+loadTests();
 start();

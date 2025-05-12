@@ -20,10 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-
       - uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 20.x
           cache: pnpm
 
       - name: 'Install dependencies'
@@ -47,7 +46,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 20.x
           cache: pnpm
 
       - name: Install Dependencies
@@ -67,10 +66,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-
       - uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 20.x
           cache: pnpm
 
       - name: Install Dependencies
@@ -99,6 +97,7 @@ jobs:
           - ember-lts-5.4
           - ember-lts-5.8
           - ember-lts-5.12
+          - ember-lts-6.4
           - glimmer-component-v1
           - ember-release
           - ember-beta
@@ -109,11 +108,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-
-      - name: Install Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 20
           cache: pnpm
 
       - name: Install Dependencies

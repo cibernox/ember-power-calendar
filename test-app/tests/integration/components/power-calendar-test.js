@@ -4,11 +4,22 @@ import { render, click, focus, triggerKeyEvent } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
-import require from 'require';
-import { importSync } from '@embroider/macros';
+import {
+  dependencySatisfies,
+  macroCondition,
+  importSync,
+} from '@embroider/macros';
 import ownProp from 'test-app/utils/own-prop';
 
-const dateLibrary = require.has('luxon') ? 'luxon' : 'moment';
+let dateLibrary = '';
+
+if (macroCondition(dependencySatisfies('moment', '*'))) {
+  dateLibrary = 'moment';
+} else if (macroCondition(dependencySatisfies('luxon', '*'))) {
+  dateLibrary = 'luxon';
+}
+
+console.log(dateLibrary);
 
 module('Integration | Component | <PowerCalendar>', function (hooks) {
   setupRenderingTest(hooks);
@@ -120,7 +131,11 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   if (dateLibrary === 'moment') {
-    let moment = importSync('moment').default;
+    let moment;
+    if (macroCondition(dependencySatisfies('moment', '*'))) {
+      moment = importSync('moment').default;
+    }
+
     test('when it receives a `moment()` in the `center` argument, it displays that month', async function (assert) {
       assert.expect(3);
       this.center = moment('2016-02-05');
@@ -200,7 +215,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         );
     });
   } else if (dateLibrary === 'luxon') {
-    let { DateTime } = importSync('luxon');
+    let DateTime;
+
+    if (macroCondition(dependencySatisfies('luxon', '*'))) {
+      DateTime = importSync('luxon').default.DateTime;
+    }
+
     test('when it receives a DateTime in the `center` argument, it displays that month', async function (assert) {
       assert.expect(3);
       this.center = DateTime.fromObject({ year: 2016, month: 2, day: 5 });
@@ -1138,8 +1158,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
 
   test('user can provide `@tag` attribute', async function (assert) {
     assert.expect(1);
-    await render(hbs` 
-      <PowerCalendar @tag="li" /> 
+    await render(hbs`
+      <PowerCalendar @tag="li" />
     `);
     assert
       .dom('li.ember-power-calendar')
@@ -1148,8 +1168,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
 
   test('user can provide empty `@tag` attribute', async function (assert) {
     assert.expect(1);
-    await render(hbs` 
-      <PowerCalendar @tag="" /> 
+    await render(hbs`
+      <PowerCalendar @tag="" />
     `);
     assert
       .dom('.ember-power-calendar')
