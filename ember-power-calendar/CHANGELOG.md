@@ -7,6 +7,15 @@
 
 
 
+
+## v1.5.4 (2025-05-13)
+
+#### :bug: Bug Fix
+* [#550](https://github.com/cibernox/ember-power-calendar/pull/550) Remove ember-source and glimmer tracking as a peer dependency ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 ## v1.5.3 (2025-03-31)
 
 #### :bug: Bug Fix
