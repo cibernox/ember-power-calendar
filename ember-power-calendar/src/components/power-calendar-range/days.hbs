@@ -8,9 +8,15 @@
   {{this.setup}}
   ...attributes
 >
-  <div class="ember-power-calendar-row ember-power-calendar-weekdays" role="row">
+  <div
+    class="ember-power-calendar-row ember-power-calendar-weekdays"
+    role="row"
+  >
     {{#each this.weekdaysNames as |wdn|}}
-      <div class="ember-power-calendar-weekday" role="columnheader">{{wdn}}</div>
+      <div
+        class="ember-power-calendar-weekday"
+        role="columnheader"
+      >{{wdn}}</div>
     {{/each}}
   </div>
   <div

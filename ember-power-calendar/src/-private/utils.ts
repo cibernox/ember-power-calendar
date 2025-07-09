@@ -25,7 +25,11 @@ export function publicActionsObject(
     | undefined,
   changeCenterTask: TaskForAsyncTaskFunction<
     unknown,
-    (newCenter: Date, calendar: CalendarAPI, e: MouseEvent | KeyboardEvent) => Promise<void>
+    (
+      newCenter: Date,
+      calendar: CalendarAPI,
+      e: MouseEvent | KeyboardEvent,
+    ) => Promise<void>
   >,
   currentCenter: Date,
 ): PowerCalendarActions {

@@ -107,9 +107,7 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
     let day = firstDay(this.currentCenter, this.localeStartOfWeek);
     const days: PowerCalendarDay[] = [];
     while (isBefore(day, theLastDay)) {
-      days.push(
-        this.buildDay(day, today, this.args.calendar),
-      );
+      days.push(this.buildDay(day, today, this.args.calendar));
       day = add(day, 1, 'day');
     }
     return days;
@@ -152,8 +150,15 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
 
     if (!day || !day?.isCurrentMonth) {
       if (this.args.calendar.actions.moveCenter) {
-        if (e.key === 'ArrowUp' || e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
-          const currentDay = this.days.find(x => x.id === this.focusedId)?.date;
+        if (
+          e.key === 'ArrowUp' ||
+          e.key === 'ArrowRight' ||
+          e.key === 'ArrowDown' ||
+          e.key === 'ArrowLeft'
+        ) {
+          const currentDay = this.days.find(
+            (x) => x.id === this.focusedId,
+          )?.date;
 
           if (currentDay) {
             let date = currentDay;
@@ -196,9 +201,20 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
   async handleClick(e: MouseEvent) {
     const selectedDay = handleClick(e, this.days, this.args.calendar);
 
-    if (this.lastKeyDownWasSpace && selectedDay && (this.args.calendar.minRange ?? 0) > 0 && !this.args.calendar.selected?.end) {
-      const focusDay = add(selectedDay.date, (this.args.calendar.minRange ?? 0) / DAY_IN_MS, 'day');
-      const dayInCurrentCalendar = this.days.some(x => x.id === formatDate(focusDay, 'YYYY-MM-DD') && x.isCurrentMonth);
+    if (
+      this.lastKeyDownWasSpace &&
+      selectedDay &&
+      (this.args.calendar.minRange ?? 0) > 0 &&
+      !this.args.calendar.selected?.end
+    ) {
+      const focusDay = add(
+        selectedDay.date,
+        (this.args.calendar.minRange ?? 0) / DAY_IN_MS,
+        'day',
+      );
+      const dayInCurrentCalendar = this.days.some(
+        (x) => x.id === formatDate(focusDay, 'YYYY-MM-DD') && x.isCurrentMonth,
+      );
 
       await this.focusDay(e, focusDay, dayInCurrentCalendar ? 0 : 1);
     }
@@ -215,11 +231,7 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
       this.didSetup = true;
 
       if (this.args.isDatePicker) {
-        scheduleOnce(
-          'afterRender',
-          this,
-          this.initialFocus.bind(this),
-        );
+        scheduleOnce('afterRender', this, this.initialFocus.bind(this));
       }
     },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -228,20 +240,20 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
   );
 
   initialFocus() {
-    const activeDay = this.days.find(x => x.isSelected && !x.isDisabled);
+    const activeDay = this.days.find((x) => x.isSelected && !x.isDisabled);
 
     if (activeDay) {
       this.focusedId = activeDay.id;
     } else {
-      const todayDay = this.days.find(x => x.isToday && !x.isDisabled);
+      const todayDay = this.days.find((x) => x.isToday && !x.isDisabled);
       if (todayDay) {
         this.focusedId = todayDay.id ?? '';
       } else {
-        const firstSelectableDay = this.days.find(x => !x.isDisabled);
+        const firstSelectableDay = this.days.find((x) => !x.isDisabled);
         if (firstSelectableDay) {
           this.focusedId = firstSelectableDay.id ?? '';
         } else {
-          this.focusedId = this.days.find(x => !x.isCurrentMonth)?.id ?? '';
+          this.focusedId = this.days.find((x) => !x.isCurrentMonth)?.id ?? '';
         }
       }
     }
@@ -250,12 +262,25 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
   }
 
   async focusDay(e: MouseEvent | KeyboardEvent, date: Date, step: number = 0) {
-    if (dayIsDisabled(date, this.args.calendar, this.args.minDate, this.args.maxDate, this.args.disabledDates)) {
+    if (
+      dayIsDisabled(
+        date,
+        this.args.calendar,
+        this.args.minDate,
+        this.args.maxDate,
+        this.args.disabledDates,
+      )
+    ) {
       return;
     }
 
     if (this.args.calendar.actions.moveCenter && step !== 0) {
-      await this.args.calendar.actions.moveCenter(step, 'month', this.args.calendar, e);
+      await this.args.calendar.actions.moveCenter(
+        step,
+        'month',
+        this.args.calendar,
+        e,
+      );
     }
 
     this.focusedId = formatDate(date, 'YYYY-MM-DD');

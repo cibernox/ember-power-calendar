@@ -7,7 +7,11 @@
       {{on "click" (fn @calendar.actions.moveCenter -1 this.unit @calendar)}}
     >«</button>
   {{/if}}
-  <div class="ember-power-calendar-nav-title" id="ember-power-calendar-nav-title-{{@calendar.uniqueId}}" aria-live="polite">
+  <div
+    class="ember-power-calendar-nav-title"
+    id="ember-power-calendar-nav-title-{{@calendar.uniqueId}}"
+    aria-live="polite"
+  >
     {{#if (has-block)}}
       {{yield @calendar}}
     {{else}}

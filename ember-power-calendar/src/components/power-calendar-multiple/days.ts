@@ -161,8 +161,15 @@ export default class PowerCalendarMultipleDaysComponent extends Component<PowerC
 
     if (!day || !day?.isCurrentMonth) {
       if (this.args.calendar.actions.moveCenter) {
-        if (e.key === 'ArrowUp' || e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
-          const currentDay = this.days.find(x => x.id === this.focusedId)?.date;
+        if (
+          e.key === 'ArrowUp' ||
+          e.key === 'ArrowRight' ||
+          e.key === 'ArrowDown' ||
+          e.key === 'ArrowLeft'
+        ) {
+          const currentDay = this.days.find(
+            (x) => x.id === this.focusedId,
+          )?.date;
 
           if (currentDay) {
             let date = currentDay;
@@ -215,11 +222,7 @@ export default class PowerCalendarMultipleDaysComponent extends Component<PowerC
       this.didSetup = true;
 
       if (this.args.isDatePicker) {
-        scheduleOnce(
-          'afterRender',
-          this,
-          this.initialFocus.bind(this),
-        );
+        scheduleOnce('afterRender', this, this.initialFocus.bind(this));
       }
     },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -228,20 +231,20 @@ export default class PowerCalendarMultipleDaysComponent extends Component<PowerC
   );
 
   initialFocus() {
-    const activeDay = this.days.find(x => x.isSelected && !x.isDisabled);
+    const activeDay = this.days.find((x) => x.isSelected && !x.isDisabled);
 
     if (activeDay) {
       this.focusedId = activeDay.id;
     } else {
-      const todayDay = this.days.find(x => x.isToday && !x.isDisabled);
+      const todayDay = this.days.find((x) => x.isToday && !x.isDisabled);
       if (todayDay) {
         this.focusedId = todayDay.id ?? '';
       } else {
-        const firstSelectableDay = this.days.find(x => !x.isDisabled);
+        const firstSelectableDay = this.days.find((x) => !x.isDisabled);
         if (firstSelectableDay) {
           this.focusedId = firstSelectableDay.id ?? '';
         } else {
-          this.focusedId = this.days.find(x => !x.isCurrentMonth)?.id ?? '';
+          this.focusedId = this.days.find((x) => !x.isCurrentMonth)?.id ?? '';
         }
       }
     }
@@ -250,12 +253,25 @@ export default class PowerCalendarMultipleDaysComponent extends Component<PowerC
   }
 
   async focusDay(e: MouseEvent | KeyboardEvent, date: Date, step: number = 0) {
-    if (dayIsDisabled(date, this.args.calendar, this.args.minDate, this.args.maxDate, this.args.disabledDates)) {
+    if (
+      dayIsDisabled(
+        date,
+        this.args.calendar,
+        this.args.minDate,
+        this.args.maxDate,
+        this.args.disabledDates,
+      )
+    ) {
       return;
     }
 
     if (this.args.calendar.actions.moveCenter && step !== 0) {
-      await this.args.calendar.actions.moveCenter(step, 'month', this.args.calendar, e);
+      await this.args.calendar.actions.moveCenter(
+        step,
+        'month',
+        this.args.calendar,
+        e,
+      );
     }
 
     this.focusedId = formatDate(date, 'YYYY-MM-DD');
