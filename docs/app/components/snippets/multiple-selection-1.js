@@ -7,6 +7,11 @@ export default class extends Component {
   @tracked collection = [];
 
   @action
+  onCenterChange(selected) {
+    this.center = selected.date;
+  }
+
+  @action
   onSelect(selected) {
     this.collection = selected.date;
   }

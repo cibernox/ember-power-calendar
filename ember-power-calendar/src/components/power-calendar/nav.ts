@@ -9,6 +9,9 @@ export interface PowerCalendarNavSignature {
     calendar: CalendarAPI;
     format?: string;
     unit?: TPowerCalendarMoveCenterUnit;
+    isDatePicker?: boolean;
+    ariaLabelPreviousMonth?: string;
+    ariaLabelNextMonth?: string;
   };
   Blocks: {
     default: [calendar: CalendarAPI];

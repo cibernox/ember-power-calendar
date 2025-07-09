@@ -61,7 +61,7 @@ export interface PowerCalendarActions {
     step: number,
     unit: TPowerCalendarMoveCenterUnit,
     calendar: PowerCalendarAPI,
-    event: MouseEvent,
+    event: MouseEvent | KeyboardEvent,
   ) => Promise<void>;
   select?: (day: CalendarDay, calendar: CalendarAPI, event: MouseEvent) => void;
 }
@@ -86,6 +86,9 @@ export interface PowerCalendarArgs {
   selected?: SelectedDays;
   center?: Date;
   tag?: string;
+  ariaLabel?: boolean;
+  ariaLabeledBy?: boolean;
+  isDatePicker?: boolean;
 }
 
 export interface PowerCalendarDefaultBlock extends PowerCalendarAPI {
