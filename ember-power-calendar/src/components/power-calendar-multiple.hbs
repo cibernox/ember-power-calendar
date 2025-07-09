@@ -5,10 +5,12 @@
       Nav=(component
         (ensure-safe-component (or @navComponent this.navComponent))
         calendar=(readonly this.publicAPI)
+        isDatePicker=@isDatePicker
       )
       Days=(component
         (ensure-safe-component (or @daysComponent this.daysComponent))
         calendar=(readonly this.publicAPI)
+        isDatePicker=@isDatePicker
       )
     )
   )
