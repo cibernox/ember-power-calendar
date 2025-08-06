@@ -5,17 +5,32 @@
       Nav=(component
         (ensure-safe-component (or @navComponent this.navComponent))
         calendar=(readonly this.publicAPI)
+        isDatePicker=@isDatePicker
       )
       Days=(component
         (ensure-safe-component (or @daysComponent this.daysComponent))
         calendar=(readonly this.publicAPI)
+        isDatePicker=@isDatePicker
+        autofocus=@autofocus
       )
     )
   )
   as |calendar|
 }}
   {{#let (element this.tagWithDefault) as |Tag|}}
-    <Tag class="ember-power-calendar" ...attributes id={{calendar.uniqueId}}>
+    <Tag
+      class="ember-power-calendar"
+      role={{if @isDatePicker "dialog" "group"}}
+      aria-modal={{if @isDatePicker "true"}}
+      aria-label={{if
+        @ariaLabel
+        @ariaLabel
+        (unless @ariaLabeledBy "Choose Multiple Dates")
+      }}
+      aria-labelledby={{@ariaLabeledBy}}
+      ...attributes
+      id={{calendar.uniqueId}}
+    >
       {{#if (has-block)}}
         {{yield calendar}}
       {{else}}

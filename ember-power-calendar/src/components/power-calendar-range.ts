@@ -33,6 +33,7 @@ import type {
   CalendarDay,
   CalendarAPI,
 } from './power-calendar.ts';
+import { DAY_IN_MS as UTILS_DAY_IN_MS } from '../-private/days-utils.ts';
 import type Owner from '@ember/owner';
 import type { ComponentLike } from '@glint/template';
 import type PowerCalendarService from '../services/power-calendar.ts';
@@ -41,7 +42,7 @@ export interface PowerCalendarRangeDay extends Omit<PowerCalendarDay, 'date'> {
   date: SelectedPowerCalendarRange;
 }
 
-export const DAY_IN_MS = 86400000;
+export const DAY_IN_MS = UTILS_DAY_IN_MS;
 
 export type TPowerCalendarRangeOnSelect = (
   day: NormalizeRangeActionValue,

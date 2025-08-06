@@ -1,12 +1,16 @@
 <BasicDropdown as |dropdown|>
-  {{! template-lint-disable require-input-label }}
+  <div>
+    <label for="datepicker-1">Date picker</label>
+  </div>
+
   <input
     type="text"
     data-ebd-id="{{dropdown.uniqueId}}-trigger"
     class="datepicker-demo-input"
-    onclick={{dropdown.actions.toggle}}
     value={{if this.selected (format-date this.selected "DD-MM-YYYY")}}
+    id="datepicker-1"
     readonly
+    {{on "focus" dropdown.actions.toggle}}
   />
 
   <dropdown.Content class="datepicker-demo-dropdown">
@@ -16,6 +20,8 @@
       @onCenterChange={{this.onCenterChange}}
       @selected={{this.selected}}
       @onSelect={{this.onSelect}}
+      @isDatePicker={{true}}
+      @autofocus={{true}}
       as |calendar|
     >
       <calendar.Nav />

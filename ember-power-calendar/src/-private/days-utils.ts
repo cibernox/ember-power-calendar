@@ -14,6 +14,7 @@ import {
   type PowerCalendarDay,
 } from '../utils.ts';
 
+export const DAY_IN_MS = 86400000;
 export const WEEK_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 export type TWeekdayFormat = 'min' | 'short' | 'long';
 
@@ -95,13 +96,13 @@ export function handleDayKeyDown(
     }
   }
 
-  if (!index) {
+  if (index === undefined) {
     return;
   }
 
   if (e.key === 'ArrowUp') {
     e.preventDefault();
-    const newIndex = Math.max(index - 7, 0);
+    const newIndex = index - 7;
     day = days[newIndex];
     if (day?.isDisabled) {
       for (let i = newIndex + 1; i <= index; i++) {
@@ -113,7 +114,7 @@ export function handleDayKeyDown(
     }
   } else if (e.key === 'ArrowDown') {
     e.preventDefault();
-    const newIndex = Math.min(index + 7, days.length - 1);
+    const newIndex = index + 7;
     day = days[newIndex];
     if (day?.isDisabled) {
       for (let i = newIndex - 1; i >= index; i--) {
@@ -124,12 +125,12 @@ export function handleDayKeyDown(
       }
     }
   } else if (e.key === 'ArrowLeft') {
-    day = days[Math.max(index - 1, 0)];
+    day = days[index - 1];
     if (day?.isDisabled) {
       return;
     }
   } else if (e.key === 'ArrowRight') {
-    day = days[Math.min(index + 1, days.length - 1)];
+    day = days[index + 1];
     if (day?.isDisabled) {
       return;
     }
@@ -243,7 +244,7 @@ export function handleClick(
   e: MouseEvent,
   days: PowerCalendarDay[],
   calendar: CalendarAPI,
-): void {
+): PowerCalendarDay | undefined {
   const dayEl: HTMLElement | null | undefined = (
     e.target as HTMLElement | null
   )?.closest('[data-date]');
@@ -254,6 +255,8 @@ export function handleClick(
       if (calendar.actions.select) {
         calendar.actions.select(day, calendar, e);
       }
+
+      return day;
     }
   }
 }

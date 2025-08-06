@@ -6,10 +6,7 @@ import { run } from '@ember/runloop';
 import { TrackedObject } from 'tracked-built-ins';
 import ownProp from 'test-app/utils/own-prop';
 
-import {
-  dependencySatisfies,
-  macroCondition
-} from '@embroider/macros';
+import { dependencySatisfies, macroCondition } from '@embroider/macros';
 
 let dateLibrary = '';
 

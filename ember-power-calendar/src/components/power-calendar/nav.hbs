@@ -3,10 +3,15 @@
     <button
       type="button"
       class="ember-power-calendar-nav-control ember-power-calendar-nav-control--previous"
+      aria-label={{or @ariaLabelPreviousMonth "Previous month"}}
       {{on "click" (fn @calendar.actions.moveCenter -1 this.unit @calendar)}}
     >«</button>
   {{/if}}
-  <div class="ember-power-calendar-nav-title">
+  <div
+    class="ember-power-calendar-nav-title"
+    id="ember-power-calendar-nav-title-{{@calendar.uniqueId}}"
+    aria-live="polite"
+  >
     {{#if (has-block)}}
       {{yield @calendar}}
     {{else}}
@@ -21,6 +26,7 @@
     <button
       type="button"
       class="ember-power-calendar-nav-control ember-power-calendar-nav-control--next"
+      aria-label={{or @ariaLabelNextMonth "Next month"}}
       {{on "click" (fn @calendar.actions.moveCenter 1 this.unit @calendar)}}
     >»</button>
   {{/if}}

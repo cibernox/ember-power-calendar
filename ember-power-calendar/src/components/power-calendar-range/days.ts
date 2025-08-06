@@ -19,6 +19,7 @@ import {
   getWeekdays,
   normalizeDate,
   type PowerCalendarDay,
+  formatDate,
 } from '../../utils.ts';
 import type { PowerCalendarRangeAPI } from '../power-calendar-range.ts';
 import {
@@ -33,11 +34,15 @@ import {
   handleClick,
   type TWeekdayFormat,
   type Week,
+  dayIsDisabled,
+  DAY_IN_MS,
 } from '../../-private/days-utils.ts';
+import { modifier } from 'ember-modifier';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 
 interface PowerCalendarMultipleDaysArgs
-  extends Omit<PowerCalendarDaysArgs, 'selected'> {
+  extends Omit<PowerCalendarDaysArgs, 'calendar' | 'selected'> {
+  calendar: PowerCalendarRangeAPI;
   selected?: {
     start: Date | null;
     end: Date | null;
@@ -53,6 +58,9 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked focusedId: string | null = null;
+
+  didSetup = false;
+  lastKeyDownWasSpace = false;
 
   get weekdayFormat(): TWeekdayFormat {
     return this.args.weekdayFormat || 'short'; // "min" | "short" | "long"
@@ -99,9 +107,7 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
     let day = firstDay(this.currentCenter, this.localeStartOfWeek);
     const days: PowerCalendarDay[] = [];
     while (isBefore(day, theLastDay)) {
-      days.push(
-        this.buildDay(day, today, this.args.calendar as PowerCalendarRangeAPI),
-      );
+      days.push(this.buildDay(day, today, this.args.calendar));
       day = add(day, 1, 'day');
     }
     return days;
@@ -137,11 +143,50 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
   }
 
   @action
-  handleKeyDown(e: KeyboardEvent): void {
+  async handleKeyDown(e: KeyboardEvent): Promise<void> {
+    this.lastKeyDownWasSpace = e.code === 'Space';
+
     const day = handleDayKeyDown(e, this.focusedId, this.days);
+
+    if (!day || !day?.isCurrentMonth) {
+      if (this.args.calendar.actions.moveCenter) {
+        if (
+          e.key === 'ArrowUp' ||
+          e.key === 'ArrowRight' ||
+          e.key === 'ArrowDown' ||
+          e.key === 'ArrowLeft'
+        ) {
+          const currentDay = this.days.find(
+            (x) => x.id === this.focusedId,
+          )?.date;
+
+          if (currentDay) {
+            let date = currentDay;
+            let step = 1;
+            if (e.key === 'ArrowUp') {
+              date = add(currentDay, -7, 'day');
+              step = -1;
+            } else if (e.key === 'ArrowLeft') {
+              date = add(currentDay, -1, 'day');
+              step = -1;
+            } else if (e.key === 'ArrowRight') {
+              date = add(currentDay, 1, 'day');
+            } else if (e.key === 'ArrowDown') {
+              date = add(currentDay, 7, 'day');
+            }
+
+            await this.focusDay(e, date, step);
+
+            return;
+          }
+        }
+      }
+    }
+
     if (!day) {
       return;
     }
+
     this.focusedId = day.id;
     scheduleOnce(
       'afterRender',
@@ -153,8 +198,104 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
   }
 
   @action
-  handleClick(e: MouseEvent) {
-    handleClick(e, this.days, this.args.calendar);
+  async handleClick(e: MouseEvent) {
+    const selectedDay = handleClick(e, this.days, this.args.calendar);
+
+    if (
+      this.lastKeyDownWasSpace &&
+      selectedDay &&
+      (this.args.calendar.minRange ?? 0) > 0 &&
+      !this.args.calendar.selected?.end
+    ) {
+      const focusDay = add(
+        selectedDay.date,
+        (this.args.calendar.minRange ?? 0) / DAY_IN_MS,
+        'day',
+      );
+      const dayInCurrentCalendar = this.days.some(
+        (x) => x.id === formatDate(focusDay, 'YYYY-MM-DD') && x.isCurrentMonth,
+      );
+
+      await this.focusDay(e, focusDay, dayInCurrentCalendar ? 0 : 1);
+    }
+
+    this.lastKeyDownWasSpace = false;
+  }
+
+  setup = modifier(
+    () => {
+      if (this.didSetup) {
+        return;
+      }
+
+      this.didSetup = true;
+
+      if (this.args.autofocus) {
+        scheduleOnce('afterRender', this, this.initialFocus.bind(this));
+      }
+    },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    { eager: false },
+  );
+
+  initialFocus() {
+    const activeDay = this.days.find((x) => x.isSelected && !x.isDisabled);
+
+    if (activeDay) {
+      this.focusedId = activeDay.id;
+    } else {
+      const todayDay = this.days.find((x) => x.isToday && !x.isDisabled);
+      if (todayDay) {
+        this.focusedId = todayDay.id ?? '';
+      } else {
+        const firstSelectableDay = this.days.find((x) => !x.isDisabled);
+        if (firstSelectableDay) {
+          this.focusedId = firstSelectableDay.id ?? '';
+        } else {
+          this.focusedId = this.days.find((x) => !x.isCurrentMonth)?.id ?? '';
+        }
+      }
+    }
+
+    focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
+  }
+
+  async focusDay(e: MouseEvent | KeyboardEvent, date: Date, step: number = 0) {
+    if (
+      dayIsDisabled(
+        date,
+        this.args.calendar,
+        this.args.minDate,
+        this.args.maxDate,
+        this.args.disabledDates,
+      )
+    ) {
+      return;
+    }
+
+    if (this.args.calendar.actions.moveCenter && step !== 0) {
+      await this.args.calendar.actions.moveCenter(
+        step,
+        'month',
+        this.args.calendar,
+        e,
+      );
+    }
+
+    this.focusedId = formatDate(date, 'YYYY-MM-DD');
+
+    if (step !== 0) {
+      scheduleOnce(
+        'afterRender',
+        this,
+        focusDate,
+        this.args.calendar.uniqueId,
+        this.focusedId ?? '',
+      );
+    } else {
+      focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
+    }
   }
 
   // Methods
