@@ -230,7 +230,7 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
 
       this.didSetup = true;
 
-      if (this.args.isDatePicker) {
+      if (this.args.autofocus) {
         scheduleOnce('afterRender', this, this.initialFocus.bind(this));
       }
     },

@@ -44,6 +44,7 @@ export interface PowerCalendarDaysArgs {
   startOfWeek?: string;
   center?: Date;
   weekdayFormat?: TWeekdayFormat;
+  autofocus?: boolean;
   isDatePicker?: boolean;
 }
 
@@ -219,7 +220,7 @@ export default class PowerCalendarDaysComponent extends Component<PowerCalendarD
 
       this.didSetup = true;
 
-      if (this.args.isDatePicker) {
+      if (this.args.autofocus) {
         scheduleOnce('afterRender', this, this.initialFocus.bind(this));
       }
     },

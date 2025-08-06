@@ -221,7 +221,7 @@ export default class PowerCalendarMultipleDaysComponent extends Component<PowerC
 
       this.didSetup = true;
 
-      if (this.args.isDatePicker) {
+      if (this.args.autofocus) {
         scheduleOnce('afterRender', this, this.initialFocus.bind(this));
       }
     },

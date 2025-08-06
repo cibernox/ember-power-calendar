@@ -89,6 +89,7 @@ export interface PowerCalendarArgs {
   ariaLabel?: boolean;
   ariaLabeledBy?: boolean;
   isDatePicker?: boolean;
+  autofocus?: boolean;
 }
 
 export interface PowerCalendarDefaultBlock extends PowerCalendarAPI {
