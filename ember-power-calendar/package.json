@@ -1,6 +1,6 @@
 {
   "name": "ember-power-calendar",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "description": "Powerful and customizable calendar component for Ember",
   "keywords": [
     "ember-addon"

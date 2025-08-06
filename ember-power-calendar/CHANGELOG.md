@@ -8,6 +8,15 @@
 
 
 
+
+## v1.6.0 (2025-08-06)
+
+#### :rocket: Enhancement
+* [#553](https://github.com/cibernox/ember-power-calendar/pull/553) Improve accessibility ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 ## v1.5.4 (2025-05-13)
 
 #### :bug: Bug Fix
