@@ -210,8 +210,8 @@ importers:
         specifier: ^4.7.0
         version: 4.7.0
       memory-scroll:
-        specifier: ^1.0.2
-        version: 1.0.2
+        specifier: ^2.0.1
+        version: 2.0.1(@babel/core@7.28.3)
       moment:
         specifier: ^2.30.1
         version: 2.30.1
@@ -5749,9 +5749,8 @@ packages:
     resolution: {integrity: sha512-qvwipnozMohxLXG1pOqoLiZKNkC4r4qqRucSoDwXowsNGDSULiqFTRUF05vcZWnwJSG22qTsynQhxbaMtnX9gw==}
     engines: {node: '>=8'}
 
-  memory-scroll@1.0.2:
-    resolution: {integrity: sha512-R88p0Mv/ih491do3iyDCD1nwufEwPa6XtnRFe44G1ML7rifR3IqzHBjzFHP33vhWQWDcnxOWj6JXjhZlDHbzyg==}
-    engines: {node: ^4.5 || 6.* || >= 7.*}
+  memory-scroll@2.0.1:
+    resolution: {integrity: sha512-SuAFm2qNUqAuJ4mIyq4JhPe7EAuFy1pR0GIv+TbXbSqi9hkUTGq4XtFthE/eDpyiW4y6+7d/39ntJxeBy/atvQ==}
 
   memory-streams@0.1.3:
     resolution: {integrity: sha512-qVQ/CjkMyMInPaaRMrwWNDvf6boRZXaT/DbQeMYcCWuXPEBf1v8qChOc9OlEVQp2uOvRXa1Qu30fLmKhY6NipA==}
@@ -14864,10 +14863,13 @@ snapshots:
       mimic-fn: 2.1.0
       p-is-promise: 2.1.0
 
-  memory-scroll@1.0.2:
+  memory-scroll@2.0.1(@babel/core@7.28.3):
     dependencies:
-      ember-cli-babel: 7.26.11
+      '@embroider/addon-shim': 1.10.0
+      decorator-transforms: 2.3.0(@babel/core@7.28.3)
+      ember-modifier: 4.2.2(@babel/core@7.28.3)
     transitivePeerDependencies:
+      - '@babel/core'
       - supports-color
 
   memory-streams@0.1.3:
