@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { add } from 'ember-power-calendar/utils';
-import { task, timeout, waitForQueue } from 'ember-concurrency';
+import { dropTask, timeout, waitForQueue } from 'ember-concurrency';
 
 export default class extends Controller {
   @service router;
@@ -12,7 +12,7 @@ export default class extends Controller {
   now = new Date();
   today = this.now;
 
-  @(task(function* (e) {
+  flipPage = dropTask(async (e) => {
     if (this.router.currentRouteName === 'public-pages.docs.index') {
       return;
     }
@@ -25,15 +25,14 @@ export default class extends Controller {
     parent.insertBefore(clone, pageElement);
     this.day = add(this.day, 1, 'day');
 
-    yield waitForQueue('afterRender');
+    await waitForQueue('afterRender');
 
     pageElement.offsetLeft; // force layout
     pageElement.classList.add('run-animation');
 
-    yield timeout(400);
+    await timeout(400);
 
     pageElement.classList.remove('run-animation');
     parent.removeChild(clone);
-  }).drop())
-  flipPage;
+  });
 }
