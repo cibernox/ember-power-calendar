@@ -9,6 +9,15 @@
 
 
 
+
+## v1.7.0 (2025-08-18)
+
+#### :rocket: Enhancement
+* [#575](https://github.com/cibernox/ember-power-calendar/pull/575) Allow `ember-concurrency` v5 ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 ## v1.6.0 (2025-08-06)
 
 #### :rocket: Enhancement
