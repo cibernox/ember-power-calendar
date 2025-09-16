@@ -10,6 +10,15 @@
 
 
 
+
+## v1.8.0 (2025-09-16)
+
+#### :rocket: Enhancement
+* [#576](https://github.com/cibernox/ember-power-calendar/pull/576) Allow `ember-truth-helpers` v5 as dependency ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 ## v1.7.0 (2025-08-18)
 
 #### :rocket: Enhancement
