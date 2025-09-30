@@ -105,7 +105,7 @@
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-sass": "^1.15.2",
     "sass": "^1.88.0",
-    "typescript": "~5.8.3",
+    "typescript": "~5.9.2",
     "typescript-eslint": "^8.32.0",
     "webpack": "^5.99.8"
   },
