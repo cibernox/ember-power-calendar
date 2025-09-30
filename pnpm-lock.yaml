@@ -15,8 +15,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(release-it@17.11.0(typescript@5.9.2))
       '@release-it-plugins/workspaces':
-        specifier: ^4.2.0
-        version: 4.2.1(release-it@17.11.0(typescript@5.9.2))
+        specifier: ^5.0.3
+        version: 5.0.3(release-it@17.11.0(typescript@5.9.2))
       concurrently:
         specifier: ^9.1.2
         version: 9.2.1
@@ -1781,11 +1781,11 @@ packages:
     peerDependencies:
       release-it: ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@release-it-plugins/workspaces@4.2.1':
-    resolution: {integrity: sha512-lZEARr5tqsFskTPHBLjmYxqfC/DJkWRc0Q/wjOODHW8rtYPhL1w2zv7fwvgSjhFmMp0OdsJOXzkcSkUDvc9NnA==}
-    engines: {node: '>= 16'}
+  '@release-it-plugins/workspaces@5.0.3':
+    resolution: {integrity: sha512-J3xvLIABlO/AY06WeqEncIUGXjPNcdCMAVXKyvlPWNi26zUT8x5qYffdy748wUlY73XhATO7bXD7vtY5KKdlMQ==}
+    engines: {node: '>= 20'}
     peerDependencies:
-      release-it: ^14.0.0 || ^15.2.0 || ^16.0.0 || ^17.0.0
+      release-it: ^17.0.0 || ^18.0.0 || ^19.0.0
 
   '@rollup/plugin-babel@6.0.4':
     resolution: {integrity: sha512-YF7Y52kFdFT/xVSuVdjkV5ZdX/3YtmX0QulG+x0taQOtJdHYzVU61aSSkAgVJ7NOv6qPkIYiJSgSWWN/DM5sGw==}
@@ -4276,6 +4276,10 @@ packages:
 
   execa@8.0.0:
     resolution: {integrity: sha512-CTNS0BcKBcoOsawKBlpcKNmK4Kjuyz5jVLhf+PUsHGMqiKMVTa4cN3U7r7bRY8KTpfOGpXMo27fdy0dYVg2pqA==}
+    engines: {node: '>=16.17'}
+
+  execa@8.0.1:
+    resolution: {integrity: sha512-VyhnebXciFV2DESc+p6B+y0LjSm0krU4OgJN44qFAhBY0TJ+1V61tYD2+wHusZ6F9n5K+vl8k0sTy7PEfV4qpg==}
     engines: {node: '>=16.17'}
 
   exit@0.1.2:
@@ -9642,10 +9646,11 @@ snapshots:
       - bluebird
       - supports-color
 
-  '@release-it-plugins/workspaces@4.2.1(release-it@17.11.0(typescript@5.9.2))':
+  '@release-it-plugins/workspaces@5.0.3(release-it@17.11.0(typescript@5.9.2))':
     dependencies:
       detect-indent: 6.1.0
       detect-newline: 3.1.0
+      execa: 8.0.1
       release-it: 17.11.0(typescript@5.9.2)
       semver: 7.7.2
       url-join: 4.0.1
@@ -12990,6 +12995,18 @@ snapshots:
       strip-final-newline: 2.0.0
 
   execa@8.0.0:
+    dependencies:
+      cross-spawn: 7.0.6
+      get-stream: 8.0.1
+      human-signals: 5.0.0
+      is-stream: 3.0.0
+      merge-stream: 2.0.0
+      npm-run-path: 5.3.0
+      onetime: 6.0.0
+      signal-exit: 4.1.0
+      strip-final-newline: 3.0.0
+
+  execa@8.0.1:
     dependencies:
       cross-spawn: 7.0.6
       get-stream: 8.0.1
