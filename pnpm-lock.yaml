@@ -204,8 +204,8 @@ importers:
         specifier: ^8.1.2
         version: 8.2.5(eslint@9.36.0)
       globals:
-        specifier: ^15.15.0
-        version: 15.15.0
+        specifier: ^16.4.0
+        version: 16.4.0
       loader.js:
         specifier: ^4.7.0
         version: 4.7.0
@@ -565,8 +565,8 @@ importers:
         specifier: ^8.1.2
         version: 8.2.5(eslint@9.36.0)
       globals:
-        specifier: ^15.15.0
-        version: 15.15.0
+        specifier: ^16.4.0
+        version: 16.4.0
       loader.js:
         specifier: ^4.7.0
         version: 4.7.0
