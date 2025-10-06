@@ -78,7 +78,7 @@
     "ember-power-select": "^8.9.0",
     "ember-qunit": "^9.0.2",
     "ember-resolver": "^13.1.0",
-    "ember-source": "~6.4.0",
+    "ember-source": "~6.7.0",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-imports": "^4.3.0",
     "ember-template-lint": "^7.9.3",
