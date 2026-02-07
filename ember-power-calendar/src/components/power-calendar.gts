@@ -7,7 +7,6 @@ import { task, type TaskInstance } from 'ember-concurrency';
 import { assert } from '@ember/debug';
 import { publicActionsObject } from '../-private/utils.ts';
 import { element } from 'ember-element-helper';
-import { ensureSafeComponent } from '@embroider/util';
 import { hash } from '@ember/helper';
 import {
   normalizeDate,
@@ -76,9 +75,9 @@ export type TPowerCalendarOnSelect = (
 ) => void;
 
 export interface PowerCalendarArgs {
-  daysComponent?: string | ComponentLike<PowerCalendarDaysSignature>;
+  daysComponent?: ComponentLike<PowerCalendarDaysSignature>;
   locale?: string;
-  navComponent?: string | ComponentLike<PowerCalendarNavSignature>;
+  navComponent?: ComponentLike<PowerCalendarNavSignature>;
   onCenterChange?: (
     newCenter: NormalizeCalendarValue,
     calendar: PowerCalendarAPI,
@@ -195,25 +194,17 @@ export default class PowerCalendarComponent extends Component<PowerCalendarSigna
   }
 
   get navComponent(): ComponentLike<PowerCalendarNavSignature> {
-    if (this.args.navComponent) {
-      return ensureSafeComponent(
-        this.args.navComponent,
-        this,
-      ) as ComponentLike<PowerCalendarNavSignature>;
-    }
-
-    return PowerCalendarNavComponent as ComponentLike<PowerCalendarNavSignature>;
+    return (
+      this.args.navComponent ||
+      (PowerCalendarNavComponent as ComponentLike<PowerCalendarNavSignature>)
+    );
   }
 
   get daysComponent(): ComponentLike<PowerCalendarDaysSignature> {
-    if (this.args.daysComponent) {
-      return ensureSafeComponent(
-        this.args.daysComponent,
-        this,
-      ) as ComponentLike<PowerCalendarDaysSignature>;
-    }
-
-    return PowerCalendarDaysComponent as ComponentLike<PowerCalendarDaysSignature>;
+    return (
+      this.args.daysComponent ||
+      (PowerCalendarDaysComponent as ComponentLike<PowerCalendarDaysSignature>)
+    );
   }
 
   calendarAPI(

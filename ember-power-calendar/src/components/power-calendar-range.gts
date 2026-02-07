@@ -34,7 +34,6 @@ import type {
   CalendarAPI,
 } from './power-calendar.ts';
 import { DAY_IN_MS as UTILS_DAY_IN_MS } from '../-private/days-utils.ts';
-import { ensureSafeComponent } from '@embroider/util';
 import { element } from 'ember-element-helper';
 import { hash } from '@ember/helper';
 import type Owner from '@ember/owner';
@@ -54,7 +53,12 @@ export type TPowerCalendarRangeOnSelect = (
 ) => void;
 
 interface PowerCalendarRangeArgs
-  extends Omit<PowerCalendarArgs, 'selected' | 'onSelect'> {
+  extends Omit<
+    PowerCalendarArgs,
+    'daysComponent' | 'navComponent' | 'selected' | 'onSelect'
+  > {
+  navComponent?: ComponentLike<PowerCalendarRangeNavSignature>;
+  daysComponent?: ComponentLike<PowerCalendarRangeDaysSignature>;
   selected?: SelectedPowerCalendarRange;
   minRange?: number;
   maxRange?: number;
@@ -197,25 +201,17 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
   }
 
   get navComponent(): ComponentLike<PowerCalendarRangeNavSignature> {
-    if (this.args.navComponent) {
-      return ensureSafeComponent(
-        this.args.navComponent,
-        this,
-      ) as ComponentLike<PowerCalendarRangeNavSignature>;
-    }
-
-    return PowerCalendarRangeNavComponent as ComponentLike<PowerCalendarRangeNavSignature>;
+    return (
+      this.args.navComponent ||
+      (PowerCalendarRangeNavComponent as ComponentLike<PowerCalendarRangeNavSignature>)
+    );
   }
 
   get daysComponent(): ComponentLike<PowerCalendarRangeDaysSignature> {
-    if (this.args.daysComponent) {
-      return ensureSafeComponent(
-        this.args.daysComponent,
-        this,
-      ) as ComponentLike<PowerCalendarRangeDaysSignature>;
-    }
-
-    return PowerCalendarRangeDaysComponent as ComponentLike<PowerCalendarRangeDaysSignature>;
+    return (
+      this.args.daysComponent ||
+      (PowerCalendarRangeDaysComponent as ComponentLike<PowerCalendarRangeDaysSignature>)
+    );
   }
 
   calendarAPI(

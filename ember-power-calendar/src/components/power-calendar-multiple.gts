@@ -33,7 +33,6 @@ import type {
 import type Owner from '@ember/owner';
 import type { ComponentLike } from '@glint/template';
 import type PowerCalendarService from '../services/power-calendar.ts';
-import { ensureSafeComponent } from '@embroider/util';
 import { hash } from '@ember/helper';
 import { element } from 'ember-element-helper';
 
@@ -49,9 +48,13 @@ export type TPowerCalendarMultipleOnSelect = (
 ) => void;
 
 interface PowerCalendarMultipleArgs
-  extends Omit<PowerCalendarArgs, 'selected' | 'daysComponent' | 'onSelect'> {
+  extends Omit<
+    PowerCalendarArgs,
+    'navComponent' | 'daysComponent' | 'selected' | 'onSelect'
+  > {
+  navComponent?: ComponentLike<PowerCalendarMultipleNavSignature>;
+  daysComponent?: ComponentLike<PowerCalendarMultipleDaysSignature>;
   selected?: Date[];
-  daysComponent?: string | ComponentLike<PowerCalendarMultipleDaysSignature>;
   onSelect?: TPowerCalendarMultipleOnSelect;
 }
 
@@ -162,25 +165,17 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
   }
 
   get navComponent(): ComponentLike<PowerCalendarMultipleNavSignature> {
-    if (this.args.navComponent) {
-      return ensureSafeComponent(
-        this.args.navComponent,
-        this,
-      ) as ComponentLike<PowerCalendarMultipleNavSignature>;
-    }
-
-    return PowerCalendarMultipleNavComponent as ComponentLike<PowerCalendarMultipleNavSignature>;
+    return (
+      this.args.navComponent ||
+      (PowerCalendarMultipleNavComponent as ComponentLike<PowerCalendarMultipleNavSignature>)
+    );
   }
 
   get daysComponent(): ComponentLike<PowerCalendarMultipleDaysSignature> {
-    if (this.args.daysComponent) {
-      return ensureSafeComponent(
-        this.args.daysComponent,
-        this,
-      ) as ComponentLike<PowerCalendarMultipleDaysSignature>;
-    }
-
-    return PowerCalendarMultipleDaysComponent as ComponentLike<PowerCalendarMultipleDaysSignature>;
+    return (
+      this.args.daysComponent ||
+      (PowerCalendarMultipleDaysComponent as ComponentLike<PowerCalendarMultipleDaysSignature>)
+    );
   }
 
   calendarAPI(
