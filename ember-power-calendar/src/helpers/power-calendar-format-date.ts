@@ -1,7 +1,8 @@
 import { formatDate } from '../utils.ts';
 
-export function powerCalendarFormatDate(
-  [date, format]: [Date, string],
+export default function powerCalendarFormatDate(
+  date: Date,
+  format: string,
   { locale }: { locale?: string | null },
 ) {
   return formatDate(date, format, locale);

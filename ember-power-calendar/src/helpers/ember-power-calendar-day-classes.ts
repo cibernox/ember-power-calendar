@@ -2,20 +2,19 @@ import type { PowerCalendarAPI } from '../components/power-calendar.ts';
 import type { Week } from '../-private/days-utils.ts';
 import type { PowerCalendarDay } from '../utils.ts';
 
-export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]: [
-  PowerCalendarDay,
-  PowerCalendarAPI,
-  Week[],
-  (
+export default function emberPowerCalendarDayClasses(
+  day: PowerCalendarDay,
+  calendar: PowerCalendarAPI,
+  weeks: Week[],
+  dayClass:
     | string
     | ((
         day: PowerCalendarDay,
         calendar: PowerCalendarAPI,
         weeks: Week[],
       ) => string)
-    | undefined
-  ),
-]) {
+    | undefined,
+): string {
   const classes = ['ember-power-calendar-day'];
   if (calendar.actions.select) {
     classes.push('ember-power-calendar-day--interactive');
