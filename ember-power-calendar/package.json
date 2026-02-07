@@ -64,9 +64,7 @@
   "dependencies": {
     "@embroider/addon-shim": "^1.10.0",
     "decorator-transforms": "^2.3.0",
-    "@embroider/util": "^1.13.2",
     "@embroider/macros": "^1.17.3",
-    "ember-assign-helper": "^0.5.1",
     "ember-element-helper": "^0.8.7",
     "ember-modifier": "^4.2.0",
     "ember-truth-helpers": "^4.0.3 || ^5.0.0"
@@ -124,8 +122,10 @@
     "app-js": {
       "./components/power-calendar-multiple.js": "./dist/_app_/components/power-calendar-multiple.js",
       "./components/power-calendar-multiple/days.js": "./dist/_app_/components/power-calendar-multiple/days.js",
+      "./components/power-calendar-multiple/nav.js": "./dist/_app_/components/power-calendar-multiple/nav.js",
       "./components/power-calendar-range.js": "./dist/_app_/components/power-calendar-range.js",
       "./components/power-calendar-range/days.js": "./dist/_app_/components/power-calendar-range/days.js",
+      "./components/power-calendar-range/nav.js": "./dist/_app_/components/power-calendar-range/nav.js",
       "./components/power-calendar.js": "./dist/_app_/components/power-calendar.js",
       "./components/power-calendar/days.js": "./dist/_app_/components/power-calendar/days.js",
       "./components/power-calendar/nav.js": "./dist/_app_/components/power-calendar/nav.js",

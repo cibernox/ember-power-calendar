@@ -7,10 +7,10 @@ import { assert } from '@ember/debug';
 import { task } from 'ember-concurrency';
 import PowerCalendarRangeDaysComponent, {
   type PowerCalendarRangeDaysSignature,
-} from './power-calendar-range/days.ts';
-import PowerCalendarNavComponent, {
-  type PowerCalendarNavSignature,
-} from './power-calendar/nav.ts';
+} from './power-calendar-range/days.gts';
+import PowerCalendarRangeNavComponent, {
+  type PowerCalendarRangeNavSignature,
+} from './power-calendar-range/nav.gts';
 import { publicActionsObject } from '../-private/utils.ts';
 import {
   normalizeDate,
@@ -34,6 +34,8 @@ import type {
   CalendarAPI,
 } from './power-calendar.ts';
 import { DAY_IN_MS as UTILS_DAY_IN_MS } from '../-private/days-utils.ts';
+import { element } from 'ember-element-helper';
+import { hash } from '@ember/helper';
 import type Owner from '@ember/owner';
 import type { ComponentLike } from '@glint/template';
 import type PowerCalendarService from '../services/power-calendar.ts';
@@ -51,7 +53,12 @@ export type TPowerCalendarRangeOnSelect = (
 ) => void;
 
 interface PowerCalendarRangeArgs
-  extends Omit<PowerCalendarArgs, 'selected' | 'onSelect'> {
+  extends Omit<
+    PowerCalendarArgs,
+    'daysComponent' | 'navComponent' | 'selected' | 'onSelect'
+  > {
+  navComponent?: ComponentLike<PowerCalendarRangeNavSignature>;
+  daysComponent?: ComponentLike<PowerCalendarRangeDaysSignature>;
   selected?: SelectedPowerCalendarRange;
   minRange?: number;
   maxRange?: number;
@@ -61,8 +68,8 @@ interface PowerCalendarRangeArgs
 
 export interface PowerCalendarRangeDefaultBlock extends PowerCalendarRangeAPI {
   Nav: ComponentLike<{
-    Args: Omit<PowerCalendarNavSignature['Args'], 'calendar'>;
-    Blocks: PowerCalendarNavSignature['Blocks'];
+    Args: Omit<PowerCalendarRangeNavSignature['Args'], 'calendar'>;
+    Blocks: PowerCalendarRangeNavSignature['Blocks'];
   }>;
   Days: ComponentLike<{
     Element: PowerCalendarRangeDaysSignature['Element'];
@@ -92,9 +99,6 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
   @tracked center = null;
   @tracked _calendarType: TCalendarType = 'range';
   @tracked _selected?: SelectedDays;
-
-  navComponent = PowerCalendarNavComponent;
-  daysComponent = PowerCalendarRangeDaysComponent;
 
   // Lifecycle hooks
   constructor(owner: Owner, args: PowerCalendarRangeArgs) {
@@ -167,7 +171,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
     };
   }
 
-  get tagWithDefault(): string {
+  get tagWithDefault(): keyof HTMLElementTagNameMap {
     if (this.args.tag === undefined || this.args.tag === null) {
       return 'div';
     }
@@ -194,6 +198,34 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
     }
 
     return null;
+  }
+
+  get navComponent(): ComponentLike<PowerCalendarRangeNavSignature> {
+    return (
+      this.args.navComponent ||
+      (PowerCalendarRangeNavComponent as ComponentLike<PowerCalendarRangeNavSignature>)
+    );
+  }
+
+  get daysComponent(): ComponentLike<PowerCalendarRangeDaysSignature> {
+    return (
+      this.args.daysComponent ||
+      (PowerCalendarRangeDaysComponent as ComponentLike<PowerCalendarRangeDaysSignature>)
+    );
+  }
+
+  calendarAPI(
+    publicAPI: PowerCalendarRangeAPI,
+    components: {
+      Nav: ComponentLike<PowerCalendarRangeNavSignature>;
+      Days: ComponentLike<PowerCalendarRangeDaysSignature>;
+    },
+  ): PowerCalendarRangeDefaultBlock {
+    return Object.assign(
+      {},
+      publicAPI,
+      components,
+    ) as PowerCalendarRangeDefaultBlock;
   }
 
   // Tasks
@@ -338,6 +370,49 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
       }
     }
   }
+
+  <template>
+    {{#let
+      (this.calendarAPI
+        this.publicAPI
+        (hash
+          Nav=(component
+            this.navComponent calendar=this.publicAPI isDatePicker=@isDatePicker
+          )
+          Days=(component
+            this.daysComponent
+            calendar=this.publicAPI
+            isDatePicker=@isDatePicker
+            autofocus=@autofocus
+          )
+        )
+      )
+      as |calendar|
+    }}
+      {{#let (element this.tagWithDefault) as |Tag|}}
+        <Tag
+          class="ember-power-calendar"
+          role={{if @isDatePicker "dialog" "group"}}
+          aria-modal={{if @isDatePicker "true"}}
+          aria-label={{if
+            @ariaLabel
+            @ariaLabel
+            (unless @ariaLabeledBy "Choose Date Range")
+          }}
+          aria-labelledby={{@ariaLabeledBy}}
+          ...attributes
+          id={{calendar.uniqueId}}
+        >
+          {{#if (has-block)}}
+            {{yield calendar}}
+          {{else}}
+            <calendar.Nav />
+            <calendar.Days />
+          {{/if}}
+        </Tag>
+      {{/let}}
+    {{/let}}
+  </template>
 }
 
 function ownProp<T = { [key: string | number]: never }>(obj: T, prop: keyof T) {

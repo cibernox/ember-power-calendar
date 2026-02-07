@@ -8,10 +8,10 @@ import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 import PowerCalendarMultipleDaysComponent, {
   type PowerCalendarMultipleDaysSignature,
-} from './power-calendar-multiple/days.ts';
-import PowerCalendarNavComponent, {
-  type PowerCalendarNavSignature,
-} from './power-calendar/nav.ts';
+} from './power-calendar-multiple/days.gts';
+import PowerCalendarMultipleNavComponent, {
+  type PowerCalendarMultipleNavSignature,
+} from './power-calendar-multiple/nav.gts';
 import { publicActionsObject } from '../-private/utils.ts';
 import {
   normalizeDate,
@@ -33,11 +33,12 @@ import type {
 import type Owner from '@ember/owner';
 import type { ComponentLike } from '@glint/template';
 import type PowerCalendarService from '../services/power-calendar.ts';
+import { hash } from '@ember/helper';
+import { element } from 'ember-element-helper';
 
 export interface PowerCalendarMultipleAPI
-  extends Omit<PowerCalendarAPI, 'selected' | 'DaysComponent'> {
+  extends Omit<PowerCalendarAPI, 'selected'> {
   selected?: Date[];
-  DaysComponent: ComponentLike<PowerCalendarMultipleDaysSignature>;
 }
 
 export type TPowerCalendarMultipleOnSelect = (
@@ -47,16 +48,20 @@ export type TPowerCalendarMultipleOnSelect = (
 ) => void;
 
 interface PowerCalendarMultipleArgs
-  extends Omit<PowerCalendarArgs, 'selected' | 'daysComponent' | 'onSelect'> {
+  extends Omit<
+    PowerCalendarArgs,
+    'navComponent' | 'daysComponent' | 'selected' | 'onSelect'
+  > {
+  navComponent?: ComponentLike<PowerCalendarMultipleNavSignature>;
+  daysComponent?: ComponentLike<PowerCalendarMultipleDaysSignature>;
   selected?: Date[];
-  daysComponent?: string | ComponentLike<PowerCalendarMultipleDaysSignature>;
   onSelect?: TPowerCalendarMultipleOnSelect;
 }
 
 interface PowerCalendarMultipleDefaultBlock extends PowerCalendarMultipleAPI {
   Nav: ComponentLike<{
-    Args: Omit<PowerCalendarNavSignature['Args'], 'calendar'>;
-    Blocks: PowerCalendarNavSignature['Blocks'];
+    Args: Omit<PowerCalendarMultipleNavSignature['Args'], 'calendar'>;
+    Blocks: PowerCalendarMultipleNavSignature['Blocks'];
   }>;
   Days: ComponentLike<{
     Element: PowerCalendarMultipleDaysSignature['Element'];
@@ -79,9 +84,6 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
   @tracked center = null;
   @tracked _calendarType: TCalendarType = 'multiple';
   @tracked _selected?: SelectedDays;
-
-  navComponent = PowerCalendarNavComponent;
-  daysComponent = PowerCalendarMultipleDaysComponent;
 
   // Lifecycle hooks
   constructor(owner: Owner, args: PowerCalendarMultipleArgs) {
@@ -143,7 +145,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
     return normalizeDate(center) || this.powerCalendar.getDate();
   }
 
-  get publicAPI(): PowerCalendarAPI {
+  get publicAPI(): PowerCalendarMultipleAPI {
     return {
       uniqueId: guidFor(this),
       type: this._calendarType,
@@ -155,11 +157,39 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
     };
   }
 
-  get tagWithDefault(): string {
+  get tagWithDefault(): keyof HTMLElementTagNameMap {
     if (this.args.tag === undefined || this.args.tag === null) {
       return 'div';
     }
     return this.args.tag;
+  }
+
+  get navComponent(): ComponentLike<PowerCalendarMultipleNavSignature> {
+    return (
+      this.args.navComponent ||
+      (PowerCalendarMultipleNavComponent as ComponentLike<PowerCalendarMultipleNavSignature>)
+    );
+  }
+
+  get daysComponent(): ComponentLike<PowerCalendarMultipleDaysSignature> {
+    return (
+      this.args.daysComponent ||
+      (PowerCalendarMultipleDaysComponent as ComponentLike<PowerCalendarMultipleDaysSignature>)
+    );
+  }
+
+  calendarAPI(
+    publicAPI: PowerCalendarMultipleAPI,
+    components: {
+      Nav: ComponentLike<PowerCalendarMultipleNavSignature>;
+      Days: ComponentLike<PowerCalendarMultipleDaysSignature>;
+    },
+  ): PowerCalendarMultipleDefaultBlock {
+    return Object.assign(
+      {},
+      publicAPI,
+      components,
+    ) as PowerCalendarMultipleDefaultBlock;
   }
 
   // Tasks
@@ -246,4 +276,47 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
       }
     }
   }
+
+  <template>
+    {{#let
+      (this.calendarAPI
+        this.publicAPI
+        (hash
+          Nav=(component
+            this.navComponent calendar=this.publicAPI isDatePicker=@isDatePicker
+          )
+          Days=(component
+            this.daysComponent
+            calendar=this.publicAPI
+            isDatePicker=@isDatePicker
+            autofocus=@autofocus
+          )
+        )
+      )
+      as |calendar|
+    }}
+      {{#let (element this.tagWithDefault) as |Tag|}}
+        <Tag
+          class="ember-power-calendar"
+          role={{if @isDatePicker "dialog" "group"}}
+          aria-modal={{if @isDatePicker "true"}}
+          aria-label={{if
+            @ariaLabel
+            @ariaLabel
+            (unless @ariaLabeledBy "Choose Multiple Dates")
+          }}
+          aria-labelledby={{@ariaLabeledBy}}
+          ...attributes
+          id={{calendar.uniqueId}}
+        >
+          {{#if (has-block)}}
+            {{yield calendar}}
+          {{else}}
+            <calendar.Nav />
+            <calendar.Days />
+          {{/if}}
+        </Tag>
+      {{/let}}
+    {{/let}}
+  </template>
 }

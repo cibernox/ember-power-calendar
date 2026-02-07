@@ -3,27 +3,22 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 import service from '../../-private/service.ts';
-import type {
-  PowerCalendarDaysArgs,
-  PowerCalendarDaysSignature,
-} from '../power-calendar/days.ts';
 import {
-  isBetween,
-  isSame,
-  diff,
-  isBefore,
   add,
-  withLocale,
+  formatDate,
+  getWeekdays,
   getWeekdaysMin,
   getWeekdaysShort,
-  getWeekdays,
+  isBefore,
+  isSame,
   normalizeDate,
+  withLocale,
   type PowerCalendarDay,
-  formatDate,
 } from '../../utils.ts';
-import type { PowerCalendarRangeAPI } from '../power-calendar-range.ts';
+import type { PowerCalendarMultipleAPI } from '../power-calendar-multiple.ts';
 import {
   buildDay,
+  dayIsDisabled,
   firstDay,
   lastDay,
   localeStartOfWeekOrFallback,
@@ -34,33 +29,36 @@ import {
   handleClick,
   type TWeekdayFormat,
   type Week,
-  dayIsDisabled,
-  DAY_IN_MS,
 } from '../../-private/days-utils.ts';
 import { modifier } from 'ember-modifier';
+import { or } from 'ember-truth-helpers';
+import { on } from '@ember/modifier';
+import emberPowerCalendarDayClasses from '../../helpers/ember-power-calendar-day-classes.ts';
+import type { CalendarAPI } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
+import type {
+  PowerCalendarDaysArgs,
+  PowerCalendarDaysSignature,
+} from '../power-calendar/days.ts';
 
 interface PowerCalendarMultipleDaysArgs
   extends Omit<PowerCalendarDaysArgs, 'calendar' | 'selected'> {
-  calendar: PowerCalendarRangeAPI;
-  selected?: {
-    start: Date | null;
-    end: Date | null;
-  };
+  calendar: PowerCalendarMultipleAPI;
+  selected?: Date[];
+  maxLength?: number;
 }
 
-export interface PowerCalendarRangeDaysSignature
+export interface PowerCalendarMultipleDaysSignature
   extends Omit<PowerCalendarDaysSignature, 'Args'> {
   Args: PowerCalendarMultipleDaysArgs;
 }
 
-export default class PowerCalendarRangeDaysComponent extends Component<PowerCalendarRangeDaysSignature> {
+export default class PowerCalendarMultipleDaysComponent extends Component<PowerCalendarMultipleDaysSignature> {
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked focusedId: string | null = null;
 
   didSetup = false;
-  lastKeyDownWasSpace = false;
 
   get weekdayFormat(): TWeekdayFormat {
     return this.args.weekdayFormat || 'short'; // "min" | "short" | "long"
@@ -107,7 +105,20 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
     let day = firstDay(this.currentCenter, this.localeStartOfWeek);
     const days: PowerCalendarDay[] = [];
     while (isBefore(day, theLastDay)) {
-      days.push(this.buildDay(day, today, this.args.calendar));
+      days.push(
+        buildDay(
+          day,
+          today,
+          this.args.calendar,
+          this.focusedId,
+          this.currentCenter,
+          this.dayIsSelected.bind(this),
+          this.args.minDate,
+          this.args.maxDate,
+          this.args.disabledDates,
+          this.dayIsDisabled.bind(this),
+        ),
+      );
       day = add(day, 1, 'day');
     }
     return days;
@@ -119,11 +130,16 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
 
   get currentCenter(): Date {
     let center = this.args.center;
-
     if (!center) {
-      center = this.args.selected?.start || this.args.calendar.center;
+      center = this.args.selected
+        ? this.args.selected[0]
+        : this.args.calendar.center;
     }
     return normalizeDate(center) || this.args.calendar.center;
+  }
+
+  get maxLength(): number {
+    return this.args.maxLength || Infinity;
   }
 
   // Actions
@@ -144,8 +160,6 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
 
   @action
   async handleKeyDown(e: KeyboardEvent): Promise<void> {
-    this.lastKeyDownWasSpace = e.code === 'Space';
-
     const day = handleDayKeyDown(e, this.focusedId, this.days);
 
     if (!day || !day?.isCurrentMonth) {
@@ -198,28 +212,8 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
   }
 
   @action
-  async handleClick(e: MouseEvent) {
-    const selectedDay = handleClick(e, this.days, this.args.calendar);
-
-    if (
-      this.lastKeyDownWasSpace &&
-      selectedDay &&
-      (this.args.calendar.minRange ?? 0) > 0 &&
-      !this.args.calendar.selected?.end
-    ) {
-      const focusDay = add(
-        selectedDay.date,
-        (this.args.calendar.minRange ?? 0) / DAY_IN_MS,
-        'day',
-      );
-      const dayInCurrentCalendar = this.days.some(
-        (x) => x.id === formatDate(focusDay, 'YYYY-MM-DD') && x.isCurrentMonth,
-      );
-
-      await this.focusDay(e, focusDay, dayInCurrentCalendar ? 0 : 1);
-    }
-
-    this.lastKeyDownWasSpace = false;
+  handleClick(e: MouseEvent) {
+    handleClick(e, this.days, this.args.calendar);
   }
 
   setup = modifier(
@@ -299,50 +293,94 @@ export default class PowerCalendarRangeDaysComponent extends Component<PowerCale
   }
 
   // Methods
-  buildDay(date: Date, today: Date, calendar: PowerCalendarRangeAPI) {
-    const day = buildDay(
-      date,
-      today,
-      calendar,
-      this.focusedId,
-      this.currentCenter,
-      this.dayIsSelected.bind(this),
-      this.args.minDate,
-      this.args.maxDate,
-      this.args.disabledDates,
-    );
-
-    const { start, end } = calendar.selected || { start: null, end: null };
-    if (start && end) {
-      day.isSelected = isBetween(date, start, end, 'day', '[]');
-      day.isRangeStart = day.isSelected && isSame(date, start, 'day');
-      day.isRangeEnd = day.isSelected && isSame(date, end, 'day');
-    } else {
-      day.isRangeEnd = false;
-      if (!start) {
-        day.isRangeStart = false;
-      } else {
-        day.isRangeStart = day.isSelected = isSame(date, start, 'day');
-        if (!day.isDisabled) {
-          const diffInMs = Math.abs(diff(day.date, start));
-          const minRange = calendar.minRange;
-          const maxRange = calendar.maxRange;
-          day.isDisabled =
-            (minRange && diffInMs < minRange) ||
-            (maxRange !== null &&
-              maxRange !== undefined &&
-              diffInMs > maxRange);
-        }
-      }
-    }
-    return day;
-  }
-
-  dayIsSelected() {
-    return false;
+  dayIsSelected(date: Date, calendar: CalendarAPI = this.args.calendar) {
+    const selected = (calendar as PowerCalendarMultipleAPI).selected || [];
+    return selected.some((d) => isSame(date, d, 'day'));
   }
 
   _updateFocused(id?: string | null) {
     this.focusedId = id ?? null;
   }
+
+  dayIsDisabled(
+    date: Date,
+    calendarApi: CalendarAPI,
+    minDate?: Date,
+    maxDate?: Date,
+    disabledDates?: Array<Date | string>,
+  ) {
+    const calendar = calendarApi as PowerCalendarMultipleAPI;
+    const numSelected = (calendar.selected && calendar.selected.length) || 0;
+    const maxLength = this.maxLength || Infinity;
+    return (
+      dayIsDisabled(date, calendar, minDate, maxDate, disabledDates) ||
+      (numSelected >= maxLength && !this.dayIsSelected(date))
+    );
+  }
+
+  <template>
+    {{! template-lint-disable no-invalid-interactive }}
+    <div
+      class="ember-power-calendar-days"
+      data-power-calendar-id={{or
+        @calendar.calendarUniqueId
+        @calendar.uniqueId
+      }}
+      role="grid"
+      aria-labelledby="ember-power-calendar-nav-title-{{@calendar.uniqueId}}"
+      {{on "click" this.handleClick}}
+      {{this.setup}}
+      ...attributes
+    >
+      <div
+        class="ember-power-calendar-row ember-power-calendar-weekdays"
+        role="row"
+      >
+        {{#each this.weekdaysNames as |wdn|}}
+          <div
+            class="ember-power-calendar-weekday"
+            role="columnheader"
+          >{{wdn}}</div>
+        {{/each}}
+      </div>
+      <div
+        class="ember-power-calendar-day-grid"
+        role="rowgroup"
+        {{on "keydown" this.handleKeyDown}}
+      >
+        {{#each this.weeks key="id" as |week|}}
+          <div
+            class="ember-power-calendar-row ember-power-calendar-week"
+            role="row"
+            data-missing-days={{week.missingDays}}
+          >
+            {{#each week.days key="id" as |day|}}
+              <button
+                type="button"
+                role="gridcell"
+                data-date="{{day.id}}"
+                class={{emberPowerCalendarDayClasses
+                  day
+                  @calendar
+                  this.weeks
+                  @dayClass
+                }}
+                {{on "focus" this.handleDayFocus}}
+                {{on "blur" this.handleDayBlur}}
+                disabled={{day.isDisabled}}
+                tabindex={{if day.isFocused "0" "-1"}}
+                aria-selected={{if day.isSelected "true"}}
+              >
+                {{#if (has-block)}}
+                  {{yield day @calendar this.weeks}}
+                {{else}}
+                  {{day.number}}
+                {{/if}}
+              </button>
+            {{/each}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </template>
 }
