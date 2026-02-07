@@ -3,12 +3,8 @@ import { or } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import powerCalendarFormatDate from '../../helpers/power-calendar-format-date.ts';
-import type {
-  TPowerCalendarMoveCenterUnit,
-} from '../power-calendar.ts';
-import type {
-  PowerCalendarRangeAPI,
-} from '../power-calendar-range.ts';
+import type { TPowerCalendarMoveCenterUnit } from '../power-calendar.ts';
+import type { PowerCalendarRangeAPI } from '../power-calendar-range.ts';
 
 export interface PowerCalendarRangeNavSignature {
   Args: {
