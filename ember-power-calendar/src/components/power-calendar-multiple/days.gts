@@ -30,13 +30,16 @@ import {
   type TWeekdayFormat,
   type Week,
 } from '../../-private/days-utils.ts';
+import { modifier } from 'ember-modifier';
+import { or } from 'ember-truth-helpers';
+import { on } from '@ember/modifier';
+import emberPowerCalendarDayClasses from '../../helpers/ember-power-calendar-day-classes.ts';
 import type { CalendarAPI } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 import type {
   PowerCalendarDaysArgs,
   PowerCalendarDaysSignature,
 } from '../power-calendar/days.ts';
-import { modifier } from 'ember-modifier';
 
 interface PowerCalendarMultipleDaysArgs
   extends Omit<PowerCalendarDaysArgs, 'calendar' | 'selected'> {
@@ -314,4 +317,67 @@ export default class PowerCalendarMultipleDaysComponent extends Component<PowerC
       (numSelected >= maxLength && !this.dayIsSelected(date))
     );
   }
+
+  <template>
+    {{! template-lint-disable no-invalid-interactive }}
+    <div
+      class="ember-power-calendar-days"
+      data-power-calendar-id={{or @calendar.calendarUniqueId @calendar.uniqueId}}
+      role="grid"
+      aria-labelledby="ember-power-calendar-nav-title-{{@calendar.uniqueId}}"
+      {{on "click" this.handleClick}}
+      {{this.setup}}
+      ...attributes
+    >
+      <div
+        class="ember-power-calendar-row ember-power-calendar-weekdays"
+        role="row"
+      >
+        {{#each this.weekdaysNames as |wdn|}}
+          <div
+            class="ember-power-calendar-weekday"
+            role="columnheader"
+          >{{wdn}}</div>
+        {{/each}}
+      </div>
+      <div
+        class="ember-power-calendar-day-grid"
+        role="rowgroup"
+        {{on "keydown" this.handleKeyDown}}
+      >
+        {{#each this.weeks key="id" as |week|}}
+          <div
+            class="ember-power-calendar-row ember-power-calendar-week"
+            role="row"
+            data-missing-days={{week.missingDays}}
+          >
+            {{#each week.days key="id" as |day|}}
+              <button
+                type="button"
+                role="gridcell"
+                data-date="{{day.id}}"
+                class={{emberPowerCalendarDayClasses
+                  day
+                  @calendar
+                  this.weeks
+                  @dayClass
+                }}
+                {{on "focus" this.handleDayFocus}}
+                {{on "blur" this.handleDayBlur}}
+                disabled={{day.isDisabled}}
+                tabindex={{if day.isFocused "0" "-1"}}
+                aria-selected={{if day.isSelected "true"}}
+              >
+                {{#if (has-block)}}
+                  {{yield day @calendar this.weeks}}
+                {{else}}
+                  {{day.number}}
+                {{/if}}
+              </button>
+            {{/each}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </template>
 }

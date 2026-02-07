@@ -14,6 +14,7 @@ export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]: [
         calendar: PowerCalendarAPI,
         weeks: Week[],
       ) => string)
+    | undefined
   ),
 ]) {
   const classes = ['ember-power-calendar-day'];
