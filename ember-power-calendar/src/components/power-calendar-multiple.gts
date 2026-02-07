@@ -289,9 +289,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
         this.publicAPI
         (hash
           Nav=(component
-            this.navComponent
-            calendar=this.publicAPI
-            isDatePicker=@isDatePicker
+            this.navComponent calendar=this.publicAPI isDatePicker=@isDatePicker
           )
           Days=(component
             this.daysComponent

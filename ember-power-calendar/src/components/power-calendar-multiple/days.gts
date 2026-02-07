@@ -322,7 +322,10 @@ export default class PowerCalendarMultipleDaysComponent extends Component<PowerC
     {{! template-lint-disable no-invalid-interactive }}
     <div
       class="ember-power-calendar-days"
-      data-power-calendar-id={{or @calendar.calendarUniqueId @calendar.uniqueId}}
+      data-power-calendar-id={{or
+        @calendar.calendarUniqueId
+        @calendar.uniqueId
+      }}
       role="grid"
       aria-labelledby="ember-power-calendar-nav-title-{{@calendar.uniqueId}}"
       {{on "click" this.handleClick}}

@@ -381,9 +381,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
         this.publicAPI
         (hash
           Nav=(component
-            this.navComponent
-            calendar=this.publicAPI
-            isDatePicker=@isDatePicker
+            this.navComponent calendar=this.publicAPI isDatePicker=@isDatePicker
           )
           Days=(component
             this.daysComponent

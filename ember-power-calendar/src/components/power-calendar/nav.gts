@@ -38,7 +38,10 @@ export default class PowerCalendarNavComponent extends Component<PowerCalendarNa
           type="button"
           class="ember-power-calendar-nav-control ember-power-calendar-nav-control--previous"
           aria-label={{or @ariaLabelPreviousMonth "Previous month"}}
-          {{on "click" (fn @calendar.actions.moveCenter -1 this.unit @calendar)}}
+          {{on
+            "click"
+            (fn @calendar.actions.moveCenter -1 this.unit @calendar)
+          }}
         >«</button>
       {{/if}}
       <div
