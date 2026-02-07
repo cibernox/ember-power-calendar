@@ -15,6 +15,7 @@ Customizable Calendar Component for Ember.
 - 🚀 **FastBoot compatible** – works in server-rendered Ember apps.
 - 🛠 **Addon v2 ready** – modern Ember Addon v2 format.
 - 🧱 **Headless & flexible** – build any calendar or date-picker UI without being constrained by markup or styles.
+- 🎯 **Powerful selection modes** – choose between single, range, or multiple date selection
 - 🔧 **Flexible calendar API** – plug in your preferred date library (e.g., momentjs, date-fns, Luxon)
 - 🧩 **Composable** – assemble calendars using yielded subcomponents like days and navigation.
 - ♿ **Accessible by default** – full keyboard navigation, ARIA attributes, and focus management built-in.
