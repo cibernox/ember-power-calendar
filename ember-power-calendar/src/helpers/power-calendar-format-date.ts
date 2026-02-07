@@ -1,4 +1,3 @@
-import { helper } from '@ember/component/helper';
 import { formatDate } from '../utils.ts';
 
 export function powerCalendarFormatDate(
@@ -7,5 +6,3 @@ export function powerCalendarFormatDate(
 ) {
   return formatDate(date, format, locale);
 }
-
-export default helper(powerCalendarFormatDate);

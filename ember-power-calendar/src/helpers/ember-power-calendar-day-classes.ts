@@ -1,4 +1,3 @@
-import { helper } from '@ember/component/helper';
 import type { PowerCalendarAPI } from '../components/power-calendar.ts';
 import type { Week } from '../-private/days-utils.ts';
 import type { PowerCalendarDay } from '../utils.ts';
@@ -53,5 +52,3 @@ export function emberPowerCalendarDayClasses([day, calendar, weeks, dayClass]: [
   }
   return classes.join(' ');
 }
-
-export default helper(emberPowerCalendarDayClasses);
