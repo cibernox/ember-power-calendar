@@ -38,9 +38,8 @@ import { hash } from '@ember/helper';
 import { element } from 'ember-element-helper';
 
 export interface PowerCalendarMultipleAPI
-  extends Omit<PowerCalendarAPI, 'selected' | 'DaysComponent'> {
+  extends Omit<PowerCalendarAPI, 'selected'> {
   selected?: Date[];
-  DaysComponent: ComponentLike<PowerCalendarMultipleDaysSignature>;
 }
 
 export type TPowerCalendarMultipleOnSelect = (
@@ -143,7 +142,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
     return normalizeDate(center) || this.powerCalendar.getDate();
   }
 
-  get publicAPI(): PowerCalendarAPI {
+  get publicAPI(): PowerCalendarMultipleAPI {
     return {
       uniqueId: guidFor(this),
       type: this._calendarType,
@@ -185,7 +184,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
   }
 
   calendarAPI(
-    publicAPI: PowerCalendarAPI,
+    publicAPI: PowerCalendarMultipleAPI,
     components: {
       Nav: ComponentLike<PowerCalendarMultipleNavSignature>;
       Days: ComponentLike<PowerCalendarMultipleDaysSignature>;
