@@ -62,12 +62,12 @@
     "test": "echo 'A v2 addon does not have tests, run tests in test-app'"
   },
   "dependencies": {
-    "@embroider/addon-shim": "^1.10.0",
-    "decorator-transforms": "^2.3.0",
-    "@embroider/macros": "^1.17.3",
-    "ember-element-helper": "^0.8.7",
-    "ember-modifier": "^4.2.0",
-    "ember-truth-helpers": "^4.0.3 || ^5.0.0"
+    "@embroider/addon-shim": "^1.10.2",
+    "decorator-transforms": "^2.3.1",
+    "@embroider/macros": "^1.19.7",
+    "ember-element-helper": "^0.8.8",
+    "ember-modifier": "^4.3.0",
+    "ember-truth-helpers": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
@@ -108,9 +108,9 @@
     "webpack": "^5.99.8"
   },
   "peerDependencies": {
-    "@ember/test-helpers": "^2.9.4 || ^3.2.1 || ^4.0.4 || ^5.0.0",
-    "@glimmer/component": "^1.1.2 || ^2.0.0",
-    "ember-concurrency": "^4.0.4 || ^5.1.0"
+    "@ember/test-helpers": "^5.0.0",
+    "@glimmer/component": "^2.0.0",
+    "ember-concurrency": "^5.1.0"
   },
   "ember": {
     "edition": "octane"

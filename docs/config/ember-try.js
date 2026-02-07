@@ -8,43 +8,6 @@ module.exports = async function () {
     usePnpm: true,
     scenarios: [
       {
-        name: 'ember-lts-3.28',
-        npm: {
-          devDependencies: {
-            '@glimmer/component': '^1.1.2',
-            'ember-resolver': '^8.0.0',
-            'ember-cli': '~4.12.2',
-            'ember-source': '~3.28.0',
-            '@ember/test-helpers': '^2.9.3',
-            'ember-load-initializers': '^2.1.2',
-            'ember-qunit': '^6.2.0',
-          },
-        },
-      },
-      {
-        name: 'ember-lts-4.4',
-        npm: {
-          devDependencies: {
-            '@glimmer/component': '^1.1.2',
-            '@ember/test-helpers': '5.1.0',
-            '@ember/test-waiters': '^3.1.0',
-            'ember-load-initializers': '^2.1.2',
-            'ember-resolver': '^8.0.0',
-            'ember-source': '~4.4.0',
-          },
-        },
-      },
-      {
-        name: 'ember-lts-4.8',
-        npm: {
-          devDependencies: {
-            '@glimmer/component': '^1.1.2',
-            'ember-resolver': '^11.0.0',
-            'ember-source': '~4.8.0',
-          },
-        },
-      },
-      {
         name: 'ember-lts-4.12',
         npm: {
           devDependencies: {
@@ -85,10 +48,10 @@ module.exports = async function () {
         },
       },
       {
-        name: 'glimmer-component-v1',
+        name: 'ember-lts-6.8',
         npm: {
           devDependencies: {
-            '@glimmer/component': '^1.1.2',
+            'ember-source': '~6.8.0',
           },
         },
       },
