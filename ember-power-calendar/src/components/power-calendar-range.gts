@@ -167,7 +167,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
     };
   }
 
-  get tagWithDefault(): string {
+  get tagWithDefault(): keyof HTMLElementTagNameMap {
     if (this.args.tag === undefined || this.args.tag === null) {
       return 'div';
     }

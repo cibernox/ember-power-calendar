@@ -88,7 +88,7 @@ export interface PowerCalendarArgs {
   onSelect?: TPowerCalendarOnSelect;
   selected?: SelectedDays;
   center?: Date;
-  tag?: string;
+  tag?: keyof HTMLElementTagNameMap;
   ariaLabel?: boolean;
   ariaLabeledBy?: boolean;
   isDatePicker?: boolean;
@@ -187,7 +187,7 @@ export default class PowerCalendarComponent extends Component<PowerCalendarSigna
     };
   }
 
-  get tagWithDefault(): string {
+  get tagWithDefault(): keyof HTMLElementTagNameMap {
     if (this.args.tag === undefined || this.args.tag === null) {
       return 'div';
     }
