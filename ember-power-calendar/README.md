@@ -18,7 +18,7 @@ Customizable Calendar Component for Ember.
 - 🔧 **Flexible calendar API** – plug in your preferred date library (e.g., momentjs, date-fns, Luxon)
 - 🧩 **Composable** – assemble calendars using yielded subcomponents like days and navigation.
 - ♿ **Accessible by default** – full keyboard navigation, ARIA attributes, and focus management built-in.
-- 🎨 Fully customizable rendering – control how days, headers, and disabled states are displayed.
+- 🎨 **Fully customizable rendering** – control how days, headers, and disabled states are displayed.
 
 ### Compatibility
 
