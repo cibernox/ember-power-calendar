@@ -8,9 +8,9 @@ import { task } from 'ember-concurrency';
 import PowerCalendarRangeDaysComponent, {
   type PowerCalendarRangeDaysSignature,
 } from './power-calendar-range/days.gts';
-import PowerCalendarNavComponent, {
-  type PowerCalendarNavSignature,
-} from './power-calendar/nav.gts';
+import PowerCalendarRangeNavComponent, {
+  type PowerCalendarRangeNavSignature,
+} from './power-calendar-range/nav.gts';
 import { publicActionsObject } from '../-private/utils.ts';
 import {
   normalizeDate,
@@ -64,8 +64,8 @@ interface PowerCalendarRangeArgs
 
 export interface PowerCalendarRangeDefaultBlock extends PowerCalendarRangeAPI {
   Nav: ComponentLike<{
-    Args: Omit<PowerCalendarNavSignature['Args'], 'calendar'>;
-    Blocks: PowerCalendarNavSignature['Blocks'];
+    Args: Omit<PowerCalendarRangeNavSignature['Args'], 'calendar'>;
+    Blocks: PowerCalendarRangeNavSignature['Blocks'];
   }>;
   Days: ComponentLike<{
     Element: PowerCalendarRangeDaysSignature['Element'];
@@ -196,15 +196,15 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
     return null;
   }
 
-  get navComponent(): ComponentLike<PowerCalendarNavSignature> {
+  get navComponent(): ComponentLike<PowerCalendarRangeNavSignature> {
     if (this.args.navComponent) {
       return ensureSafeComponent(
         this.args.navComponent,
         this,
-      ) as ComponentLike<PowerCalendarNavSignature>;
+      ) as ComponentLike<PowerCalendarRangeNavSignature>;
     }
 
-    return PowerCalendarNavComponent as ComponentLike<PowerCalendarNavSignature>;
+    return PowerCalendarRangeNavComponent as ComponentLike<PowerCalendarRangeNavSignature>;
   }
 
   get daysComponent(): ComponentLike<PowerCalendarRangeDaysSignature> {
@@ -221,7 +221,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
   calendarAPI(
     publicAPI: PowerCalendarRangeAPI,
     components: {
-      Nav: ComponentLike<PowerCalendarNavSignature>;
+      Nav: ComponentLike<PowerCalendarRangeNavSignature>;
       Days: ComponentLike<PowerCalendarRangeDaysSignature>;
     },
   ): PowerCalendarRangeDefaultBlock {

@@ -9,9 +9,9 @@ import { task } from 'ember-concurrency';
 import PowerCalendarMultipleDaysComponent, {
   type PowerCalendarMultipleDaysSignature,
 } from './power-calendar-multiple/days.gts';
-import PowerCalendarNavComponent, {
-  type PowerCalendarNavSignature,
-} from './power-calendar/nav.gts';
+import PowerCalendarMultipleNavComponent, {
+  type PowerCalendarMultipleNavSignature,
+} from './power-calendar-multiple/nav.gts';
 import { publicActionsObject } from '../-private/utils.ts';
 import {
   normalizeDate,
@@ -58,8 +58,8 @@ interface PowerCalendarMultipleArgs
 
 interface PowerCalendarMultipleDefaultBlock extends PowerCalendarMultipleAPI {
   Nav: ComponentLike<{
-    Args: Omit<PowerCalendarNavSignature['Args'], 'calendar'>;
-    Blocks: PowerCalendarNavSignature['Blocks'];
+    Args: Omit<PowerCalendarMultipleNavSignature['Args'], 'calendar'>;
+    Blocks: PowerCalendarMultipleNavSignature['Blocks'];
   }>;
   Days: ComponentLike<{
     Element: PowerCalendarMultipleDaysSignature['Element'];
@@ -162,15 +162,15 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
     return this.args.tag;
   }
 
-  get navComponent(): ComponentLike<PowerCalendarNavSignature> {
+  get navComponent(): ComponentLike<PowerCalendarMultipleNavSignature> {
     if (this.args.navComponent) {
       return ensureSafeComponent(
         this.args.navComponent,
         this,
-      ) as ComponentLike<PowerCalendarNavSignature>;
+      ) as ComponentLike<PowerCalendarMultipleNavSignature>;
     }
 
-    return PowerCalendarNavComponent as ComponentLike<PowerCalendarNavSignature>;
+    return PowerCalendarMultipleNavComponent as ComponentLike<PowerCalendarMultipleNavSignature>;
   }
 
   get daysComponent(): ComponentLike<PowerCalendarMultipleDaysSignature> {
@@ -187,7 +187,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
   calendarAPI(
     publicAPI: PowerCalendarAPI,
     components: {
-      Nav: ComponentLike<PowerCalendarNavSignature>;
+      Nav: ComponentLike<PowerCalendarMultipleNavSignature>;
       Days: ComponentLike<PowerCalendarMultipleDaysSignature>;
     },
   ): PowerCalendarMultipleDefaultBlock {

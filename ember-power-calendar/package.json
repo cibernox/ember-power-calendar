@@ -123,8 +123,10 @@
     "app-js": {
       "./components/power-calendar-multiple.js": "./dist/_app_/components/power-calendar-multiple.js",
       "./components/power-calendar-multiple/days.js": "./dist/_app_/components/power-calendar-multiple/days.js",
+      "./components/power-calendar-multiple/nav.js": "./dist/_app_/components/power-calendar-multiple/nav.js",
       "./components/power-calendar-range.js": "./dist/_app_/components/power-calendar-range.js",
       "./components/power-calendar-range/days.js": "./dist/_app_/components/power-calendar-range/days.js",
+      "./components/power-calendar-range/nav.js": "./dist/_app_/components/power-calendar-range/nav.js",
       "./components/power-calendar.js": "./dist/_app_/components/power-calendar.js",
       "./components/power-calendar/days.js": "./dist/_app_/components/power-calendar/days.js",
       "./components/power-calendar/nav.js": "./dist/_app_/components/power-calendar/nav.js",
