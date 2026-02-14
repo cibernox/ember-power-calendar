@@ -8,7 +8,6 @@ import {
   type NormalizeRangeActionValue,
   type SelectedPowerCalendarRange,
 } from 'ember-power-calendar/test-support/helpers';
-import ownProp from 'test-app/utils/own-prop';
 import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
 import type {
   PowerCalendarRangeDay,
@@ -209,10 +208,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     this.selected = { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) };
     this.onSelect = (range: NormalizeRangeActionValue) => {
       let value =
-        range &&
-        range.date &&
-        ownProp(range.date, 'start') &&
-        ownProp(range.date, 'end');
+        range && range.date && 'start' in range.date && 'end' in range.date;
 
       assert.ok(value, 'range selected has a start and end prop');
 
@@ -242,10 +238,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     });
     this.set('onSelect', (range: NormalizeRangeActionValue) => {
       let value =
-        range &&
-        range.date &&
-        ownProp(range.date, 'start') &&
-        ownProp(range.date, 'end');
+        range && range.date && 'start' in range.date && 'end' in range.date;
 
       assert.ok(value, 'range selected has a start and end prop');
 

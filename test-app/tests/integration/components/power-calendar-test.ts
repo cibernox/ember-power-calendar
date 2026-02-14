@@ -15,7 +15,6 @@ import {
   macroCondition,
   importSync,
 } from '@embroider/macros';
-import ownProp from 'test-app/utils/own-prop';
 import type {
   NormalizeCalendarValue,
   SelectedPowerCalendarRange,
@@ -210,7 +209,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       assert.expect(3);
       this.center = new Date(2016, 1, 5);
       this.onCenterChange = function (obj, calendar, e) {
-        const value = ownProp(obj, 'moment') && ownProp(obj, 'date');
+        const value = 'moment' in obj && 'date' in obj;
         assert.ok(value, 'The first argument is a compound moment/date object');
         // @ts-expect-error Unsafe call of a(n) `error` type typed value.
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -304,7 +303,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       assert.expect(3);
       this.center = new Date(2016, 1, 5);
       this.onCenterChange = function (obj, calendar, e) {
-        const value = ownProp(obj, 'datetime') && ownProp(obj, 'date');
+        const value = 'datetime' in obj && 'date' in obj;
         assert.ok(
           value,
           'The first argument is a compound date/datetime object',

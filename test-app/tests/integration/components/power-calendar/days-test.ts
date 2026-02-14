@@ -4,8 +4,6 @@ import { render, type TestContext } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { run } from '@ember/runloop';
 import { TrackedObject } from 'tracked-built-ins';
-import ownProp from 'test-app/utils/own-prop';
-
 import { dependencySatisfies, macroCondition } from '@embroider/macros';
 import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
 import type { PowerCalendarAPI } from 'ember-power-calendar/components/power-calendar';
@@ -263,11 +261,8 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
   test<Context>('it can receive a `dayClass` property containing a function to add classes to days', async function (assert) {
     assert.expect(106);
     this.classFn = (day, calendar, weeks) => {
-      assert.ok(ownProp(day, 'isCurrentMonth'), 'the first argument is a day');
-      assert.ok(
-        ownProp(calendar, 'actions'),
-        'the second argument is the calendar',
-      );
+      assert.ok('isCurrentMonth' in day, 'the first argument is a day');
+      assert.ok('actions' in calendar, 'the second argument is the calendar');
       assert.ok(Array.isArray(weeks), 'the third argument is arr');
       return 'some-computed-class';
     };
