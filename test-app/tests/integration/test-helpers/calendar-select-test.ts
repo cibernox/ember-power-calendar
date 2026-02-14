@@ -3,14 +3,21 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, type TestContext } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { calendarSelect } from 'ember-power-calendar/test-support/helpers';
-import type { PowerCalendarAPI, TPowerCalendarOnSelect } from 'ember-power-calendar/components/power-calendar';
+import type {
+  PowerCalendarAPI,
+  TPowerCalendarOnSelect,
+} from 'ember-power-calendar/components/power-calendar';
 import type { NormalizeCalendarValue } from 'ember-power-calendar/utils';
 
 interface Context extends TestContext {
   center4: Date;
   selected4: Date;
   onSelect: TPowerCalendarOnSelect;
-  onCenterChange: (newCenter: NormalizeCalendarValue, calendar: PowerCalendarAPI, event: Event) => Promise<void> | void;
+  onCenterChange: (
+    newCenter: NormalizeCalendarValue,
+    calendar: PowerCalendarAPI,
+    event: Event,
+  ) => Promise<void> | void;
 }
 
 module('Test Support | Helper | calendarSelect', function (hooks) {

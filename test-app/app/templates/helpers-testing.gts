@@ -4,8 +4,13 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { fn } from '@ember/helper';
 import BasicDropdown from 'ember-basic-dropdown/components/basic-dropdown';
-import PowerCalendar, { type CalendarDay } from 'ember-power-calendar/components/power-calendar';
-import type { NormalizeCalendarValue, PowerCalendarDay } from 'ember-power-calendar/utils';
+import PowerCalendar, {
+  type CalendarDay,
+} from 'ember-power-calendar/components/power-calendar';
+import type {
+  NormalizeCalendarValue,
+  PowerCalendarDay,
+} from 'ember-power-calendar/utils';
 
 class HelpersTesting extends Component {
   @tracked center1: Date | undefined = new Date(2013, 9, 18);
@@ -19,7 +24,10 @@ class HelpersTesting extends Component {
   }
 
   @action
-  onCenterChange(property: 'center1' | 'center2' | 'center3' | 'center4', selected: NormalizeCalendarValue) {
+  onCenterChange(
+    property: 'center1' | 'center2' | 'center3' | 'center4',
+    selected: NormalizeCalendarValue,
+  ) {
     this[property] = selected.date;
   }
 

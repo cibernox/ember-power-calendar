@@ -4,7 +4,10 @@ import { render, click, type TestContext } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { run } from '@ember/runloop';
 import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
-import type { PowerCalendarAPI, TPowerCalendarMoveCenterUnit } from 'ember-power-calendar/components/power-calendar';
+import type {
+  PowerCalendarAPI,
+  TPowerCalendarMoveCenterUnit,
+} from 'ember-power-calendar/components/power-calendar';
 
 let calendarService: PowerCalendarService;
 let calendar: PowerCalendarAPI;
@@ -29,7 +32,9 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    calendarService = this.owner.lookup('service:power-calendar') as PowerCalendarService;
+    calendarService = this.owner.lookup(
+      'service:power-calendar',
+    ) as PowerCalendarService;
     calendarService.set('date', new Date(2013, 9, 18));
     calendar = {
       uniqueId: 'test-calendar',
@@ -47,7 +52,9 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
   test<Context>('[i18n] If the user sets a different locale in the calendar, this setting overrides the locale set in the calendar service', async function (assert) {
     assert.expect(2);
     this.calendar = calendar;
-    await render<Context>(hbs`<PowerCalendar::Nav @calendar={{this.calendar}}/>`);
+    await render<Context>(
+      hbs`<PowerCalendar::Nav @calendar={{this.calendar}}/>`,
+    );
     assert.dom('.ember-power-calendar-nav-title').hasText('October 2013');
     run(() => this.set('calendar.locale', 'es'));
     assert.dom('.ember-power-calendar-nav-title').hasText('octubre 2013');
@@ -70,7 +77,9 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
       moved.push({ step, unit });
       await Promise.resolve();
     };
-    await render<Context>(hbs`<PowerCalendar::Nav @calendar={{this.calendar}}/>`);
+    await render<Context>(
+      hbs`<PowerCalendar::Nav @calendar={{this.calendar}}/>`,
+    );
     await click('.ember-power-calendar-nav-control--previous');
     await click('.ember-power-calendar-nav-control--next');
 

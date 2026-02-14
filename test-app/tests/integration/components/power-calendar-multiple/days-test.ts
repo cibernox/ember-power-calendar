@@ -29,7 +29,9 @@ module(
     setupRenderingTest(hooks);
 
     hooks.beforeEach(function () {
-      const calendarService = this.owner.lookup('service:power-calendar') as PowerCalendarService;
+      const calendarService = this.owner.lookup(
+        'service:power-calendar',
+      ) as PowerCalendarService;
       calendarService.set('date', new Date(2013, 9, 18));
     });
 
@@ -144,7 +146,9 @@ module(
     `);
       await click('.ember-power-calendar-day[data-date="2013-10-05"]');
 
-      const weeks = this.element.querySelectorAll<HTMLElement>('.ember-power-calendar-week');
+      const weeks = this.element.querySelectorAll<HTMLElement>(
+        '.ember-power-calendar-week',
+      );
       assert
         .dom('.ember-power-calendar-day', weeks[0])
         .exists({ count: 5 }, 'The first week has 6 days');

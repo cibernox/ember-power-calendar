@@ -1,6 +1,12 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click, focus, triggerKeyEvent, type TestContext } from '@ember/test-helpers';
+import {
+  render,
+  click,
+  focus,
+  triggerKeyEvent,
+  type TestContext,
+} from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
@@ -10,8 +16,14 @@ import {
   importSync,
 } from '@embroider/macros';
 import ownProp from 'test-app/utils/own-prop';
-import type { NormalizeCalendarValue, SelectedPowerCalendarRange } from 'ember-power-calendar/utils';
-import type { PowerCalendarAPI, TPowerCalendarOnSelect } from 'ember-power-calendar/components/power-calendar';
+import type {
+  NormalizeCalendarValue,
+  SelectedPowerCalendarRange,
+} from 'ember-power-calendar/utils';
+import type {
+  PowerCalendarAPI,
+  TPowerCalendarOnSelect,
+} from 'ember-power-calendar/components/power-calendar';
 import type * as momentNs from 'moment';
 import type { TPowerCalendarRangeOnSelect } from 'ember-power-calendar/components/power-calendar-range';
 import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
@@ -31,8 +43,16 @@ interface Context extends TestContext {
   minDate: Date | undefined;
   maxDate: Date | undefined;
   disabledDates: (string | Date)[] | undefined;
-  onCenterChange: (newCenter: NormalizeCalendarValue, calendar: PowerCalendarAPI, event: Event) => Promise<void> | void;
-  moveCenter?: (newCenter: NormalizeCalendarValue, calendar: PowerCalendarAPI, event: Event) => Promise<void> | void;
+  onCenterChange: (
+    newCenter: NormalizeCalendarValue,
+    calendar: PowerCalendarAPI,
+    event: Event,
+  ) => Promise<void> | void;
+  moveCenter?: (
+    newCenter: NormalizeCalendarValue,
+    calendar: PowerCalendarAPI,
+    event: Event,
+  ) => Promise<void> | void;
   onSelect?: TPowerCalendarOnSelect;
 }
 
@@ -48,7 +68,9 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    const calendarService = this.owner.lookup('service:power-calendar') as PowerCalendarService;
+    const calendarService = this.owner.lookup(
+      'service:power-calendar',
+    ) as PowerCalendarService;
     calendarService.date = new Date(2013, 9, 18);
   });
 
@@ -251,7 +273,11 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     test<Context>('when it receives a DateTime in the `center` argument, it displays that month', async function (assert) {
       assert.expect(3);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-      this.center = DateTime.fromObject({ year: 2016, month: 2, day: 5 }) as Date;
+      this.center = DateTime.fromObject({
+        year: 2016,
+        month: 2,
+        day: 5,
+      }) as Date;
       await render<Context>(hbs`
         <PowerCalendar @center={{this.center}} as |calendar|>
           <calendar.Nav/>
@@ -304,7 +330,11 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     test<Context>('when it receives a DateTime in the `selected` argument, it displays that month, and that day is marked as selected', async function (assert) {
       assert.expect(4);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-      this.selected = DateTime.fromObject({ year: 2016, month: 2, day: 5 }) as Date;
+      this.selected = DateTime.fromObject({
+        year: 2016,
+        month: 2,
+        day: 5,
+      }) as Date;
       await render<Context>(hbs`
       <PowerCalendar @selected={{this.selected}} as |calendar|>
         <calendar.Nav/>

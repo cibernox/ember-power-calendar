@@ -19,7 +19,9 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    const calendarService = this.owner.lookup('service:power-calendar') as PowerCalendarService;
+    const calendarService = this.owner.lookup(
+      'service:power-calendar',
+    ) as PowerCalendarService;
     calendarService.date = new Date(2013, 9, 18);
   });
 
@@ -154,7 +156,16 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       new Date(2013, 9, 15),
       new Date(2013, 9, 9),
       new Date(2013, 9, 15),
-    ].map((date) => ({ id: `test-${Math.random()}`, number: 1, date, isFocused: false, isCurrentMonth: true, isToday: false, isDisabled: false, isSelected: false }));
+    ].map((date) => ({
+      id: `test-${Math.random()}`,
+      number: 1,
+      date,
+      isFocused: false,
+      isCurrentMonth: true,
+      isToday: false,
+      isDisabled: false,
+      isSelected: false,
+    }));
 
     this.onSelect = (days) => {
       assert.strictEqual(days.date.length, 2);
