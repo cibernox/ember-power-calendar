@@ -38,10 +38,7 @@ function findCalendarGuid(selector: string): string | undefined {
 
 function findComponentInstance(
   selector: string,
-):
-  | PowerCalendar
-  | PowerCalendarMultiple
-  | PowerCalendarRange {
+): PowerCalendar | PowerCalendarMultiple | PowerCalendarRange {
   const calendarGuid = findCalendarGuid(selector);
   assert(
     `Could not find a calendar using selector: "${selector}"`,
@@ -60,9 +57,7 @@ export async function calendarCenter(
     '`calendarCenter` expect a Date object as second argument',
     newCenter instanceof Date,
   );
-  const calendarComponent = findComponentInstance(
-    selector,
-  ) as PowerCalendar;
+  const calendarComponent = findComponentInstance(selector) as PowerCalendar;
   const onCenterChange = calendarComponent.args.onCenterChange;
   assert(
     "You cannot call `calendarCenter` on a component that doesn't has an `@onCenterChange` action",
