@@ -206,7 +206,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
     };
   }
 
-  get tagWithDefault(): keyof HTMLElementTagNameMap | '' {
+  get tagWithDefault(): keyof HTMLElementTagNameMap {
     if (this.args.tag === undefined || this.args.tag === null) {
       return 'div';
     }

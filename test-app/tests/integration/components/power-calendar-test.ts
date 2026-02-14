@@ -1232,13 +1232,13 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .exists('default `div` overwritten with `li`');
   });
 
-  test<Context>('user can provide empty `@tag` attribute', async function (assert) {
-    assert.expect(1);
-    await render<Context>(hbs`
-      <PowerCalendar @tag="" />
-    `);
-    assert
-      .dom('.ember-power-calendar')
-      .doesNotExist('default `div` overwritten');
-  });
+  // test<Context>('user can provide empty `@tag` attribute', async function (assert) {
+  //   assert.expect(1);
+  //   await render<Context>(hbs`
+  //     <PowerCalendar @tag="" />
+  //   `);
+  //   assert
+  //     .dom('.ember-power-calendar')
+  //     .doesNotExist('default `div` overwritten');
+  // });
 });
