@@ -2,19 +2,33 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-import { calendarCenter } from 'ember-power-calendar/test-support/helpers';
+import {
+  calendarCenter,
+  type NormalizeCalendarValue,
+} from 'ember-power-calendar/test-support/helpers';
+import type { TestContext } from '@ember/test-helpers';
+import type { PowerCalendarAPI } from 'ember-power-calendar/components/power-calendar';
+
+interface Context extends TestContext {
+  center1: Date;
+  onCenterChange: (
+    newCenter: NormalizeCalendarValue,
+    calendar: PowerCalendarAPI,
+    event: Event,
+  ) => Promise<void> | void;
+}
 
 module('Test Support | Helper | calendarCenter', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('`calendarCenter` invokes the `@onCenterChange` action of the target component inside the selector we pass it', async function (assert) {
+  test<Context>('`calendarCenter` invokes the `@onCenterChange` action of the target component inside the selector we pass it', async function (assert) {
     assert.expect(3);
     this.center1 = new Date(2013, 9, 18);
     this.onCenterChange = (selected) => {
       this.set('center1', selected.date);
     };
 
-    await render(hbs`
+    await render<Context>(hbs`
       <div class="calendar-center-1">
         <PowerCalendar @center={{this.center1}} @onCenterChange={{this.onCenterChange}} as |calendar|>
           <calendar.Nav/>
@@ -35,14 +49,14 @@ module('Test Support | Helper | calendarCenter', function (hooks) {
       .exists('The days component has updated');
   });
 
-  test('`calendarCenter` throws an error it cannot find a calendar using the given selector', async function (assert) {
+  test<Context>('`calendarCenter` throws an error it cannot find a calendar using the given selector', async function (assert) {
     assert.expect(1);
     await render(hbs`<div>No calendars!</div>`);
     try {
       await calendarCenter('.non-exister-selector', new Date(2013, 8, 3));
     } catch (error) {
       assert.strictEqual(
-        error.message,
+        (error as Error).message,
         'Assertion Failed: Could not find a calendar using selector: ".non-exister-selector"',
       );
     }

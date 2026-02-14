@@ -3,7 +3,9 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 import service from '../../-private/service.ts';
-import emberPowerCalendarDayClasses from '../../helpers/ember-power-calendar-day-classes.ts';
+import emberPowerCalendarDayClasses, {
+  type TDayClass,
+} from '../../helpers/ember-power-calendar-day-classes.ts';
 import { or } from 'ember-truth-helpers';
 import {
   isBetween,
@@ -18,6 +20,7 @@ import {
   normalizeDate,
   type PowerCalendarDay,
   formatDate,
+  type TWeekdayFormat,
 } from '../../utils.ts';
 import {
   buildDay,
@@ -31,30 +34,36 @@ import {
   handleClick,
   dayIsDisabled,
   DAY_IN_MS,
-  type TWeekdayFormat,
   type Week,
 } from '../../-private/days-utils.ts';
 import { modifier } from 'ember-modifier';
 import { on } from '@ember/modifier';
-import type {
-  PowerCalendarDaysArgs,
-  PowerCalendarDaysSignature,
-} from '../power-calendar/days.ts';
+import type { PowerCalendarDaysArgs } from '../power-calendar/days.ts';
 import type { PowerCalendarRangeAPI } from '../power-calendar-range.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 
-interface PowerCalendarMultipleDaysArgs
-  extends Omit<PowerCalendarDaysArgs, 'calendar' | 'selected'> {
+interface PowerCalendarMultipleDaysArgs extends Omit<
+  PowerCalendarDaysArgs,
+  'calendar' | 'dayClass' | 'selected'
+> {
   calendar: PowerCalendarRangeAPI;
+  dayClass?: TDayClass<PowerCalendarRangeAPI>;
   selected?: {
     start: Date | null;
     end: Date | null;
   };
 }
 
-export interface PowerCalendarRangeDaysSignature
-  extends Omit<PowerCalendarDaysSignature, 'Args'> {
+export interface PowerCalendarRangeDaysSignature {
+  Element: HTMLElement;
   Args: PowerCalendarMultipleDaysArgs;
+  Blocks: {
+    default: [
+      day: PowerCalendarDay,
+      calendar: PowerCalendarRangeAPI,
+      weeks: Week[],
+    ];
+  };
 }
 
 export default class PowerCalendarRangeDaysComponent extends Component<PowerCalendarRangeDaysSignature> {

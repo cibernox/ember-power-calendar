@@ -14,6 +14,7 @@ import {
   normalizeDate,
   withLocale,
   type PowerCalendarDay,
+  type TWeekdayFormat,
 } from '../../utils.ts';
 import type { PowerCalendarMultipleAPI } from '../power-calendar-multiple.ts';
 import {
@@ -27,30 +28,37 @@ import {
   handleDayKeyDown,
   focusDate,
   handleClick,
-  type TWeekdayFormat,
   type Week,
 } from '../../-private/days-utils.ts';
 import { modifier } from 'ember-modifier';
 import { or } from 'ember-truth-helpers';
 import { on } from '@ember/modifier';
-import emberPowerCalendarDayClasses from '../../helpers/ember-power-calendar-day-classes.ts';
-import type { CalendarAPI } from '../power-calendar.ts';
+import emberPowerCalendarDayClasses, {
+  type TDayClass,
+} from '../../helpers/ember-power-calendar-day-classes.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
-import type {
-  PowerCalendarDaysArgs,
-  PowerCalendarDaysSignature,
-} from '../power-calendar/days.ts';
+import type { PowerCalendarDaysArgs } from '../power-calendar/days.ts';
 
-interface PowerCalendarMultipleDaysArgs
-  extends Omit<PowerCalendarDaysArgs, 'calendar' | 'selected'> {
+interface PowerCalendarMultipleDaysArgs extends Omit<
+  PowerCalendarDaysArgs,
+  'calendar' | 'dayClass' | 'selected'
+> {
   calendar: PowerCalendarMultipleAPI;
+  dayClass?: TDayClass<PowerCalendarMultipleAPI>;
   selected?: Date[];
   maxLength?: number;
 }
 
-export interface PowerCalendarMultipleDaysSignature
-  extends Omit<PowerCalendarDaysSignature, 'Args'> {
+export interface PowerCalendarMultipleDaysSignature {
+  Element: HTMLElement;
   Args: PowerCalendarMultipleDaysArgs;
+  Blocks: {
+    default: [
+      day: PowerCalendarDay,
+      calendar: PowerCalendarMultipleAPI,
+      weeks: Week[],
+    ];
+  };
 }
 
 export default class PowerCalendarMultipleDaysComponent extends Component<PowerCalendarMultipleDaysSignature> {
@@ -293,8 +301,11 @@ export default class PowerCalendarMultipleDaysComponent extends Component<PowerC
   }
 
   // Methods
-  dayIsSelected(date: Date, calendar: CalendarAPI = this.args.calendar) {
-    const selected = (calendar as PowerCalendarMultipleAPI).selected || [];
+  dayIsSelected(
+    date: Date,
+    calendar: PowerCalendarMultipleAPI = this.args.calendar,
+  ) {
+    const selected = calendar.selected || [];
     return selected.some((d) => isSame(date, d, 'day'));
   }
 
@@ -304,12 +315,12 @@ export default class PowerCalendarMultipleDaysComponent extends Component<PowerC
 
   dayIsDisabled(
     date: Date,
-    calendarApi: CalendarAPI,
+    calendarApi: PowerCalendarMultipleAPI,
     minDate?: Date,
     maxDate?: Date,
     disabledDates?: Array<Date | string>,
   ) {
-    const calendar = calendarApi as PowerCalendarMultipleAPI;
+    const calendar = calendarApi;
     const numSelected = (calendar.selected && calendar.selected.length) || 0;
     const maxLength = this.maxLength || Infinity;
     return (

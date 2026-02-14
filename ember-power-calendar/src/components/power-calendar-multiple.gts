@@ -5,14 +5,13 @@ import service from '../-private/service.ts';
 import { assert } from '@ember/debug';
 import { isArray } from '@ember/array';
 import { action } from '@ember/object';
-import { task } from 'ember-concurrency';
+import { task, type TaskInstance } from 'ember-concurrency';
 import PowerCalendarMultipleDaysComponent, {
   type PowerCalendarMultipleDaysSignature,
 } from './power-calendar-multiple/days.gts';
 import PowerCalendarMultipleNavComponent, {
   type PowerCalendarMultipleNavSignature,
 } from './power-calendar-multiple/nav.gts';
-import { publicActionsObject } from '../-private/utils.ts';
 import {
   normalizeDate,
   isSame,
@@ -20,15 +19,15 @@ import {
   normalizeCalendarValue,
   type NormalizeMultipleActionValue,
   type PowerCalendarDay,
+  type NormalizeCalendarValue,
+  add,
 } from '../utils.ts';
 import type {
-  CalendarAPI,
-  CalendarDay,
+  // CalendarDay,
   PowerCalendarAPI,
-  PowerCalendarActions,
   PowerCalendarArgs,
   SelectedDays,
-  TCalendarType,
+  TPowerCalendarMoveCenterUnit,
 } from './power-calendar.ts';
 import type Owner from '@ember/owner';
 import type { ComponentLike } from '@glint/template';
@@ -36,26 +35,59 @@ import type PowerCalendarService from '../services/power-calendar.ts';
 import { hash } from '@ember/helper';
 import { element } from 'ember-element-helper';
 
-export interface PowerCalendarMultipleAPI
-  extends Omit<PowerCalendarAPI, 'selected'> {
+export interface PowerCalendarMultipleActions {
+  changeCenter?: (
+    newCenter: Date,
+    calendar: PowerCalendarMultipleAPI,
+    event: MouseEvent,
+  ) => TaskInstance<void>;
+  moveCenter?: (
+    step: number,
+    unit: TPowerCalendarMoveCenterUnit,
+    calendar: PowerCalendarMultipleAPI,
+    event: MouseEvent | KeyboardEvent,
+  ) => Promise<void>;
+  select?: (
+    day: PowerCalendarDay | PowerCalendarDay[],
+    calendar: PowerCalendarMultipleAPI,
+    event: MouseEvent,
+  ) => void;
+}
+
+export interface PowerCalendarMultipleAPI extends Omit<
+  PowerCalendarAPI,
+  'type' | 'selected' | 'actions'
+> {
+  type: 'multiple';
   selected?: Date[];
+  actions: PowerCalendarMultipleActions;
 }
 
 export type TPowerCalendarMultipleOnSelect = (
   day: NormalizeMultipleActionValue,
   calendar: PowerCalendarMultipleAPI,
-  event: MouseEvent,
+  event?: Event,
 ) => void;
 
-interface PowerCalendarMultipleArgs
-  extends Omit<
-    PowerCalendarArgs,
-    'navComponent' | 'daysComponent' | 'selected' | 'onSelect'
-  > {
+interface PowerCalendarMultipleArgs extends Omit<
+  PowerCalendarArgs,
+  | 'navComponent'
+  | 'daysComponent'
+  | 'selected'
+  | 'onSelect'
+  | 'onCenterChange'
+  | 'onInit'
+> {
   navComponent?: ComponentLike<PowerCalendarMultipleNavSignature>;
   daysComponent?: ComponentLike<PowerCalendarMultipleDaysSignature>;
   selected?: Date[];
   onSelect?: TPowerCalendarMultipleOnSelect;
+  onInit?: (calendar: PowerCalendarMultipleAPI) => void;
+  onCenterChange?: (
+    newCenter: NormalizeCalendarValue,
+    calendar: PowerCalendarMultipleAPI,
+    event: Event,
+  ) => Promise<void> | void;
 }
 
 interface PowerCalendarMultipleDefaultBlock extends PowerCalendarMultipleAPI {
@@ -82,7 +114,6 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked center = null;
-  @tracked _calendarType: TCalendarType = 'multiple';
   @tracked _selected?: SelectedDays;
 
   // Lifecycle hooks
@@ -99,14 +130,33 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
     this.unregisterCalendar();
   }
 
-  get publicActions(): PowerCalendarActions {
-    return publicActionsObject(
-      this.args.onSelect,
-      this.select.bind(this),
-      this.args.onCenterChange,
-      this.changeCenterTask,
-      this.currentCenter,
-    );
+  get publicActions(): PowerCalendarMultipleActions {
+    const onSelect = this.args.onSelect;
+    const select = this.select.bind(this);
+    const onCenterChange = this.args.onCenterChange;
+    const changeCenterTask = this.changeCenterTask;
+    const currentCenter = this.currentCenter;
+
+    const actions: PowerCalendarMultipleActions = {};
+    if (onSelect) {
+      actions.select = (...args) => select(...args);
+    }
+    if (onCenterChange) {
+      const changeCenter = (
+        newCenter: Date,
+        calendar: PowerCalendarMultipleAPI,
+        e: Event,
+      ) => {
+        return changeCenterTask.perform(newCenter, calendar, e);
+      };
+      actions.changeCenter = changeCenter;
+      actions.moveCenter = async (step, unit, calendar, e) => {
+        const newCenter = add(currentCenter, step, unit);
+        return await changeCenter(newCenter, calendar, e);
+      };
+    }
+
+    return actions;
   }
 
   get selected(): Date[] | undefined {
@@ -148,7 +198,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
   get publicAPI(): PowerCalendarMultipleAPI {
     return {
       uniqueId: guidFor(this),
-      type: this._calendarType,
+      type: 'multiple',
       selected: this.selected,
       loading: this.changeCenterTask.isRunning,
       center: this.currentCenter,
@@ -194,7 +244,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
 
   // Tasks
   changeCenterTask = task(
-    async (newCenter: Date, calendar: PowerCalendarAPI, e: MouseEvent) => {
+    async (newCenter: Date, calendar: PowerCalendarMultipleAPI, e: Event) => {
       assert(
         "You attempted to move the center of a calendar that doesn't receive an `@onCenterChange` action.",
         typeof this.args.onCenterChange === 'function',
@@ -206,7 +256,12 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
 
   // Actions
   @action
-  select(dayOrDays: CalendarDay, calendar: CalendarAPI, e: MouseEvent) {
+  select(
+    dayOrDays: PowerCalendarDay | PowerCalendarDay[],
+    calendar: PowerCalendarMultipleAPI,
+    e?: Event,
+  ) {
+    console.log('dayOrDays', dayOrDays);
     assert(
       `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`,
       isArray(dayOrDays) ||
@@ -224,7 +279,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
     if (this.args.onSelect) {
       this.args.onSelect(
         this._buildCollection((days as PowerCalendarDay[]) ?? []),
-        calendar as PowerCalendarMultipleAPI,
+        calendar,
         e,
       );
     }

@@ -10,6 +10,5 @@ export interface CodeSnippetRegistry {
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry
-    extends EmberPowerCalendarRegistry,
-      CodeSnippetRegistry {}
+    extends EmberPowerCalendarRegistry, CodeSnippetRegistry {}
 }

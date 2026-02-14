@@ -1,19 +1,31 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click } from '@ember/test-helpers';
+import { render, click, type TestContext } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { run } from '@ember/runloop';
 import { isSame, formatDate } from 'ember-power-calendar/test-support/helpers';
+import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
+import type { TPowerCalendarMultipleOnSelect } from 'ember-power-calendar/components/power-calendar-multiple';
+import type { PowerCalendarDay } from 'ember-power-calendar/utils';
+
+interface Context extends TestContext {
+  disabledDates: Date[];
+  datesToSelect: PowerCalendarDay[];
+  selected: Date[] | undefined;
+  onSelect?: TPowerCalendarMultipleOnSelect | undefined;
+}
 
 module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    let calendarService = this.owner.lookup('service:power-calendar');
-    calendarService.set('date', new Date(2013, 9, 18));
+    const calendarService = this.owner.lookup(
+      'service:power-calendar',
+    ) as PowerCalendarService;
+    calendarService.date = new Date(2013, 9, 18);
   });
 
-  test('When a multiple calendar receives an array of dates, those dates are marked as selected', async function (assert) {
+  test<Context>('When a multiple calendar receives an array of dates, those dates are marked as selected', async function (assert) {
     assert.expect(5);
     this.selected = [
       new Date(2016, 1, 5),
@@ -21,7 +33,7 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       new Date(2016, 1, 15),
     ];
 
-    await render(hbs`
+    await render<Context>(hbs`
       <PowerCalendarMultiple @selected={{this.selected}} as |calendar|>
         <calendar.Nav/>
         <calendar.Days/>
@@ -59,27 +71,29 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       );
   });
 
-  test('When days are clicked in a multiple calendar, the `onSelect` action is called with the acumulated list of days, in the order they were clicked', async function (assert) {
+  test<Context>('When days are clicked in a multiple calendar, the `onSelect` action is called with the acumulated list of days, in the order they were clicked', async function (assert) {
     let callsCount = 0;
-    this.didChange = (days, calendar, e) => {
+    this.onSelect = (days, calendar, e) => {
       callsCount++;
       if (callsCount === 1) {
         assert.strictEqual(days.date.length, 1);
-        assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
+        assert.ok(isSame(days.date[0]!, new Date(2013, 9, 5), 'day'));
       } else if (callsCount === 2) {
         assert.strictEqual(days.date.length, 2);
-        assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
-        assert.ok(isSame(days.date[1], new Date(2013, 9, 15), 'day'));
+        assert.ok(isSame(days.date[0]!, new Date(2013, 9, 5), 'day'));
+        assert.ok(isSame(days.date[1]!, new Date(2013, 9, 15), 'day'));
       } else if (callsCount === 3) {
         assert.strictEqual(days.date.length, 3);
-        assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
-        assert.ok(isSame(days.date[1], new Date(2013, 9, 15), 'day'));
-        assert.ok(isSame(days.date[2], new Date(2013, 9, 9), 'day'));
+        assert.ok(isSame(days.date[0]!, new Date(2013, 9, 5), 'day'));
+        assert.ok(isSame(days.date[1]!, new Date(2013, 9, 15), 'day'));
+        assert.ok(isSame(days.date[2]!, new Date(2013, 9, 9), 'day'));
       } else {
         assert.strictEqual(days.date.length, 2);
-        assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
-        assert.ok(isSame(days.date[1], new Date(2013, 9, 9), 'day'));
+        assert.ok(isSame(days.date[0]!, new Date(2013, 9, 5), 'day'));
+        assert.ok(isSame(days.date[1]!, new Date(2013, 9, 9), 'day'));
       }
+      // @ts-expect-error Unsafe call of a(n) `error` type typed value.
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       assert.isCalendar(
         calendar,
         "The second argument is the calendar's public API",
@@ -88,8 +102,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       this.set('selected', days.date);
     };
 
-    await render(hbs`
-      <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.didChange}} as |calendar|>
+    await render<Context>(hbs`
+      <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
         <calendar.Nav/>
         <calendar.Days/>
       </PowerCalendarMultiple>
@@ -136,35 +150,46 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       .hasClass('ember-power-calendar-day--selected');
   });
 
-  test('When an array of day objects are passed to the select action they are processed one at a time and added to the selected list passed to the user', async function (assert) {
+  test<Context>('When an array of day objects are passed to the select action they are processed one at a time and added to the selected list passed to the user', async function (assert) {
     this.datesToSelect = [
       new Date(2013, 9, 5),
       new Date(2013, 9, 15),
       new Date(2013, 9, 9),
       new Date(2013, 9, 15),
-    ].map((date) => ({ date }));
+    ].map((date) => ({
+      id: `test-${Math.random()}`,
+      number: 1,
+      date,
+      isFocused: false,
+      isCurrentMonth: true,
+      isToday: false,
+      isDisabled: false,
+      isSelected: false,
+    }));
 
-    this.didChange = (days) => {
+    this.onSelect = (days) => {
       assert.strictEqual(days.date.length, 2);
-      assert.ok(isSame(days.date[0], new Date(2013, 9, 5), 'day'));
-      assert.ok(isSame(days.date[1], new Date(2013, 9, 9), 'day'));
+      assert.ok(isSame(days.date[0]!, new Date(2013, 9, 5), 'day'));
+      assert.ok(isSame(days.date[1]!, new Date(2013, 9, 9), 'day'));
     };
 
-    await render(hbs`
-      <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.didChange}} as |calendar|>
-        <button type="button" {{on "click" (fn calendar.actions.select this.datesToSelect)}} id="test_button"></button>
+    await render<Context>(hbs`
+      <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
+        {{#if calendar.actions.select}}
+          <button type="button" {{on "click" (fn calendar.actions.select this.datesToSelect calendar)}} id="test_button"></button>
+        {{/if}}
       </PowerCalendarMultiple>
     `);
 
     await click('#test_button');
   });
 
-  test('Clicking on a day selects it, and clicking again on it unselects it', async function (assert) {
+  test<Context>('Clicking on a day selects it, and clicking again on it unselects it', async function (assert) {
     assert.expect(13);
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render(hbs`
+    await render<Context>(hbs`
       <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
         <calendar.Nav/>
         <calendar.Days/>
@@ -198,25 +223,25 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-12"]')
       .hasClass('ember-power-calendar-day--selected');
     assert.strictEqual(
-      formatDate(this.selected[0], 'YYYY-MM-DD'),
+      formatDate(this.selected![0]!, 'YYYY-MM-DD'),
       '2013-10-05',
     );
     assert.strictEqual(
-      formatDate(this.selected[1], 'YYYY-MM-DD'),
+      formatDate(this.selected![1]!, 'YYYY-MM-DD'),
       '2013-10-10',
     );
     assert.strictEqual(
-      formatDate(this.selected[2], 'YYYY-MM-DD'),
+      formatDate(this.selected![2]!, 'YYYY-MM-DD'),
       '2013-10-12',
     );
 
     await click('.ember-power-calendar-day[data-date="2013-10-10"]');
     assert.strictEqual(
-      formatDate(this.selected[0], 'YYYY-MM-DD'),
+      formatDate(this.selected![0]!, 'YYYY-MM-DD'),
       '2013-10-05',
     );
     assert.strictEqual(
-      formatDate(this.selected[1], 'YYYY-MM-DD'),
+      formatDate(this.selected![1]!, 'YYYY-MM-DD'),
       '2013-10-12',
     );
 
@@ -227,7 +252,7 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       .doesNotExist('No days are selected');
   });
 
-  test('If the user passes `@disabledDates=someDate` to multiple calendars, days on those days are disabled', async function (assert) {
+  test<Context>('If the user passes `@disabledDates=someDate` to multiple calendars, days on those days are disabled', async function (assert) {
     assert.expect(13);
     this.disabledDates = [
       new Date(2013, 9, 15),
@@ -238,7 +263,7 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render(hbs`
+    await render<Context>(hbs`
       <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
         <calendar.Nav/>
         <calendar.Days @disabledDates={{this.disabledDates}}/>

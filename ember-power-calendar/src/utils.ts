@@ -1,3 +1,12 @@
+import type { TaskInstance } from 'ember-concurrency';
+import type {
+  TCalendarType,
+  TPowerCalendarMoveCenterUnit,
+} from './components/power-calendar';
+import type { PowerCalendarRangeDay } from './components/power-calendar-range';
+
+export type TWeekdayFormat = 'min' | 'short' | 'long';
+
 export interface DateLibrary {
   add: (date: Date, quantity: number, unit: string) => Date;
   formatDate: (date: Date, format: string, locale: string | null) => string;
@@ -85,6 +94,34 @@ export interface PowerCalendarDay {
   isRangeStart?: boolean; //	It is true if this day is the beginning of a range. It is false in non-range calendars
   isRangeEnd?: boolean; //	It is true if this day is the end of a range. It is false in non-range calendars
   isDisabled: boolean; //	It is true if days are not in range for range calendars or are included in disabled dates.
+}
+
+export interface BaseCalendarAPI<T extends BaseCalendarAPI<T>> {
+  type: TCalendarType;
+  uniqueId: string;
+  calendarUniqueId?: string;
+  loading: boolean;
+  center: Date;
+  locale: string;
+  actions: BasePowerCalendarActions<T>;
+}
+
+export type DayType<CalendarType extends TCalendarType> =
+  CalendarType extends 'range' ? PowerCalendarRangeDay : PowerCalendarDay;
+
+export interface BasePowerCalendarActions<T extends BaseCalendarAPI<T>> {
+  changeCenter?: (
+    newCenter: Date,
+    calendar: T,
+    event: MouseEvent,
+  ) => TaskInstance<void>;
+  moveCenter?: (
+    step: number,
+    unit: TPowerCalendarMoveCenterUnit,
+    calendar: T,
+    event: MouseEvent | KeyboardEvent,
+  ) => Promise<void>;
+  select?: (day: DayType<T['type']>, calendar: T, e: MouseEvent) => void;
 }
 
 let dateLib: DateLibrary;

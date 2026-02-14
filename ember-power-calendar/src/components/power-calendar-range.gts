@@ -4,14 +4,13 @@ import { action } from '@ember/object';
 import service from '../-private/service.ts';
 import { guidFor } from '@ember/object/internals';
 import { assert } from '@ember/debug';
-import { task } from 'ember-concurrency';
+import { task, type TaskInstance } from 'ember-concurrency';
 import PowerCalendarRangeDaysComponent, {
   type PowerCalendarRangeDaysSignature,
 } from './power-calendar-range/days.gts';
 import PowerCalendarRangeNavComponent, {
   type PowerCalendarRangeNavSignature,
 } from './power-calendar-range/nav.gts';
-import { publicActionsObject } from '../-private/utils.ts';
 import {
   normalizeDate,
   normalizeRangeActionValue,
@@ -20,18 +19,19 @@ import {
   isBefore,
   normalizeDuration,
   normalizeCalendarValue,
+  add,
   type NormalizeRangeActionValue,
   type PowerCalendarDay,
   type SelectedPowerCalendarRange,
+  type NormalizeCalendarValue,
 } from '../utils.ts';
 import type {
   PowerCalendarAPI,
   PowerCalendarArgs,
-  TCalendarType,
   SelectedDays,
-  PowerCalendarActions,
-  CalendarDay,
-  CalendarAPI,
+  // PowerCalendarActions,
+  // CalendarDay,
+  TPowerCalendarMoveCenterUnit,
 } from './power-calendar.ts';
 import { DAY_IN_MS as UTILS_DAY_IN_MS } from '../-private/days-utils.ts';
 import { element } from 'ember-element-helper';
@@ -41,7 +41,7 @@ import type { ComponentLike } from '@glint/template';
 import type PowerCalendarService from '../services/power-calendar.ts';
 
 export interface PowerCalendarRangeDay extends Omit<PowerCalendarDay, 'date'> {
-  date: SelectedPowerCalendarRange;
+  date: SelectedPowerCalendarRange | Date;
 }
 
 export const DAY_IN_MS = UTILS_DAY_IN_MS;
@@ -49,14 +49,18 @@ export const DAY_IN_MS = UTILS_DAY_IN_MS;
 export type TPowerCalendarRangeOnSelect = (
   day: NormalizeRangeActionValue,
   calendar: PowerCalendarRangeAPI,
-  event: MouseEvent,
+  event?: Event,
 ) => void;
 
-interface PowerCalendarRangeArgs
-  extends Omit<
-    PowerCalendarArgs,
-    'daysComponent' | 'navComponent' | 'selected' | 'onSelect'
-  > {
+interface PowerCalendarRangeArgs extends Omit<
+  PowerCalendarArgs,
+  | 'daysComponent'
+  | 'navComponent'
+  | 'selected'
+  | 'onSelect'
+  | 'onCenterChange'
+  | 'onInit'
+> {
   navComponent?: ComponentLike<PowerCalendarRangeNavSignature>;
   daysComponent?: ComponentLike<PowerCalendarRangeDaysSignature>;
   selected?: SelectedPowerCalendarRange;
@@ -64,6 +68,12 @@ interface PowerCalendarRangeArgs
   maxRange?: number;
   proximitySelection?: boolean;
   onSelect?: TPowerCalendarRangeOnSelect;
+  onInit?: (calendar: PowerCalendarRangeAPI) => void;
+  onCenterChange?: (
+    newCenter: NormalizeCalendarValue,
+    calendar: PowerCalendarRangeAPI,
+    event: Event,
+  ) => Promise<void> | void;
 }
 
 export interface PowerCalendarRangeDefaultBlock extends PowerCalendarRangeAPI {
@@ -86,18 +96,40 @@ interface PowerCalendarRangeSignature {
   };
 }
 
-export interface PowerCalendarRangeAPI
-  extends Omit<PowerCalendarAPI, 'selected'> {
+export interface PowerCalendarRangeActions {
+  changeCenter?: (
+    newCenter: Date,
+    calendar: PowerCalendarRangeAPI,
+    event: Event,
+  ) => TaskInstance<void>;
+  moveCenter?: (
+    step: number,
+    unit: TPowerCalendarMoveCenterUnit,
+    calendar: PowerCalendarRangeAPI,
+    event: Event | KeyboardEvent,
+  ) => Promise<void>;
+  select?: (
+    day: PowerCalendarRangeDay,
+    calendar: PowerCalendarRangeAPI,
+    event?: Event,
+  ) => void;
+}
+
+export interface PowerCalendarRangeAPI extends Omit<
+  PowerCalendarAPI,
+  'type' | 'selected' | 'actions'
+> {
+  type: 'range';
   selected?: SelectedPowerCalendarRange;
   minRange?: number | null;
   maxRange?: number | null;
+  actions: PowerCalendarRangeActions;
 }
 
 export default class PowerCalendarRangeComponent extends Component<PowerCalendarRangeSignature> {
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked center = null;
-  @tracked _calendarType: TCalendarType = 'range';
   @tracked _selected?: SelectedDays;
 
   // Lifecycle hooks
@@ -114,14 +146,33 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
     this.unregisterCalendar();
   }
 
-  get publicActions(): PowerCalendarActions {
-    return publicActionsObject(
-      this.args.onSelect,
-      this.select.bind(this),
-      this.args.onCenterChange,
-      this.changeCenterTask,
-      this.currentCenter,
-    );
+  get publicActions(): PowerCalendarRangeActions {
+    const onSelect = this.args.onSelect;
+    const select = this.select.bind(this);
+    const onCenterChange = this.args.onCenterChange;
+    const changeCenterTask = this.changeCenterTask;
+    const currentCenter = this.currentCenter;
+
+    const actions: PowerCalendarRangeActions = {};
+    if (onSelect) {
+      actions.select = (...args) => select(...args);
+    }
+    if (onCenterChange) {
+      const changeCenter = (
+        newCenter: Date,
+        calendar: PowerCalendarRangeAPI,
+        e: Event,
+      ) => {
+        return changeCenterTask.perform(newCenter, calendar, e);
+      };
+      actions.changeCenter = changeCenter;
+      actions.moveCenter = async (step, unit, calendar, e) => {
+        const newCenter = add(currentCenter, step, unit);
+        return await changeCenter(newCenter, calendar, e);
+      };
+    }
+
+    return actions;
   }
 
   get selected(): SelectedPowerCalendarRange {
@@ -160,7 +211,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
   get publicAPI(): PowerCalendarRangeAPI {
     return {
       uniqueId: guidFor(this),
-      type: this._calendarType,
+      type: 'range',
       selected: this.selected,
       loading: this.changeCenterTask.isRunning,
       center: this.currentCenter,
@@ -230,7 +281,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
 
   // Tasks
   changeCenterTask = task(
-    async (newCenter: Date, calendar: PowerCalendarRangeAPI, e: MouseEvent) => {
+    async (newCenter: Date, calendar: PowerCalendarRangeAPI, e: Event) => {
       assert(
         "You attempted to move the center of a calendar that doesn't receive an `@onCenterChange` action.",
         typeof this.args.onCenterChange === 'function',
@@ -242,19 +293,20 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
 
   // Actions
   @action
-  select(day: CalendarDay, calendar: CalendarAPI, e: MouseEvent) {
-    const { date } = day as NormalizeRangeActionValue;
+  select(
+    day: PowerCalendarRangeDay,
+    calendar: PowerCalendarRangeAPI,
+    e?: Event,
+  ) {
+    const { date } = day;
     assert(
       'date must be either a Date, or a Range',
-      date &&
-        (ownProp(date, 'start') ||
-          ownProp(date, 'end') ||
-          date instanceof Date),
+      date && ('start' in date || 'end' in date || date instanceof Date),
     );
 
     let range: NormalizeRangeActionValue;
 
-    if (ownProp(date, 'start') && ownProp(date, 'end')) {
+    if ('start' in date && 'end' in date) {
       range = { date };
     } else {
       range = this._buildRange({ date } as { date: Date });
@@ -273,7 +325,7 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
     }
 
     if (this.args.onSelect) {
-      this.args.onSelect(range, calendar as PowerCalendarRangeAPI, e);
+      this.args.onSelect(range, calendar, e);
     }
   }
 
@@ -413,8 +465,4 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
       {{/let}}
     {{/let}}
   </template>
-}
-
-function ownProp<T = { [key: string | number]: never }>(obj: T, prop: keyof T) {
-  return Object.prototype.hasOwnProperty.call(obj, prop);
 }

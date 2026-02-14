@@ -1,19 +1,18 @@
-import type { PowerCalendarAPI } from '../components/power-calendar.ts';
 import type { Week } from '../-private/days-utils.ts';
-import type { PowerCalendarDay } from '../utils.ts';
+import type { BaseCalendarAPI, PowerCalendarDay } from '../utils.ts';
 
-export default function emberPowerCalendarDayClasses(
+export type TDayClass<T extends BaseCalendarAPI<T>> =
+  | string
+  | ((day: PowerCalendarDay, calendar: T, weeks: Week[]) => string)
+  | undefined;
+
+export default function emberPowerCalendarDayClasses<
+  T extends BaseCalendarAPI<T>,
+>(
   day: PowerCalendarDay,
-  calendar: PowerCalendarAPI,
+  calendar: T,
   weeks: Week[],
-  dayClass:
-    | string
-    | ((
-        day: PowerCalendarDay,
-        calendar: PowerCalendarAPI,
-        weeks: Week[],
-      ) => string)
-    | undefined,
+  dayClass: TDayClass<T>,
 ): string {
   const classes = ['ember-power-calendar-day'];
   if (calendar.actions.select) {

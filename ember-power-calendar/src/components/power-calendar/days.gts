@@ -15,6 +15,7 @@ import {
   normalizeDate,
   withLocale,
   type PowerCalendarDay,
+  type TWeekdayFormat,
 } from '../../utils.ts';
 import {
   firstDay,
@@ -27,18 +28,19 @@ import {
   lastDay,
   handleClick,
   dayIsDisabled,
-  type TWeekdayFormat,
   type Week,
 } from '../../-private/days-utils.ts';
 import { or } from 'ember-truth-helpers';
 import { on } from '@ember/modifier';
-import emberPowerCalendarDayClasses from '../../helpers/ember-power-calendar-day-classes.ts';
-import type { CalendarAPI } from '../power-calendar.ts';
+import emberPowerCalendarDayClasses, {
+  type TDayClass,
+} from '../../helpers/ember-power-calendar-day-classes.ts';
+import type { PowerCalendarAPI } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 
 export interface PowerCalendarDaysArgs {
-  calendar: CalendarAPI;
-  dayClass?: string;
+  calendar: PowerCalendarAPI;
+  dayClass?: TDayClass<PowerCalendarAPI>;
   disabledDates?: Array<Date | string>;
   maxDate?: Date;
   minDate?: Date;
@@ -55,7 +57,7 @@ export interface PowerCalendarDaysSignature {
   Element: HTMLElement;
   Args: PowerCalendarDaysArgs;
   Blocks: {
-    default: [day: PowerCalendarDay, calendar: CalendarAPI, weeks: Week[]];
+    default: [day: PowerCalendarDay, calendar: PowerCalendarAPI, weeks: Week[]];
   };
 }
 
@@ -292,7 +294,7 @@ export default class PowerCalendarDaysComponent extends Component<PowerCalendarD
   }
 
   // Methods
-  dayIsSelected(date: Date, calendar: CalendarAPI = this.args.calendar) {
+  dayIsSelected(date: Date, calendar: PowerCalendarAPI = this.args.calendar) {
     return calendar.selected
       ? isSame(date, calendar.selected as Date, 'day')
       : false;

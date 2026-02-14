@@ -52,7 +52,7 @@ module('Acceptance | helpers | calendarCenter', function (hooks) {
     return calendarCenter('.calendar-center-3', new Date(2013, 8, 3)).catch(
       (error) => {
         assert.strictEqual(
-          error.message,
+          (error as Error).message,
           "Assertion Failed: You cannot call `calendarCenter` on a component that doesn't has an `@onCenterChange` action",
         );
       },
@@ -66,7 +66,7 @@ module('Acceptance | helpers | calendarCenter', function (hooks) {
     return calendarCenter('.non-exister-selector', new Date(2013, 8, 3)).catch(
       (error) => {
         assert.strictEqual(
-          error.message,
+          (error as Error).message,
           'Assertion Failed: Could not find a calendar using selector: ".non-exister-selector"',
         );
       },
