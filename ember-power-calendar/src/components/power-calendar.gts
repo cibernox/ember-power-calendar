@@ -13,7 +13,7 @@ import {
   type NormalizeCalendarValue,
   type PowerCalendarDay,
   type SelectedPowerCalendarRange,
-add,
+  add,
 } from '../utils.ts';
 import PowerCalendarNavComponent, {
   type PowerCalendarNavSignature,

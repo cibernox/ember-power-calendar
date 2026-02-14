@@ -14,7 +14,7 @@ import {
   normalizeDate,
   withLocale,
   type PowerCalendarDay,
-type TWeekdayFormat,
+  type TWeekdayFormat,
 } from '../../utils.ts';
 import type { PowerCalendarMultipleAPI } from '../power-calendar-multiple.ts';
 import {
@@ -33,7 +33,9 @@ import {
 import { modifier } from 'ember-modifier';
 import { or } from 'ember-truth-helpers';
 import { on } from '@ember/modifier';
-import emberPowerCalendarDayClasses, { type TDayClass } from '../../helpers/ember-power-calendar-day-classes.ts';
+import emberPowerCalendarDayClasses, {
+  type TDayClass,
+} from '../../helpers/ember-power-calendar-day-classes.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 import type { PowerCalendarDaysArgs } from '../power-calendar/days.ts';
 

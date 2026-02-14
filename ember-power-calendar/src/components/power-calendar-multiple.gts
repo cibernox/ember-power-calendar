@@ -20,7 +20,7 @@ import {
   type NormalizeMultipleActionValue,
   type PowerCalendarDay,
   type NormalizeCalendarValue,
-add,
+  add,
 } from '../utils.ts';
 import type {
   // CalendarDay,
@@ -243,11 +243,7 @@ export default class PowerCalendarMultipleComponent extends Component<PowerCalen
 
   // Tasks
   changeCenterTask = task(
-    async (
-      newCenter: Date,
-      calendar: PowerCalendarMultipleAPI,
-      e: Event,
-    ) => {
+    async (newCenter: Date, calendar: PowerCalendarMultipleAPI, e: Event) => {
       assert(
         "You attempted to move the center of a calendar that doesn't receive an `@onCenterChange` action.",
         typeof this.args.onCenterChange === 'function',

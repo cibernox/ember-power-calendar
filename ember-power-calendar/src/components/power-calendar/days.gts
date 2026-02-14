@@ -15,7 +15,7 @@ import {
   normalizeDate,
   withLocale,
   type PowerCalendarDay,
-type TWeekdayFormat,
+  type TWeekdayFormat,
 } from '../../utils.ts';
 import {
   firstDay,
@@ -32,7 +32,9 @@ import {
 } from '../../-private/days-utils.ts';
 import { or } from 'ember-truth-helpers';
 import { on } from '@ember/modifier';
-import emberPowerCalendarDayClasses, { type TDayClass } from '../../helpers/ember-power-calendar-day-classes.ts';
+import emberPowerCalendarDayClasses, {
+  type TDayClass,
+} from '../../helpers/ember-power-calendar-day-classes.ts';
 import type { PowerCalendarAPI } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 

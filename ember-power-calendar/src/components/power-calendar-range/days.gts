@@ -3,7 +3,9 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 import service from '../../-private/service.ts';
-import emberPowerCalendarDayClasses, { type TDayClass } from '../../helpers/ember-power-calendar-day-classes.ts';
+import emberPowerCalendarDayClasses, {
+  type TDayClass,
+} from '../../helpers/ember-power-calendar-day-classes.ts';
 import { or } from 'ember-truth-helpers';
 import {
   isBetween,
@@ -18,7 +20,7 @@ import {
   normalizeDate,
   type PowerCalendarDay,
   formatDate,
-type TWeekdayFormat,
+  type TWeekdayFormat,
 } from '../../utils.ts';
 import {
   buildDay,

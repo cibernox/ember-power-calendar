@@ -254,7 +254,7 @@ export function handleClick<T extends BaseCalendarAPI<T>>(
     const day = days.find((d) => d.id === dateStr);
     if (day) {
       if (calendar.actions.select) {
-        calendar.actions.select(day as DayType<T["type"]>, calendar, e);
+        calendar.actions.select(day as DayType<T['type']>, calendar, e);
       }
 
       return day;

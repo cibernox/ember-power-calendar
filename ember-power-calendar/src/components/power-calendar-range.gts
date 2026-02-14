@@ -292,14 +292,15 @@ export default class PowerCalendarRangeComponent extends Component<PowerCalendar
 
   // Actions
   @action
-  select(day: PowerCalendarRangeDay, calendar: PowerCalendarRangeAPI, e?: Event) {
+  select(
+    day: PowerCalendarRangeDay,
+    calendar: PowerCalendarRangeAPI,
+    e?: Event,
+  ) {
     const { date } = day;
     assert(
       'date must be either a Date, or a Range',
-      date &&
-        ('start' in date ||
-          'end' in date ||
-          date instanceof Date),
+      date && ('start' in date || 'end' in date || date instanceof Date),
     );
 
     let range: NormalizeRangeActionValue;

@@ -1,6 +1,6 @@
 import type { TaskInstance } from 'ember-concurrency';
 import type {
-TCalendarType,
+  TCalendarType,
   TPowerCalendarMoveCenterUnit,
 } from './components/power-calendar';
 import type { PowerCalendarRangeDay } from './components/power-calendar-range';
@@ -106,7 +106,8 @@ export interface BaseCalendarAPI<T extends BaseCalendarAPI<T>> {
   actions: BasePowerCalendarActions<T>;
 }
 
-export type DayType<CalendarType extends TCalendarType> = CalendarType extends 'range' ? PowerCalendarRangeDay : PowerCalendarDay;
+export type DayType<CalendarType extends TCalendarType> =
+  CalendarType extends 'range' ? PowerCalendarRangeDay : PowerCalendarDay;
 
 export interface BasePowerCalendarActions<T extends BaseCalendarAPI<T>> {
   changeCenter?: (
