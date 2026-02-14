@@ -262,10 +262,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     assert.expect(106);
     this.classFn = (day, calendar, weeks) => {
       assert.ok('isCurrentMonth' in day, 'the first argument is a day');
-      assert.ok(
-        'actions' in calendar,
-        'the second argument is the calendar',
-      );
+      assert.ok('actions' in calendar, 'the second argument is the calendar');
       assert.ok(Array.isArray(weeks), 'the third argument is arr');
       return 'some-computed-class';
     };

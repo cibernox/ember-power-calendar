@@ -208,10 +208,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     this.selected = { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) };
     this.onSelect = (range: NormalizeRangeActionValue) => {
       let value =
-        range &&
-        range.date &&
-        'start' in range.date &&
-        'end' in range.date;
+        range && range.date && 'start' in range.date && 'end' in range.date;
 
       assert.ok(value, 'range selected has a start and end prop');
 
@@ -241,10 +238,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     });
     this.set('onSelect', (range: NormalizeRangeActionValue) => {
       let value =
-        range &&
-        range.date &&
-        'start' in range.date &&
-        'end' in range.date;
+        range && range.date && 'start' in range.date && 'end' in range.date;
 
       assert.ok(value, 'range selected has a start and end prop');
 
