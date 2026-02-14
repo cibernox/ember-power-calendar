@@ -124,7 +124,7 @@ export interface PowerCalendarSignature {
   };
 }
 
-export default class PowerCalendarComponent extends Component<PowerCalendarSignature> {
+export default class PowerCalendar extends Component<PowerCalendarSignature> {
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked center = null;

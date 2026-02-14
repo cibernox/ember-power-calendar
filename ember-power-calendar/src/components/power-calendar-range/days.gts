@@ -66,7 +66,7 @@ export interface PowerCalendarRangeDaysSignature {
   };
 }
 
-export default class PowerCalendarRangeDaysComponent extends Component<PowerCalendarRangeDaysSignature> {
+export default class PowerCalendarRangeDays extends Component<PowerCalendarRangeDaysSignature> {
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked focusedId: string | null = null;

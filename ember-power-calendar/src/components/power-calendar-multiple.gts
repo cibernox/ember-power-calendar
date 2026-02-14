@@ -110,7 +110,7 @@ interface PowerCalendarMultipleSignature {
   };
 }
 
-export default class PowerCalendarMultipleComponent extends Component<PowerCalendarMultipleSignature> {
+export default class PowerCalendarMultiple extends Component<PowerCalendarMultipleSignature> {
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked center = null;

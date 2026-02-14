@@ -20,7 +20,7 @@ export interface PowerCalendarMultipleNavSignature {
   };
 }
 
-export default class PowerCalendarMultipleNavComponent extends Component<PowerCalendarMultipleNavSignature> {
+export default class PowerCalendarMultipleNav extends Component<PowerCalendarMultipleNavSignature> {
   get unit(): TPowerCalendarMoveCenterUnit {
     return this.args.unit || 'month';
   }

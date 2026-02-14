@@ -1,9 +1,9 @@
 import { assert } from '@ember/debug';
 import { click, settled, find } from '@ember/test-helpers';
 import { formatDate } from '../utils.ts';
-import type PowerCalendarMultipleComponent from '../components/power-calendar-multiple.ts';
-import type PowerCalendarComponent from '../components/power-calendar.ts';
-import type PowerCalendarRangeComponent from '../components/power-calendar-range.ts';
+import type PowerCalendarMultiple from '../components/power-calendar-multiple.ts';
+import type PowerCalendar from '../components/power-calendar.ts';
+import type PowerCalendarRange from '../components/power-calendar-range.ts';
 
 export default {};
 
@@ -39,9 +39,9 @@ function findCalendarGuid(selector: string): string | undefined {
 function findComponentInstance(
   selector: string,
 ):
-  | PowerCalendarComponent
-  | PowerCalendarMultipleComponent
-  | PowerCalendarRangeComponent {
+  | PowerCalendar
+  | PowerCalendarMultiple
+  | PowerCalendarRange {
   const calendarGuid = findCalendarGuid(selector);
   assert(
     `Could not find a calendar using selector: "${selector}"`,
@@ -62,7 +62,7 @@ export async function calendarCenter(
   );
   const calendarComponent = findComponentInstance(
     selector,
-  ) as PowerCalendarComponent;
+  ) as PowerCalendar;
   const onCenterChange = calendarComponent.args.onCenterChange;
   assert(
     "You cannot call `calendarCenter` on a component that doesn't has an `@onCenterChange` action",

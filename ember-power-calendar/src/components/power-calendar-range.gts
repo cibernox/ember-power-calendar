@@ -126,7 +126,7 @@ export interface PowerCalendarRangeAPI extends Omit<
   actions: PowerCalendarRangeActions;
 }
 
-export default class PowerCalendarRangeComponent extends Component<PowerCalendarRangeSignature> {
+export default class PowerCalendarRange extends Component<PowerCalendarRangeSignature> {
   @service declare powerCalendar: PowerCalendarService;
 
   @tracked center = null;
