@@ -54,8 +54,10 @@ export interface PowerCalendarMultipleActions {
   ) => void;
 }
 
-export interface PowerCalendarMultipleAPI
-  extends Omit<PowerCalendarAPI, 'type' | 'selected' | 'actions'> {
+export interface PowerCalendarMultipleAPI extends Omit<
+  PowerCalendarAPI,
+  'type' | 'selected' | 'actions'
+> {
   type: 'multiple';
   selected?: Date[];
   actions: PowerCalendarMultipleActions;
@@ -67,16 +69,15 @@ export type TPowerCalendarMultipleOnSelect = (
   event?: Event,
 ) => void;
 
-interface PowerCalendarMultipleArgs
-  extends Omit<
-    PowerCalendarArgs,
-    | 'navComponent'
-    | 'daysComponent'
-    | 'selected'
-    | 'onSelect'
-    | 'onCenterChange'
-    | 'onInit'
-  > {
+interface PowerCalendarMultipleArgs extends Omit<
+  PowerCalendarArgs,
+  | 'navComponent'
+  | 'daysComponent'
+  | 'selected'
+  | 'onSelect'
+  | 'onCenterChange'
+  | 'onInit'
+> {
   navComponent?: ComponentLike<PowerCalendarMultipleNavSignature>;
   daysComponent?: ComponentLike<PowerCalendarMultipleDaysSignature>;
   selected?: Date[];

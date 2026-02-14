@@ -52,16 +52,15 @@ export type TPowerCalendarRangeOnSelect = (
   event?: Event,
 ) => void;
 
-interface PowerCalendarRangeArgs
-  extends Omit<
-    PowerCalendarArgs,
-    | 'daysComponent'
-    | 'navComponent'
-    | 'selected'
-    | 'onSelect'
-    | 'onCenterChange'
-    | 'onInit'
-  > {
+interface PowerCalendarRangeArgs extends Omit<
+  PowerCalendarArgs,
+  | 'daysComponent'
+  | 'navComponent'
+  | 'selected'
+  | 'onSelect'
+  | 'onCenterChange'
+  | 'onInit'
+> {
   navComponent?: ComponentLike<PowerCalendarRangeNavSignature>;
   daysComponent?: ComponentLike<PowerCalendarRangeDaysSignature>;
   selected?: SelectedPowerCalendarRange;
@@ -116,8 +115,10 @@ export interface PowerCalendarRangeActions {
   ) => void;
 }
 
-export interface PowerCalendarRangeAPI
-  extends Omit<PowerCalendarAPI, 'type' | 'selected' | 'actions'> {
+export interface PowerCalendarRangeAPI extends Omit<
+  PowerCalendarAPI,
+  'type' | 'selected' | 'actions'
+> {
   type: 'range';
   selected?: SelectedPowerCalendarRange;
   minRange?: number | null;

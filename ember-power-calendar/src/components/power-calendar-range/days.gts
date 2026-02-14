@@ -42,8 +42,10 @@ import type { PowerCalendarDaysArgs } from '../power-calendar/days.ts';
 import type { PowerCalendarRangeAPI } from '../power-calendar-range.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 
-interface PowerCalendarMultipleDaysArgs
-  extends Omit<PowerCalendarDaysArgs, 'calendar' | 'dayClass' | 'selected'> {
+interface PowerCalendarMultipleDaysArgs extends Omit<
+  PowerCalendarDaysArgs,
+  'calendar' | 'dayClass' | 'selected'
+> {
   calendar: PowerCalendarRangeAPI;
   dayClass?: TDayClass<PowerCalendarRangeAPI>;
   selected?: {

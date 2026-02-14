@@ -39,8 +39,10 @@ import emberPowerCalendarDayClasses, {
 import type PowerCalendarService from '../../services/power-calendar.ts';
 import type { PowerCalendarDaysArgs } from '../power-calendar/days.ts';
 
-interface PowerCalendarMultipleDaysArgs
-  extends Omit<PowerCalendarDaysArgs, 'calendar' | 'dayClass' | 'selected'> {
+interface PowerCalendarMultipleDaysArgs extends Omit<
+  PowerCalendarDaysArgs,
+  'calendar' | 'dayClass' | 'selected'
+> {
   calendar: PowerCalendarMultipleAPI;
   dayClass?: TDayClass<PowerCalendarMultipleAPI>;
   selected?: Date[];
