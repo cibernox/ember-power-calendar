@@ -3,21 +3,36 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { run } from '@ember/runloop';
-import { isSame } from 'ember-power-calendar/test-support/helpers';
+import { isSame, type NormalizeRangeActionValue, type SelectedPowerCalendarRange } from 'ember-power-calendar/test-support/helpers';
 import ownProp from 'test-app/utils/own-prop';
+import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
+import type { PowerCalendarRangeDay, TPowerCalendarRangeOnSelect } from 'ember-power-calendar/components/power-calendar-range';
+import type { TestContext } from '@ember/test-helpers';
+
+interface Context extends TestContext {
+  element: HTMLElement;
+  minRange?: number | undefined
+  rangeToSelect: PowerCalendarRangeDay;
+  invalidDay: PowerCalendarRangeDay;
+  validDay: PowerCalendarRangeDay;
+  selected: SelectedPowerCalendarRange | undefined;
+  minDate: Date | undefined;
+  maxDate: Date | undefined;
+  onSelect?: TPowerCalendarRangeOnSelect | undefined;
+}
 
 module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    let calendarService = this.owner.lookup('service:power-calendar');
-    calendarService.set('date', new Date(2013, 9, 18));
+    const calendarService = this.owner.lookup('service:power-calendar') as PowerCalendarService;
+    calendarService.date = new Date(2013, 9, 18);
   });
 
-  test('when it receives a range in the `selected` argument containing `Date` objects, the range is highlighted', async function (assert) {
+  test<Context>('when it receives a range in the `selected` argument containing `Date` objects, the range is highlighted', async function (assert) {
     assert.expect(4);
     this.selected = { start: new Date(2016, 1, 5), end: new Date(2016, 1, 9) };
-    await render(hbs`
+    await render<Context>(hbs`
       <PowerCalendarRange @selected={{this.selected}} as |calendar|>
         <calendar.Nav/>
         <calendar.Days/>
@@ -29,21 +44,21 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
         'February 2016',
         'The calendar is centered in the month of the selected date',
       );
-    let allDaysInRangeAreSelected =
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2016-02-05"]')
+    const allDaysInRangeAreSelected =
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2016-02-05"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2016-02-06"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2016-02-06"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2016-02-07"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2016-02-07"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2016-02-08"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2016-02-08"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2016-02-09"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2016-02-09"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected');
     assert.ok(allDaysInRangeAreSelected, 'All days in range are selected');
     assert
@@ -60,10 +75,10 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       );
   });
 
-  test('In range calendars, clicking a day selects one end of the range, and clicking another closes the range', async function (assert) {
-    this.selected = null;
+  test<Context>('In range calendars, clicking a day selects one end of the range, and clicking another closes the range', async function (assert) {
+    this.selected = undefined;
     let numberOfCalls = 0;
-    this.didChange = (range, calendar, e) => {
+    this.onSelect = (range, calendar, e) => {
       numberOfCalls++;
       if (numberOfCalls === 1) {
         assert.ok(range.date.start, 'The start is present');
@@ -73,14 +88,16 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
         assert.ok(range.date.end, 'The end is also present');
       }
       this.set('selected', range.date);
+      // @ts-expect-error Unsafe call of a(n) `error` type typed value.
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       assert.isCalendar(
         calendar,
         "The second argument is the calendar's public API",
       );
       assert.ok(e instanceof Event, 'The third argument is an event');
     };
-    await render(hbs`
-      <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.didChange}} as |calendar|>
+    await render<Context>(hbs`
+      <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
         <calendar.Nav/>
         <calendar.Days/>
       </PowerCalendarRange>
@@ -127,18 +144,18 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
         'ember-power-calendar-day--range-end',
         'The clicked date is the end of the range',
       );
-    let allDaysInBetweenAreSelected =
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2013-10-11"]')
+    const allDaysInBetweenAreSelected =
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2013-10-11"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2013-10-12"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2013-10-12"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2013-10-13"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2013-10-13"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2013-10-14"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2013-10-14"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected');
     assert.ok(
       allDaysInBetweenAreSelected,
@@ -151,12 +168,10 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     );
   });
 
-  test('When an range date object is passed, the range selection behavior is skipped', async function (assert) {
-    this.rangeToSelect = { date: { start: undefined, end: undefined } };
-    this.selected = {
-      date: { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) },
-    };
-    this.didChange = (range) => {
+  test<Context>('When an range date object is passed, the range selection behavior is skipped', async function (assert) {
+    this.rangeToSelect = { number: 1, id: 'test-id', isFocused: false, isCurrentMonth: true, isToday: false, isSelected: false, isDisabled: false, date: { start: null, end: null } };
+    this.selected = { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) };
+    this.onSelect = (range: NormalizeRangeActionValue) => {
       let value =
         range &&
         range.date &&
@@ -168,15 +183,17 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       value =
         range &&
         range.date &&
-        range.date.start === undefined &&
-        range.date.end === undefined;
+        range.date.start === null &&
+        range.date.end === null;
 
-      assert.ok(value, 'selected range has undefined start and end date');
+      assert.ok(value, 'selected range has null start and end date');
     };
 
-    await render(hbs`
-      <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.didChange}} as |calendar|>
-        <button type="button" {{on "click" (fn calendar.actions.select this.rangeToSelect)}} id="test_button"></button>
+    await render<Context>(hbs`
+      <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
+        {{#if calendar.actions.select}}
+          <button type="button" {{on "click" (fn calendar.actions.select this.rangeToSelect calendar)}} id="test_button"></button>
+        {{/if}}
       </PowerCalendarRange>
     `);
     await click('#test_button');
@@ -187,7 +204,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     this.set('selected', {
       date: { start: new Date(2013, 9, 5), end: new Date(2013, 9, 10) },
     });
-    this.set('didChange', (range) => {
+    this.set('onSelect', (range: NormalizeRangeActionValue) => {
       let value =
         range &&
         range.date &&
@@ -195,6 +212,10 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
         ownProp(range.date, 'end');
 
       assert.ok(value, 'range selected has a start and end prop');
+
+      if (!range.date.start || !range.date.end || !('start' in this.rangeToSelect.date) || !this.rangeToSelect.date.start || !('end' in this.rangeToSelect.date) || !this.rangeToSelect.date.end) {
+        return;
+      }
 
       value =
         range &&
@@ -210,10 +231,10 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     await click('#test_button');
   });
 
-  test('In range calendars, clicking first the end of the range and then the start is not a problem', async function (assert) {
-    this.selected = null;
+  test<Context>('In range calendars, clicking first the end of the range and then the start is not a problem', async function (assert) {
+    this.selected = undefined;
     let numberOfCalls = 0;
-    this.didChange = (range, calendar, e) => {
+    this.onSelect = (range, calendar, e) => {
       numberOfCalls++;
       if (numberOfCalls === 1) {
         assert.ok(range.date.start, 'The start is present');
@@ -223,14 +244,16 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
         assert.ok(range.date.end, 'The end is also present');
       }
       this.set('selected', range.date);
+      // @ts-expect-error Unsafe call of a(n) `error` type typed value.
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       assert.isCalendar(
         calendar,
         "The second argument is the calendar's public API",
       );
       assert.ok(e instanceof Event, 'The third argument is an event');
     };
-    await render(hbs`
-      <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.didChange}} as |calendar|>
+    await render<Context>(hbs`
+      <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
         <calendar.Nav/>
         <calendar.Days/>
       </PowerCalendarRange>
@@ -277,18 +300,18 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
         'ember-power-calendar-day--range-end',
         'The clicked date is the start of the range',
       );
-    let allDaysInBetweenAreSelected =
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2013-10-11"]')
+    const allDaysInBetweenAreSelected =
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2013-10-11"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2013-10-12"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2013-10-12"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2013-10-13"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2013-10-13"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2013-10-14"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2013-10-14"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected');
     assert.ok(
       allDaysInBetweenAreSelected,
@@ -301,12 +324,12 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     );
   });
 
-  test('Passing `minRange` allows to determine the minimum length of a range (in days)', async function (assert) {
+  test<Context>('Passing `minRange` allows to determine the minimum length of a range (in days)', async function (assert) {
     assert.expect(10);
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render(hbs`
+    await render<Context>(hbs`
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} @minRange={{3}} as |cal|>
         <cal.Nav/>
         <cal.Days/>
@@ -350,12 +373,12 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
         'ember-power-calendar-day--selected',
         'Clicking outside the range select it',
       );
-    let allDaysInBetweenAreSelected =
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2013-10-11"]')
+    const allDaysInBetweenAreSelected =
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2013-10-11"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2013-10-12"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2013-10-12"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected');
     assert.ok(
       allDaysInBetweenAreSelected,
@@ -363,12 +386,12 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     );
   });
 
-  test('Passing `@minRange={{0}}` allows to make a range start and end on the same date', async function (assert) {
+  test<Context>('Passing `@minRange={{0}}` allows to make a range start and end on the same date', async function (assert) {
     assert.expect(7);
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render(hbs`
+    await render<Context>(hbs`
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} @minRange={{0}} as |cal|>
         <cal.Nav/>
         <cal.Days/>
@@ -416,9 +439,9 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       );
   });
 
-  test('The default minRange is one day, but it can be changed passing convenient strings', async function (assert) {
+  test<Context>('The default minRange is one day, but it can be changed passing convenient strings', async function (assert) {
     assert.expect(4);
-    await render(hbs`
+    await render<Context>(hbs`
       <PowerCalendarRange @minRange={{this.minRange}} as |calendar|>
         <div class="formatted-min-range">{{calendar.minRange}}</div>
       </PowerCalendarRange>
@@ -447,12 +470,12 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       );
   });
 
-  test('Passing `maxRange` allows to determine the minimum length of a range (in days)', async function (assert) {
+  test<Context>('Passing `maxRange` allows to determine the minimum length of a range (in days)', async function (assert) {
     assert.expect(9);
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render(hbs`
+    await render<Context>(hbs`
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} @maxRange={{2}} as |cal|>
         <cal.Nav/>
         <cal.Days/>
@@ -492,19 +515,21 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       .hasClass('ember-power-calendar-day--selected', 'the 11th is selected');
   });
 
-  test('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is smaller than the minRange', async function (assert) {
+  test<Context>('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is smaller than the minRange', async function (assert) {
     assert.expect(2);
     this.selected = { start: new Date(2016, 1, 5), end: null };
-    this.invalidDay = { date: new Date(2016, 1, 6) };
-    this.validDay = { date: new Date(2016, 1, 8) };
+    this.invalidDay = { number: 6, id: '2016-02-06', isFocused: false, isCurrentMonth: true, isToday: false, isSelected: false, isDisabled: true, date: new Date(2016, 1, 6) };
+    this.validDay = { number: 8, id: '2016-02-08', isFocused: false, isCurrentMonth: true, isToday: false, isSelected: false, isDisabled: false, date: new Date(2016, 1, 8) };
     let range;
-    this.didSelect = function (r) {
+    this.onSelect = function (r) {
       range = r;
     };
-    await render(hbs`
-      <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.didSelect}} @minRange={{2}} as |cal|>
-        <button type="button" id="select-invalid-range-end" {{on "click" (fn cal.actions.select this.invalidDay)}}>Select invalid date</button>
-        <button type="button" id="select-valid-range-end" {{on "click" (fn cal.actions.select this.validDay)}}>Select valid date</button>
+    await render<Context>(hbs`
+      <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} @minRange={{2}} as |cal|>
+        {{#if cal.actions.select}}
+          <button type="button" id="select-invalid-range-end" {{on "click" (fn cal.actions.select this.invalidDay cal)}}>Select invalid date</button>
+          <button type="button" id="select-valid-range-end" {{on "click" (fn cal.actions.select this.validDay cal)}}>Select valid date</button>
+        {{/if}}
       </PowerCalendarRange>
     `);
     await click('#select-invalid-range-end');
@@ -513,19 +538,22 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     assert.notEqual(range, undefined, 'The actions has been called now');
   });
 
-  test('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is bigger than the maxRange', async function (assert) {
+  test<Context>('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is bigger than the maxRange', async function (assert) {
     assert.expect(2);
+
     this.selected = { start: new Date(2016, 1, 5), end: null };
-    this.validDay = { date: new Date(2016, 1, 6) };
-    this.invalidDay = { date: new Date(2016, 1, 8) };
+    this.validDay = { number: 6, id: '2016-02-06', isFocused: false, isCurrentMonth: true, isToday: false, isSelected: false, isDisabled: false, date: new Date(2016, 1, 6) };
+    this.invalidDay = { number: 8, id: '2016-02-08', isFocused: false, isCurrentMonth: true, isToday: false, isSelected: false, isDisabled: true, date: new Date(2016, 1, 8) };
     let range;
-    this.didSelect = function (r) {
+    this.onSelect = function (r) {
       range = r;
     };
-    await render(hbs`
-      <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.didSelect}} @maxRange={{2}} as |cal|>
-        <button type="button" id="select-invalid-range-end" {{on "click" (fn cal.actions.select this.invalidDay)}}>Select invalid date</button>
-        <button type="button" id="select-valid-range-end" {{on "click" (fn cal.actions.select this.validDay)}}>Select valid date</button>
+    await render<Context>(hbs`
+      <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} @maxRange={{2}} as |cal|>
+        {{#if cal.actions.select}}
+          <button type="button" id="select-invalid-range-end" {{on "click" (fn cal.actions.select this.invalidDay cal)}}>Select invalid date</button>
+          <button type="button" id="select-valid-range-end" {{on "click" (fn cal.actions.select this.validDay cal)}}>Select valid date</button>
+        {{/if}}
       </PowerCalendarRange>
     `);
     await click('#select-invalid-range-end');
@@ -534,36 +562,35 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     assert.notEqual(range, undefined, 'The actions has been called now');
   });
 
-  test('when is flagged as proximitySelection it changes range to closest date', async function (assert) {
+  test<Context>('when is flagged as proximitySelection it changes range to closest date', async function (assert) {
     assert.expect(7);
     this.selected = { start: new Date(2016, 1, 5), end: new Date(2016, 1, 9) };
-    this.proximitySelection = true;
 
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
 
-    await render(hbs`
+    await render<Context>(hbs`
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} @proximitySelection={{true}} as |calendar|>
         <calendar.Nav/>
         <calendar.Days/>
       </PowerCalendarRange>
     `);
-    let allDaysInRangeAreSelected =
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2016-02-05"]')
+    const allDaysInRangeAreSelected =
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2016-02-05"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2016-02-06"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2016-02-06"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2016-02-07"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2016-02-07"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2016-02-08"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2016-02-08"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected') &&
-      this.element
-        .querySelector('.ember-power-calendar-day[data-date="2016-02-09"]')
+      (this.element
+        .querySelector('.ember-power-calendar-day[data-date="2016-02-09"]') as HTMLElement)
         .classList.contains('ember-power-calendar-day--selected');
     assert.ok(allDaysInRangeAreSelected, 'All days in range are selected');
     assert

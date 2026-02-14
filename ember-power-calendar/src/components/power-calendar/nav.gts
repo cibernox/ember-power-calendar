@@ -4,13 +4,13 @@ import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import powerCalendarFormatDate from '../../helpers/power-calendar-format-date.ts';
 import type {
-  CalendarAPI,
+  PowerCalendarAPI,
   TPowerCalendarMoveCenterUnit,
 } from '../power-calendar.ts';
 
 export interface PowerCalendarNavSignature {
   Args: {
-    calendar: CalendarAPI;
+    calendar: PowerCalendarAPI;
     format?: string;
     unit?: TPowerCalendarMoveCenterUnit;
     isDatePicker?: boolean;
@@ -18,7 +18,7 @@ export interface PowerCalendarNavSignature {
     ariaLabelNextMonth?: string;
   };
   Blocks: {
-    default: [calendar: CalendarAPI];
+    default: [calendar: PowerCalendarAPI];
   };
 }
 

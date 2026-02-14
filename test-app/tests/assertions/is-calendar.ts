@@ -1,7 +1,8 @@
 import ownProp from 'test-app/utils/own-prop';
+import type { PowerCalendarAPI } from 'ember-power-calendar/components/power-calendar';
 
-export default function isCalendar(calendar, message) {
-  let result =
+export default function isCalendar(this: Assert, calendar: PowerCalendarAPI, message: string) {
+  const result =
     !!calendar &&
     ownProp(calendar, 'center') &&
     typeof calendar.loading === 'boolean' &&

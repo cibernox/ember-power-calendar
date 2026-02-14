@@ -1,22 +1,32 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, type TestContext } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { calendarSelect } from 'ember-power-calendar/test-support/helpers';
+import type { PowerCalendarAPI, TPowerCalendarOnSelect } from 'ember-power-calendar/components/power-calendar';
+import type { NormalizeCalendarValue } from 'ember-power-calendar/utils';
+
+interface Context extends TestContext {
+  center4: Date;
+  selected4: Date;
+  onSelect: TPowerCalendarOnSelect;
+  onCenterChange: (newCenter: NormalizeCalendarValue, calendar: PowerCalendarAPI, event: Event) => Promise<void> | void;
+}
 
 module('Test Support | Helper | calendarSelect', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('`calendarSelect` selects the given date ', async function (assert) {
+  test<Context>('`calendarSelect` selects the given date ', async function (assert) {
     this.center4 = new Date(2013, 9, 18);
     this.selected4 = new Date(2013, 9, 15);
     this.onCenterChange = (selected) => {
       this.set('center4', selected.date);
     };
     this.onSelect = (selected) => {
+      console.log('selected', selected);
       this.set('selected4', selected.date);
     };
-    await render(hbs`
+    await render<Context>(hbs`
       <div class="calendar-select-1">
         <PowerCalendar
           @center={{this.center4}}
@@ -45,7 +55,7 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
       );
   });
 
-  test('`calendarSelect` selects the given date changing the month center on the process', async function (assert) {
+  test<Context>('`calendarSelect` selects the given date changing the month center on the process', async function (assert) {
     this.center4 = new Date(2013, 9, 18);
     this.selected4 = new Date(2013, 9, 15);
     this.onCenterChange = (selected) => {
@@ -54,7 +64,7 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected4', selected.date);
     };
-    await render(hbs`
+    await render<Context>(hbs`
       <div class="calendar-select-1">
         <PowerCalendar
           @center={{this.center4}}

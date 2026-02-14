@@ -60,7 +60,9 @@ export async function calendarCenter(
     '`calendarCenter` expect a Date object as second argument',
     newCenter instanceof Date,
   );
-  const calendarComponent = findComponentInstance(selector);
+  const calendarComponent = findComponentInstance(
+    selector,
+  ) as PowerCalendarComponent;
   const onCenterChange = calendarComponent.args.onCenterChange;
   assert(
     "You cannot call `calendarCenter` on a component that doesn't has an `@onCenterChange` action",

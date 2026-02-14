@@ -3,7 +3,7 @@ import { add } from 'ember-power-calendar/test-support/helpers';
 
 module('Unit | Utility | date-utils', function () {
   test('can add seconds', function (assert) {
-    let date = new Date(1986, 8, 3, 4, 30, 0, 0);
+    const date = new Date(1986, 8, 3, 4, 30, 0, 0);
     let result = add(date, 1, 'second');
     assert.strictEqual(
       +result,
@@ -27,7 +27,7 @@ module('Unit | Utility | date-utils', function () {
   });
 
   test('can add minutes', function (assert) {
-    let date = new Date(1986, 8, 3, 4, 30, 0, 0);
+    const date = new Date(1986, 8, 3, 4, 30, 0, 0);
     let result = add(date, 1, 'minute');
     assert.strictEqual(
       +result,
@@ -51,7 +51,7 @@ module('Unit | Utility | date-utils', function () {
   });
 
   test('can add hours', function (assert) {
-    let date = new Date(1986, 8, 3, 4, 30, 0, 0);
+    const date = new Date(1986, 8, 3, 4, 30, 0, 0);
     let result = add(date, 1, 'hour');
     assert.strictEqual(
       +result,
@@ -75,7 +75,7 @@ module('Unit | Utility | date-utils', function () {
   });
 
   test('can add days', function (assert) {
-    let date = new Date(1986, 8, 3, 4, 30, 0, 0);
+    const date = new Date(1986, 8, 3, 4, 30, 0, 0);
     let result = add(date, 1, 'day');
     assert.strictEqual(
       +result,

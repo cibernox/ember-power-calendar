@@ -1,5 +1,7 @@
-export default function isDay(day, message = 'Is a valid day object') {
-  let result =
+import type { PowerCalendarDay } from "ember-power-calendar/utils";
+
+export default function isDay(this: Assert, day: PowerCalendarDay, message: string = 'Is a valid day object') {
+  const result =
     typeof day.isCurrentMonth === 'boolean' &&
     typeof day.isToday === 'boolean' &&
     typeof day.isSelected === 'boolean' &&

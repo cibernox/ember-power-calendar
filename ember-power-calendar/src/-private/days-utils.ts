@@ -1,5 +1,4 @@
 import { assert } from '@ember/debug';
-import type { CalendarAPI } from '../components/power-calendar.ts';
 import {
   endOf,
   endOfWeek,
@@ -11,12 +10,14 @@ import {
   normalizeCalendarDay,
   startOf,
   startOfWeek,
+  type BaseCalendarAPI,
+  type DayType,
   type PowerCalendarDay,
+  type TWeekdayFormat,
 } from '../utils.ts';
 
 export const DAY_IN_MS = 86400000;
 export const WEEK_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-export type TWeekdayFormat = 'min' | 'short' | 'long';
 
 export interface Week {
   id: string;
@@ -150,19 +151,19 @@ export function focusDate(uniqueId: string, id: string): void {
   }
 }
 
-export function buildDay(
+export function buildDay<T extends BaseCalendarAPI<T>>(
   date: Date,
   today: Date,
-  calendar: CalendarAPI,
+  calendar: T,
   focusedId: string | null,
   currentCenter: Date,
-  dayIsSelected: (date: Date, calendar: CalendarAPI) => boolean,
+  dayIsSelected: (date: Date, calendar: T) => boolean,
   minDate?: Date,
   maxDate?: Date,
   disabledDates?: Array<Date | string>,
   dayIsDisabledExtended?: (
     date: Date,
-    calendar: CalendarAPI,
+    calendar: T,
     minDate?: Date,
     maxDate?: Date,
     disabledDates?: Array<Date | string>,
@@ -195,9 +196,9 @@ export function buildDay(
   } as PowerCalendarDay);
 }
 
-export function dayIsDisabled(
+export function dayIsDisabled<T extends BaseCalendarAPI<T>>(
   date: Date,
-  calendar: CalendarAPI,
+  calendar: T,
   minDate?: Date,
   maxDate?: Date,
   disabledDates?: Array<Date | string>,
@@ -240,10 +241,10 @@ export function lastDay(localeStartOfWeek: number, currentCenter: Date): Date {
   return endOfWeek(lastDay, localeStartOfWeek);
 }
 
-export function handleClick(
+export function handleClick<T extends BaseCalendarAPI<T>>(
   e: MouseEvent,
   days: PowerCalendarDay[],
-  calendar: CalendarAPI,
+  calendar: T,
 ): PowerCalendarDay | undefined {
   const dayEl: HTMLElement | null | undefined = (
     e.target as HTMLElement | null
@@ -253,7 +254,7 @@ export function handleClick(
     const day = days.find((d) => d.id === dateStr);
     if (day) {
       if (calendar.actions.select) {
-        calendar.actions.select(day, calendar, e);
+        calendar.actions.select(day as DayType<T["type"]>, calendar, e);
       }
 
       return day;
