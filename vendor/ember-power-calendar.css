@@ -1,0 +1,191 @@
+:root {
+  --ember-power-calendar-cell-size: 35px;
+}
+
+.ember-power-calendar {
+  box-sizing: border-box;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.4286;
+}
+
+.ember-power-calendar-nav {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  line-height: 2;
+}
+
+.ember-power-calendar-nav * {
+  box-sizing: border-box;
+}
+
+.ember-power-calendar-days,
+.ember-power-calendar-days * {
+  box-sizing: border-box;
+}
+
+.ember-power-calendar-nav-title {
+  flex: 1;
+  text-align: center;
+}
+
+.ember-power-calendar-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ember-power-calendar-weekday {
+  appearance: none;
+  flex: 1 1 100%;
+  background-color: transparent;
+  background-color: initial;
+  border: none;
+  border: initial;
+  outline: none;
+  outline: initial;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.ember-power-calendar-day {
+  appearance: none;
+  background-color: transparent;
+  background-color: initial;
+  border: none;
+  border: initial;
+  outline: none;
+  outline: initial;
+  flex: 1 1 100%;
+  font-size: inherit;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.ember-power-calendar-nav-control {
+  appearance: none;
+  background-color: transparent;
+  background-color: initial;
+  border: none;
+  border: initial;
+  outline: none;
+  outline: initial;
+  line-height: 1;
+  font-size: 150%;
+}
+.ember-power-calendar-nav-control:focus {
+  transform: scale(1.2);
+}
+
+.ember-power-calendar-day--selected,
+.ember-power-calendar-day--selected:not([disabled]):hover {
+  font-weight: bold;
+}
+
+.ember-power-calendar-day--interactive[disabled] {
+  opacity: 0.4;
+}
+
+.ember-power-calendar {
+  width: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 7 - 2px + 0px + 0px);
+}
+.ember-power-calendar .ember-power-calendar-week:first-child[data-missing-days="1"] {
+  padding-left: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 1);
+}
+.ember-power-calendar .ember-power-calendar-week:first-child[data-missing-days="2"] {
+  padding-left: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 2);
+}
+.ember-power-calendar .ember-power-calendar-week:first-child[data-missing-days="3"] {
+  padding-left: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 3);
+}
+.ember-power-calendar .ember-power-calendar-week:first-child[data-missing-days="4"] {
+  padding-left: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 4);
+}
+.ember-power-calendar .ember-power-calendar-week:first-child[data-missing-days="5"] {
+  padding-left: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 5);
+}
+.ember-power-calendar .ember-power-calendar-week:first-child[data-missing-days="6"] {
+  padding-left: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 6);
+}
+.ember-power-calendar .ember-power-calendar-week:last-child[data-missing-days="1"] {
+  padding-right: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 1);
+}
+.ember-power-calendar .ember-power-calendar-week:last-child[data-missing-days="2"] {
+  padding-right: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 2);
+}
+.ember-power-calendar .ember-power-calendar-week:last-child[data-missing-days="3"] {
+  padding-right: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 3);
+}
+.ember-power-calendar .ember-power-calendar-week:last-child[data-missing-days="4"] {
+  padding-right: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 4);
+}
+.ember-power-calendar .ember-power-calendar-week:last-child[data-missing-days="5"] {
+  padding-right: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 5);
+}
+.ember-power-calendar .ember-power-calendar-week:last-child[data-missing-days="6"] {
+  padding-right: calc(calc(var(--ember-power-calendar-cell-size) + 2px) * 6);
+}
+.ember-power-calendar .ember-power-calendar-day,
+.ember-power-calendar .ember-power-calendar-weekday {
+  max-width: var(--ember-power-calendar-cell-size);
+  max-height: var(--ember-power-calendar-cell-size);
+  width: var(--ember-power-calendar-cell-size);
+  height: var(--ember-power-calendar-cell-size);
+}
+.ember-power-calendar .ember-power-calendar-weekdays,
+.ember-power-calendar .ember-power-calendar-week {
+  height: calc(var(--ember-power-calendar-cell-size) + 2px);
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.ember-power-calendar .ember-power-calendar-day {
+  color: #bbb;
+}
+.ember-power-calendar .ember-power-calendar-weekdays {
+  color: #333333;
+}
+.ember-power-calendar .ember-power-calendar-nav-control {
+  color: #0078c9;
+}
+.ember-power-calendar .ember-power-calendar-nav-control:focus {
+  color: rgb(48, 171.5820895522, 255);
+}
+.ember-power-calendar .ember-power-calendar-day--current-month {
+  color: #656d78;
+  background-color: #f5f7fa;
+}
+.ember-power-calendar .ember-power-calendar-day--today {
+  background-color: #eee;
+}
+.ember-power-calendar .ember-power-calendar-day:not([disabled]):hover {
+  background-color: #eee;
+}
+.ember-power-calendar .ember-power-calendar-day--focused {
+  box-shadow: inset 0 -2px 0 0 #0078c9;
+}
+.ember-power-calendar .ember-power-calendar-day--selected.ember-power-calendar-day--range-start {
+  background-color: rgb(150, 212.6865671642, 255);
+}
+.ember-power-calendar .ember-power-calendar-day--selected.ember-power-calendar-day--range-start:hover {
+  background-color: rgb(150, 212.6865671642, 255);
+}
+.ember-power-calendar .ember-power-calendar-day--selected.ember-power-calendar-day--range-end {
+  background-color: rgb(150, 212.6865671642, 255);
+}
+.ember-power-calendar .ember-power-calendar-day--selected.ember-power-calendar-day--range-end:hover {
+  background-color: rgb(150, 212.6865671642, 255);
+}
+.ember-power-calendar .ember-power-calendar-day--selected {
+  background-color: rgb(201, 233.2388059701, 255);
+  color: #656d78;
+}
+.ember-power-calendar .ember-power-calendar-day--selected:not([disabled]):hover {
+  background-color: rgb(201, 233.2388059701, 255);
+  color: #656d78;
+}
+.ember-power-calendar .ember-power-calendar-day--other-month:not([disabled]):hover {
+  color: #656d78;
+}
