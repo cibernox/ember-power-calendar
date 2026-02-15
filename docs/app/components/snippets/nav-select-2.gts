@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import PowerCalendar, { type PowerCalendarDefaultBlock } from 'ember-power-calendar/components/power-calendar';
-import PowerSelect from 'ember-power-select/components/power-select';
+import PowerSelect, { type Select } from 'ember-power-select/components/power-select';
 import { formatDate, type NormalizeCalendarValue } from 'ember-power-calendar/utils';
 import { fn } from '@ember/helper';
 
@@ -59,24 +59,22 @@ export default class extends Component {
   ];
 
   @action
-  async changeCenter2(unit: 'month' | 'year', calendar: PowerCalendarDefaultBlock, e: Event) {
-    const selectedValue = (e.target as HTMLSelectElement)?.value;
-
+  async changeCenter2(unit: 'month' | 'year', calendar: PowerCalendarDefaultBlock, selectedValue: string, _select: Select, e?: Event) {
     const newCenter = new Date(calendar.center);
 
     switch (unit) {
       case 'month': {
         const value = this.months.indexOf(selectedValue);
-        calendar.center.setMonth(value);
+        newCenter.setMonth(value);
         break;
       }
 
       case 'year':
-        calendar.center.setFullYear(parseInt(selectedValue));
+        newCenter.setFullYear(parseInt(selectedValue));
         break;
     }
 
-    if (calendar.actions.changeCenter) {
+    if (calendar.actions.changeCenter && e) {
       await calendar.actions.changeCenter(newCenter, calendar, e);
     }
   }

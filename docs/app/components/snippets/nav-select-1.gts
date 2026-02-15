@@ -37,12 +37,12 @@ export default class extends Component {
     switch (unit) {
       case 'month': {
         const value = this.months.indexOf(selectedValue);
-        calendar.center.setMonth(value);
+        newCenter.setMonth(value);
         break;
       }
 
       case 'year':
-        calendar.center.setFullYear(parseInt(selectedValue));
+        newCenter.setFullYear(parseInt(selectedValue));
         break;
     }
 

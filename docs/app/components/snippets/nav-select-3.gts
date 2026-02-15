@@ -30,7 +30,7 @@ export default class extends Component {
 
     const newCenter = new Date(calendar.center);
 
-    calendar.center.setFullYear(parseInt(selectedValue));
+    newCenter.setFullYear(parseInt(selectedValue));
 
     if (calendar.actions.changeCenter) {
       await calendar.actions.changeCenter(newCenter, calendar, e);

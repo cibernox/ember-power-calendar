@@ -1,7 +1,0 @@
-<template>
-  <section class="docs">
-    <section class="doc-page">
-      {{outlet}}
-    </section>
-  </section>
-</template>

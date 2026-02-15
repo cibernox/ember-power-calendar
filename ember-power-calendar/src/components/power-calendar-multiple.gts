@@ -261,7 +261,6 @@ export default class PowerCalendarMultiple extends Component<PowerCalendarMultip
     calendar: PowerCalendarMultipleAPI,
     e?: Event,
   ) {
-    console.log('dayOrDays', dayOrDays);
     assert(
       `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`,
       isArray(dayOrDays) ||

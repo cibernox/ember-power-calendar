@@ -60,10 +60,6 @@ export default class PublicPages extends Component {
             @route="public-pages.cookbook"
             class="main-header-nav-link"
           >Cookbook</LinkTo>
-          <LinkTo
-            @route="public-pages.addons"
-            class="main-header-nav-link"
-          >Addons</LinkTo>
           <a
             href="https://github.com/cibernox/ember-power-calendar"
             class="main-header-nav-link"

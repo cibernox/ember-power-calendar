@@ -31,10 +31,6 @@ Router.map(function () {
       this.route('nav-select');
       this.route('multiple-months');
     });
-
-    this.route('addons', function () {
-      this.route('index');
-    });
   });
   this.route('helpers-testing');
 });
