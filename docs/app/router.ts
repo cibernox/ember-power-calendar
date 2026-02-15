@@ -28,7 +28,6 @@ Router.map(function () {
     });
 
     this.route('cookbook', function () {
-      this.route('datepicker');
       this.route('nav-select');
       this.route('multiple-months');
     });
@@ -36,8 +35,6 @@ Router.map(function () {
     this.route('addons', function () {
       this.route('index');
     });
-
-    this.route('support-the-project');
   });
   this.route('helpers-testing');
 });

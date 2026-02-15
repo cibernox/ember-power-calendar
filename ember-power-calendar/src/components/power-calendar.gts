@@ -57,18 +57,18 @@ export interface PowerCalendarActions {
   changeCenter?: (
     newCenter: Date,
     calendar: PowerCalendarAPI,
-    event: MouseEvent,
+    event: Event,
   ) => TaskInstance<void>;
   moveCenter?: (
     step: number,
     unit: TPowerCalendarMoveCenterUnit,
     calendar: PowerCalendarAPI,
-    event: MouseEvent | KeyboardEvent,
+    event: Event,
   ) => Promise<void>;
   select?: (
     day: PowerCalendarDay,
     calendar: PowerCalendarAPI,
-    event: MouseEvent,
+    event: Event,
   ) => void;
 }
 
