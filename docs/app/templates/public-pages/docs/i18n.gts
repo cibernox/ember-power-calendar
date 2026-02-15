@@ -25,8 +25,8 @@ import { LinkTo } from '@ember/routing';
 
   <p>
     Also, you can override the global locale on a per-instance basis passing
-    <code>locale="some-locale"</code>. The next calendar is going to be in russian
-    no matter what the global locale is.
+    <code>locale="some-locale"</code>. The next calendar is going to be in
+    russian no matter what the global locale is.
   </p>
 
   <CodeExample @glimmerTs="i18n-2.gts">
@@ -34,8 +34,8 @@ import { LinkTo } from '@ember/routing';
   </CodeExample>
 
   <p>
-    In the next sections you are going to see how to customize the sub-components
-    of the calendar.
+    In the next sections you are going to see how to customize the
+    sub-components of the calendar.
   </p>
 
   <div class="doc-page-nav">
@@ -43,7 +43,9 @@ import { LinkTo } from '@ember/routing';
       @route="public-pages.docs.multiple-selection"
       class="doc-page-nav-link-prev"
     >&lt; Multiple selection</LinkTo>
-    <LinkTo @route="public-pages.docs.the-nav" class="doc-page-nav-link-next">The
-      nav &gt;</LinkTo>
+    <LinkTo
+      @route="public-pages.docs.the-nav"
+      class="doc-page-nav-link-next"
+    >The nav &gt;</LinkTo>
   </div>
 </template>

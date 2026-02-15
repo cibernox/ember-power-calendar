@@ -8,8 +8,8 @@ import { LinkTo } from '@ember/routing';
   <h1 class="doc-page-title">Nav with select</h1>
 
   <p>
-    A couple people asked me if I was considering adding a feature present in the
-    well known
+    A couple people asked me if I was considering adding a feature present in
+    the well known
     <a href="http://dbushell.github.io/Pikaday/">Pickaday</a>
     library where you can click in the month or year to quicky navigate to far
     away dates.
@@ -25,10 +25,7 @@ import { LinkTo } from '@ember/routing';
     Let's build it in a few lines of code.
   </p>
 
-  <CodeExample
-    @glimmerTs="nav-select-1.gts"
-    @css="nav-select-1-css.css"
-  >
+  <CodeExample @glimmerTs="nav-select-1.gts" @css="nav-select-1-css.css">
     {{NavSelect1}}
   </CodeExample>
 
@@ -40,9 +37,9 @@ import { LinkTo } from '@ember/routing';
     We pass a block to the
     <code>calendar.Nav</code>
     component to replace the default markup with the name of the component with
-    our own markup. In that markup we add two invisible select on top of the text
-    of the month and year that when interacted call an action that builds a new
-    date and pass it to
+    our own markup. In that markup we add two invisible select on top of the
+    text of the month and year that when interacted call an action that builds a
+    new date and pass it to
     <code>calendar.actions.changeCenter</code>
     public action to center the calendar on that action.
   </p>
@@ -58,8 +55,8 @@ import { LinkTo } from '@ember/routing';
   </p>
 
   <p>
-    What if you prefer to use Ember Power Select with the years grouped by decade
-    and some fancy animations instead of a native select?
+    What if you prefer to use Ember Power Select with the years grouped by
+    decade and some fancy animations instead of a native select?
   </p>
 
   <CodeExample @glimmerTs="nav-select-2.gts">

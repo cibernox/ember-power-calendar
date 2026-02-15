@@ -1,5 +1,5 @@
-import { LinkTo } from "@ember/routing";
-import { formatDate } from "ember-power-calendar/utils";
+import { LinkTo } from '@ember/routing';
+import { formatDate } from 'ember-power-calendar/utils';
 
 const today = new Date();
 
@@ -39,8 +39,8 @@ const today = new Date();
       </div>
       <div class="selling-point-text">
         <h2>With Ember for Ember</h2>
-        Built in Ember for Ember apps, it works like you expect it to so it blends
-        naturally into your usual worlflow like it you built it yourself.
+        Built in Ember for Ember apps, it works like you expect it to so it
+        blends naturally into your usual worlflow like it you built it yourself.
       </div>
     </article>
 

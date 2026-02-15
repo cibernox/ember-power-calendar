@@ -1,7 +1,12 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import { add, type NormalizeCalendarValue, type NormalizeRangeActionValue, type SelectedPowerCalendarRange } from 'ember-power-calendar/utils';
+import {
+  add,
+  type NormalizeCalendarValue,
+  type NormalizeRangeActionValue,
+  type SelectedPowerCalendarRange,
+} from 'ember-power-calendar/utils';
 import PowerCalendarRange from 'ember-power-calendar/components/power-calendar-range';
 import powerCalendarFormatDate from 'ember-power-calendar/helpers/power-calendar-format-date';
 

@@ -6,7 +6,7 @@ import {
   startOf,
   endOf,
   weekday,
-formatDate,
+  formatDate,
 } from 'ember-power-calendar/utils';
 
 export default class extends Component {

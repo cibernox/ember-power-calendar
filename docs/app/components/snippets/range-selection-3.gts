@@ -2,17 +2,22 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import PowerCalendarRange from 'ember-power-calendar/components/power-calendar-range';
-import type { NormalizeCalendarValue, NormalizeRangeActionValue } from 'ember-power-calendar/utils';
+import type {
+  NormalizeCalendarValue,
+  NormalizeRangeActionValue,
+} from 'ember-power-calendar/utils';
 
 export default class extends Component {
   @tracked center: Date | undefined = new Date('2016-05-17');
-  @tracked mediumRange: {
+  @tracked mediumRange:
+    | {
+        start?: Date | null;
+        end?: Date | null;
+      }
+    | undefined = undefined;
+  @tracked range: {
     start?: Date | null;
     end?: Date | null;
-  } | undefined = undefined;
-  @tracked range: {
-      start?: Date | null;
-      end?: Date | null;
   } = {
     start: new Date('2016-05-10'),
     end: new Date('2016-05-15'),

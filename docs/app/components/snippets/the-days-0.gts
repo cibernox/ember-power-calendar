@@ -1,7 +1,9 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import PowerCalendarMultiple, { type PowerCalendarMultipleAPI } from 'ember-power-calendar/components/power-calendar-multiple';
+import PowerCalendarMultiple, {
+  type PowerCalendarMultipleAPI,
+} from 'ember-power-calendar/components/power-calendar-multiple';
 import type { NormalizeMultipleActionValue } from 'ember-power-calendar/utils';
 import type { TDayClass } from 'ember-power-calendar/helpers/ember-power-calendar-day-classes';
 
@@ -13,7 +15,11 @@ export default class extends Component {
     this.selectedDays = selected.date;
   }
 
-  customClass: TDayClass<PowerCalendarMultipleAPI> = (day, _calendar, weeks): string => {
+  customClass: TDayClass<PowerCalendarMultipleAPI> = (
+    day,
+    _calendar,
+    weeks,
+  ): string => {
     if (day.isSelected) {
       const currentWeek = weeks.find((w) => w.days.includes(day));
 
@@ -44,7 +50,7 @@ export default class extends Component {
     }
 
     return '';
-  }
+  };
 
   <template>
     <PowerCalendarMultiple

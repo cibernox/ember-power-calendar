@@ -4,7 +4,10 @@ import { action } from '@ember/object';
 import PowerCalendar from 'ember-power-calendar/components/power-calendar';
 import { on } from '@ember/modifier';
 import { fn } from '@ember/helper';
-import { formatDate, type NormalizeCalendarValue } from 'ember-power-calendar/utils';
+import {
+  formatDate,
+  type NormalizeCalendarValue,
+} from 'ember-power-calendar/utils';
 
 export default class extends Component {
   @tracked month: Date | undefined = undefined;

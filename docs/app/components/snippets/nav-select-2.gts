@@ -1,9 +1,16 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import PowerCalendar, { type PowerCalendarDefaultBlock } from 'ember-power-calendar/components/power-calendar';
-import PowerSelect, { type Select } from 'ember-power-select/components/power-select';
-import { formatDate, type NormalizeCalendarValue } from 'ember-power-calendar/utils';
+import PowerCalendar, {
+  type PowerCalendarDefaultBlock,
+} from 'ember-power-calendar/components/power-calendar';
+import PowerSelect, {
+  type Select,
+} from 'ember-power-select/components/power-select';
+import {
+  formatDate,
+  type NormalizeCalendarValue,
+} from 'ember-power-calendar/utils';
 import { fn } from '@ember/helper';
 
 export default class extends Component {
@@ -25,8 +32,8 @@ export default class extends Component {
   ];
 
   groupedYears: {
-      groupName: string;
-      options: string[];
+    groupName: string;
+    options: string[];
   }[] = [
     {
       groupName: "40's",
@@ -59,7 +66,13 @@ export default class extends Component {
   ];
 
   @action
-  async changeCenter2(unit: 'month' | 'year', calendar: PowerCalendarDefaultBlock, selectedValue: string, _select: Select, e?: Event) {
+  async changeCenter2(
+    unit: 'month' | 'year',
+    calendar: PowerCalendarDefaultBlock,
+    selectedValue: string,
+    _select: Select,
+    e?: Event,
+  ) {
     const newCenter = new Date(calendar.center);
 
     switch (unit) {

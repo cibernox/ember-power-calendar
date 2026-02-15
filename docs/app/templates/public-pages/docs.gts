@@ -60,10 +60,7 @@ export default class PublicPagesDocs extends Component {
   }
 
   @action
-  visit(section: {
-    route: string;
-    text: string;
-  }) {
+  visit(section: { route: string; text: string }) {
     this.router.transitionTo(section.route);
   }
 
@@ -80,8 +77,10 @@ export default class PublicPagesDocs extends Component {
           @route="public-pages.docs.installation"
           class="side-nav-link"
         >Installation &amp; setup</LinkTo>
-        <LinkTo @route="public-pages.docs.how-to-use-it" class="side-nav-link">How
-          to use it</LinkTo>
+        <LinkTo
+          @route="public-pages.docs.how-to-use-it"
+          class="side-nav-link"
+        >How to use it</LinkTo>
         <LinkTo
           @route="public-pages.docs.action-handling"
           class="side-nav-link"
@@ -95,14 +94,22 @@ export default class PublicPagesDocs extends Component {
           class="side-nav-link"
         >Multiple selection</LinkTo>
         <header class="side-nav-header">Basic customization</header>
-        <LinkTo @route="public-pages.docs.i18n" class="side-nav-link">I18n</LinkTo>
+        <LinkTo
+          @route="public-pages.docs.i18n"
+          class="side-nav-link"
+        >I18n</LinkTo>
         <LinkTo @route="public-pages.docs.the-nav" class="side-nav-link">The nav</LinkTo>
-        <LinkTo @route="public-pages.docs.the-days" class="side-nav-link">The days</LinkTo>
+        <LinkTo @route="public-pages.docs.the-days" class="side-nav-link">The
+          days</LinkTo>
         <header class="side-nav-header">Other</header>
-        <LinkTo @route="public-pages.docs.test-helpers" class="side-nav-link">Test
-          helpers</LinkTo>
-        <LinkTo @route="public-pages.docs.api-reference" class="side-nav-link">API
-          reference</LinkTo>
+        <LinkTo
+          @route="public-pages.docs.test-helpers"
+          class="side-nav-link"
+        >Test helpers</LinkTo>
+        <LinkTo
+          @route="public-pages.docs.api-reference"
+          class="side-nav-link"
+        >API reference</LinkTo>
       </nav>
       <section class="doc-page">
         <PowerSelect

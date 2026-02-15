@@ -7,9 +7,9 @@ import { LinkTo } from '@ember/routing';
   <h1 class="doc-page-title">Display Multiple Months</h1>
 
   <p>
-    You might want to display multiple months simultaneously. Displaying multiple
-    months is a nice especially when you might want people to select dates across
-    month boundaries.
+    You might want to display multiple months simultaneously. Displaying
+    multiple months is a nice especially when you might want people to select
+    dates across month boundaries.
   </p>
 
   <p>
@@ -25,8 +25,8 @@ import { LinkTo } from '@ember/routing';
   </CodeExample>
 
   <p>
-    How? Well. In versions of ember-power-calendar greater than 0.11.0 we can pass
-    a
+    How? Well. In versions of ember-power-calendar greater than 0.11.0 we can
+    pass a
     <code>center</code>
     property to the
     <code>calendar.Days</code>
@@ -39,8 +39,8 @@ import { LinkTo } from '@ember/routing';
   </p>
 
   <p>
-    Another nice pattern for mobile is to render all 12 months vertically and let
-    the user scroll them.
+    Another nice pattern for mobile is to render all 12 months vertically and
+    let the user scroll them.
   </p>
 
   <CodeExample

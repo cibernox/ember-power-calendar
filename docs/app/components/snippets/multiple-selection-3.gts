@@ -2,7 +2,10 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import PowerCalendarMultiple from 'ember-power-calendar/components/power-calendar-multiple';
-import { formatDate, type NormalizeMultipleActionValue } from 'ember-power-calendar/utils';
+import {
+  formatDate,
+  type NormalizeMultipleActionValue,
+} from 'ember-power-calendar/utils';
 
 export default class extends Component {
   @tracked center: Date = new Date('2016-05-17');

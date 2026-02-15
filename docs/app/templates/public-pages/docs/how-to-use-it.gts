@@ -1,4 +1,3 @@
-
 import CodeExample from 'docs/components/code-example';
 import HowToUseIt1 from '../../../components/snippets/how-to-use-it-1';
 import HowToUseIt2 from '../../../components/snippets/how-to-use-it-2';
@@ -51,9 +50,9 @@ import { LinkTo } from '@ember/routing';
     It is important to note that
     <code>center</code>
     is a date in which we center our attention but not necessarily the center of
-    the time window we display. In the month view (the default) it doesn't matter
-    if that date is the 1st day or the 31st, the rendered month will be the same.
-    Let's render October of 2013.
+    the time window we display. In the month view (the default) it doesn't
+    matter if that date is the 1st day or the 31st, the rendered month will be
+    the same. Let's render October of 2013.
   </p>
 
   <CodeExample @glimmerTs="how-to-use-it-2.gts">
@@ -64,8 +63,8 @@ import { LinkTo } from '@ember/routing';
     The month above is November of 2013, but that's hard to know if there is
     nothing else telling us. The second component that the calendar has and that
     you will find yourself using often is
-    <code>calendar.Nav</code>. This component displays the name of the month and,
-    optionally, some actions to navigate to the previous/next month.
+    <code>calendar.Nav</code>. This component displays the name of the month
+    and, optionally, some actions to navigate to the previous/next month.
   </p>
 
   <CodeExample @glimmerTs="how-to-use-it-3.gts">
@@ -116,10 +115,10 @@ import { LinkTo } from '@ember/routing';
     You can see that the calendar shows the selected date in blue. You may have
     also noticed that despite only passing a
     <code>selected</code>
-    option, the month is not the current one. That is because in the absence of a
-    specific
-    <code>center</code>, the calendar will show the month of the selected date. If
-    both options are provided,
+    option, the month is not the current one. That is because in the absence of
+    a specific
+    <code>center</code>, the calendar will show the month of the selected date.
+    If both options are provided,
     <code>center</code>
     <strong>always</strong>
     prevails.
@@ -128,8 +127,8 @@ import { LinkTo } from '@ember/routing';
   <p>
     Enough of static calendars. If you just wanted to display a static grid of
     days you probably wouldn't be using an ember-addon for that. You want to
-    navigate months, you want to select days and ranges. Let's see how to do these
-    things in the next chapter.
+    navigate months, you want to select days and ranges. Let's see how to do
+    these things in the next chapter.
   </p>
 
   <div class="doc-page-nav">

@@ -14,8 +14,8 @@ import { LinkTo } from '@ember/routing';
     <code>power-calendar-multiple</code>.
   </p>
 
-  <p>There is no much need of explanation, so lets see it in action. Play with it,
-    click around and use the keyboard.</p>
+  <p>There is no much need of explanation, so lets see it in action. Play with
+    it, click around and use the keyboard.</p>
 
   <CodeExample @glimmerTs="multiple-selection-1.gts">
     {{MultipleSelection1}}
@@ -42,14 +42,15 @@ import { LinkTo } from '@ember/routing';
   </p>
 
   <p>
-    It's worth noticing that clicking on a selected day unselects it and that the
-    days are passed in the order they are clicked.
+    It's worth noticing that clicking on a selected day unselects it and that
+    the days are passed in the order they are clicked.
   </p>
 
   <p>
     Since what the
     <code>onSelect</code>
-    action does is up to you, you can implement any logic you want, no matter how
+    action does is up to you, you can implement any logic you want, no matter
+    how
     <del>absurd</del>
     complex it is.
   </p>

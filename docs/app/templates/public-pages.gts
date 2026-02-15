@@ -22,7 +22,9 @@ export default class PublicPages extends Component {
       return;
     }
 
-    const pageElement = (e.target as HTMLElement).closest<HTMLElement>('.header-calendar-page');
+    const pageElement = (e.target as HTMLElement).closest<HTMLElement>(
+      '.header-calendar-page',
+    );
     if (!pageElement) {
       return;
     }
@@ -75,7 +77,10 @@ export default class PublicPages extends Component {
                 class="header-calendar-page
                   {{if (eq this.day this.today) '' 'run-animation'}}"
               >
-                <sub class="calendar-page-number">{{formatDate this.day "D"}}</sub>
+                <sub class="calendar-page-number">{{formatDate
+                    this.day
+                    "D"
+                  }}</sub>
                 Calendar
               </div>
               <div class="header-calendar-ring left"></div>

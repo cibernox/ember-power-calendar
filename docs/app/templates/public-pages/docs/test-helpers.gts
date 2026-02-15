@@ -1,5 +1,5 @@
-import { LinkTo } from "@ember/routing";
-import CodeExample from "docs/components/code-example";
+import { LinkTo } from '@ember/routing';
+import CodeExample from 'docs/components/code-example';
 
 <template>
   <h1 class="doc-page-title">Test helpers</h1>
@@ -11,8 +11,8 @@ import CodeExample from "docs/components/code-example";
     Ember Power Calendar provides two acceptance helpers (<code
     >calendarCenter</code>
     and
-    <code>calendarSelect</code>) that make it nicer to interact with the component
-    during tests.
+    <code>calendarSelect</code>) that make it nicer to interact with the
+    component during tests.
   </p>
 
   <h3><code>calendarCenter(cssSelector, date)</code></h3>
@@ -35,8 +35,8 @@ import CodeExample from "docs/components/code-example";
   <h3><code>calendarSelect(cssSelector, date)</code></h3>
 
   <p>
-    Use this helper to select a day of the calendar like if you clicked on it. If
-    to do so the calendar has to display a different month, it will do that
+    Use this helper to select a day of the calendar like if you clicked on it.
+    If to do so the calendar has to display a different month, it will do that
     automatically.
   </p>
 
@@ -47,8 +47,8 @@ import CodeExample from "docs/components/code-example";
   />
 
   <p>
-    If you are dealing with a multiple or range calendar you can just call it more
-    than once.
+    If you are dealing with a multiple or range calendar you can just call it
+    more than once.
   </p>
 
   <h2>Integration Tests</h2>

@@ -8,14 +8,14 @@ import { LinkTo } from '@ember/routing';
   <p>
     One very common use case of calendars is as part of another datepicker
     component. That is, a calendar associated with an input field, in which when
-    the input is clicked, the calendar appears in a floating box to ease choosing
-    a date.
+    the input is clicked, the calendar appears in a floating box to ease
+    choosing a date.
   </p>
 
   <p>
     It might seem that this would take a lot of code, but the Ember ecosystem is
-    amazing, and there are already some components that act as building blocks for
-    other components that we can leverage.
+    amazing, and there are already some components that act as building blocks
+    for other components that we can leverage.
   </p>
 
   <p>
@@ -39,10 +39,10 @@ import { LinkTo } from '@ember/routing';
   </p>
 
   <p>
-    You can style it in any way you want, add wrapper divs like the ones required
-    by some CSS frameworks (I'm looking at you, Bootstrap), format the text of the
-    input using some helper. You could also modify it to use a textarea or to
-    format ranges in a breeze.
+    You can style it in any way you want, add wrapper divs like the ones
+    required by some CSS frameworks (I'm looking at you, Bootstrap), format the
+    text of the input using some helper. You could also modify it to use a
+    textarea or to format ranges in a breeze.
   </p>
 
   <p>
@@ -50,9 +50,9 @@ import { LinkTo } from '@ember/routing';
   </p>
   <p>
     For example, you could want to close the dropdown when a day is selected or
-    allow the users to type on the input and parse the date as they type, but this
-    gives a starting point for anyone to create - and publish ;) - their own
-    datepicker component.
+    allow the users to type on the input and parse the date as they type, but
+    this gives a starting point for anyone to create - and publish ;) - their
+    own datepicker component.
   </p>
 
   <div class="doc-page-nav">

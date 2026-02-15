@@ -6,10 +6,12 @@ import type { NormalizeRangeActionValue } from 'ember-power-calendar/utils';
 
 export default class extends Component {
   @tracked center: Date | undefined = new Date('2016-05-17');
-  @tracked minimalRange: {
-    start?: Date | null;
-    end?: Date | null;
-  } | undefined = undefined;
+  @tracked minimalRange:
+    | {
+        start?: Date | null;
+        end?: Date | null;
+      }
+    | undefined = undefined;
 
   @action
   onSelect(selected: NormalizeRangeActionValue) {
@@ -28,8 +30,8 @@ export default class extends Component {
       <cal.Days />
     </PowerCalendarRange>
     <small>
-      To help visualize it in this demo the color of the days when range starts and
-      ends in the same day is red.
+      To help visualize it in this demo the color of the days when range starts
+      and ends in the same day is red.
     </small>
   </template>
 }

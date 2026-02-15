@@ -11,7 +11,10 @@ const groupedSections = [
     options: [
       { route: 'public-pages.cookbook.index', text: 'Datepicker' },
       { route: 'public-pages.cookbook.nav-select', text: 'Nav with select' },
-      { route: 'public-pages.cookbook.multiple-months', text: 'Multiple months' },
+      {
+        route: 'public-pages.cookbook.multiple-months',
+        text: 'Multiple months',
+      },
       // { route: 'public-pages.cookbook.material-theme',        text: 'Material theme' },
       // { route: 'public-pages.cookbook.css-animations',        text: 'CSS animations' },
       // { route: 'public-pages.cookbook.debounce-searches',     text: 'Debounce searches' },
@@ -47,10 +50,7 @@ export default class extends Component {
   }
 
   @action
-  visit(section: {
-    route: string;
-    text: string;
-  }) {
+  visit(section: { route: string; text: string }) {
     this.router.transitionTo(section.route);
   }
 
@@ -62,8 +62,10 @@ export default class extends Component {
           @route="public-pages.cookbook.index"
           class="side-nav-link"
         >Datepicker</LinkTo>
-        <LinkTo @route="public-pages.cookbook.nav-select" class="side-nav-link">Nav
-          with select</LinkTo>
+        <LinkTo
+          @route="public-pages.cookbook.nav-select"
+          class="side-nav-link"
+        >Nav with select</LinkTo>
         <LinkTo
           @route="public-pages.cookbook.multiple-months"
           class="side-nav-link"

@@ -18,8 +18,8 @@ import { LinkTo } from '@ember/routing';
   <p>
     The contextual components are
     <em>mostly</em>
-    presentationals and you can customize how they look without much knowledge of
-    how the calendar works. The
+    presentationals and you can customize how they look without much knowledge
+    of how the calendar works. The
     <code>calendar.Nav</code>
     component is the simplest one.
   </p>
@@ -33,9 +33,9 @@ import { LinkTo } from '@ember/routing';
   <h3>Passing a block</h3>
 
   <p>
-    If you pass a block to this component, that block will replace the month/year
-    text. It can be used by example if you want to display the month in a
-    different format, maybe a more compact one for very small calendars.
+    If you pass a block to this component, that block will replace the
+    month/year text. It can be used by example if you want to display the month
+    in a different format, maybe a more compact one for very small calendars.
   </p>
 
   <CodeExample @glimmerTs="the-nav-1.gts">
@@ -46,8 +46,9 @@ import { LinkTo } from '@ember/routing';
 
   <p>
     If the thing you want is beyond what you can do with the block, Ember Power
-    Calendar doesn't try to provide a miriad of option to configure the component.
-    Instead it gives you the tools to build it yourself using the yielded
+    Calendar doesn't try to provide a miriad of option to configure the
+    component. Instead it gives you the tools to build it yourself using the
+    yielded
     <code>calendar</code>. It's easy!
   </p>
 
@@ -65,13 +66,14 @@ import { LinkTo } from '@ember/routing';
 
   <p>
     The example above is simple and works if you only have one calendar, but if
-    you have several calendars it becomes repetitive. The last way of customizing
-    your calendar is replacing the
+    you have several calendars it becomes repetitive. The last way of
+    customizing your calendar is replacing the
     <code>nav</code>
     component with your own component.
   </p>
 
-  <p>Let's encapsulate the same logic above into a component and use that instead</p>
+  <p>Let's encapsulate the same logic above into a component and use that
+    instead</p>
 
   <CodeExample @glimmerTs="the-nav-3.gts">
     {{TheNav3}}
@@ -80,8 +82,8 @@ import { LinkTo } from '@ember/routing';
   <p>
     Now you have the same logic but to use it the only thing you have to do is
     tell the calenda to use your component with
-    <code>navComponent="name-of-my-component"</code>. Much easier to reuse across
-    your app.
+    <code>navComponent="name-of-my-component"</code>. Much easier to reuse
+    across your app.
   </p>
 
   <p>
@@ -91,7 +93,9 @@ import { LinkTo } from '@ember/routing';
   <div class="doc-page-nav">
     <LinkTo @route="public-pages.docs.i18n" class="doc-page-nav-link-prev">&lt;
       I18n</LinkTo>
-    <LinkTo @route="public-pages.docs.the-days" class="doc-page-nav-link-next">The
-      days &gt;</LinkTo>
+    <LinkTo
+      @route="public-pages.docs.the-days"
+      class="doc-page-nav-link-next"
+    >The days &gt;</LinkTo>
   </div>
 </template>

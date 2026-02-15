@@ -1,5 +1,5 @@
-import { LinkTo } from "@ember/routing";
-import CodeExample from "docs/components/code-example";
+import { LinkTo } from '@ember/routing';
+import CodeExample from 'docs/components/code-example';
 
 <template>
   <h1 class="doc-page-title">Installation &amp; setup</h1>
@@ -11,8 +11,8 @@ import CodeExample from "docs/components/code-example";
       target="_blank"
       rel="noopener noreferrer"
     >Ember-cli</a>
-    addon, so the major part of installation will be done by following command on
-    your ember project
+    addon, so the major part of installation will be done by following command
+    on your ember project
   </p>
 
   <div class="highlight">
@@ -27,8 +27,8 @@ import CodeExample from "docs/components/code-example";
   <p>
     Date manipulation is
     <em>hard</em>. Date internationalization is even harder. That's why this
-    component needs help from a third party date library to display and manipulate
-    dates.
+    component needs help from a third party date library to display and
+    manipulate dates.
   </p>
 
   <p>
@@ -63,9 +63,10 @@ import CodeExample from "docs/components/code-example";
   </p>
 
   <p>
-    Choose the one you prefer and just install it as any other addon, for instance
-    <code>ember install ember-power-calendar-luxon</code>, and your calendar will
-    work, but will look ugly.
+    Choose the one you prefer and just install it as any other addon, for
+    instance
+    <code>ember install ember-power-calendar-luxon</code>, and your calendar
+    will work, but will look ugly.
   </p>
 
   <p>
@@ -73,11 +74,7 @@ import CodeExample from "docs/components/code-example";
     <code>ember-power-calendar</code>. For
     <code>ember-power-calendar-moment</code>
     you need to add this lines.
-    <CodeExample
-      @js="installation.ts"
-      @showResult={{false}}
-      @activeTab="js"
-    />
+    <CodeExample @js="installation.ts" @showResult={{false}} @activeTab="js" />
 
     If you are using any other date library please check the ReadMe of the
     package.
@@ -113,8 +110,8 @@ import CodeExample from "docs/components/code-example";
   />
 
   <p>
-    However, if you are using SASS or LESS you need to add an import statement to
-    your styles.
+    However, if you are using SASS or LESS you need to add an import statement
+    to your styles.
   </p>
 
   <CodeExample
@@ -124,8 +121,8 @@ import CodeExample from "docs/components/code-example";
   />
 
   <p>
-    Doing that will bring in all of the styles except those related to the size of
-    the calendar. For defining the size of the calendar there is a mixin that
+    Doing that will bring in all of the styles except those related to the size
+    of the calendar. For defining the size of the calendar there is a mixin that
     takes the size of the cell you want your calendar to be. By example:
   </p>
 

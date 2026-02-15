@@ -17,15 +17,16 @@ import { LinkTo } from '@ember/routing';
   </p>
 
   <p>
-    The only differences in the API between a calendar for selecting a single day
-    and a calendar for selecting a range are that the name of the component is now
+    The only differences in the API between a calendar for selecting a single
+    day and a calendar for selecting a range are that the name of the component
+    is now
     <code>power-calendar-range</code>
     and that the
     <code>selected</code>
     option has to implement the
     <code>Range</code>
-    interface. It might sound scary, but it only means that it has to be an object
-    with
+    interface. It might sound scary, but it only means that it has to be an
+    object with
     <code>start</code>
     and
     <code>end</code>
@@ -35,15 +36,15 @@ import { LinkTo } from '@ember/routing';
   <p>
     The same
     <code>onSelect</code>
-    action used in the previous chapter to select one date, is now used to select
-    a range. The object that this action receives has a
+    action used in the previous chapter to select one date, is now used to
+    select a range. The object that this action receives has a
     <code>date</code>
     and either
     <code>moment</code>
     or
     <code>datetime</code>
-    properties, each one containing a range with the dates in native Date objects
-    or in momentJS/Luxon.DateTime objects.
+    properties, each one containing a range with the dates in native Date
+    objects or in momentJS/Luxon.DateTime objects.
   </p>
 
   <p>
@@ -93,8 +94,8 @@ import { LinkTo } from '@ember/routing';
     different date from where it begins and there is no maximum range.
   </p>
 
-  <p>If you want to force the user to pick a range of at least 3 days you can just
-    pass a number:</p>
+  <p>If you want to force the user to pick a range of at least 3 days you can
+    just pass a number:</p>
 
   <CodeExample @glimmerTs="range-selection-3.gts">
     {{RangeSelection3}}
@@ -106,8 +107,9 @@ import { LinkTo } from '@ember/routing';
   </p>
 
   <p>
-    This property accepts humanized durations which makes it very nice to use with
-    different units other than days. Let's make the range be of at most one week.
+    This property accepts humanized durations which makes it very nice to use
+    with different units other than days. Let's make the range be of at most one
+    week.
   </p>
 
   <CodeExample @glimmerTs="range-selection-4.gts">
@@ -142,8 +144,8 @@ import { LinkTo } from '@ember/routing';
     This option changes the behaviour of date selection after a choosing a start
     and an end date. The default behaviour on the third click will select a new
     start date of a brand new range. With this flag enabled, once you have a
-    range, clicking a third time will move the closest of the extremes, narrowing
-    or extending the range.
+    range, clicking a third time will move the closest of the extremes,
+    narrowing or extending the range.
   </p>
 
   <CodeExample @glimmerTs="range-selection-7.gts">

@@ -3,7 +3,10 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import PowerCalendarRange from 'ember-power-calendar/components/power-calendar-range';
 import powerCalendarFormatDate from 'ember-power-calendar/helpers/power-calendar-format-date';
-import type { NormalizeRangeActionValue, SelectedPowerCalendarRange } from 'ember-power-calendar/utils';
+import type {
+  NormalizeRangeActionValue,
+  SelectedPowerCalendarRange,
+} from 'ember-power-calendar/utils';
 
 export default class extends Component {
   @tracked selected: SelectedPowerCalendarRange | undefined = undefined;

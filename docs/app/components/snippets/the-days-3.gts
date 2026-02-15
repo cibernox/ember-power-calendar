@@ -5,10 +5,7 @@ import DaysGridWithoutMonOrWed from '../days-grid-without-mon-or-wed';
 // eslint-disable-next-line ember/no-empty-glimmer-component-classes
 export default class extends Component {
   <template>
-    <PowerCalendar
-      @daysComponent={{DaysGridWithoutMonOrWed}}
-      as |calendar|
-    >
+    <PowerCalendar @daysComponent={{DaysGridWithoutMonOrWed}} as |calendar|>
       <calendar.Nav />
       <calendar.Days />
     </PowerCalendar>

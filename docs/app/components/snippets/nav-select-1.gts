@@ -1,7 +1,9 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import PowerCalendar, { type PowerCalendarDefaultBlock } from 'ember-power-calendar/components/power-calendar';
+import PowerCalendar, {
+  type PowerCalendarDefaultBlock,
+} from 'ember-power-calendar/components/power-calendar';
 import { formatDate } from 'ember-power-calendar/utils';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
@@ -26,10 +28,16 @@ export default class extends Component {
     'December',
   ];
 
-  years: string[] = Array(...(Array(80) as never[])).map((_, i) => `${i + 1940}`);
+  years: string[] = Array(...(Array(80) as never[])).map(
+    (_, i) => `${i + 1940}`,
+  );
 
   @action
-  async changeCenter(unit: 'month' | 'year', calendar: PowerCalendarDefaultBlock, e: Event) {
+  async changeCenter(
+    unit: 'month' | 'year',
+    calendar: PowerCalendarDefaultBlock,
+    e: Event,
+  ) {
     const selectedValue = (e.target as HTMLSelectElement)?.value;
 
     const newCenter = new Date(calendar.center);

@@ -5,10 +5,12 @@ import PowerCalendarRange from 'ember-power-calendar/components/power-calendar-r
 import type { NormalizeRangeActionValue } from 'ember-power-calendar/utils';
 
 export default class extends Component {
-  @tracked selectedRange: {
-    start?: Date | null;
-    end?: Date | null;
-  } | undefined = undefined;
+  @tracked selectedRange:
+    | {
+        start?: Date | null;
+        end?: Date | null;
+      }
+    | undefined = undefined;
 
   @action
   onSelect(selected: NormalizeRangeActionValue) {

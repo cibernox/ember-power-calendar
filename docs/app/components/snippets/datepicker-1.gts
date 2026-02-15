@@ -4,7 +4,11 @@ import { action } from '@ember/object';
 import { on } from '@ember/modifier';
 import BasicDropdown from 'ember-basic-dropdown/components/basic-dropdown';
 import PowerCalendar from 'ember-power-calendar/components/power-calendar';
-import { formatDate, type NormalizeCalendarValue, type PowerCalendarDay } from 'ember-power-calendar/utils';
+import {
+  formatDate,
+  type NormalizeCalendarValue,
+  type PowerCalendarDay,
+} from 'ember-power-calendar/utils';
 
 export default class extends Component {
   @tracked center: Date | undefined = undefined;

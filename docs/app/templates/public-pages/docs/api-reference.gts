@@ -3,8 +3,8 @@
 
   <p>
     Ember Power Calendar aims to allow users to create the ideal calendar they
-    need using only the properties and actions defined in its public API, so it is
-    important to have a comprehensive list of all the available options.
+    need using only the properties and actions defined in its public API, so it
+    is important to have a comprehensive list of all the available options.
   </p>
 
   <h3>The <code>day</code> object</h3>
@@ -65,8 +65,8 @@
       <tr>
         <td>isCurrentMonth</td>
         <td><code>Boolean</code></td>
-        <td>It is true for those days in the current day, and false for those days
-          for the previous/next months shown around.</td>
+        <td>It is true for those days in the current day, and false for those
+          days for the previous/next months shown around.</td>
       </tr>
       <tr>
         <td>isToday</td>
@@ -77,8 +77,8 @@
         <td>isSelected</td>
         <td><code>Boolean</code></td>
         <td>It is true if the date of this day is the selected one. In multiple
-          select it is true if the date of this day is among the selected ones. In
-          range selects, it is true if the date if this day is in the range,
+          select it is true if the date of this day is among the selected ones.
+          In range selects, it is true if the date if this day is in the range,
           including both ends.</td>
       </tr>
       <tr>
@@ -90,8 +90,8 @@
       <tr>
         <td>isRangeEnd</td>
         <td><code>Boolean</code></td>
-        <td>It is true if this day is the end of a range. It is false in non-range
-          calendars</td>
+        <td>It is true if this day is the end of a range. It is false in
+          non-range calendars</td>
       </tr>
     </tbody>
   </table>

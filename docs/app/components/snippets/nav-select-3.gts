@@ -3,8 +3,13 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
-import PowerCalendar, { type PowerCalendarDefaultBlock } from 'ember-power-calendar/components/power-calendar';
-import { formatDate, type NormalizeCalendarValue } from 'ember-power-calendar/utils';
+import PowerCalendar, {
+  type PowerCalendarDefaultBlock,
+} from 'ember-power-calendar/components/power-calendar';
+import {
+  formatDate,
+  type NormalizeCalendarValue,
+} from 'ember-power-calendar/utils';
 
 export default class extends Component {
   @tracked center3: Date | undefined = undefined;

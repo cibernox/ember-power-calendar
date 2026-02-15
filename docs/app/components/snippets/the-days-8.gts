@@ -10,7 +10,8 @@ export default class extends Component {
 
   @action
   onChange(evt: Event) {
-    this.weekdayFormat = (evt.target as HTMLInputElement).value as TWeekdayFormat;
+    this.weekdayFormat = (evt.target as HTMLInputElement)
+      .value as TWeekdayFormat;
   }
 
   <template>

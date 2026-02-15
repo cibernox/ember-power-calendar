@@ -31,8 +31,8 @@ import { LinkTo } from '@ember/routing';
   <p>
     This on itself is not amazing, but if instead of a string
     <code>dayClass</code>
-    is a function, it will be invoked for every day, receiving the day object and
-    the calendar. You can then implement any custom logic to add classes to
+    is a function, it will be invoked for every day, receiving the day object
+    and the calendar. You can then implement any custom logic to add classes to
     buttons.
   </p>
 
@@ -50,22 +50,22 @@ import { LinkTo } from '@ember/routing';
   <h3>Passing a block</h3>
 
   <p>
-    There are many ways of doing it, but the simplest one is passing a block that
-    will be the content of each cell of the grid. It's not the most versatile, but
-    it can be used for simple customizations.
+    There are many ways of doing it, but the simplest one is passing a block
+    that will be the content of each cell of the grid. It's not the most
+    versatile, but it can be used for simple customizations.
   </p>
 
   <p>
-    The block receives two arguments. The first one is a useful day object and the
-    second is the public API of the component. You can check the API of both
+    The block receives two arguments. The first one is a useful day object and
+    the second is the public API of the component. You can check the API of both
     objects
     <a href="/docs/api-reference">API reference</a>
     section.
   </p>
 
   <p>
-    Let's start by making the number of the days of the weeked be strong and pink,
-    because we like weekends.
+    Let's start by making the number of the days of the weeked be strong and
+    pink, because we like weekends.
   </p>
 
   <CodeExample @glimmerTs="the-days-1.gts">
@@ -99,8 +99,8 @@ import { LinkTo } from '@ember/routing';
 
   <p>
     Just like with the nav component, you can encapsulate this weird grid with 5
-    days week into a component to reuse it all over the place. Maybe if you use it
-    often enough the boss end up thinking weeks have 3 working days.
+    days week into a component to reuse it all over the place. Maybe if you use
+    it often enough the boss end up thinking weeks have 3 working days.
   </p>
 
   <CodeExample @glimmerTs="the-days-3.gts">
@@ -151,8 +151,8 @@ import { LinkTo } from '@ember/routing';
   <h3><code>minDate</code> and <code>maxDate</code></h3>
 
   <p>
-    If you want to prevent some days before a particular date from being selected,
-    pass
+    If you want to prevent some days before a particular date from being
+    selected, pass
     <code>minDate=someDate</code>
     and/or
     <code>maxDate=someOtherDate</code>. Dates before/after those values can be
@@ -170,8 +170,8 @@ import { LinkTo } from '@ember/routing';
   <h3><code>disabledDates</code></h3>
 
   <p>
-    Sometimes you don't want to disabled dates before or after some marks but some
-    specific list of dates, like holidays or birthdays. The
+    Sometimes you don't want to disabled dates before or after some marks but
+    some specific list of dates, like holidays or birthdays. The
     <code>disabledDates</code>
     is what you want. Pass a collection of Date or Moment objects and those days
     will be disabled.
@@ -201,8 +201,10 @@ import { LinkTo } from '@ember/routing';
   </CodeExample>
 
   <div class="doc-page-nav">
-    <LinkTo @route="public-pages.docs.the-nav" class="doc-page-nav-link-prev">&lt;
-      The nav</LinkTo>
+    <LinkTo
+      @route="public-pages.docs.the-nav"
+      class="doc-page-nav-link-prev"
+    >&lt; The nav</LinkTo>
     <LinkTo
       @route="public-pages.docs.test-helpers"
       class="doc-page-nav-link-next"

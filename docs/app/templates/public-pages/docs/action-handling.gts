@@ -8,15 +8,15 @@ import { LinkTo } from '@ember/routing';
   <h1 class="doc-page-title">Action handling</h1>
 
   <p>
-    Ember Power Calendar aims to be very customizable and because of that it also
-    has to be very explicit about its behaviour, even if that makes it slightly
-    verbose.
+    Ember Power Calendar aims to be very customizable and because of that it
+    also has to be very explicit about its behaviour, even if that makes it
+    slightly verbose.
   </p>
 
   <p>
-    The data flow from the app to the addon is strictly unidirectional. Data comes
-    into the component, and actions are fired from the inside. The user must
-    handle those actions in order for
+    The data flow from the app to the addon is strictly unidirectional. Data
+    comes into the component, and actions are fired from the inside. The user
+    must handle those actions in order for
     <strong>anything</strong>
     to happen.
   </p>
@@ -36,13 +36,14 @@ import { LinkTo } from '@ember/routing';
   </p>
 
   <p>
-    However, it would be inconvenient to force everyone to do that, so if you pass
+    However, it would be inconvenient to force everyone to do that, so if you
+    pass
     <code>onCenterChange</code>
     action to the component, the
     <code>calendar.Nav</code>
     component gets some built-in controls to navigate to the previous and next
-    month. Use that action to update the displayed month and you have a navigable
-    calendar!
+    month. Use that action to update the displayed month and you have a
+    navigable calendar!
   </p>
 
   <CodeExample @glimmerTs="action-handling-1.gts">
@@ -56,12 +57,12 @@ import { LinkTo } from '@ember/routing';
   </p>
 
   <p>
-    For example, imagine that changing to a different month needs to make an ajax
-    call to the server to gather all the events that are going to happen that
-    month (we haven't seen how to display events on the calendar, but use your
-    imagination) before showing the next month. While those events are loaded, we
-    want to hold changing the month and show a loading state with an animated
-    spinner.
+    For example, imagine that changing to a different month needs to make an
+    ajax call to the server to gather all the events that are going to happen
+    that month (we haven't seen how to display events on the calendar, but use
+    your imagination) before showing the next month. While those events are
+    loaded, we want to hold changing the month and show a loading state with an
+    animated spinner.
   </p>
 
   <p>It doesn't seem like the kind of thing you'd dare to attempt with
@@ -79,8 +80,9 @@ import { LinkTo } from '@ember/routing';
   </p>
 
   <p>
-    No black magic. Just the way you usually manage sync actions in your own code.
-    Ember Power Calendar is promise-aware and task-aware, all the way down.
+    No black magic. Just the way you usually manage sync actions in your own
+    code. Ember Power Calendar is promise-aware and task-aware, all the way
+    down.
   </p>
 
   <h3><code>onSelect</code></h3>
@@ -96,8 +98,8 @@ import { LinkTo } from '@ember/routing';
     That action is fired with a
     <code>day</code>
     object as first argument. This object built by Ember Power Calendar contains
-    many useful information that we will explore in detail, but for now we'll hold
-    to the idea that it has a
+    many useful information that we will explore in detail, but for now we'll
+    hold to the idea that it has a
     <code>date</code>
     property that contains a native
     <code>Date</code>
@@ -127,8 +129,8 @@ import { LinkTo } from '@ember/routing';
   </p>
 
   <p>
-    To begin with, the days of the calendar highlight when you hover them. This is
-    because the presence of an
+    To begin with, the days of the calendar highlight when you hover them. This
+    is because the presence of an
     <code>onSelect</code>
     action makes the component enter an interactive mode, which adds a class to
     it.
@@ -137,10 +139,10 @@ import { LinkTo } from '@ember/routing';
   <p>
     Also, if you inspect the html, you'll see that the days are now
     <code>&lt;button&gt;</code>s instead of
-    <code>&lt;div&gt;</code>s. This, besides of making them clickable to select a
-    day, makes them focusable, which is important to make the component
-    accessible. The currently focused day is shown with a blue underline, and once
-    one day is focused you can use the arrows,
+    <code>&lt;div&gt;</code>s. This, besides of making them clickable to select
+    a day, makes them focusable, which is important to make the component
+    accessible. The currently focused day is shown with a blue underline, and
+    once one day is focused you can use the arrows,
     <kbd>TAB</kbd>,
     <kbd>ENTER</kbd>
     and
@@ -150,8 +152,8 @@ import { LinkTo } from '@ember/routing';
 
   <p>
     This action is fired when the selection changes, but the selection doesn't
-    need to be a single date. It can be a range or a set of sparse dates! The next
-    page is all about this topic.
+    need to be a single date. It can be a range or a set of sparse dates! The
+    next page is all about this topic.
   </p>
 
   <div class="doc-page-nav">

@@ -50,7 +50,10 @@ export default class DaysGridWithoutMonOrWed extends PowerCalendarDays {
           {{#each week.days as |day|}}
             <div
               class="ember-power-calendar-day
-                {{if day.isCurrentMonth 'ember-power-calendar-day--current-month'}}"
+                {{if
+                  day.isCurrentMonth
+                  'ember-power-calendar-day--current-month'
+                }}"
             >
               {{formatDate day.date "D"}}
             </div>
