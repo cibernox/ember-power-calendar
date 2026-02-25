@@ -39,18 +39,18 @@ export interface PowerCalendarMultipleActions {
   changeCenter?: (
     newCenter: Date,
     calendar: PowerCalendarMultipleAPI,
-    event: MouseEvent,
+    event: Event,
   ) => TaskInstance<void>;
   moveCenter?: (
     step: number,
     unit: TPowerCalendarMoveCenterUnit,
     calendar: PowerCalendarMultipleAPI,
-    event: MouseEvent | KeyboardEvent,
+    event: Event,
   ) => Promise<void>;
   select?: (
     day: PowerCalendarDay | PowerCalendarDay[],
     calendar: PowerCalendarMultipleAPI,
-    event: MouseEvent,
+    event: Event,
   ) => void;
 }
 
@@ -261,7 +261,6 @@ export default class PowerCalendarMultiple extends Component<PowerCalendarMultip
     calendar: PowerCalendarMultipleAPI,
     e?: Event,
   ) {
-    console.log('dayOrDays', dayOrDays);
     assert(
       `The select action expects an array of date objects, or a date object. ${typeof dayOrDays} was recieved instead.`,
       isArray(dayOrDays) ||

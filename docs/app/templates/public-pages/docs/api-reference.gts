@@ -1,0 +1,117 @@
+<template>
+  <h1 class="doc-page-title">API Reference</h1>
+
+  <p>
+    Ember Power Calendar aims to allow users to create the ideal calendar they
+    need using only the properties and actions defined in its public API, so it
+    is important to have a comprehensive list of all the available options.
+  </p>
+
+  <h3>The <code>day</code> object</h3>
+
+  <p>
+    The day object is an object received by many actions, blocks and components
+    and one of the interfaces you will use more often.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Option</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>id</td>
+        <td><code>String</code></td>
+        <td>A unique identified of the day. It has the format
+          <code>YYYY-MM-DD</code></td>
+      </tr>
+      <tr>
+        <td>number</td>
+        <td><code>Number</code></td>
+        <td>The day's number. From 1 to 31</td>
+      </tr>
+      <tr>
+        <td>date</td>
+        <td><code>Date</code></td>
+        <td>The native <code>Date</code> object representing that day.</td>
+      </tr>
+      <tr>
+        <td>moment</td>
+        <td><code>MomentJS</code></td>
+        <td>The
+          <code>moment</code>
+          representing that day. (only when
+          <strong>ember-power-calendar-moment</strong>
+          is installed)</td>
+      </tr>
+      <tr>
+        <td>datetime</td>
+        <td><code>DateTime</code></td>
+        <td>The Luxon's
+          <code>DateTime</code>
+          instance representing that day. (only when
+          <strong>ember-power-calendar-luxon</strong>
+          is installed)</td>
+      </tr>
+      <tr>
+        <td>isFocused</td>
+        <td><code>Boolean</code></td>
+        <td>It is true when the the cell of that day has the focus</td>
+      </tr>
+      <tr>
+        <td>isCurrentMonth</td>
+        <td><code>Boolean</code></td>
+        <td>It is true for those days in the current day, and false for those
+          days for the previous/next months shown around.</td>
+      </tr>
+      <tr>
+        <td>isToday</td>
+        <td><code>Boolean</code></td>
+        <td>It is true if this day is today</td>
+      </tr>
+      <tr>
+        <td>isSelected</td>
+        <td><code>Boolean</code></td>
+        <td>It is true if the date of this day is the selected one. In multiple
+          select it is true if the date of this day is among the selected ones.
+          In range selects, it is true if the date if this day is in the range,
+          including both ends.</td>
+      </tr>
+      <tr>
+        <td>isRangeStart</td>
+        <td><code>Boolean</code></td>
+        <td>It is true if this day is the beginning of a range. It is false in
+          non-range calendars</td>
+      </tr>
+      <tr>
+        <td>isRangeEnd</td>
+        <td><code>Boolean</code></td>
+        <td>It is true if this day is the end of a range. It is false in
+          non-range calendars</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>The <code>calendar</code> object</h3>
+
+  {{! template-lint-disable no-whitespace-for-layout }}
+  <pre>
+    {
+      uniqueId: &lt;string&gt;, // Contains the unique of this instance of EmberPowerSelect. It's of the form "ember1234".
+      selected: &lt;Date&gt;,   // The selected date
+      loading: &lt;boolean&gt;, // True when the async operation of changing the center is in progress
+      center: &lt;Date&gt;,     // The date that acts as the center for the displayed date information
+      locale: &lt;string&gt;    // The ISO code of the locale used to format dates in the calendar
+      type: &lt;string&gt;      // The type of calendar. One of: "multiple" | "range" | "single"
+      actions: {
+        changeCenter(newCenter, calendar, event) { ... }, // Changes the center of the calendar (invoking "@onCenterChange")
+        moveCenter(step, unit, calendar, event) { ... },  // Moves the center of the calendar the given number of units (invoking "@onCenterChange")
+        select(day, calendar, event) { ... },             // Selects the given date (invoking "onSelect")
+      }
+    }
+  </pre>
+</template>

@@ -64,8 +64,8 @@ interface PowerCalendarRangeArgs extends Omit<
   navComponent?: ComponentLike<PowerCalendarRangeNavSignature>;
   daysComponent?: ComponentLike<PowerCalendarRangeDaysSignature>;
   selected?: SelectedPowerCalendarRange;
-  minRange?: number;
-  maxRange?: number;
+  minRange?: string | number;
+  maxRange?: string | number;
   proximitySelection?: boolean;
   onSelect?: TPowerCalendarRangeOnSelect;
   onInit?: (calendar: PowerCalendarRangeAPI) => void;
@@ -329,7 +329,7 @@ export default class PowerCalendarRange extends Component<PowerCalendarRangeSign
     }
   }
 
-  _formatRange(v: number | undefined) {
+  _formatRange(v: string | number | undefined) {
     if (typeof v === 'number') {
       return v * DAY_IN_MS;
     }
