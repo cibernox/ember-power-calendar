@@ -102,6 +102,7 @@ export default ts.config(
     rules: {
       'ember/no-runloop': 0,
       'qunit/require-expect': 'off',
+      '@typescript-eslint/no-this-alias': 'off',
     },
   },
   /**
