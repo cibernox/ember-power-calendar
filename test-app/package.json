@@ -59,7 +59,7 @@
     "@types/eslint__js": "^8.42.3",
     "@types/qunit": "^2.19.13",
     "@types/rsvp": "^4.0.9",
-    "babel-plugin-ember-template-compilation": "^3.1.0",
+    "babel-plugin-ember-template-compilation": "^2.3.0",
     "concurrently": "^9.2.1",
     "decorator-transforms": "^2.3.1",
     "ember-auto-import": "^2.12.0",
