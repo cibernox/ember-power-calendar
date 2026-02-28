@@ -3,8 +3,11 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click, type TestContext } from '@ember/test-helpers';
 import { run } from '@ember/runloop';
 import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
-import type { PowerCalendarAPI, TPowerCalendarMoveCenterUnit } from 'ember-power-calendar/components/power-calendar';
-import Nav from "ember-power-calendar/components/power-calendar/nav";
+import type {
+  PowerCalendarAPI,
+  TPowerCalendarMoveCenterUnit,
+} from 'ember-power-calendar/components/power-calendar';
+import Nav from 'ember-power-calendar/components/power-calendar/nav';
 
 let calendarService: PowerCalendarService;
 let calendar: PowerCalendarAPI;

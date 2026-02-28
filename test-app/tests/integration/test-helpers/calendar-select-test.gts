@@ -2,9 +2,12 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, type TestContext } from '@ember/test-helpers';
 import { calendarSelect } from 'ember-power-calendar/test-support/helpers';
-import type { PowerCalendarAPI, TPowerCalendarOnSelect } from 'ember-power-calendar/components/power-calendar';
+import type {
+  PowerCalendarAPI,
+  TPowerCalendarOnSelect,
+} from 'ember-power-calendar/components/power-calendar';
 import type { NormalizeCalendarValue } from 'ember-power-calendar/utils';
-import PowerCalendar from "ember-power-calendar/components/power-calendar";
+import PowerCalendar from 'ember-power-calendar/components/power-calendar';
 
 interface Context extends TestContext {
   center4: Date;
@@ -30,14 +33,22 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
       console.log('selected', selected);
       this.set('selected4', selected.date);
     };
-    await render<Context>(<template>
-      <div class="calendar-select-1">
-        <PowerCalendar @center={{this.center4}} @selected={{this.selected4}} @onSelect={{this.onSelect}} @onCenterChange={{this.onCenterChange}} as |calendar|>
-          <calendar.Nav />
-          <calendar.Days />
-        </PowerCalendar>
-      </div>
-    </template>);
+    await render<Context>(
+      <template>
+        <div class="calendar-select-1">
+          <PowerCalendar
+            @center={{this.center4}}
+            @selected={{this.selected4}}
+            @onSelect={{this.onSelect}}
+            @onCenterChange={{this.onCenterChange}}
+            as |calendar|
+          >
+            <calendar.Nav />
+            <calendar.Days />
+          </PowerCalendar>
+        </div>
+      </template>,
+    );
 
     assert
       .dom('.calendar-select-1 .ember-power-calendar-nav-title')
@@ -64,14 +75,22 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected4', selected.date);
     };
-    await render<Context>(<template>
-      <div class="calendar-select-1">
-        <PowerCalendar @center={{this.center4}} @selected={{this.selected4}} @onSelect={{this.onSelect}} @onCenterChange={{this.onCenterChange}} as |calendar|>
-          <calendar.Nav />
-          <calendar.Days />
-        </PowerCalendar>
-      </div>
-    </template>);
+    await render<Context>(
+      <template>
+        <div class="calendar-select-1">
+          <PowerCalendar
+            @center={{this.center4}}
+            @selected={{this.selected4}}
+            @onSelect={{this.onSelect}}
+            @onCenterChange={{this.onCenterChange}}
+            as |calendar|
+          >
+            <calendar.Nav />
+            <calendar.Days />
+          </PowerCalendar>
+        </div>
+      </template>,
+    );
 
     assert
       .dom('.calendar-select-1 .ember-power-calendar-nav-title')
