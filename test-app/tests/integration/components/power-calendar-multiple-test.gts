@@ -28,6 +28,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
   });
 
   test<Context>('When a multiple calendar receives an array of dates, those dates are marked as selected', async function (assert) {
+    const self = this;
+
     assert.expect(5);
     this.selected = [
       new Date(2016, 1, 5),
@@ -37,7 +39,7 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
 
     await render<Context>(
       <template>
-        <PowerCalendarMultiple @selected={{this.selected}} as |calendar|>
+        <PowerCalendarMultiple @selected={{self.selected}} as |calendar|>
           <calendar.Nav />
           <calendar.Days />
         </PowerCalendarMultiple>
@@ -76,6 +78,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
   });
 
   test<Context>('When days are clicked in a multiple calendar, the `onSelect` action is called with the acumulated list of days, in the order they were clicked', async function (assert) {
+    const self = this;
+
     let callsCount = 0;
     this.onSelect = (days, calendar, e) => {
       callsCount++;
@@ -109,8 +113,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarMultiple
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
@@ -161,6 +165,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
   });
 
   test<Context>('When an array of day objects are passed to the select action they are processed one at a time and added to the selected list passed to the user', async function (assert) {
+    const self = this;
+
     this.datesToSelect = [
       new Date(2013, 9, 5),
       new Date(2013, 9, 15),
@@ -186,8 +192,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarMultiple
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           {{#if calendar.actions.select}}
@@ -195,7 +201,7 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
               type="button"
               {{on
                 "click"
-                (fn calendar.actions.select this.datesToSelect calendar)
+                (fn calendar.actions.select self.datesToSelect calendar)
               }}
               id="test_button"
             ></button>
@@ -208,6 +214,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
   });
 
   test<Context>('Clicking on a day selects it, and clicking again on it unselects it', async function (assert) {
+    const self = this;
+
     assert.expect(13);
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
@@ -215,8 +223,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarMultiple
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
@@ -282,6 +290,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
   });
 
   test<Context>('If the user passes `@disabledDates=someDate` to multiple calendars, days on those days are disabled', async function (assert) {
+    const self = this;
+
     assert.expect(13);
     this.disabledDates = [
       new Date(2013, 9, 15),
@@ -295,12 +305,12 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarMultiple
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
-          <calendar.Days @disabledDates={{this.disabledDates}} />
+          <calendar.Days @disabledDates={{self.disabledDates}} />
         </PowerCalendarMultiple>
       </template>,
     );

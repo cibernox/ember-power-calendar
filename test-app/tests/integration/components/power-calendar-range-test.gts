@@ -40,11 +40,13 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   });
 
   test<Context>('when it receives a range in the `selected` argument containing `Date` objects, the range is highlighted', async function (assert) {
+    const self = this;
+
     assert.expect(4);
     this.selected = { start: new Date(2016, 1, 5), end: new Date(2016, 1, 9) };
     await render<Context>(
       <template>
-        <PowerCalendarRange @selected={{this.selected}} as |calendar|>
+        <PowerCalendarRange @selected={{self.selected}} as |calendar|>
           <calendar.Nav />
           <calendar.Days />
         </PowerCalendarRange>
@@ -98,6 +100,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   });
 
   test<Context>('In range calendars, clicking a day selects one end of the range, and clicking another closes the range', async function (assert) {
+    const self = this;
+
     this.selected = undefined;
     let numberOfCalls = 0;
     this.onSelect = (range, calendar, e) => {
@@ -121,8 +125,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
@@ -205,6 +209,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   });
 
   test<Context>('When an range date object is passed, the range selection behavior is skipped', async function (assert) {
+    const self = this;
+
     this.rangeToSelect = {
       number: 1,
       id: 'test-id',
@@ -234,8 +240,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           {{#if calendar.actions.select}}
@@ -243,7 +249,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
               type="button"
               {{on
                 "click"
-                (fn calendar.actions.select this.rangeToSelect calendar)
+                (fn calendar.actions.select self.rangeToSelect calendar)
               }}
               id="test_button"
             ></button>
@@ -291,6 +297,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   });
 
   test<Context>('In range calendars, clicking first the end of the range and then the start is not a problem', async function (assert) {
+    const self = this;
+
     this.selected = undefined;
     let numberOfCalls = 0;
     this.onSelect = (range, calendar, e) => {
@@ -314,8 +322,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
@@ -398,6 +406,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   });
 
   test<Context>('Passing `minRange` allows to determine the minimum length of a range (in days)', async function (assert) {
+    const self = this;
+
     assert.expect(10);
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
@@ -405,8 +415,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           @minRange={{3}}
           as |cal|
         >
@@ -471,6 +481,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   });
 
   test<Context>('Passing `@minRange={{0}}` allows to make a range start and end on the same date', async function (assert) {
+    const self = this;
+
     assert.expect(7);
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
@@ -478,8 +490,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           @minRange={{0}}
           as |cal|
         >
@@ -531,10 +543,12 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   });
 
   test<Context>('The default minRange is one day, but it can be changed passing convenient strings', async function (assert) {
+    const self = this;
+
     assert.expect(4);
     await render<Context>(
       <template>
-        <PowerCalendarRange @minRange={{this.minRange}} as |calendar|>
+        <PowerCalendarRange @minRange={{self.minRange}} as |calendar|>
           <div class="formatted-min-range">{{calendar.minRange}}</div>
         </PowerCalendarRange>
       </template>,
@@ -564,6 +578,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   });
 
   test<Context>('Passing `maxRange` allows to determine the minimum length of a range (in days)', async function (assert) {
+    const self = this;
+
     assert.expect(9);
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
@@ -571,8 +587,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           @maxRange={{2}}
           as |cal|
         >
@@ -616,6 +632,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   });
 
   test<Context>('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is smaller than the minRange', async function (assert) {
+    const self = this;
+
     assert.expect(2);
     this.selected = { start: new Date(2016, 1, 5), end: null };
     this.invalidDay = {
@@ -645,8 +663,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           @minRange={{2}}
           as |cal|
         >
@@ -654,12 +672,12 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
             <button
               type="button"
               id="select-invalid-range-end"
-              {{on "click" (fn cal.actions.select this.invalidDay cal)}}
+              {{on "click" (fn cal.actions.select self.invalidDay cal)}}
             >Select invalid date</button>
             <button
               type="button"
               id="select-valid-range-end"
-              {{on "click" (fn cal.actions.select this.validDay cal)}}
+              {{on "click" (fn cal.actions.select self.validDay cal)}}
             >Select valid date</button>
           {{/if}}
         </PowerCalendarRange>
@@ -672,6 +690,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   });
 
   test<Context>('If `publicAPI.action.select` does not invoke the `onSelect` action if the range is bigger than the maxRange', async function (assert) {
+    const self = this;
+
     assert.expect(2);
 
     this.selected = { start: new Date(2016, 1, 5), end: null };
@@ -702,8 +722,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           @maxRange={{2}}
           as |cal|
         >
@@ -711,12 +731,12 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
             <button
               type="button"
               id="select-invalid-range-end"
-              {{on "click" (fn cal.actions.select this.invalidDay cal)}}
+              {{on "click" (fn cal.actions.select self.invalidDay cal)}}
             >Select invalid date</button>
             <button
               type="button"
               id="select-valid-range-end"
-              {{on "click" (fn cal.actions.select this.validDay cal)}}
+              {{on "click" (fn cal.actions.select self.validDay cal)}}
             >Select valid date</button>
           {{/if}}
         </PowerCalendarRange>
@@ -729,6 +749,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
   });
 
   test<Context>('when is flagged as proximitySelection it changes range to closest date', async function (assert) {
+    const self = this;
+
     assert.expect(7);
     this.selected = { start: new Date(2016, 1, 5), end: new Date(2016, 1, 9) };
 
@@ -739,8 +761,8 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           @proximitySelection={{true}}
           as |calendar|
         >

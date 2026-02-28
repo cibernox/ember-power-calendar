@@ -36,14 +36,16 @@ module(
     });
 
     test<Context>('The maxLength property sets a maximum number of available days', async function (assert) {
+      const self = this;
+
       this.onSelect = (selected) => {
         this.set('selected', selected.date);
       };
       await render<Context>(
         <template>
           <PowerCalendarMultiple
-            @selected={{this.selected}}
-            @onSelect={{this.onSelect}}
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
             as |calendar|
           >
             <calendar.Days @maxLength={{1}} />
@@ -68,6 +70,8 @@ module(
     });
 
     test<Context>('the maxLength property can handle changing of the property', async function (assert) {
+      const self = this;
+
       this.set('max', 1);
       this.onSelect = (selected) => {
         this.set('selected', selected.date);
@@ -75,11 +79,11 @@ module(
       await render<Context>(
         <template>
           <PowerCalendarMultiple
-            @selected={{this.selected}}
-            @onSelect={{this.onSelect}}
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
             as |calendar|
           >
-            <calendar.Days @maxLength={{this.max}} />
+            <calendar.Days @maxLength={{self.max}} />
           </PowerCalendarMultiple>
         </template>,
       );
@@ -98,6 +102,8 @@ module(
     });
 
     test<Context>('maxLength can handle null for the selected days', async function (assert) {
+      const self = this;
+
       this.set('max', 1);
       this.set('selected', null);
       this.onSelect = (selected) => {
@@ -107,11 +113,11 @@ module(
       await render<Context>(
         <template>
           <PowerCalendarMultiple
-            @selected={{this.selected}}
-            @onSelect={{this.onSelect}}
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
             as |calendar|
           >
-            <calendar.Days @maxLength={{this.max}} />
+            <calendar.Days @maxLength={{self.max}} />
           </PowerCalendarMultiple>
         </template>,
       );
@@ -123,6 +129,8 @@ module(
     });
 
     test<Context>('maxLength can handle null for the maxLength property', async function (assert) {
+      const self = this;
+
       this.set('max', null);
       this.onSelect = (selected) => {
         this.set('collection', selected.date);
@@ -131,11 +139,11 @@ module(
       await render<Context>(
         <template>
           <PowerCalendarMultiple
-            @selected={{this.selected}}
-            @onSelect={{this.onSelect}}
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
             as |calendar|
           >
-            <calendar.Days @maxLength={{this.max}} />
+            <calendar.Days @maxLength={{self.max}} />
           </PowerCalendarMultiple>
         </template>,
       );
@@ -147,6 +155,8 @@ module(
     });
 
     test<Context>("If it receives `showDaysAround=false` option, it doesn't show the days before first or after last day of the month", async function (assert) {
+      const self = this;
+
       assert.expect(3);
       this.center = new Date(2013, 9, 1);
       this.onSelect = (selected) => {
@@ -155,9 +165,9 @@ module(
       await render<Context>(
         <template>
           <PowerCalendarMultiple
-            @selected={{this.selected}}
-            @center={{this.center}}
-            @onSelect={{this.onSelect}}
+            @selected={{self.selected}}
+            @center={{self.center}}
+            @onSelect={{self.onSelect}}
             as |calendar|
           >
             <calendar.Days @showDaysAround={{false}} />

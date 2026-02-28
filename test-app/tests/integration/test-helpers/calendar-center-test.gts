@@ -22,6 +22,8 @@ module('Test Support | Helper | calendarCenter', function (hooks) {
   setupRenderingTest(hooks);
 
   test<Context>('`calendarCenter` invokes the `@onCenterChange` action of the target component inside the selector we pass it', async function (assert) {
+    const self = this;
+
     assert.expect(3);
     this.center1 = new Date(2013, 9, 18);
     this.onCenterChange = (selected) => {
@@ -32,8 +34,8 @@ module('Test Support | Helper | calendarCenter', function (hooks) {
       <template>
         <div class="calendar-center-1">
           <PowerCalendar
-            @center={{this.center1}}
-            @onCenterChange={{this.onCenterChange}}
+            @center={{self.center1}}
+            @onCenterChange={{self.onCenterChange}}
             as |calendar|
           >
             <calendar.Nav />

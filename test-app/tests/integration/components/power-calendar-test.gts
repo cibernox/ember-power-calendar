@@ -103,11 +103,13 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('when it receives a Date in the `center` argument, it displays that month', async function (assert) {
+    const self = this;
+
     assert.expect(3);
     this.center = new Date(2016, 1, 5);
     await render<Context>(
       <template>
-        <PowerCalendar @center={{this.center}} as |calendar|>
+        <PowerCalendar @center={{self.center}} as |calendar|>
           <calendar.Nav />
           <calendar.Days />
         </PowerCalendar>
@@ -130,11 +132,13 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('when it receives undefined in the `center` argument, it displays the current month', async function (assert) {
+    const self = this;
+
     assert.expect(3);
     this.center = undefined;
     await render<Context>(
       <template>
-        <PowerCalendar @center={{this.center}} as |calendar|>
+        <PowerCalendar @center={{self.center}} as |calendar|>
           <calendar.Nav />
           <calendar.Days />
         </PowerCalendar>
@@ -157,11 +161,13 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('when it receives undefined in the `center` argument, it displays the current month', async function (assert) {
+    const self = this;
+
     assert.expect(3);
     this.center = undefined;
     await render<Context>(
       <template>
-        <PowerCalendar @center={{this.center}} as |calendar|>
+        <PowerCalendar @center={{self.center}} as |calendar|>
           <calendar.Nav />
           <calendar.Days />
         </PowerCalendar>
@@ -190,11 +196,13 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     }
 
     test<Context>('when it receives a `moment()` in the `center` argument, it displays that month', async function (assert) {
+      const self = this;
+
       assert.expect(3);
       this.center = moment('2016-02-05').toDate();
       await render<Context>(
         <template>
-          <PowerCalendar @center={{this.center}} as |calendar|>
+          <PowerCalendar @center={{self.center}} as |calendar|>
             <calendar.Nav />
             <calendar.Days />
           </PowerCalendar>
@@ -217,6 +225,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     });
 
     test<Context>('the `@onCenterChange` action receives the date/moment compound object, the calendar and the event', async function (assert) {
+      const self = this;
+
       assert.expect(3);
       this.center = new Date(2016, 1, 5);
       this.onCenterChange = function (obj, calendar, e) {
@@ -233,8 +243,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       await render<Context>(
         <template>
           <PowerCalendar
-            @center={{this.center}}
-            @onCenterChange={{this.onCenterChange}}
+            @center={{self.center}}
+            @onCenterChange={{self.onCenterChange}}
             as |calendar|
           >
             <calendar.Nav />
@@ -247,11 +257,13 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     });
 
     test<Context>('when it receives a `moment` in the `selected` argument, it displays that month, and that day is marked as selected', async function (assert) {
+      const self = this;
+
       assert.expect(4);
       this.selected = moment('2016-02-05').toDate();
       await render<Context>(
         <template>
-          <PowerCalendar @selected={{this.selected}} as |calendar|>
+          <PowerCalendar @selected={{self.selected}} as |calendar|>
             <calendar.Nav />
             <calendar.Days />
           </PowerCalendar>
@@ -289,6 +301,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     }
 
     test<Context>('when it receives a DateTime in the `center` argument, it displays that month', async function (assert) {
+      const self = this;
+
       assert.expect(3);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       this.center = DateTime.fromObject({
@@ -298,7 +312,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       }) as Date;
       await render<Context>(
         <template>
-          <PowerCalendar @center={{this.center}} as |calendar|>
+          <PowerCalendar @center={{self.center}} as |calendar|>
             <calendar.Nav />
             <calendar.Days />
           </PowerCalendar>
@@ -321,6 +335,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     });
 
     test<Context>('the `@onCenterChange` action receives the date/datetime compound object, the calendar and the event', async function (assert) {
+      const self = this;
+
       assert.expect(3);
       this.center = new Date(2016, 1, 5);
       this.onCenterChange = function (obj, calendar, e) {
@@ -340,8 +356,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       await render<Context>(
         <template>
           <PowerCalendar
-            @center={{this.center}}
-            @onCenterChange={{this.onCenterChange}}
+            @center={{self.center}}
+            @onCenterChange={{self.onCenterChange}}
             as |calendar|
           >
             <calendar.Nav />
@@ -354,6 +370,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     });
 
     test<Context>('when it receives a DateTime in the `selected` argument, it displays that month, and that day is marked as selected', async function (assert) {
+      const self = this;
+
       assert.expect(4);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       this.selected = DateTime.fromObject({
@@ -363,7 +381,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       }) as Date;
       await render<Context>(
         <template>
-          <PowerCalendar @selected={{this.selected}} as |calendar|>
+          <PowerCalendar @selected={{self.selected}} as |calendar|>
             <calendar.Nav />
             <calendar.Days />
           </PowerCalendar>
@@ -394,6 +412,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   }
 
   test<Context>('when it receives a `center` and an `@onCenterChange` action, it shows controls to go to the next & previous month and the action is called when they are clicked', async function (assert) {
+    const self = this;
+
     assert.expect(7);
     this.center = new Date(2016, 1, 5);
     this.moveCenter = function () {
@@ -402,8 +422,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendar
-          @center={{this.center}}
-          @onCenterChange={{this.moveCenter}}
+          @center={{self.center}}
+          @onCenterChange={{self.moveCenter}}
           as |calendar|
         >
           <calendar.Nav />
@@ -436,6 +456,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('when the `@onCenterChange` action changes the `center` attribute, the calendar shows the new month', async function (assert) {
+    const self = this;
+
     assert.expect(2);
     this.center = new Date(2016, 1, 5);
     this.onCenterChange = (selected) => {
@@ -444,8 +466,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendar
-          @center={{this.center}}
-          @onCenterChange={{this.onCenterChange}}
+          @center={{self.center}}
+          @onCenterChange={{self.onCenterChange}}
           as |calendar|
         >
           <calendar.Nav />
@@ -467,6 +489,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('when the `@onCenterChange` action changes the `center` and the passed center was null, the calendar shows the new month', async function (assert) {
+    const self = this;
+
     assert.expect(2);
     this.center = undefined;
     this.onCenterChange = (selected) => {
@@ -475,8 +499,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendar
-          @center={{this.center}}
-          @onCenterChange={{this.onCenterChange}}
+          @center={{self.center}}
+          @onCenterChange={{self.onCenterChange}}
           as |calendar|
         >
           <calendar.Nav />
@@ -501,11 +525,13 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('when it receives a Date in the `selected` argument, it displays that month, and that day is marked as selected', async function (assert) {
+    const self = this;
+
     assert.expect(4);
     this.selected = new Date(2016, 1, 5);
     await render<Context>(
       <template>
-        <PowerCalendar @selected={{this.selected}} as |calendar|>
+        <PowerCalendar @selected={{self.selected}} as |calendar|>
           <calendar.Nav />
           <calendar.Days />
         </PowerCalendar>
@@ -535,14 +561,16 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('when it receives both `selected` and `center`, `center` trumps and that month is displayed', async function (assert) {
+    const self = this;
+
     assert.expect(4);
     this.selected = new Date(2016, 2, 5);
     this.center = new Date(2016, 1, 5);
     await render<Context>(
       <template>
         <PowerCalendar
-          @selected={{this.selected}}
-          @center={{this.center}}
+          @selected={{self.selected}}
+          @center={{self.center}}
           as |calendar|
         >
           <calendar.Nav />
@@ -650,11 +678,13 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('If there is an `onSelect` action, days can be focused', async function (assert) {
+    const self = this;
+
     assert.expect(1);
     this.onSelect = () => {};
     await render<Context>(
       <template>
-        <PowerCalendar @onSelect={{this.onSelect}} as |calendar|>
+        <PowerCalendar @onSelect={{self.onSelect}} as |calendar|>
           <calendar.Nav />
           <calendar.Days />
         </PowerCalendar>
@@ -668,11 +698,13 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('If a day is focused, it gets a special hasClass', async function (assert) {
+    const self = this;
+
     assert.expect(3);
     this.onSelect = () => {};
     await render<Context>(
       <template>
-        <PowerCalendar @onSelect={{this.onSelect}} as |calendar|>
+        <PowerCalendar @onSelect={{self.onSelect}} as |calendar|>
           <calendar.Nav />
           <calendar.Days />
         </PowerCalendar>
@@ -707,6 +739,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('Clicking one day, triggers the `onSelect` action with that day (which is a object with some basic information)', async function (assert) {
+    const self = this;
+
     assert.expect(3);
     this.onSelect = function (day, calendar, e) {
       // @ts-expect-error Unsafe call of a(n) `error` type typed value.
@@ -722,7 +756,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     };
     await render<Context>(
       <template>
-        <PowerCalendar @onSelect={{this.onSelect}} as |calendar|>
+        <PowerCalendar @onSelect={{self.onSelect}} as |calendar|>
           <calendar.Nav />
           <calendar.Days />
         </PowerCalendar>
@@ -732,6 +766,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('If the `onSelect` updates the selected value, it can work as a date-selector', async function (assert) {
+    const self = this;
+
     assert.expect(2);
     this.selected = new Date(2016, 1, 5);
     this.onSelect = (selected) => {
@@ -740,8 +776,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendar
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
@@ -760,13 +796,15 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('If a day is focused, using left/right arrow keys focuses the previous/next day', async function (assert) {
+    const self = this;
+
     assert.expect(6);
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
     await render<Context>(
       <template>
-        <PowerCalendar @onSelect={{this.onSelect}} as |calendar|>
+        <PowerCalendar @onSelect={{self.onSelect}} as |calendar|>
           <calendar.Nav />
           <calendar.Days />
         </PowerCalendar>
@@ -816,13 +854,15 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('If a day is focused, using up/down arrow keys focuses the same weekday of the previous/next week', async function (assert) {
+    const self = this;
+
     assert.expect(6);
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
     await render<Context>(
       <template>
-        <PowerCalendar @onSelect={{this.onSelect}} as |calendar|>
+        <PowerCalendar @onSelect={{self.onSelect}} as |calendar|>
           <calendar.Nav />
           <calendar.Days />
         </PowerCalendar>
@@ -871,6 +911,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('If the `@onCenterChange` action returns a `thenable`, the component enter loading state while that thenable resolves or rejects', async function (assert) {
+    const self = this;
+
     assert.expect(2);
     const done = assert.async();
     this.onCenterChange = function () {
@@ -881,7 +923,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     };
     await render<Context>(
       <template>
-        <PowerCalendar @onCenterChange={{this.onCenterChange}} as |calendar|>
+        <PowerCalendar @onCenterChange={{self.onCenterChange}} as |calendar|>
           <div class={{if calendar.loading "is-loading-yo"}}></div>
           <calendar.Nav />
           <calendar.Days />
@@ -922,6 +964,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('If the calendar with `onSelect` receives a block on the `days` component, that block is used to render each one of the days of the cell', async function (assert) {
+    const self = this;
+
     assert.expect(1);
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
@@ -929,8 +973,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendar
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Days as |day|>
@@ -945,6 +989,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('If the user passes `minDate=someDate` to single calendars, days before that one cannot be selected, but that day and those after can', async function (assert) {
+    const self = this;
+
     assert.expect(6);
     this.minDate = new Date(2013, 9, 15);
     this.onSelect = (selected) => {
@@ -953,12 +999,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendar
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
-          <calendar.Days @minDate={{this.minDate}} />
+          <calendar.Days @minDate={{self.minDate}} />
         </PowerCalendar>
       </template>,
     );
@@ -986,6 +1032,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('If the user passes `@maxDate={{someDate}}` to single calendars, days after that one cannot be selected, but that day and those days before can', async function (assert) {
+    const self = this;
+
     assert.expect(6);
     this.maxDate = new Date(2013, 9, 15);
     this.onSelect = (selected) => {
@@ -994,12 +1042,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendar
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
-          <calendar.Days @maxDate={{this.maxDate}} />
+          <calendar.Days @maxDate={{self.maxDate}} />
         </PowerCalendar>
       </template>,
     );
@@ -1027,6 +1075,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<ContextRange>('If the user passes `minDate=someDate` to range calendars, days before that one cannot be selected, but that day and those after can', async function (assert) {
+    const self = this;
+
     assert.expect(3);
     this.minDate = new Date(2013, 9, 15);
     this.onSelect = (selected) => {
@@ -1035,12 +1085,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<ContextRange>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
-          <calendar.Days @minDate={{this.minDate}} />
+          <calendar.Days @minDate={{self.minDate}} />
         </PowerCalendarRange>
       </template>,
     );
@@ -1057,6 +1107,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<ContextRange>('If the user passes `maxDate=someDate` to range calendars, days after that one cannot be selected, but that day and those days before can', async function (assert) {
+    const self = this;
+
     assert.expect(3);
     this.maxDate = new Date(2013, 9, 15);
     this.onSelect = (selected) => {
@@ -1065,12 +1117,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<ContextRange>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
-          <calendar.Days @maxDate={{this.maxDate}} />
+          <calendar.Days @maxDate={{self.maxDate}} />
         </PowerCalendarRange>
       </template>,
     );
@@ -1087,6 +1139,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<Context>('If the user passes `disabledDates=someDate` to single calendars, days on those days are disabled', async function (assert) {
+    const self = this;
+
     assert.expect(20);
     this.disabledDates = [
       new Date(2013, 9, 15),
@@ -1100,12 +1154,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<Context>(
       <template>
         <PowerCalendar
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
-          <calendar.Days @disabledDates={{this.disabledDates}} />
+          <calendar.Days @disabledDates={{self.disabledDates}} />
         </PowerCalendar>
       </template>,
     );
@@ -1179,6 +1233,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<ContextRange>('When the user tries to focus a disabled date with the left arrow key, the focus stays where it is', async function (assert) {
+    const self = this;
+
     assert.expect(4);
     this.minDate = new Date(2013, 9, 15);
     this.onSelect = (selected) => {
@@ -1187,12 +1243,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<ContextRange>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
-          <calendar.Days @minDate={{this.minDate}} />
+          <calendar.Days @minDate={{self.minDate}} />
         </PowerCalendarRange>
       </template>,
     );
@@ -1225,6 +1281,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<ContextRange>('When the user tries to focus a disabled date with the up arrow key, the focus goes to the latest selectable day', async function (assert) {
+    const self = this;
+
     assert.expect(4);
     this.minDate = new Date(2013, 9, 15);
     this.onSelect = (selected) => {
@@ -1233,12 +1291,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<ContextRange>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
-          <calendar.Days @minDate={{this.minDate}} />
+          <calendar.Days @minDate={{self.minDate}} />
         </PowerCalendarRange>
       </template>,
     );
@@ -1271,6 +1329,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<ContextRange>('When the user tries to focus a disabled date with the right arrow key, the focus stays where it is', async function (assert) {
+    const self = this;
+
     assert.expect(4);
     this.maxDate = new Date(2013, 9, 15);
     this.onSelect = (selected) => {
@@ -1279,12 +1339,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<ContextRange>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
-          <calendar.Days @maxDate={{this.maxDate}} />
+          <calendar.Days @maxDate={{self.maxDate}} />
         </PowerCalendarRange>
       </template>,
     );
@@ -1317,6 +1377,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   });
 
   test<ContextRange>('When the user tries to focus a disabled date with the down arrow key, the focus goes to the latest selectable day', async function (assert) {
+    const self = this;
+
     assert.expect(4);
     this.maxDate = new Date(2013, 9, 15);
     this.onSelect = (selected) => {
@@ -1325,12 +1387,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     await render<ContextRange>(
       <template>
         <PowerCalendarRange
-          @selected={{this.selected}}
-          @onSelect={{this.onSelect}}
+          @selected={{self.selected}}
+          @onSelect={{self.onSelect}}
           as |calendar|
         >
           <calendar.Nav />
-          <calendar.Days @maxDate={{this.maxDate}} />
+          <calendar.Days @maxDate={{self.maxDate}} />
         </PowerCalendarRange>
       </template>,
     );

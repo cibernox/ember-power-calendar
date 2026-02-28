@@ -24,6 +24,8 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
   setupRenderingTest(hooks);
 
   test<Context>('`calendarSelect` selects the given date ', async function (assert) {
+    const self = this;
+
     this.center4 = new Date(2013, 9, 18);
     this.selected4 = new Date(2013, 9, 15);
     this.onCenterChange = (selected) => {
@@ -37,10 +39,10 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
       <template>
         <div class="calendar-select-1">
           <PowerCalendar
-            @center={{this.center4}}
-            @selected={{this.selected4}}
-            @onSelect={{this.onSelect}}
-            @onCenterChange={{this.onCenterChange}}
+            @center={{self.center4}}
+            @selected={{self.selected4}}
+            @onSelect={{self.onSelect}}
+            @onCenterChange={{self.onCenterChange}}
             as |calendar|
           >
             <calendar.Nav />
@@ -67,6 +69,8 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
   });
 
   test<Context>('`calendarSelect` selects the given date changing the month center on the process', async function (assert) {
+    const self = this;
+
     this.center4 = new Date(2013, 9, 18);
     this.selected4 = new Date(2013, 9, 15);
     this.onCenterChange = (selected) => {
@@ -79,10 +83,10 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
       <template>
         <div class="calendar-select-1">
           <PowerCalendar
-            @center={{this.center4}}
-            @selected={{this.selected4}}
-            @onSelect={{this.onSelect}}
-            @onCenterChange={{this.onCenterChange}}
+            @center={{self.center4}}
+            @selected={{self.selected4}}
+            @onSelect={{self.onSelect}}
+            @onCenterChange={{self.onCenterChange}}
             as |calendar|
           >
             <calendar.Nav />
