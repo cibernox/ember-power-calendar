@@ -32,7 +32,6 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
       this.set('center4', selected.date);
     };
     this.onSelect = (selected) => {
-      console.log('selected', selected);
       this.set('selected4', selected.date);
     };
     await render<Context>(

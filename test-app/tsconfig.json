@@ -19,6 +19,10 @@
       "test-app/*": ["app/*"],
       "*": ["types/*"]
     },
-    "types": ["ember-source/types"]
+    "types": [
+      "ember-source/types",
+      "@embroider/core/virtual",
+      "vite/client"
+    ]
   }
 }
