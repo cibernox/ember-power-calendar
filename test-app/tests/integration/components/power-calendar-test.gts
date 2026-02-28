@@ -1,31 +1,16 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import {
-  render,
-  click,
-  focus,
-  triggerKeyEvent,
-  type TestContext,
-} from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
+import { render, click, focus, triggerKeyEvent, type TestContext } from '@ember/test-helpers';
 import { run, later } from '@ember/runloop';
 import RSVP from 'rsvp';
-import {
-  dependencySatisfies,
-  macroCondition,
-  importSync,
-} from '@embroider/macros';
-import type {
-  NormalizeCalendarValue,
-  SelectedPowerCalendarRange,
-} from 'ember-power-calendar/utils';
-import type {
-  PowerCalendarAPI,
-  TPowerCalendarOnSelect,
-} from 'ember-power-calendar/components/power-calendar';
+import { dependencySatisfies, macroCondition, importSync } from '@embroider/macros';
+import type { NormalizeCalendarValue, SelectedPowerCalendarRange } from 'ember-power-calendar/utils';
+import type { PowerCalendarAPI, TPowerCalendarOnSelect } from 'ember-power-calendar/components/power-calendar';
 import type * as momentNs from 'moment';
 import type { TPowerCalendarRangeOnSelect } from 'ember-power-calendar/components/power-calendar-range';
 import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
+import PowerCalendar from "ember-power-calendar/components/power-calendar";
+import PowerCalendarRange from "ember-power-calendar/components/power-calendar-range";
 
 let dateLibrary = '';
 
@@ -75,12 +60,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
 
   test<Context>('Rendered without any arguments, it displays the current month and has no month navigation', async function (assert) {
     assert.expect(3);
-    await render(hbs`
+    await render(<template>
       <PowerCalendar as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-nav')
       .containsText('October 2013', 'The calendar is centered in the present');
@@ -94,7 +79,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
 
   test<Context>('when rendered without a block, it renders the nav and days components', async function (assert) {
     assert.expect(2);
-    await render(hbs`<PowerCalendar />`);
+    await render(<template><PowerCalendar /></template>);
     assert.dom('.ember-power-calendar-nav').exists();
     assert.dom('.ember-power-calendar-day').exists();
   });
@@ -102,12 +87,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   test<Context>('when it receives a Date in the `center` argument, it displays that month', async function (assert) {
     assert.expect(3);
     this.center = new Date(2016, 1, 5);
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @center={{this.center}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-nav')
       .containsText(
@@ -127,12 +112,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   test<Context>('when it receives undefined in the `center` argument, it displays the current month', async function (assert) {
     assert.expect(3);
     this.center = undefined;
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @center={{this.center}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-nav')
       .containsText(
@@ -152,12 +137,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   test<Context>('when it receives undefined in the `center` argument, it displays the current month', async function (assert) {
     assert.expect(3);
     this.center = undefined;
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @center={{this.center}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-nav')
       .containsText(
@@ -183,12 +168,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     test<Context>('when it receives a `moment()` in the `center` argument, it displays that month', async function (assert) {
       assert.expect(3);
       this.center = moment('2016-02-05').toDate();
-      await render<Context>(hbs`
+      await render<Context>(<template>
         <PowerCalendar @center={{this.center}} as |calendar|>
-          <calendar.Nav/>
-          <calendar.Days/>
+          <calendar.Nav />
+          <calendar.Days />
         </PowerCalendar>
-      `);
+      </template>);
       assert
         .dom('.ember-power-calendar-nav')
         .containsText(
@@ -219,12 +204,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         );
         assert.ok(e instanceof Event, 'The third argument is an event');
       };
-      await render<Context>(hbs`
+      await render<Context>(<template>
       <PowerCalendar @center={{this.center}} @onCenterChange={{this.onCenterChange}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
 
       await click('.ember-power-calendar-nav-control--next');
     });
@@ -232,12 +217,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     test<Context>('when it receives a `moment` in the `selected` argument, it displays that month, and that day is marked as selected', async function (assert) {
       assert.expect(4);
       this.selected = moment('2016-02-05').toDate();
-      await render<Context>(hbs`
+      await render<Context>(<template>
       <PowerCalendar @selected={{this.selected}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
       assert
         .dom('.ember-power-calendar-nav')
         .containsText(
@@ -277,12 +262,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         month: 2,
         day: 5,
       }) as Date;
-      await render<Context>(hbs`
+      await render<Context>(<template>
         <PowerCalendar @center={{this.center}} as |calendar|>
-          <calendar.Nav/>
-          <calendar.Days/>
+          <calendar.Nav />
+          <calendar.Days />
         </PowerCalendar>
-      `);
+      </template>);
       assert
         .dom('.ember-power-calendar-nav')
         .containsText(
@@ -316,12 +301,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         );
         assert.ok(e instanceof Event, 'The third argument is an event');
       };
-      await render<Context>(hbs`
+      await render<Context>(<template>
       <PowerCalendar @center={{this.center}} @onCenterChange={{this.onCenterChange}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
 
       await click('.ember-power-calendar-nav-control--next');
     });
@@ -334,12 +319,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         month: 2,
         day: 5,
       }) as Date;
-      await render<Context>(hbs`
+      await render<Context>(<template>
       <PowerCalendar @selected={{this.selected}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
       assert
         .dom('.ember-power-calendar-nav')
         .containsText(
@@ -370,12 +355,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.moveCenter = function () {
       assert.ok(true, 'The moveCenter action is invoked');
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @center={{this.center}} @onCenterChange={{this.moveCenter}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-nav')
       .containsText(
@@ -406,12 +391,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onCenterChange = (selected) => {
       this.set('center', selected.date);
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @center={{this.center}} @onCenterChange={{this.onCenterChange}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
 
     assert
       .dom('.ember-power-calendar-nav')
@@ -431,12 +416,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onCenterChange = (selected) => {
       this.set('center', selected.date);
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @center={{this.center}} @onCenterChange={{this.onCenterChange}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
 
     assert
       .dom('.ember-power-calendar-nav')
@@ -456,12 +441,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   test<Context>('when it receives a Date in the `selected` argument, it displays that month, and that day is marked as selected', async function (assert) {
     assert.expect(4);
     this.selected = new Date(2016, 1, 5);
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @selected={{this.selected}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-nav')
       .containsText(
@@ -489,12 +474,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     assert.expect(4);
     this.selected = new Date(2016, 2, 5);
     this.center = new Date(2016, 1, 5);
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @selected={{this.selected}} @center={{this.center}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-nav')
       .containsText(
@@ -520,12 +505,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
 
   test<Context>("The days that belong to the currently displayed month have a distintive class that the days belonging to the previous/next month don't", async function (assert) {
     assert.expect(4);
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-01"]')
       .hasClass(
@@ -554,12 +539,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
 
   test<Context>("The current day has a special class that other days don't", async function (assert) {
     assert.expect(3);
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-18"]')
       .hasClass(
@@ -576,12 +561,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
 
   test<Context>('If there is no `onSelect` action, days are disabled', async function (assert) {
     assert.expect(1);
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
 
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-18"]')
@@ -591,12 +576,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   test<Context>('If there is an `onSelect` action, days can be focused', async function (assert) {
     assert.expect(1);
     this.onSelect = () => {};
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     const dayElement = this.element.querySelector(
       '.ember-power-calendar-day[data-date="2013-10-18"]',
     );
@@ -607,12 +592,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
   test<Context>('If a day is focused, it gets a special hasClass', async function (assert) {
     assert.expect(3);
     this.onSelect = () => {};
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     const dayElement = this.element.querySelector(
       '.ember-power-calendar-day[data-date="2013-10-18"]',
     );
@@ -655,12 +640,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       );
       assert.ok(e instanceof Event, 'The third argument is an event');
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     await click('.ember-power-calendar-day[data-date="2013-10-18"]');
   });
 
@@ -670,12 +655,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
 
     assert
       .dom('.ember-power-calendar-day--selected')
@@ -691,12 +676,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
 
     await focus('.ember-power-calendar-day[data-date="2013-10-18"]');
     assert
@@ -745,12 +730,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
     await focus('.ember-power-calendar-day[data-date="2013-10-18"]');
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-18"]')
@@ -802,13 +787,13 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         later(resolve, 200);
       });
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @onCenterChange={{this.onCenterChange}} as |calendar|>
-        <div class={{if calendar.loading 'is-loading-yo'}}></div>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <div class={{if calendar.loading "is-loading-yo"}}></div>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendar>
-    `);
+    </template>);
 
     setTimeout(function () {
       assert
@@ -828,13 +813,13 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
 
   test<Context>('If the calendar without `onSelect` receives a block on the `days` component, that block is used to render each one of the days of the cell', async function (assert) {
     assert.expect(1);
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar as |calendar|>
         <calendar.Days as |day|>
           {{day.number}}!
         </calendar.Days>
       </PowerCalendar>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-01"]')
       .hasText('1!', 'The block has been rendered');
@@ -845,13 +830,13 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
         <calendar.Days as |day|>
           {{day.number}}!
         </calendar.Days>
       </PowerCalendar>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-01"]')
       .hasText('1!', 'The block has been rendered');
@@ -863,12 +848,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days @minDate={{this.minDate}}/>
+        <calendar.Nav />
+        <calendar.Days @minDate={{this.minDate}} />
       </PowerCalendar>
-    `);
+    </template>);
 
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-14"]')
@@ -898,12 +883,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days @maxDate={{this.maxDate}}/>
+        <calendar.Nav />
+        <calendar.Days @maxDate={{this.maxDate}} />
       </PowerCalendar>
-    `);
+    </template>);
 
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-14"]')
@@ -933,12 +918,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<ContextRange>(hbs`
+    await render<ContextRange>(<template>
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days @minDate={{this.minDate}}/>
+        <calendar.Nav />
+        <calendar.Days @minDate={{this.minDate}} />
       </PowerCalendarRange>
-    `);
+    </template>);
 
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-14"]')
@@ -957,12 +942,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<ContextRange>(hbs`
+    await render<ContextRange>(<template>
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days @maxDate={{this.maxDate}}/>
+        <calendar.Nav />
+        <calendar.Days @maxDate={{this.maxDate}} />
       </PowerCalendarRange>
-    `);
+    </template>);
 
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-14"]')
@@ -986,12 +971,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days @disabledDates={{this.disabledDates}}/>
+        <calendar.Nav />
+        <calendar.Days @disabledDates={{this.disabledDates}} />
       </PowerCalendar>
-    `);
+    </template>);
 
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-14"]')
@@ -1067,12 +1052,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<ContextRange>(hbs`
+    await render<ContextRange>(<template>
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days @minDate={{this.minDate}}/>
+        <calendar.Nav />
+        <calendar.Days @minDate={{this.minDate}} />
       </PowerCalendarRange>
-    `);
+    </template>);
 
     await focus('.ember-power-calendar-day[data-date="2013-10-15"]');
     assert
@@ -1107,12 +1092,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<ContextRange>(hbs`
+    await render<ContextRange>(<template>
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days @minDate={{this.minDate}}/>
+        <calendar.Nav />
+        <calendar.Days @minDate={{this.minDate}} />
       </PowerCalendarRange>
-    `);
+    </template>);
 
     await focus('.ember-power-calendar-day[data-date="2013-10-18"]');
     assert
@@ -1147,12 +1132,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<ContextRange>(hbs`
+    await render<ContextRange>(<template>
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days @maxDate={{this.maxDate}}/>
+        <calendar.Nav />
+        <calendar.Days @maxDate={{this.maxDate}} />
       </PowerCalendarRange>
-    `);
+    </template>);
 
     await focus('.ember-power-calendar-day[data-date="2013-10-15"]');
     assert
@@ -1187,12 +1172,12 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<ContextRange>(hbs`
+    await render<ContextRange>(<template>
       <PowerCalendarRange @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days @maxDate={{this.maxDate}}/>
+        <calendar.Nav />
+        <calendar.Days @maxDate={{this.maxDate}} />
       </PowerCalendarRange>
-    `);
+    </template>);
 
     await focus('.ember-power-calendar-day[data-date="2013-10-11"]');
     assert
@@ -1223,9 +1208,9 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
 
   test<Context>('user can provide `@tag` attribute', async function (assert) {
     assert.expect(1);
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendar @tag="li" />
-    `);
+    </template>);
     assert
       .dom('li.ember-power-calendar')
       .exists('default `div` overwritten with `li`');

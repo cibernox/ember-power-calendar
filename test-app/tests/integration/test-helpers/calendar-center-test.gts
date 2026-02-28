@@ -1,13 +1,10 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
-import {
-  calendarCenter,
-  type NormalizeCalendarValue,
-} from 'ember-power-calendar/test-support/helpers';
+import { calendarCenter, type NormalizeCalendarValue } from 'ember-power-calendar/test-support/helpers';
 import type { TestContext } from '@ember/test-helpers';
 import type { PowerCalendarAPI } from 'ember-power-calendar/components/power-calendar';
+import PowerCalendar from "ember-power-calendar/components/power-calendar";
 
 interface Context extends TestContext {
   center1: Date;
@@ -28,14 +25,14 @@ module('Test Support | Helper | calendarCenter', function (hooks) {
       this.set('center1', selected.date);
     };
 
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <div class="calendar-center-1">
         <PowerCalendar @center={{this.center1}} @onCenterChange={{this.onCenterChange}} as |calendar|>
-          <calendar.Nav/>
-          <calendar.Days/>
+          <calendar.Nav />
+          <calendar.Days />
         </PowerCalendar>
       </div>
-    `);
+    </template>);
     assert
       .dom('.calendar-center-1 .ember-power-calendar-nav-title')
       .hasText('October 2013');
@@ -51,7 +48,7 @@ module('Test Support | Helper | calendarCenter', function (hooks) {
 
   test<Context>('`calendarCenter` throws an error it cannot find a calendar using the given selector', async function (assert) {
     assert.expect(1);
-    await render(hbs`<div>No calendars!</div>`);
+    await render(<template><div>No calendars!</div></template>);
     try {
       await calendarCenter('.non-exister-selector', new Date(2013, 8, 3));
     } catch (error) {

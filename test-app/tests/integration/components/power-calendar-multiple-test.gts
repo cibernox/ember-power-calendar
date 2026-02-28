@@ -1,12 +1,14 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, type TestContext } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
 import { run } from '@ember/runloop';
 import { isSame, formatDate } from 'ember-power-calendar/test-support/helpers';
 import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
 import type { TPowerCalendarMultipleOnSelect } from 'ember-power-calendar/components/power-calendar-multiple';
 import type { PowerCalendarDay } from 'ember-power-calendar/utils';
+import PowerCalendarMultiple from "ember-power-calendar/components/power-calendar-multiple";
+import { on } from "@ember/modifier";
+import { fn } from "@ember/helper";
 
 interface Context extends TestContext {
   disabledDates: Date[];
@@ -33,12 +35,12 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       new Date(2016, 1, 15),
     ];
 
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendarMultiple @selected={{this.selected}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendarMultiple>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-nav')
       .containsText(
@@ -102,12 +104,12 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       this.set('selected', days.date);
     };
 
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendarMultiple>
-    `);
+    </template>);
 
     assert
       .dom('.ember-power-calendar-day--selected')
@@ -173,13 +175,13 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       assert.ok(isSame(days.date[1]!, new Date(2013, 9, 9), 'day'));
     };
 
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
         {{#if calendar.actions.select}}
           <button type="button" {{on "click" (fn calendar.actions.select this.datesToSelect calendar)}} id="test_button"></button>
         {{/if}}
       </PowerCalendarMultiple>
-    `);
+    </template>);
 
     await click('#test_button');
   });
@@ -189,12 +191,12 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days/>
+        <calendar.Nav />
+        <calendar.Days />
       </PowerCalendarMultiple>
-    `);
+    </template>);
     assert
       .dom('.ember-power-calendar-day--selected')
       .doesNotExist('No days are selected');
@@ -263,12 +265,12 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
     this.onSelect = (selected) => {
       this.set('selected', selected.date);
     };
-    await render<Context>(hbs`
+    await render<Context>(<template>
       <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Nav/>
-        <calendar.Days @disabledDates={{this.disabledDates}}/>
+        <calendar.Nav />
+        <calendar.Days @disabledDates={{this.disabledDates}} />
       </PowerCalendarMultiple>
-    `);
+    </template>);
 
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-14"]')

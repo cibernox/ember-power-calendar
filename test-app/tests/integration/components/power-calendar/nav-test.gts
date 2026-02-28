@@ -1,13 +1,10 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, type TestContext } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
 import { run } from '@ember/runloop';
 import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
-import type {
-  PowerCalendarAPI,
-  TPowerCalendarMoveCenterUnit,
-} from 'ember-power-calendar/components/power-calendar';
+import type { PowerCalendarAPI, TPowerCalendarMoveCenterUnit } from 'ember-power-calendar/components/power-calendar';
+import Nav from "ember-power-calendar/components/power-calendar/nav";
 
 let calendarService: PowerCalendarService;
 let calendar: PowerCalendarAPI;
@@ -53,7 +50,7 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
     assert.expect(2);
     this.calendar = calendar;
     await render<Context>(
-      hbs`<PowerCalendar::Nav @calendar={{this.calendar}}/>`,
+      <template><Nav @calendar={{this.calendar}} /></template>,
     );
     assert.dom('.ember-power-calendar-nav-title').hasText('October 2013');
     run(() => this.set('calendar.locale', 'es'));
@@ -64,7 +61,7 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
     assert.expect(1);
     this.calendar = calendar;
     await render<Context>(
-      hbs`<PowerCalendar::Nav @calendar={{this.calendar}} @format="YYYY"/>`,
+      <template><Nav @calendar={{this.calendar}} @format="YYYY" /></template>,
     );
     assert.dom('.ember-power-calendar-nav-title').hasText('2013');
   });
@@ -78,7 +75,7 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
       await Promise.resolve();
     };
     await render<Context>(
-      hbs`<PowerCalendar::Nav @calendar={{this.calendar}}/>`,
+      <template><Nav @calendar={{this.calendar}} /></template>,
     );
     await click('.ember-power-calendar-nav-control--previous');
     await click('.ember-power-calendar-nav-control--next');
@@ -101,7 +98,7 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
       await Promise.resolve();
     };
     await render<Context>(
-      hbs`<PowerCalendar::Nav @calendar={{this.calendar}} @unit="year"/>`,
+      <template><Nav @calendar={{this.calendar}} @unit="year" /></template>,
     );
     await click('.ember-power-calendar-nav-control--previous');
     await click('.ember-power-calendar-nav-control--next');

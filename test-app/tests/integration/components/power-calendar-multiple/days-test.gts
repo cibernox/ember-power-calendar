@@ -1,9 +1,9 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, type TestContext } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
 import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
 import type { TPowerCalendarMultipleOnSelect } from 'ember-power-calendar/components/power-calendar-multiple';
+import PowerCalendarMultiple from "ember-power-calendar/components/power-calendar-multiple";
 
 interface Context extends TestContext {
   element: HTMLElement;
@@ -39,13 +39,11 @@ module(
       this.onSelect = (selected) => {
         this.set('selected', selected.date);
       };
-      await render<Context>(hbs`
-      <PowerCalendarMultiple
-        @selected={{this.selected}}
-        @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Days @maxLength={{1}}/>
+      await render<Context>(<template>
+      <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
+        <calendar.Days @maxLength={{1}} />
       </PowerCalendarMultiple>
-    `);
+    </template>);
       await click('.ember-power-calendar-day[data-date="2013-10-05"]');
       assert
         .dom('.ember-power-calendar-day[data-date="2013-10-05"]')
@@ -68,13 +66,11 @@ module(
       this.onSelect = (selected) => {
         this.set('selected', selected.date);
       };
-      await render<Context>(hbs`
-      <PowerCalendarMultiple
-        @selected={{this.selected}}
-        @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Days @maxLength={{this.max}}/>
+      await render<Context>(<template>
+      <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
+        <calendar.Days @maxLength={{this.max}} />
       </PowerCalendarMultiple>
-    `);
+    </template>);
       await click('.ember-power-calendar-day[data-date="2013-10-05"]');
       assert
         .dom('.ember-power-calendar-day[data-date="2013-10-05"]')
@@ -96,13 +92,11 @@ module(
         this.set('selected', selected.date);
       };
 
-      await render<Context>(hbs`
-      <PowerCalendarMultiple
-        @selected={{this.selected}}
-        @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Days @maxLength={{this.max}}/>
+      await render<Context>(<template>
+      <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
+        <calendar.Days @maxLength={{this.max}} />
       </PowerCalendarMultiple>
-    `);
+    </template>);
       await click('.ember-power-calendar-day[data-date="2013-10-05"]');
       this.set('selected', null);
       assert
@@ -116,13 +110,11 @@ module(
         this.set('collection', selected.date);
       };
 
-      await render<Context>(hbs`
-      <PowerCalendarMultiple
-        @selected={{this.selected}}
-        @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Days @maxLength={{this.max}}/>
+      await render<Context>(<template>
+      <PowerCalendarMultiple @selected={{this.selected}} @onSelect={{this.onSelect}} as |calendar|>
+        <calendar.Days @maxLength={{this.max}} />
       </PowerCalendarMultiple>
-    `);
+    </template>);
       await click('.ember-power-calendar-day[data-date="2013-10-05"]');
 
       assert
@@ -136,14 +128,11 @@ module(
       this.onSelect = (selected) => {
         this.set('selected', selected.date);
       };
-      await render<Context>(hbs`
-      <PowerCalendarMultiple
-        @selected={{this.selected}}
-        @center={{this.center}}
-        @onSelect={{this.onSelect}} as |calendar|>
-        <calendar.Days @showDaysAround={{false}}/>
+      await render<Context>(<template>
+      <PowerCalendarMultiple @selected={{this.selected}} @center={{this.center}} @onSelect={{this.onSelect}} as |calendar|>
+        <calendar.Days @showDaysAround={{false}} />
       </PowerCalendarMultiple>
-    `);
+    </template>);
       await click('.ember-power-calendar-day[data-date="2013-10-05"]');
 
       const weeks = this.element.querySelectorAll<HTMLElement>(
