@@ -48,7 +48,7 @@
     "@embroider/macros": "^1.19.7",
     "@embroider/test-setup": "^4.0.0",
     "@embroider/vite": "^1.5.2",
-    "@eslint/js": "^9.25.1",
+    "@eslint/js": "^9.35.0",
     "@glimmer/component": "^2.0.0",
     "@glimmer/tracking": "^1.1.2",
     "@glint/environment-ember-loose": "^1.5.2",
@@ -56,7 +56,6 @@
     "@glint/template": "^1.7.4",
     "@rollup/plugin-babel": "^6.1.0",
     "@tsconfig/ember": "^3.0.12",
-    "@types/eslint__js": "^8.42.3",
     "@types/qunit": "^2.19.13",
     "@types/rsvp": "^4.0.9",
     "babel-plugin-ember-template-compilation": "^2.3.0",
@@ -64,9 +63,9 @@
     "decorator-transforms": "^2.3.1",
     "ember-auto-import": "^2.12.0",
     "ember-basic-dropdown": "^8.11.0",
-    "ember-cli": "~6.4.0",
+    "ember-cli": "~6.7.0",
     "ember-cli-babel": "^8.3.1",
-    "ember-cli-deprecation-workflow": "^3.3.0",
+    "ember-cli-deprecation-workflow": "^3.4.0",
     "ember-cli-htmlbars": "^6.3.0",
     "ember-cli-sass": "^11.0.1",
     "ember-concurrency": "^5.1.0",
@@ -78,11 +77,11 @@
     "ember-qunit": "^9.0.4",
     "ember-resolver": "^13.1.1",
     "ember-route-template": "^1.0.3",
-    "ember-source": "~6.4.0",
+    "ember-source": "~6.7.0",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^7.9.3",
     "ember-try": "^4.0.0",
-    "eslint": "^9.25.1",
+    "eslint": "^9.35.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-ember": "^12.7.5",
     "eslint-plugin-n": "^17.23.2",
@@ -95,7 +94,7 @@
     "qunit": "^2.25.0",
     "qunit-dom": "^3.5.0",
     "sass": "^1.97.3",
-    "stylelint": "^16.19.1",
+    "stylelint": "^16.23.1",
     "stylelint-config-standard": "^39.0.0",
     "stylelint-config-standard-scss": "^16.0.0",
     "tracked-built-ins": "^4.1.0",
@@ -104,7 +103,7 @@
     "vite": "^7.3.1"
   },
   "engines": {
-    "node": ">= 18"
+    "node": ">= 20.11"
   },
   "ember": {
     "edition": "octane"
