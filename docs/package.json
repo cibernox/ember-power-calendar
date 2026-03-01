@@ -22,15 +22,10 @@
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
-    "lint:types": "glint",
+    "lint:types": "ember-tsc --noEmit",
     "start": "vite",
     "test": "concurrently \"pnpm:lint\" \"pnpm:test:*\" --names \"lint,test:\" --prefixColors auto",
     "test:ember": "vite build --mode development && ember test --path dist"
-  },
-  "dependenciesMeta": {
-    "ember-power-calendar": {
-      "injected": true
-    }
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
@@ -50,10 +45,9 @@
     "@eslint/js": "^9.35.0",
     "@glimmer/component": "^2.0.0",
     "@glimmer/tracking": "^1.1.2",
-    "@glint/core": "^1.5.2",
-    "@glint/environment-ember-loose": "^1.5.2",
-    "@glint/environment-ember-template-imports": "^1.5.2",
-    "@glint/template": "^1.7.4",
+    "@glint/ember-tsc": "^1.0.3",
+    "@glint/template": "^1.6.1",
+    "@glint/tsserver-plugin": "^2.0.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@tsconfig/ember": "^3.0.12",
     "@types/qunit": "^2.19.13",
