@@ -2,20 +2,13 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, render } from '@ember/test-helpers';
 import HelpersTesting from '../../demo-app/components/helpers-testing';
-import {
-  calendarCenter,
-  calendarSelect,
-} from '#src/test-support/helpers.ts';
+import { calendarCenter, calendarSelect } from '#src/test-support/helpers.ts';
 
 module('Acceptance | helpers | calendarCenter', function (hooks) {
   setupRenderingTest(hooks);
 
   test('`calendarCenter` invokes the `@onCenterChange` action of the target component inside the selector we pass it', async function (assert) {
-    await render(
-      <template>
-        <HelpersTesting />
-      </template>,
-    );
+    await render(<template><HelpersTesting /></template>);
 
     assert
       .dom('.calendar-center-1 .ember-power-calendar-nav-title')
@@ -32,11 +25,7 @@ module('Acceptance | helpers | calendarCenter', function (hooks) {
   });
 
   test('`calendarCenter` invokes the `@onCenterChange` action of the target component WITH the selector we pass it', async function (assert) {
-    await render(
-      <template>
-        <HelpersTesting />
-      </template>,
-    );
+    await render(<template><HelpersTesting /></template>);
 
     assert
       .dom('.calendar-center-2-calendar .ember-power-calendar-nav-title')
@@ -53,11 +42,7 @@ module('Acceptance | helpers | calendarCenter', function (hooks) {
 
   test('`calendarCenter` throws an error if called on a calendar without `@onCenterChange` action', async function (assert) {
     assert.expect(2);
-    await render(
-      <template>
-        <HelpersTesting />
-      </template>,
-    );
+    await render(<template><HelpersTesting /></template>);
 
     assert
       .dom('.calendar-center-3 .ember-power-calendar-nav-title')
@@ -74,11 +59,7 @@ module('Acceptance | helpers | calendarCenter', function (hooks) {
 
   test('`calendarCenter` throws an error it cannot find a calendar using the given selector', async function (assert) {
     assert.expect(1);
-    await render(
-      <template>
-        <HelpersTesting />
-      </template>,
-    );
+    await render(<template><HelpersTesting /></template>);
 
     return calendarCenter('.non-exister-selector', new Date(2013, 8, 3)).catch(
       (error) => {
@@ -92,11 +73,7 @@ module('Acceptance | helpers | calendarCenter', function (hooks) {
 
   test('`calendarCenter` works even if the calendar is tagless', async function (assert) {
     assert.expect(2);
-    await render(
-      <template>
-        <HelpersTesting />
-      </template>,
-    );
+    await render(<template><HelpersTesting /></template>);
     await calendarCenter('.calendar-center-4', new Date(2013, 8, 3));
 
     assert
@@ -112,11 +89,7 @@ module('Acceptance | helpers | calendarSelect', function (hooks) {
   setupRenderingTest(hooks);
 
   test('`calendarSelect` selects the given date ', async function (assert) {
-    await render(
-      <template>
-        <HelpersTesting />
-      </template>,
-    );
+    await render(<template><HelpersTesting /></template>);
 
     assert
       .dom('.calendar-select-1 .ember-power-calendar-nav-title')
@@ -135,11 +108,7 @@ module('Acceptance | helpers | calendarSelect', function (hooks) {
   });
 
   test('`calendarSelect` selects the given date changing the month center on the process', async function (assert) {
-    await render(
-      <template>
-        <HelpersTesting />
-      </template>,
-    );
+    await render(<template><HelpersTesting /></template>);
 
     assert
       .dom('.calendar-select-1 .ember-power-calendar-nav-title')
@@ -164,11 +133,7 @@ module('Acceptance | helpers | calendarSelect', function (hooks) {
   });
 
   test('`calendarSelect` selects the given date in wormhole', async function (assert) {
-    await render(
-      <template>
-        <HelpersTesting />
-      </template>,
-    );
+    await render(<template><HelpersTesting /></template>);
 
     await click('.calendar-in-dropdown input');
     assert

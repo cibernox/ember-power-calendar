@@ -15,8 +15,8 @@ if (macroCondition(dependencySatisfies('moment', '*'))) {
 
 export function initialize() {
   if (dateLibrary === 'moment') {
-      const moment = (importSync('moment') as { default: typeof momentNs })
-        .default;
-      moment.locale('en');
-    }
-};
+    const moment = (importSync('moment') as { default: typeof momentNs })
+      .default;
+    moment.locale('en');
+  }
+}

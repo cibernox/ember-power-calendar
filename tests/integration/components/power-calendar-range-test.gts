@@ -115,7 +115,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       }
       this.set('selected', range.date);
       // @ts-expect-error Unsafe call of a(n) `error` type typed value.
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
       assert.isCalendar(
         calendar,
         "The second argument is the calendar's public API",
@@ -312,7 +312,7 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
       }
       this.set('selected', range.date);
       // @ts-expect-error Unsafe call of a(n) `error` type typed value.
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
       assert.isCalendar(
         calendar,
         "The second argument is the calendar's public API",

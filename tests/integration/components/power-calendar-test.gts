@@ -233,7 +233,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
         const value = 'moment' in obj && 'date' in obj;
         assert.ok(value, 'The first argument is a compound moment/date object');
         // @ts-expect-error Unsafe call of a(n) `error` type typed value.
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
         assert.isCalendar(
           calendar,
           "The second argument is the calendar's public API",
@@ -296,7 +296,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     let DateTime: any;
 
     if (macroCondition(dependencySatisfies('luxon', '*'))) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
       DateTime = (importSync('luxon') as { default: any }).default.DateTime;
     }
 
@@ -304,7 +304,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       const self = this;
 
       assert.expect(3);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
       this.center = DateTime.fromObject({
         year: 2016,
         month: 2,
@@ -346,7 +346,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
           'The first argument is a compound date/datetime object',
         );
         // @ts-expect-error Unsafe call of a(n) `error` type typed value.
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
         assert.isCalendar(
           calendar,
           "The second argument is the calendar's public API",
@@ -373,7 +373,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       const self = this;
 
       assert.expect(4);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
       this.selected = DateTime.fromObject({
         year: 2016,
         month: 2,
@@ -744,10 +744,10 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
     assert.expect(3);
     this.onSelect = function (day, calendar, e) {
       // @ts-expect-error Unsafe call of a(n) `error` type typed value.
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
       assert.isDay(day, 'The first argument is a day object');
       // @ts-expect-error Unsafe call of a(n) `error` type typed value.
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
       assert.isCalendar(
         calendar,
         "The second argument is the calendar's public API",

@@ -101,7 +101,7 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
         assert.ok(isSame(days.date[1]!, new Date(2013, 9, 9), 'day'));
       }
       // @ts-expect-error Unsafe call of a(n) `error` type typed value.
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
       assert.isCalendar(
         calendar,
         "The second argument is the calendar's public API",

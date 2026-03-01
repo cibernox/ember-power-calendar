@@ -37,8 +37,8 @@
     "addon-main.cjs",
     "declarations",
     "dist",
-    "ember-power-select.less",
-    "ember-power-select.scss",
+    "ember-power-calendar.less",
+    "ember-power-calendar.scss",
     "less",
     "scss",
     "src"

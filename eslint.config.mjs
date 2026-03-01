@@ -33,7 +33,14 @@ const tsParserOptions = {
 };
 
 export default defineConfig([
-  globalIgnores(['dist/', 'dist-*/', 'declarations/', 'coverage/', '!**/.*']),
+  globalIgnores([
+    'dist/',
+    'dist-*/',
+    'declarations/',
+    'docs/',
+    'coverage/',
+    '!**/.*',
+  ]),
   js.configs.recommended,
   prettier,
   ember.configs.base,
@@ -80,6 +87,9 @@ export default defineConfig([
       },
       ember.configs.gts,
     ],
+    rules: {
+      'ember/no-runloop': 0,
+    },
   },
   {
     files: ['src/**/*'],
@@ -89,6 +99,32 @@ export default defineConfig([
     rules: {
       // require relative imports use full extensions
       'import/extensions': ['error', 'always', { ignorePackages: true }],
+    },
+  },
+  {
+    files: ['tests/**/*-test.{ts,gts}'],
+    languageOptions: {
+      parser: ember.parser,
+      parserOptions: tsParserOptions,
+      globals: {
+        ...globals.browser,
+      },
+    },
+    extends: [
+      ...ts.configs.recommendedTypeChecked,
+      // https://github.com/ember-cli/ember-addon-blueprint/issues/119
+      {
+        ...ts.configs.eslintRecommended,
+        files: undefined,
+      },
+      ember.configs.gts,
+    ],
+    rules: {
+      '@typescript-eslint/no-this-alias': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      'ember/no-runloop': 0,
     },
   },
   /**
