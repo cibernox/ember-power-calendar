@@ -205,22 +205,20 @@ export default class PowerCalendarDays extends Component<PowerCalendarDaysSignat
     handleClick(e, this.days, this.args.calendar);
   }
 
-  setup = modifier(
-    () => {
-      if (this.didSetup) {
-        return;
-      }
+  setup = modifier(() => {
+    if (this.didSetup) {
+      return;
+    }
 
-      this.didSetup = true;
+    this.didSetup = true;
 
-      if (this.args.autofocus) {
-        // Move into next runloop
-        void Promise.resolve().then(() => {
-          this.initialFocus();
-        });
-      }
-    },
-  );
+    if (this.args.autofocus) {
+      // Move into next runloop
+      void Promise.resolve().then(() => {
+        this.initialFocus();
+      });
+    }
+  });
 
   initialFocus() {
     const activeDay = this.days.find((x) => x.isSelected && !x.isDisabled);
