@@ -71,8 +71,8 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
           '.ember-power-calendar-weekdays',
         ) as HTMLElement
       ).textContent
-        .replace(/\s+/g, ' ')
-        .trim(),
+        ?.replace(/\s+/g, ' ')
+        .trim() ?? '',
       'lun. mar. mer. jeu. ven. sam. dim.',
     );
     assert.strictEqual(
@@ -99,8 +99,8 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
           '.ember-power-calendar-weekdays',
         ) as HTMLElement
       ).textContent
-        .replace(/\s+/g, ' ')
-        .trim(),
+        ?.replace(/\s+/g, ' ')
+        .trim() ?? '',
       'Sun Mon Tue Wed Thu Fri Sat',
     );
     run(() => (this.calendar.locale = 'es'));
@@ -111,8 +111,8 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
           '.ember-power-calendar-weekdays',
         ) as HTMLElement
       ).textContent
-        .replace(/\s+/g, ' ')
-        .trim(),
+        ?.replace(/\s+/g, ' ')
+        .trim() ?? '',
       'lun. mar. mié. jue. vie. sáb. dom.',
     );
   });
@@ -211,8 +211,8 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
           '.ember-power-calendar-weekdays',
         ) as HTMLElement
       ).textContent
-        .replace(/\s+/g, ' ')
-        .trim(),
+        ?.replace(/\s+/g, ' ')
+        .trim() ?? '',
       'Sun Mon Tue Wed Thu Fri Sat',
     );
     run(() => this.set('weekdayFormat', 'long'));
@@ -222,8 +222,8 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
           '.ember-power-calendar-weekdays',
         ) as HTMLElement
       ).textContent
-        .replace(/\s+/g, ' ')
-        .trim(),
+        ?.replace(/\s+/g, ' ')
+        .trim() ?? '',
       'Sunday Monday Tuesday Wednesday Thursday Friday Saturday',
     );
     run(() => this.set('weekdayFormat', 'min'));
@@ -239,8 +239,8 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
           '.ember-power-calendar-weekdays',
         ) as HTMLElement
       ).textContent
-        .replace(/\s+/g, ' ')
-        .trim(),
+        ?.replace(/\s+/g, ' ')
+        .trim() ?? '',
       expectedResult,
     );
   });

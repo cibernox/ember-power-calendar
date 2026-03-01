@@ -87,6 +87,9 @@ importers:
       '@types/qunit':
         specifier: ^2.19.12
         version: 2.19.13
+      '@types/rsvp':
+        specifier: ^4.0.9
+        version: 4.0.9
       babel-plugin-ember-template-compilation:
         specifier: ^4.0.0
         version: 4.0.0
@@ -2347,6 +2350,9 @@ packages:
 
   '@types/rimraf@2.0.5':
     resolution: {integrity: sha512-YyP+VfeaqAyFmXoTh3HChxOQMyjByRMsHU7kc5KOJkSlXudhMhQIALbYV7rHh/l8d2lX3VUQzprrcAgWdRuU8g==}
+
+  '@types/rsvp@4.0.9':
+    resolution: {integrity: sha512-F6vaN5mbxw2MBCu/AD9fSKwrhnto2pE77dyUsi415qz9IP9ni9ZOWXHxnXfsM4NW9UjW+it189jvvqnhv37Z7Q==}
 
   '@types/send@0.17.6':
     resolution: {integrity: sha512-Uqt8rPBE8SY0RK8JB1EzVOIZ32uqy8HwdxCnoCOsYrvnswqmFZ/k+9Ikidlk/ImhsdvBsloHbAlewb2IEBV/Og==}
@@ -10485,6 +10491,8 @@ snapshots:
     dependencies:
       '@types/glob': 9.0.0
       '@types/node': 25.3.2
+
+  '@types/rsvp@4.0.9': {}
 
   '@types/send@0.17.6':
     dependencies:
