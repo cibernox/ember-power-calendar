@@ -37,10 +37,12 @@ There are many possible ways to use it, for giving you just a taste of the API:
 ```glimmer-ts
 import PowerCalendar from "ember-power-calendar/components/power-calendar";
 
-<PowerCalendar @selected={{this.arrival}} @onSelect={{this.onChange}} as |calendar|>
-  <calendar.Nav/>
-  <calendar.Days/>
-</PowerCalendar>
+<template>
+  <PowerCalendar @selected={{this.arrival}} @onSelect={{this.onChange}} as |calendar|>
+    <calendar.Nav/>
+    <calendar.Days/>
+  </PowerCalendar>
+</template>
 ```
 
 Check the full documentation at www.ember-power-calendar.com
