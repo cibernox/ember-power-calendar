@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import { scheduleOnce } from '@ember/runloop';
 import { modifier } from 'ember-modifier';
 import { service } from '@ember/service';
 import {
@@ -146,17 +145,12 @@ export default class PowerCalendarDays extends Component<PowerCalendarDaysSignat
   // Actions
   @action
   handleDayFocus(e: FocusEvent): void {
-    scheduleOnce(
-      'actions',
-      this,
-      this._updateFocused.bind(this),
-      (e.target as HTMLElement).dataset['date'],
-    );
+    this._updateFocused((e.target as HTMLElement).dataset['date']);
   }
 
   @action
   handleDayBlur(): void {
-    scheduleOnce('actions', this, this._updateFocused.bind(this), null);
+    this._updateFocused(null);
   }
 
   @action
@@ -203,13 +197,7 @@ export default class PowerCalendarDays extends Component<PowerCalendarDaysSignat
     }
 
     this.focusedId = day.id;
-    scheduleOnce(
-      'afterRender',
-      this,
-      focusDate,
-      this.args.calendar.uniqueId,
-      this.focusedId ?? '',
-    );
+    focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
   }
 
   @action
@@ -226,12 +214,12 @@ export default class PowerCalendarDays extends Component<PowerCalendarDaysSignat
       this.didSetup = true;
 
       if (this.args.autofocus) {
-        scheduleOnce('afterRender', this, this.initialFocus.bind(this));
+        // Move into next runloop
+        void Promise.resolve().then(() => {
+          this.initialFocus();
+        });
       }
     },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    { eager: false },
   );
 
   initialFocus() {
@@ -281,13 +269,9 @@ export default class PowerCalendarDays extends Component<PowerCalendarDaysSignat
     this.focusedId = formatDate(date, 'YYYY-MM-DD');
 
     if (step !== 0) {
-      scheduleOnce(
-        'afterRender',
-        this,
-        focusDate,
-        this.args.calendar.uniqueId,
-        this.focusedId ?? '',
-      );
+      // Move into next runloop
+      await Promise.resolve();
+      focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
     } else {
       focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
     }
