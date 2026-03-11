@@ -2,6 +2,7 @@
 dist/
 dist-tests/
 declarations/
+src/vendor/
 
 # from scenarios
 tmp/
