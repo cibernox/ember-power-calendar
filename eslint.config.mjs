@@ -87,9 +87,6 @@ export default defineConfig([
       },
       ember.configs.gts,
     ],
-    rules: {
-      'ember/no-runloop': 0,
-    },
   },
   {
     files: ['src/**/*'],
