@@ -7,8 +7,6 @@ import {
   triggerKeyEvent,
   type TestContext,
 } from '@ember/test-helpers';
-import { run, later } from '@ember/runloop';
-import RSVP from 'rsvp';
 import PowerCalendar from '#src/components/power-calendar.gts';
 import PowerCalendarRange from '#src/components/power-calendar-range.gts';
 import {
@@ -27,6 +25,7 @@ import type {
 import type * as momentNs from 'moment';
 import type { TPowerCalendarRangeOnSelect } from '#src/components/power-calendar-range.gts';
 import type PowerCalendarService from '#src/services/power-calendar.ts';
+import { timeout } from 'ember-concurrency';
 
 let dateLibrary = '';
 
@@ -915,11 +914,9 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
 
     assert.expect(2);
     const done = assert.async();
-    this.onCenterChange = function () {
-      return new RSVP.Promise(function (resolve) {
-        // @ts-expect-error Argument of type '200' is not assignable to parameter of type 'never'.
-        later(resolve, 200);
-      });
+    this.onCenterChange = async () => {
+      await timeout(200);
+      return Promise.resolve();
     };
     await render<Context>(
       <template>
@@ -1019,7 +1016,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-16"]')
       .isNotDisabled('Days after the minDate are selectable');
 
-    run(() => this.set('minDate', new Date(2013, 9, 18)));
+    this.set('minDate', new Date(2013, 9, 18));
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-14"]')
       .isDisabled('Days before the minDate are disabled');
@@ -1062,7 +1059,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-16"]')
       .isDisabled('Days after the maxDate are disabled');
 
-    run(() => this.set('maxDate', new Date(2013, 9, 18)));
+    this.set('maxDate', new Date(2013, 9, 18));
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-17"]')
       .isNotDisabled('Days before the maxDate are selectable');
@@ -1183,7 +1180,7 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-23"]')
       .isDisabled('The 23rd is disabled');
 
-    run(() => this.set('disabledDates', [new Date(2013, 9, 22)]));
+    this.set('disabledDates', [new Date(2013, 9, 22)]);
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-14"]')
       .isNotDisabled('The 14th is enabled');
@@ -1206,9 +1203,8 @@ module('Integration | Component | <PowerCalendar>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-23"]')
       .isNotDisabled('The 22nd is disabled');
 
-    run(() =>
-      this.set('disabledDates', [new Date(2013, 9, 22), 'Tue', 'Thu', 'Sun']),
-    );
+    this.set('disabledDates', [new Date(2013, 9, 22), 'Tue', 'Thu', 'Sun']);
+
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-14"]')
       .isNotDisabled('The 14th is enabled');

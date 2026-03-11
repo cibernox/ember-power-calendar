@@ -1,7 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, type TestContext } from '@ember/test-helpers';
-import { run } from '@ember/runloop';
 import Nav from '#src/components/power-calendar/nav.gts';
 import type PowerCalendarService from '#src/services/power-calendar.ts';
 import type {
@@ -58,7 +57,7 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
       <template><Nav @calendar={{self.calendar}} /></template>,
     );
     assert.dom('.ember-power-calendar-nav-title').hasText('October 2013');
-    run(() => this.set('calendar.locale', 'es'));
+    this.set('calendar.locale', 'es');
     assert.dom('.ember-power-calendar-nav-title').hasText('octubre 2013');
   });
 
