@@ -87,9 +87,6 @@ export default defineConfig([
       },
       ember.configs.gts,
     ],
-    rules: {
-      'ember/no-runloop': 0,
-    },
   },
   {
     files: ['src/**/*'],
@@ -124,7 +121,6 @@ export default defineConfig([
       '@typescript-eslint/no-unsafe-return': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
-      'ember/no-runloop': 0,
     },
   },
   /**

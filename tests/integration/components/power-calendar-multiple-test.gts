@@ -1,7 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, type TestContext } from '@ember/test-helpers';
-import { run } from '@ember/runloop';
 import { isSame, formatDate } from '#src/test-support/helpers.ts';
 import PowerCalendarMultiple from '#src/components/power-calendar-multiple.gts';
 import { on } from '@ember/modifier';
@@ -334,7 +333,8 @@ module('Integration | Component | <PowerCalendarMultiple>', function (hooks) {
       .dom('.ember-power-calendar-day[data-date="2013-10-23"]')
       .isDisabled('The 23rd is disabled');
 
-    run(() => this.set('disabledDates', [new Date(2013, 9, 22)]));
+    this.set('disabledDates', [new Date(2013, 9, 22)]);
+
     assert
       .dom('.ember-power-calendar-day[data-date="2013-10-14"]')
       .isNotDisabled('The 14th is enabled');

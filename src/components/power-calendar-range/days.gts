@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import { scheduleOnce } from '@ember/runloop';
 import { service } from '@ember/service';
 import emberPowerCalendarDayClasses, {
   type TDayClass,
@@ -141,17 +140,16 @@ export default class PowerCalendarRangeDays extends Component<PowerCalendarRange
   // Actions
   @action
   handleDayFocus(e: FocusEvent): void {
-    scheduleOnce(
-      'actions',
-      this,
-      this._updateFocused.bind(this),
-      (e.target as HTMLElement).dataset['date'],
-    );
+    queueMicrotask(() => {
+      this._updateFocused((e.target as HTMLElement).dataset['date']);
+    });
   }
 
   @action
   handleDayBlur(): void {
-    scheduleOnce('actions', this, this._updateFocused.bind(this), null);
+    queueMicrotask(() => {
+      this._updateFocused(null);
+    });
   }
 
   @action
@@ -200,13 +198,9 @@ export default class PowerCalendarRangeDays extends Component<PowerCalendarRange
     }
 
     this.focusedId = day.id;
-    scheduleOnce(
-      'afterRender',
-      this,
-      focusDate,
-      this.args.calendar.uniqueId,
-      this.focusedId ?? '',
-    );
+    queueMicrotask(() => {
+      focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
+    });
   }
 
   @action
@@ -234,22 +228,19 @@ export default class PowerCalendarRangeDays extends Component<PowerCalendarRange
     this.lastKeyDownWasSpace = false;
   }
 
-  setup = modifier(
-    () => {
-      if (this.didSetup) {
-        return;
-      }
+  setup = modifier(() => {
+    if (this.didSetup) {
+      return;
+    }
 
-      this.didSetup = true;
+    this.didSetup = true;
 
+    if (this.args.autofocus) {
       if (this.args.autofocus) {
-        scheduleOnce('afterRender', this, this.initialFocus.bind(this));
+        queueMicrotask(() => this.initialFocus());
       }
-    },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    { eager: false },
-  );
+    }
+  });
 
   initialFocus() {
     const activeDay = this.days.find((x) => x.isSelected && !x.isDisabled);
@@ -298,13 +289,9 @@ export default class PowerCalendarRangeDays extends Component<PowerCalendarRange
     this.focusedId = formatDate(date, 'YYYY-MM-DD');
 
     if (step !== 0) {
-      scheduleOnce(
-        'afterRender',
-        this,
-        focusDate,
-        this.args.calendar.uniqueId,
-        this.focusedId ?? '',
-      );
+      queueMicrotask(() => {
+        focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
+      });
     } else {
       focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
     }

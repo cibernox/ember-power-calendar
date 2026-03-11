@@ -1,7 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
-import { run } from '@ember/runloop';
 import PowerCalendarRange from '#src/components/power-calendar-range.gts';
 import { on } from '@ember/modifier';
 import { fn } from '@ember/helper';
@@ -557,18 +556,18 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     assert
       .dom('.formatted-min-range')
       .hasText('86400000', 'the default minRange is one day');
-    run(() => this.set('minRange', 3));
+    this.set('minRange', 3);
     assert
       .dom('.formatted-min-range')
       .hasText(
         '259200000',
         'when passed a number, it is interpreted as number of days',
       );
-    run(() => this.set('minRange', '1 week'));
+    this.set('minRange', '1 week');
     assert
       .dom('.formatted-min-range')
       .hasText('604800000', 'it can regognize humanized durations');
-    run(() => this.set('minRange', '1m'));
+    this.set('minRange', '1m');
     assert
       .dom('.formatted-min-range')
       .hasText(

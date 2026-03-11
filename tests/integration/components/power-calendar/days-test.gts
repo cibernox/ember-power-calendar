@@ -1,7 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, type TestContext } from '@ember/test-helpers';
-import { run } from '@ember/runloop';
+import { render, settled, type TestContext } from '@ember/test-helpers';
 import { TrackedObject } from 'tracked-built-ins';
 import { dependencySatisfies, macroCondition } from '@embroider/macros';
 import PowerCalendar from '#src/components/power-calendar.gts';
@@ -103,7 +102,9 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
         .trim() ?? '',
       'Sun Mon Tue Wed Thu Fri Sat',
     );
-    run(() => (this.calendar.locale = 'es'));
+    this.calendar.locale = 'es';
+
+    await settled();
 
     assert.strictEqual(
       (
@@ -141,7 +142,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
       .dom(days[days.length - 1])
       .hasText('4', 'The last day of the last week the 4th of November');
 
-    run(() => this.set('startOfWeek', '3'));
+    this.set('startOfWeek', '3');
     assert
       .dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0])
       .hasText('Wed', 'The week starts on Wednesday');
@@ -156,7 +157,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
       .dom(days[days.length - 1])
       .hasText('5', 'The last day of the last week is the 5th of November');
 
-    run(() => this.set('startOfWeek', '5'));
+    this.set('startOfWeek', '5');
     assert
       .dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0])
       .hasText('Fri', 'The week starts on Friday');
@@ -171,7 +172,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
       .dom(days[days.length - 1])
       .hasText('31', 'The last day of the last week is the 31th of October');
 
-    run(() => this.set('calendar.locale', 'pt'));
+    this.set('calendar.locale', 'pt');
     if (dateLibrary === 'luxon') {
       assert
         .dom('.ember-power-calendar-weekday')
@@ -215,7 +216,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
         .trim() ?? '',
       'Sun Mon Tue Wed Thu Fri Sat',
     );
-    run(() => this.set('weekdayFormat', 'long'));
+    this.set('weekdayFormat', 'long');
     assert.strictEqual(
       (
         this.element.querySelector(
@@ -226,7 +227,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
         .trim() ?? '',
       'Sunday Monday Tuesday Wednesday Thursday Friday Saturday',
     );
-    run(() => this.set('weekdayFormat', 'min'));
+    this.set('weekdayFormat', 'min');
 
     let expectedResult = 'Su Mo Tu We Th Fr Sa';
     if (dateLibrary === 'luxon') {
