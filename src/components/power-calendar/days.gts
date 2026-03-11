@@ -145,12 +145,16 @@ export default class PowerCalendarDays extends Component<PowerCalendarDaysSignat
   // Actions
   @action
   handleDayFocus(e: FocusEvent): void {
-    this._updateFocused((e.target as HTMLElement).dataset['date']);
+    queueMicrotask(() => {
+      this._updateFocused((e.target as HTMLElement).dataset['date']);
+    });
   }
 
   @action
   handleDayBlur(): void {
-    this._updateFocused(null);
+    queueMicrotask(() => {
+      this._updateFocused(null);
+    });
   }
 
   @action
@@ -197,7 +201,9 @@ export default class PowerCalendarDays extends Component<PowerCalendarDaysSignat
     }
 
     this.focusedId = day.id;
-    focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
+    queueMicrotask(() => {
+      focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
+    });
   }
 
   @action
@@ -213,10 +219,9 @@ export default class PowerCalendarDays extends Component<PowerCalendarDaysSignat
     this.didSetup = true;
 
     if (this.args.autofocus) {
-      // Move into next runloop
-      void Promise.resolve().then(() => {
-        this.initialFocus();
-      });
+      if (this.args.autofocus) {
+        queueMicrotask(() => this.initialFocus());
+      }
     }
   });
 
@@ -267,9 +272,9 @@ export default class PowerCalendarDays extends Component<PowerCalendarDaysSignat
     this.focusedId = formatDate(date, 'YYYY-MM-DD');
 
     if (step !== 0) {
-      // Move into next runloop
-      await Promise.resolve();
-      focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
+      queueMicrotask(() => {
+        focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
+      });
     } else {
       focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
     }
