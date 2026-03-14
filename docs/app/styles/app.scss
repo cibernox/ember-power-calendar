@@ -2,29 +2,28 @@
 
 // Main
 
-@import "variables";
-@import "base";
-@import "utilities";
-@import "layout";
+@use "variables";
+@use "base";
+@use "utilities";
+@use "layout";
 
-// Power Select
-
-@import "ember-power-select";
-@import "ember-power-select/themes/bootstrap";
-@import "ember-power-calendar";
+@use "ember-basic-dropdown";
+@use 'ember-power-select';
+@use "ember-power-calendar";
+@use "ember-power-calendar/scss/mixins.scss";
 
 // Components
 
-@import "components/main-header";
-@import "components/main-footer";
-@import "components/index";
-@import "components/sidenav";
-@import "components/docs";
-@import "components/code-block";
+@use "components/main-header";
+@use "components/main-footer";
+@use "components/index";
+@use "components/sidenav";
+@use "components/docs";
+@use "components/code-block";
 
 // Docs
-@import "docs/code-example";
-@include ember-code-example($brand-color);
+@use "docs/code-example";
+@include code-example.ember-code-example(variables.$brand-color);
 
 // Misc
 
@@ -84,28 +83,28 @@
 }
 
 // Calendar styles
-@media only screen and (min-width: $small-breakpoint) {
+@media only screen and (min-width: variables.$small-breakpoint) {
   .ember-power-calendar {
-    @include ember-power-calendar($cell-size: 50px);
+    @include mixins.calendar($cell-size: 50px);
   }
 }
 
-@media only screen and (max-width: $small-breakpoint) {
+@media only screen and (max-width: variables.$small-breakpoint) {
   .ember-power-calendar {
-    @include ember-power-calendar($cell-size: 42px);
+    @include mixins.calendar($cell-size: 42px);
   }
 }
 
 .demo-calendar-small {
-  @include ember-power-calendar($cell-size: 30px);
+  @include mixins.calendar($cell-size: 30px);
 }
 
 .demo-calendar-medium {
-  @include ember-power-calendar($cell-size: 50px);
+  @include mixins.calendar($cell-size: 50px);
 }
 
 .demo-calendar-big {
-  @include ember-power-calendar($cell-size: 70px);
+  @include mixins.calendar($cell-size: 70px);
 }
 
 @keyframes spin {
@@ -181,7 +180,7 @@
 }
 
 .multiple-month-power-calendar-horizontal {
-  @include ember-power-calendar($cell-size: 46px);
+  @include mixins.calendar($cell-size: 46px);
 
   width: 100%;
   margin-left: auto;
@@ -250,7 +249,7 @@
     font-size: 100%;
     line-height: 1.6;
     font-family: "Open sans", sans-serif;
-    color: $text-color;
+    color: variables.$text-color;
   }
 }
 
@@ -261,7 +260,7 @@
 }
 
 .custom-day-demo-calendar {
-  @include ember-power-calendar(
+  @include mixins.calendar(
     $cell-size: 50px,
     $cell-with-spacing-width: 50px,
     $row-height: 50px

@@ -1,6 +1,9 @@
+@use "../variables";
+@use "../utilities";
+
 // main header
 .main-header {
-  background-color: $brand-color;
+  background-color: variables.$brand-color;
   color: white;
 }
 
@@ -40,7 +43,7 @@
   padding-right: 1rem;
 }
 
-@media only screen and (max-width: $small-breakpoint) {
+@media only screen and (max-width: variables.$small-breakpoint) {
   .main-header {
     line-height: 44px;
   }
@@ -61,7 +64,7 @@
   }
 }
 
-@media only screen and (min-width: $small-breakpoint) {
+@media only screen and (min-width: variables.$small-breakpoint) {
   .main-header {
     line-height: 66px;
   }
@@ -74,7 +77,7 @@
 
   .main-header-nav-link.active {
     background-color: white;
-    color: $brand-color;
+    color: variables.$brand-color;
   }
 }
 
@@ -103,7 +106,7 @@
 }
 
 .header-calendar-ring {
-  border: 3px solid $brand-color;
+  border: 3px solid variables.$brand-color;
   display: block;
   background-color: white;
   width: 10px;
@@ -133,7 +136,7 @@
   padding: 0 15px;
   transform-origin: 50% 0%;
   animation-timing-function: ease-out;
-  background-color: $brand-color;
+  background-color: variables.$brand-color;
 
   &.run-animation {
     animation: calendar-page-flip 0.4s;

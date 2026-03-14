@@ -30,6 +30,7 @@
     "./_index.scss": "./_index.scss",
     "./less/base.less": "./less/base.less",
     "./scss/base.scss": "./scss/base.scss",
+    "./scss/mixins.scss": "./scss/mixins.scss",
     "./vendor/*": "./dist/vendor/*"
   },
   "files": [

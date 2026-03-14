@@ -1,3 +1,5 @@
+@use "../variables";
+
 $side-nav-color: #777;
 
 .side-nav {
@@ -6,7 +8,7 @@ $side-nav-color: #777;
   flex: 0 0 25%;
   margin-right: 2rem;
 
-  @media only screen and (max-width: $medium-breakpoint) {
+  @media only screen and (max-width: variables.$medium-breakpoint) {
     display: none;
   }
 }
@@ -37,12 +39,12 @@ $side-nav-color: #777;
   }
 
   &.active {
-    border-left: 3px solid $brand-color;
-    color: $brand-color;
+    border-left: 3px solid variables.$brand-color;
+    color: variables.$brand-color;
     padding-left: 16px - 3px;
 
     .beta-label {
-      background-color: $brand-color;
+      background-color: variables.$brand-color;
     }
   }
 }

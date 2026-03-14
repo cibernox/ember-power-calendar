@@ -1,11 +1,6 @@
-:root {
-  --ember-power-calendar-cell-size: 35px;
-}
-
-@import "./ember-power-calendar.scss";
+@use "scss/base.scss";
+@use "scss/mixins.scss";
 
 .ember-power-calendar {
-  @include ember-power-calendar(
-    $cell-size: var(--ember-power-calendar-cell-size)
-  );
+  @include mixins.calendar($cell-size: var(--ember-power-calendar-cell-size, 35px));
 }
