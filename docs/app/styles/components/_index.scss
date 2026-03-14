@@ -3,7 +3,8 @@
 
 // Headline
 .main-page-headline {
-  background: variables.$brand-color linear-gradient(variables.$brand-color, variables.$brand-color-brighter);
+  background: variables.$brand-color
+    linear-gradient(variables.$brand-color, variables.$brand-color-brighter);
   height: 300px;
   color: white;
   display: flex;

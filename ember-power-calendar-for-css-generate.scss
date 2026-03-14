@@ -2,5 +2,7 @@
 @use "scss/mixins.scss";
 
 .ember-power-calendar {
-  @include mixins.calendar($cell-size: var(--ember-power-calendar-cell-size, 35px));
+  @include mixins.calendar(
+    $cell-size: var(--ember-power-calendar-cell-size, 35px)
+  );
 }
