@@ -12,8 +12,8 @@ export default class extends Component {
 
   // Actions
   @action
-  changeAppWideLocale(locale: string) {
-    this.powerCalendar.locale = locale;
+  changeAppWideLocale(locale: string | undefined) {
+    this.powerCalendar.locale = locale ?? 'en';
   }
 
   <template>

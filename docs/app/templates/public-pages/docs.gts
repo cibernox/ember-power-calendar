@@ -60,8 +60,8 @@ export default class PublicPagesDocs extends Component {
   }
 
   @action
-  visit(section: { route: string; text: string }) {
-    this.router.transitionTo(section.route);
+  visit(section: { route: string; text: string } | undefined) {
+    this.router.transitionTo(section?.route);
   }
 
   <template>

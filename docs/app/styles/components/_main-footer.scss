@@ -1,7 +1,11 @@
+@use "sass:color";
+@use "../variables";
+@use "../utilities";
+
 // Main footer
 .main-footer {
-  color: $gray;
-  background-color: $light-gray;
+  color: variables.$gray;
+  background-color: variables.$light-gray;
   border-top: 1px solid #bbb;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -17,17 +21,17 @@
   border-radius: 4px;
   padding: 5px 10px;
   text-align: center;
-  background-color: $brand-color;
+  background-color: variables.$brand-color;
   color: white;
-  border: 1px solid color.adjust($brand-color, $lightness: -12%);
-  box-shadow: 0 2px color.adjust($brand-color, $lightness: -18%);
+  border: 1px solid color.adjust(variables.$brand-color, $lightness: -12%);
+  box-shadow: 0 2px color.adjust(variables.$brand-color, $lightness: -18%);
 
   &:hover {
-    background-color: color.adjust($brand-color, $lightness: -5%);
+    background-color: color.adjust(variables.$brand-color, $lightness: -5%);
   }
 }
 
-@media only screen and (min-width: $small-breakpoint) {
+@media only screen and (min-width: variables.$small-breakpoint) {
   .contribute-call-to-action {
     float: right;
   }

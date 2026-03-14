@@ -4,14 +4,18 @@ import { action } from '@ember/object';
 import PowerCalendar, {
   type PowerCalendarDefaultBlock,
 } from 'ember-power-calendar/components/power-calendar';
-import PowerSelect, {
-  type Select,
-} from 'ember-power-select/components/power-select';
+import PowerSelect from 'ember-power-select/components/power-select';
 import {
   formatDate,
   type NormalizeCalendarValue,
 } from 'ember-power-calendar/utils';
 import { fn } from '@ember/helper';
+import type { Select, Selected } from 'ember-power-select/types';
+
+interface GroupedYears {
+  groupName: string;
+  options: string[];
+}
 
 export default class extends Component {
   @tracked center2: Date | undefined = undefined;
@@ -31,10 +35,7 @@ export default class extends Component {
     'December',
   ];
 
-  groupedYears: {
-    groupName: string;
-    options: string[];
-  }[] = [
+  groupedYears: GroupedYears[] = [
     {
       groupName: "40's",
       options: Array(...(Array(10) as never[])).map((_, i) => `${i + 1940}`),
@@ -69,21 +70,48 @@ export default class extends Component {
   async changeCenter2(
     unit: 'month' | 'year',
     calendar: PowerCalendarDefaultBlock,
-    selectedValue: string,
-    _select: Select,
+    selectedValue: Selected<string>,
+    _select: Select<string>,
     e?: Event,
   ) {
     const newCenter = new Date(calendar.center);
 
     switch (unit) {
       case 'month': {
-        const value = this.months.indexOf(selectedValue);
+        const value = this.months.indexOf(selectedValue ?? '');
         newCenter.setMonth(value);
         break;
       }
 
       case 'year':
-        newCenter.setFullYear(parseInt(selectedValue));
+        newCenter.setFullYear(parseInt(selectedValue ?? ''));
+        break;
+    }
+
+    if (calendar.actions.changeCenter && e) {
+      await calendar.actions.changeCenter(newCenter, calendar, e);
+    }
+  }
+
+  @action
+  async changeCenter3(
+    unit: 'month' | 'year',
+    calendar: PowerCalendarDefaultBlock,
+    selectedValue: Selected<GroupedYears>,
+    _select: Select<GroupedYears>,
+    e?: Event,
+  ) {
+    const newCenter = new Date(calendar.center);
+
+    switch (unit) {
+      case 'month': {
+        const value = this.months.indexOf(selectedValue ?? '');
+        newCenter.setMonth(value);
+        break;
+      }
+
+      case 'year':
+        newCenter.setFullYear(parseInt(selectedValue ?? ''));
         break;
     }
 
@@ -117,7 +145,7 @@ export default class extends Component {
         <PowerSelect
           @options={{this.groupedYears}}
           @selected={{formatDate cal.center "YYYY"}}
-          @onChange={{fn this.changeCenter2 "year" cal}}
+          @onChange={{fn this.changeCenter3 "year" cal}}
           as |year|
         >
           {{year}}

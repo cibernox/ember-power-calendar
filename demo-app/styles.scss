@@ -1,5 +1,6 @@
-@import "ember-power-calendar";
+@use "ember-power-calendar";
+@use "ember-power-calendar/scss/mixins.scss";
 
 .ember-power-calendar {
-  @include ember-power-calendar($cell-size: 42px);
+  @include mixins.calendar($cell-size: 42px);
 }
