@@ -142,8 +142,16 @@ export function handleDayKeyDown(
   return day;
 }
 
-export function focusDate(uniqueId: string, id: string): void {
-  const dayElement: HTMLElement | null = document.querySelector(
+export function focusDate(
+  uniqueId: string,
+  id: string,
+  element?: HTMLElement,
+): void {
+  let rootElement: Document | HTMLElement = document;
+  if (element) {
+    rootElement = element.getRootNode() as HTMLElement;
+  }
+  const dayElement: HTMLElement | null = rootElement.querySelector(
     `[data-power-calendar-id="${uniqueId}"] [data-date="${id}"]`,
   );
   if (dayElement) {

@@ -15,6 +15,8 @@ import type {
   TPowerCalendarRangeOnSelect,
 } from '#src/components/power-calendar-range.gts';
 import type { TestContext } from '@ember/test-helpers';
+import HostWrapper from '../../../demo-app/components/host-wrapper.gts';
+import { getRootNode } from '../../helpers';
 
 interface Context extends TestContext {
   element: HTMLElement;
@@ -45,53 +47,61 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     this.selected = { start: new Date(2016, 1, 5), end: new Date(2016, 1, 9) };
     await render<Context>(
       <template>
-        <PowerCalendarRange @selected={{self.selected}} as |calendar|>
-          <calendar.Nav />
-          <calendar.Days />
-        </PowerCalendarRange>
+        <HostWrapper>
+          <PowerCalendarRange @selected={{self.selected}} as |calendar|>
+            <calendar.Nav />
+            <calendar.Days />
+          </PowerCalendarRange>
+        </HostWrapper>
       </template>,
     );
     assert
-      .dom('.ember-power-calendar-nav')
+      .dom('.ember-power-calendar-nav', getRootNode(this.element))
       .containsText(
         'February 2016',
         'The calendar is centered in the month of the selected date',
       );
     const allDaysInRangeAreSelected =
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2016-02-05"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2016-02-06"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2016-02-07"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2016-02-08"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2016-02-09"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected');
     assert.ok(allDaysInRangeAreSelected, 'All days in range are selected');
     assert
-      .dom('.ember-power-calendar-day[data-date="2016-02-05"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2016-02-05"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-start',
         'The start of the range has a special class',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2016-02-09"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2016-02-09"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-end',
         'The end of the range has a special class',
@@ -123,76 +133,104 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     };
     await render<Context>(
       <template>
-        <PowerCalendarRange
-          @selected={{self.selected}}
-          @onSelect={{self.onSelect}}
-          as |calendar|
-        >
-          <calendar.Nav />
-          <calendar.Days />
-        </PowerCalendarRange>
+        <HostWrapper>
+          <PowerCalendarRange
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
+            as |calendar|
+          >
+            <calendar.Nav />
+            <calendar.Days />
+          </PowerCalendarRange>
+        </HostWrapper>
       </template>,
     );
 
     assert
-      .dom('.ember-power-calendar-day--selected')
+      .dom('.ember-power-calendar-day--selected', getRootNode(this.element))
       .doesNotExist('No days have been selected');
-    await click('.ember-power-calendar-day[data-date="2013-10-10"]');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+      ) as HTMLElement,
+    );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--selected',
         'The clicked date is selected',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-start',
         'The clicked date is the start of the range',
       );
-    await click('.ember-power-calendar-day[data-date="2013-10-15"]');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+      ) as HTMLElement,
+    );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--selected',
         'The first clicked date is still selected',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-start',
         'The first clicked date is still the start of the range',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--selected',
         'The clicked date is selected',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-end',
         'The clicked date is the end of the range',
       );
     const allDaysInBetweenAreSelected =
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2013-10-11"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2013-10-12"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2013-10-13"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2013-10-14"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected');
@@ -238,25 +276,29 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
 
     await render<Context>(
       <template>
-        <PowerCalendarRange
-          @selected={{self.selected}}
-          @onSelect={{self.onSelect}}
-          as |calendar|
-        >
-          {{#if calendar.actions.select}}
-            <button
-              type="button"
-              {{on
-                "click"
-                (fn calendar.actions.select self.rangeToSelect calendar)
-              }}
-              id="test_button"
-            ></button>
-          {{/if}}
-        </PowerCalendarRange>
+        <HostWrapper>
+          <PowerCalendarRange
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
+            as |calendar|
+          >
+            {{#if calendar.actions.select}}
+              <button
+                type="button"
+                {{on
+                  "click"
+                  (fn calendar.actions.select self.rangeToSelect calendar)
+                }}
+                id="test_button"
+              ></button>
+            {{/if}}
+          </PowerCalendarRange>
+        </HostWrapper>
       </template>,
     );
-    await click('#test_button');
+    await click(
+      getRootNode(this.element).querySelector('#test_button') as HTMLElement,
+    );
 
     this.set('rangeToSelect', {
       date: { start: new Date(2013, 9, 15), end: new Date(2013, 9, 20) },
@@ -292,7 +334,9 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
         'selected range matches range to select passed to select action.',
       );
     });
-    await click('#test_button');
+    await click(
+      getRootNode(this.element).querySelector('#test_button') as HTMLElement,
+    );
   });
 
   test<Context>('In range calendars, clicking first the end of the range and then the start is not a problem', async function (assert) {
@@ -320,76 +364,104 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     };
     await render<Context>(
       <template>
-        <PowerCalendarRange
-          @selected={{self.selected}}
-          @onSelect={{self.onSelect}}
-          as |calendar|
-        >
-          <calendar.Nav />
-          <calendar.Days />
-        </PowerCalendarRange>
+        <HostWrapper>
+          <PowerCalendarRange
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
+            as |calendar|
+          >
+            <calendar.Nav />
+            <calendar.Days />
+          </PowerCalendarRange>
+        </HostWrapper>
       </template>,
     );
 
     assert
-      .dom('.ember-power-calendar-day--selected')
+      .dom('.ember-power-calendar-day--selected', getRootNode(this.element))
       .doesNotExist('No days have been selected');
-    await click('.ember-power-calendar-day[data-date="2013-10-15"]');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+      ) as HTMLElement,
+    );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--selected',
         'The clicked date is selected',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-start',
         'The clicked date is the start of the range',
       );
-    await click('.ember-power-calendar-day[data-date="2013-10-10"]');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+      ) as HTMLElement,
+    );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--selected',
         'The first clicked date is still selected',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-start',
         'The first clicked date is still the start of the range',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--selected',
         'The clicked date is selected',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-15"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-15"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-end',
         'The clicked date is the start of the range',
       );
     const allDaysInBetweenAreSelected =
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2013-10-11"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2013-10-12"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2013-10-13"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2013-10-14"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected');
@@ -413,63 +485,100 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     };
     await render<Context>(
       <template>
-        <PowerCalendarRange
-          @selected={{self.selected}}
-          @onSelect={{self.onSelect}}
-          @minRange={{3}}
-          as |cal|
-        >
-          <cal.Nav />
-          <cal.Days />
-        </PowerCalendarRange>
+        <HostWrapper>
+          <PowerCalendarRange
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
+            @minRange={{3}}
+            as |cal|
+          >
+            <cal.Nav />
+            <cal.Days />
+          </PowerCalendarRange>
+        </HostWrapper>
       </template>,
     );
 
-    await click('.ember-power-calendar-day[data-date="2013-10-10"]');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+      ) as HTMLElement,
+    );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .isDisabled('The clicked day is disabled');
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-11"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-11"]',
+        getRootNode(this.element),
+      )
       .isDisabled('The next day is disabled');
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-12"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-12"]',
+        getRootNode(this.element),
+      )
       .isDisabled('The next-next day is disabled too');
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-13"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-13"]',
+        getRootNode(this.element),
+      )
       .isNotDisabled('The next-next-next day is enabled');
 
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-09"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-09"]',
+        getRootNode(this.element),
+      )
       .isDisabled('The prev day is disabled');
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-08"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-08"]',
+        getRootNode(this.element),
+      )
       .isDisabled('The prev-prev day is disabled too');
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-07"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-07"]',
+        getRootNode(this.element),
+      )
       .isNotDisabled('The prev-prev-prev day is enabled');
 
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-12"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-12"]',
+        getRootNode(this.element),
+      )
       .hasNoClass(
         'ember-power-calendar-day--selected',
         "Clicking a day not long enough didn't select anything",
       );
-    await click('.ember-power-calendar-day[data-date="2013-10-13"]');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-day[data-date="2013-10-13"]',
+      ) as HTMLElement,
+    );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-13"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-13"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--selected',
         'Clicking outside the range select it',
       );
     const allDaysInBetweenAreSelected =
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2013-10-11"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2013-10-12"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected');
@@ -488,53 +597,81 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     };
     await render<Context>(
       <template>
-        <PowerCalendarRange
-          @selected={{self.selected}}
-          @onSelect={{self.onSelect}}
-          @minRange={{0}}
-          as |cal|
-        >
-          <cal.Nav />
-          <cal.Days />
-        </PowerCalendarRange>
+        <HostWrapper>
+          <PowerCalendarRange
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
+            @minRange={{0}}
+            as |cal|
+          >
+            <cal.Nav />
+            <cal.Days />
+          </PowerCalendarRange>
+        </HostWrapper>
       </template>,
     );
 
     assert
-      .dom('.ember-power-calendar-day--selected')
+      .dom('.ember-power-calendar-day--selected', getRootNode(this.element))
       .doesNotExist('No days have been selected');
-    await click('.ember-power-calendar-day[data-date="2013-10-10"]');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+      ) as HTMLElement,
+    );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .isNotDisabled('The clicked day is still enabled');
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--selected',
         'The clicked date is selected',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-start',
         'The clicked date is the start of the range',
       );
 
-    await click('.ember-power-calendar-day[data-date="2013-10-10"]');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+      ) as HTMLElement,
+    );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--selected',
         'The clicked date is selected',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-start',
         'The clicked date is the start of the range',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-end',
         'The clicked date is also the end of the range',
@@ -547,29 +684,31 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     assert.expect(4);
     await render<Context>(
       <template>
-        <PowerCalendarRange @minRange={{self.minRange}} as |calendar|>
-          <div class="formatted-min-range">{{calendar.minRange}}</div>
-        </PowerCalendarRange>
+        <HostWrapper>
+          <PowerCalendarRange @minRange={{self.minRange}} as |calendar|>
+            <div class="formatted-min-range">{{calendar.minRange}}</div>
+          </PowerCalendarRange>
+        </HostWrapper>
       </template>,
     );
 
     assert
-      .dom('.formatted-min-range')
+      .dom('.formatted-min-range', getRootNode(this.element))
       .hasText('86400000', 'the default minRange is one day');
     this.set('minRange', 3);
     assert
-      .dom('.formatted-min-range')
+      .dom('.formatted-min-range', getRootNode(this.element))
       .hasText(
         '259200000',
         'when passed a number, it is interpreted as number of days',
       );
     this.set('minRange', '1 week');
     assert
-      .dom('.formatted-min-range')
+      .dom('.formatted-min-range', getRootNode(this.element))
       .hasText('604800000', 'it can regognize humanized durations');
     this.set('minRange', '1m');
     assert
-      .dom('.formatted-min-range')
+      .dom('.formatted-min-range', getRootNode(this.element))
       .hasText(
         '60000',
         'it can regognize humanized durations that use abbreviations',
@@ -585,48 +724,85 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     };
     await render<Context>(
       <template>
-        <PowerCalendarRange
-          @selected={{self.selected}}
-          @onSelect={{self.onSelect}}
-          @maxRange={{2}}
-          as |cal|
-        >
-          <cal.Nav />
-          <cal.Days />
-        </PowerCalendarRange>
+        <HostWrapper>
+          <PowerCalendarRange
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
+            @maxRange={{2}}
+            as |cal|
+          >
+            <cal.Nav />
+            <cal.Days />
+          </PowerCalendarRange>
+        </HostWrapper>
       </template>,
     );
 
-    await click('.ember-power-calendar-day[data-date="2013-10-10"]');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+      ) as HTMLElement,
+    );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-10"]',
+        getRootNode(this.element),
+      )
       .isDisabled('The clicked day is disabled');
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-11"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-11"]',
+        getRootNode(this.element),
+      )
       .isNotDisabled('The next day is enabled');
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-12"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-12"]',
+        getRootNode(this.element),
+      )
       .isNotDisabled('The next-next day is enabled too');
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-13"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-13"]',
+        getRootNode(this.element),
+      )
       .isDisabled('The next-next-next day is disabled');
 
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-09"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-09"]',
+        getRootNode(this.element),
+      )
       .isNotDisabled('The prev day is enabled');
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-08"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-08"]',
+        getRootNode(this.element),
+      )
       .isNotDisabled('The prev-prev day is enabled too');
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-07"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-07"]',
+        getRootNode(this.element),
+      )
       .isDisabled('The prev-prev-prev day is disabled');
 
-    await click('.ember-power-calendar-day[data-date="2013-10-12"]');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-day[data-date="2013-10-12"]',
+      ) as HTMLElement,
+    );
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-12"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-12"]',
+        getRootNode(this.element),
+      )
       .hasClass('ember-power-calendar-day--selected');
     assert
-      .dom('.ember-power-calendar-day[data-date="2013-10-11"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2013-10-11"]',
+        getRootNode(this.element),
+      )
       .hasClass('ember-power-calendar-day--selected', 'the 11th is selected');
   });
 
@@ -661,30 +837,40 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     };
     await render<Context>(
       <template>
-        <PowerCalendarRange
-          @selected={{self.selected}}
-          @onSelect={{self.onSelect}}
-          @minRange={{2}}
-          as |cal|
-        >
-          {{#if cal.actions.select}}
-            <button
-              type="button"
-              id="select-invalid-range-end"
-              {{on "click" (fn cal.actions.select self.invalidDay cal)}}
-            >Select invalid date</button>
-            <button
-              type="button"
-              id="select-valid-range-end"
-              {{on "click" (fn cal.actions.select self.validDay cal)}}
-            >Select valid date</button>
-          {{/if}}
-        </PowerCalendarRange>
+        <HostWrapper>
+          <PowerCalendarRange
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
+            @minRange={{2}}
+            as |cal|
+          >
+            {{#if cal.actions.select}}
+              <button
+                type="button"
+                id="select-invalid-range-end"
+                {{on "click" (fn cal.actions.select self.invalidDay cal)}}
+              >Select invalid date</button>
+              <button
+                type="button"
+                id="select-valid-range-end"
+                {{on "click" (fn cal.actions.select self.validDay cal)}}
+              >Select valid date</button>
+            {{/if}}
+          </PowerCalendarRange>
+        </HostWrapper>
       </template>,
     );
-    await click('#select-invalid-range-end');
+    await click(
+      getRootNode(this.element).querySelector(
+        '#select-invalid-range-end',
+      ) as HTMLElement,
+    );
     assert.strictEqual(range, undefined, 'The actions has not been called');
-    await click('#select-valid-range-end');
+    await click(
+      getRootNode(this.element).querySelector(
+        '#select-valid-range-end',
+      ) as HTMLElement,
+    );
     assert.notEqual(range, undefined, 'The actions has been called now');
   });
 
@@ -720,30 +906,40 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
     };
     await render<Context>(
       <template>
-        <PowerCalendarRange
-          @selected={{self.selected}}
-          @onSelect={{self.onSelect}}
-          @maxRange={{2}}
-          as |cal|
-        >
-          {{#if cal.actions.select}}
-            <button
-              type="button"
-              id="select-invalid-range-end"
-              {{on "click" (fn cal.actions.select self.invalidDay cal)}}
-            >Select invalid date</button>
-            <button
-              type="button"
-              id="select-valid-range-end"
-              {{on "click" (fn cal.actions.select self.validDay cal)}}
-            >Select valid date</button>
-          {{/if}}
-        </PowerCalendarRange>
+        <HostWrapper>
+          <PowerCalendarRange
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
+            @maxRange={{2}}
+            as |cal|
+          >
+            {{#if cal.actions.select}}
+              <button
+                type="button"
+                id="select-invalid-range-end"
+                {{on "click" (fn cal.actions.select self.invalidDay cal)}}
+              >Select invalid date</button>
+              <button
+                type="button"
+                id="select-valid-range-end"
+                {{on "click" (fn cal.actions.select self.validDay cal)}}
+              >Select valid date</button>
+            {{/if}}
+          </PowerCalendarRange>
+        </HostWrapper>
       </template>,
     );
-    await click('#select-invalid-range-end');
+    await click(
+      getRootNode(this.element).querySelector(
+        '#select-invalid-range-end',
+      ) as HTMLElement,
+    );
     assert.strictEqual(range, undefined, 'The actions has not been called');
-    await click('#select-valid-range-end');
+    await click(
+      getRootNode(this.element).querySelector(
+        '#select-valid-range-end',
+      ) as HTMLElement,
+    );
     assert.notEqual(range, undefined, 'The actions has been called now');
   });
 
@@ -759,78 +955,106 @@ module('Integration | Component | <PowerCalendarRange>', function (hooks) {
 
     await render<Context>(
       <template>
-        <PowerCalendarRange
-          @selected={{self.selected}}
-          @onSelect={{self.onSelect}}
-          @proximitySelection={{true}}
-          as |calendar|
-        >
-          <calendar.Nav />
-          <calendar.Days />
-        </PowerCalendarRange>
+        <HostWrapper>
+          <PowerCalendarRange
+            @selected={{self.selected}}
+            @onSelect={{self.onSelect}}
+            @proximitySelection={{true}}
+            as |calendar|
+          >
+            <calendar.Nav />
+            <calendar.Days />
+          </PowerCalendarRange>
+        </HostWrapper>
       </template>,
     );
     const allDaysInRangeAreSelected =
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2016-02-05"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2016-02-06"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2016-02-07"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2016-02-08"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected') &&
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-day[data-date="2016-02-09"]',
         ) as HTMLElement
       ).classList.contains('ember-power-calendar-day--selected');
     assert.ok(allDaysInRangeAreSelected, 'All days in range are selected');
     assert
-      .dom('.ember-power-calendar-day[data-date="2016-02-05"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2016-02-05"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-start',
         'The start of the range has a special class',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2016-02-09"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2016-02-09"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-end',
         'The end of the range has a special class',
       );
-    await click('.ember-power-calendar-day[data-date="2016-02-10"]');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-day[data-date="2016-02-10"]',
+      ) as HTMLElement,
+    );
     assert
-      .dom('.ember-power-calendar-day[data-date="2016-02-05"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2016-02-05"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-start',
         'The start of the range has a special class',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2016-02-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2016-02-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-end',
         'The end of the range has a special class',
       );
-    await click('.ember-power-calendar-day[data-date="2016-02-04"]');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-day[data-date="2016-02-04"]',
+      ) as HTMLElement,
+    );
     assert
-      .dom('.ember-power-calendar-day[data-date="2016-02-04"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2016-02-04"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-start',
         'The start of the range has a special class',
       );
     assert
-      .dom('.ember-power-calendar-day[data-date="2016-02-10"]')
+      .dom(
+        '.ember-power-calendar-day[data-date="2016-02-10"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--range-end',
         'The end of the range has a special class',

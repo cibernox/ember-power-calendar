@@ -9,6 +9,8 @@ import type PowerCalendarService from '#src/services/power-calendar.ts';
 import type { PowerCalendarAPI } from '#src/components/power-calendar.gts';
 import type { TWeekdayFormat } from '#src/utils.ts';
 import type { TDayClass } from '#src/helpers/ember-power-calendar-day-classes.ts';
+import HostWrapper from '../../../../demo-app/components/host-wrapper.gts';
+import { getRootNode } from '../../../helpers';
 
 let dateLibrary = '';
 
@@ -60,13 +62,15 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     calendarService.set('locale', 'fr');
     await render<Context>(
       <template>
-        <PowerCalendar @center={{self.center}} as |cal|><cal.Days
-          /></PowerCalendar>
+        <HostWrapper>
+          <PowerCalendar @center={{self.center}} as |cal|><cal.Days
+            /></PowerCalendar>
+        </HostWrapper>
       </template>,
     );
     assert.strictEqual(
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-weekdays',
         ) as HTMLElement
       ).textContent
@@ -76,7 +80,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     );
     assert.strictEqual(
       (
-        this.element.querySelectorAll(
+        getRootNode(this.element).querySelectorAll(
           '.ember-power-calendar-day',
         )[0] as HTMLElement
       ).dataset['date'],
@@ -90,11 +94,13 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     assert.expect(2);
     this.calendar = calendar;
     await render<Context>(
-      <template><Days @calendar={{self.calendar}} /></template>,
+      <template>
+        <HostWrapper><Days @calendar={{self.calendar}} /></HostWrapper>
+      </template>,
     );
     assert.strictEqual(
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-weekdays',
         ) as HTMLElement
       ).textContent
@@ -108,7 +114,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
 
     assert.strictEqual(
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-weekdays',
         ) as HTMLElement
       ).textContent
@@ -127,14 +133,22 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.startOfWeek = '2';
     await render<Context>(
       <template>
-        <Days @calendar={{self.calendar}} @startOfWeek={{self.startOfWeek}} />
+        <HostWrapper>
+          <Days @calendar={{self.calendar}} @startOfWeek={{self.startOfWeek}} />
+        </HostWrapper>
       </template>,
     );
 
     assert
-      .dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0])
+      .dom(
+        getRootNode(this.element).querySelectorAll(
+          '.ember-power-calendar-weekday',
+        )[0],
+      )
       .hasText('Tue', 'The week starts on Tuesday');
-    days = this.element.querySelectorAll('.ember-power-calendar-day');
+    days = getRootNode(this.element).querySelectorAll(
+      '.ember-power-calendar-day',
+    );
     assert
       .dom(days[0])
       .hasText('1', 'The first day of the first week is the 1st of October');
@@ -144,9 +158,15 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
 
     this.set('startOfWeek', '3');
     assert
-      .dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0])
+      .dom(
+        getRootNode(this.element).querySelectorAll(
+          '.ember-power-calendar-weekday',
+        )[0],
+      )
       .hasText('Wed', 'The week starts on Wednesday');
-    days = this.element.querySelectorAll('.ember-power-calendar-day');
+    days = getRootNode(this.element).querySelectorAll(
+      '.ember-power-calendar-day',
+    );
     assert
       .dom(days[0])
       .hasText(
@@ -159,9 +179,15 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
 
     this.set('startOfWeek', '5');
     assert
-      .dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0])
+      .dom(
+        getRootNode(this.element).querySelectorAll(
+          '.ember-power-calendar-weekday',
+        )[0],
+      )
       .hasText('Fri', 'The week starts on Friday');
-    days = this.element.querySelectorAll('.ember-power-calendar-day');
+    days = getRootNode(this.element).querySelectorAll(
+      '.ember-power-calendar-day',
+    );
     assert
       .dom(days[0])
       .hasText(
@@ -175,14 +201,20 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.set('calendar.locale', 'pt');
     if (dateLibrary === 'luxon') {
       assert
-        .dom('.ember-power-calendar-weekday')
+        .dom('.ember-power-calendar-weekday', getRootNode(this.element))
         .hasText('sex.', 'The week starts on Sexta Feira');
     } else {
       assert
-        .dom(this.element.querySelectorAll('.ember-power-calendar-weekday')[0])
+        .dom(
+          getRootNode(this.element).querySelectorAll(
+            '.ember-power-calendar-weekday',
+          )[0],
+        )
         .hasText('Sex', 'The week starts on Sexta Feira');
     }
-    days = this.element.querySelectorAll('.ember-power-calendar-day');
+    days = getRootNode(this.element).querySelectorAll(
+      '.ember-power-calendar-day',
+    );
     assert
       .dom(days[0])
       .hasText(
@@ -200,15 +232,17 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.calendar = calendar;
     await render<Context>(
       <template>
-        <Days
-          @calendar={{self.calendar}}
-          @weekdayFormat={{self.weekdayFormat}}
-        />
+        <HostWrapper>
+          <Days
+            @calendar={{self.calendar}}
+            @weekdayFormat={{self.weekdayFormat}}
+          />
+        </HostWrapper>
       </template>,
     );
     assert.strictEqual(
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-weekdays',
         ) as HTMLElement
       ).textContent
@@ -219,7 +253,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.set('weekdayFormat', 'long');
     assert.strictEqual(
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-weekdays',
         ) as HTMLElement
       ).textContent
@@ -236,7 +270,7 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
 
     assert.strictEqual(
       (
-        this.element.querySelector(
+        getRootNode(this.element).querySelector(
           '.ember-power-calendar-weekdays',
         ) as HTMLElement
       ).textContent
@@ -254,10 +288,12 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     calendar.locale = 'es';
     await render<Context>(
       <template>
-        <Days @calendar={{self.calendar}} @showDaysAround={{false}} />
+        <HostWrapper>
+          <Days @calendar={{self.calendar}} @showDaysAround={{false}} />
+        </HostWrapper>
       </template>,
     );
-    const weeks = this.element.querySelectorAll<HTMLElement>(
+    const weeks = getRootNode(this.element).querySelectorAll<HTMLElement>(
       '.ember-power-calendar-week',
     );
     assert
@@ -280,10 +316,14 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.calendar = calendar;
     await render<Context>(
       <template>
-        <Days @calendar={{self.calendar}} @dayClass="custom-day-class" />
+        <HostWrapper>
+          <Days @calendar={{self.calendar}} @dayClass="custom-day-class" />
+        </HostWrapper>
       </template>,
     );
-    assert.dom('.ember-power-calendar-day').hasClass('custom-day-class');
+    assert
+      .dom(getRootNode(this.element).querySelector('.ember-power-calendar-day'))
+      .hasClass('custom-day-class');
   });
 
   test<Context>('it can receive a `dayClass` property containing a function to add classes to days', async function (assert) {
@@ -299,10 +339,14 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.calendar = calendar;
     await render<Context>(
       <template>
-        <Days @calendar={{self.calendar}} @dayClass={{self.classFn}} />
+        <HostWrapper>
+          <Days @calendar={{self.calendar}} @dayClass={{self.classFn}} />
+        </HostWrapper>
       </template>,
     );
-    assert.dom('.ember-power-calendar-day').hasClass('some-computed-class');
+    assert
+      .dom(getRootNode(this.element).querySelector('.ember-power-calendar-day'))
+      .hasClass('some-computed-class');
   });
 
   test<Context>('It can receive `center`', async function (assert) {
@@ -313,10 +357,12 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     this.center = new Date(2017, 11, 1);
     await render<Context>(
       <template>
-        <Days @calendar={{self.calendar}} @center={{self.center}} />
+        <HostWrapper>
+          <Days @calendar={{self.calendar}} @center={{self.center}} />
+        </HostWrapper>
       </template>,
     );
-    assert.dom('[data-date="2017-12-15"]').exists();
+    assert.dom('[data-date="2017-12-15"]', getRootNode(this.element)).exists();
   });
 
   test<Context>("If it doesn't receive `center`, it uses calendar's center", async function (assert) {
@@ -325,9 +371,11 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     assert.expect(1);
     this.calendar = calendar;
     await render<Context>(
-      <template><Days @calendar={{self.calendar}} /></template>,
+      <template>
+        <HostWrapper><Days @calendar={{self.calendar}} /></HostWrapper>
+      </template>,
     );
-    assert.dom('[data-date="2013-10-15"]').exists();
+    assert.dom('[data-date="2013-10-15"]', getRootNode(this.element)).exists();
   });
 
   test<Context>('The `data-power-calendar-id` attribute takes the value of the `calendarUniqueId` if present, or the `uniqueId` otherwise', async function (assert) {
@@ -336,17 +384,21 @@ module('Integration | Component | <PowerCalendar::Days>', function (hooks) {
     assert.expect(2);
     this.calendar = Object.assign({}, calendar, { calendarUniqueId: '123abc' });
     await render<Context>(
-      <template><Days @calendar={{self.calendar}} /></template>,
+      <template>
+        <HostWrapper><Days @calendar={{self.calendar}} /></HostWrapper>
+      </template>,
     );
     assert
-      .dom('.ember-power-calendar-days')
+      .dom('.ember-power-calendar-days', getRootNode(this.element))
       .hasAttribute('data-power-calendar-id', '123abc');
     this.set('calendar', Object.assign({}, calendar, { uniqueId: '987zwx' }));
     await render<Context>(
-      <template><Days @calendar={{self.calendar}} /></template>,
+      <template>
+        <HostWrapper><Days @calendar={{self.calendar}} /></HostWrapper>
+      </template>,
     );
     assert
-      .dom('.ember-power-calendar-days')
+      .dom('.ember-power-calendar-days', getRootNode(this.element))
       .hasAttribute('data-power-calendar-id', '987zwx');
   });
 });

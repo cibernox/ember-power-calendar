@@ -1,5 +1,5 @@
 import { assert } from '@ember/debug';
-import { click, settled, find } from '@ember/test-helpers';
+import { click, settled } from '@ember/test-helpers';
 import { formatDate } from '../utils.ts';
 import type PowerCalendarMultiple from '../components/power-calendar-multiple.ts';
 import type PowerCalendar from '../components/power-calendar.ts';
@@ -9,8 +9,14 @@ export default {};
 
 export * from '../utils.ts';
 
-function findCalendarElement(selector: string): Element | null | undefined {
-  const target = find(selector);
+function findCalendarElement(
+  selector: string,
+  rootElement?: Element | Document | ShadowRoot | null,
+): Element | null | undefined {
+  let target = document.querySelector(selector);
+  if (rootElement) {
+    target = rootElement.querySelector(selector);
+  }
 
   if (target) {
     if (target.classList.contains('ember-power-calendar')) {
@@ -24,8 +30,11 @@ function findCalendarElement(selector: string): Element | null | undefined {
   }
 }
 
-function findCalendarGuid(selector: string): string | undefined {
-  const maybeCalendar = findCalendarElement(selector);
+function findCalendarGuid(
+  selector: string,
+  rootElement?: Element | Document | ShadowRoot | null,
+): string | undefined {
+  const maybeCalendar = findCalendarElement(selector, rootElement);
   if (!maybeCalendar) {
     return;
   }
@@ -38,8 +47,9 @@ function findCalendarGuid(selector: string): string | undefined {
 
 function findComponentInstance(
   selector: string,
+  rootElement?: Element | Document | ShadowRoot | null,
 ): PowerCalendar | PowerCalendarMultiple | PowerCalendarRange {
-  const calendarGuid = findCalendarGuid(selector);
+  const calendarGuid = findCalendarGuid(selector, rootElement);
   assert(
     `Could not find a calendar using selector: "${selector}"`,
     calendarGuid,
@@ -52,12 +62,16 @@ function findComponentInstance(
 export async function calendarCenter(
   selector: string,
   newCenter: Date,
+  rootElement?: Element | Document | ShadowRoot | null,
 ): Promise<void> {
   assert(
     '`calendarCenter` expect a Date object as second argument',
     newCenter instanceof Date,
   );
-  const calendarComponent = findComponentInstance(selector) as PowerCalendar;
+  const calendarComponent = findComponentInstance(
+    selector,
+    rootElement,
+  ) as PowerCalendar;
   const onCenterChange = calendarComponent.args.onCenterChange;
   assert(
     "You cannot call `calendarCenter` on a component that doesn't has an `@onCenterChange` action",
@@ -71,16 +85,21 @@ export async function calendarCenter(
 export async function calendarSelect(
   selector: string,
   selected: Date,
+  rootElement?: Element | Document | ShadowRoot | null,
 ): Promise<void> {
   assert('`calendarSelect` expect a Date object as second argument', selected);
-  const calendarElement = findCalendarElement(selector);
+  const calendarElement = findCalendarElement(selector, rootElement);
   const daySelector = `${selector} [data-date="${formatDate(
     selected,
     'YYYY-MM-DD',
   )}"]`;
-  const dayElement = calendarElement?.querySelector(daySelector);
+  let dayElement = calendarElement?.querySelector(daySelector);
   if (!dayElement) {
-    await calendarCenter(selector, selected);
+    await calendarCenter(selector, selected, rootElement);
   }
-  return click(daySelector);
+  dayElement = calendarElement?.querySelector(daySelector);
+  if (!dayElement) {
+    return;
+  }
+  return click(dayElement);
 }

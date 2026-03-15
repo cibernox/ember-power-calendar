@@ -4,6 +4,8 @@ import { render, click, type TestContext } from '@ember/test-helpers';
 import PowerCalendarMultiple from '#src/components/power-calendar-multiple.gts';
 import type PowerCalendarService from '#src/services/power-calendar.ts';
 import type { TPowerCalendarMultipleOnSelect } from '#src/components/power-calendar-multiple.gts';
+import HostWrapper from '../../../../demo-app/components/host-wrapper.gts';
+import { getRootNode } from '../../../helpers';
 
 interface Context extends TestContext {
   element: HTMLElement;
@@ -43,29 +45,51 @@ module(
       };
       await render<Context>(
         <template>
-          <PowerCalendarMultiple
-            @selected={{self.selected}}
-            @onSelect={{self.onSelect}}
-            as |calendar|
-          >
-            <calendar.Days @maxLength={{1}} />
-          </PowerCalendarMultiple>
+          <HostWrapper>
+            <PowerCalendarMultiple
+              @selected={{self.selected}}
+              @onSelect={{self.onSelect}}
+              as |calendar|
+            >
+              <calendar.Days @maxLength={{1}} />
+            </PowerCalendarMultiple>
+          </HostWrapper>
         </template>,
       );
-      await click('.ember-power-calendar-day[data-date="2013-10-05"]');
+      await click(
+        getRootNode(this.element).querySelector(
+          '.ember-power-calendar-day[data-date="2013-10-05"]',
+        ) as HTMLElement,
+      );
       assert
-        .dom('.ember-power-calendar-day[data-date="2013-10-05"]')
+        .dom(
+          '.ember-power-calendar-day[data-date="2013-10-05"]',
+          getRootNode(this.element),
+        )
         .isNotDisabled();
       assert
-        .dom('.ember-power-calendar-day[data-date="2013-10-06"]')
+        .dom(
+          '.ember-power-calendar-day[data-date="2013-10-06"]',
+          getRootNode(this.element),
+        )
         .isDisabled();
 
-      await click('.ember-power-calendar-day[data-date="2013-10-05"]');
+      await click(
+        getRootNode(this.element).querySelector(
+          '.ember-power-calendar-day[data-date="2013-10-05"]',
+        ) as HTMLElement,
+      );
       assert
-        .dom('.ember-power-calendar-day[data-date="2013-10-05"]')
+        .dom(
+          '.ember-power-calendar-day[data-date="2013-10-05"]',
+          getRootNode(this.element),
+        )
         .isNotDisabled();
       assert
-        .dom('.ember-power-calendar-day[data-date="2013-10-06"]')
+        .dom(
+          '.ember-power-calendar-day[data-date="2013-10-06"]',
+          getRootNode(this.element),
+        )
         .isNotDisabled();
     });
 
@@ -78,26 +102,41 @@ module(
       };
       await render<Context>(
         <template>
-          <PowerCalendarMultiple
-            @selected={{self.selected}}
-            @onSelect={{self.onSelect}}
-            as |calendar|
-          >
-            <calendar.Days @maxLength={{self.max}} />
-          </PowerCalendarMultiple>
+          <HostWrapper>
+            <PowerCalendarMultiple
+              @selected={{self.selected}}
+              @onSelect={{self.onSelect}}
+              as |calendar|
+            >
+              <calendar.Days @maxLength={{self.max}} />
+            </PowerCalendarMultiple>
+          </HostWrapper>
         </template>,
       );
-      await click('.ember-power-calendar-day[data-date="2013-10-05"]');
+      await click(
+        getRootNode(this.element).querySelector(
+          '.ember-power-calendar-day[data-date="2013-10-05"]',
+        ) as HTMLElement,
+      );
       assert
-        .dom('.ember-power-calendar-day[data-date="2013-10-05"]')
+        .dom(
+          '.ember-power-calendar-day[data-date="2013-10-05"]',
+          getRootNode(this.element),
+        )
         .isNotDisabled();
       assert
-        .dom('.ember-power-calendar-day[data-date="2013-10-06"]')
+        .dom(
+          '.ember-power-calendar-day[data-date="2013-10-06"]',
+          getRootNode(this.element),
+        )
         .isDisabled();
 
       this.set('max', 2);
       assert
-        .dom('.ember-power-calendar-day[data-date="2013-10-06"]')
+        .dom(
+          '.ember-power-calendar-day[data-date="2013-10-06"]',
+          getRootNode(this.element),
+        )
         .isNotDisabled();
     });
 
@@ -112,19 +151,28 @@ module(
 
       await render<Context>(
         <template>
-          <PowerCalendarMultiple
-            @selected={{self.selected}}
-            @onSelect={{self.onSelect}}
-            as |calendar|
-          >
-            <calendar.Days @maxLength={{self.max}} />
-          </PowerCalendarMultiple>
+          <HostWrapper>
+            <PowerCalendarMultiple
+              @selected={{self.selected}}
+              @onSelect={{self.onSelect}}
+              as |calendar|
+            >
+              <calendar.Days @maxLength={{self.max}} />
+            </PowerCalendarMultiple>
+          </HostWrapper>
         </template>,
       );
-      await click('.ember-power-calendar-day[data-date="2013-10-05"]');
+      await click(
+        getRootNode(this.element).querySelector(
+          '.ember-power-calendar-day[data-date="2013-10-05"]',
+        ) as HTMLElement,
+      );
       this.set('selected', null);
       assert
-        .dom('.ember-power-calendar-day[data-date="2013-10-06"]')
+        .dom(
+          '.ember-power-calendar-day[data-date="2013-10-06"]',
+          getRootNode(this.element),
+        )
         .isNotDisabled();
     });
 
@@ -138,19 +186,28 @@ module(
 
       await render<Context>(
         <template>
-          <PowerCalendarMultiple
-            @selected={{self.selected}}
-            @onSelect={{self.onSelect}}
-            as |calendar|
-          >
-            <calendar.Days @maxLength={{self.max}} />
-          </PowerCalendarMultiple>
+          <HostWrapper>
+            <PowerCalendarMultiple
+              @selected={{self.selected}}
+              @onSelect={{self.onSelect}}
+              as |calendar|
+            >
+              <calendar.Days @maxLength={{self.max}} />
+            </PowerCalendarMultiple>
+          </HostWrapper>
         </template>,
       );
-      await click('.ember-power-calendar-day[data-date="2013-10-05"]');
+      await click(
+        getRootNode(this.element).querySelector(
+          '.ember-power-calendar-day[data-date="2013-10-05"]',
+        ) as HTMLElement,
+      );
 
       assert
-        .dom('.ember-power-calendar-day[data-date="2013-10-06"]')
+        .dom(
+          '.ember-power-calendar-day[data-date="2013-10-06"]',
+          getRootNode(this.element),
+        )
         .isNotDisabled();
     });
 
@@ -164,19 +221,25 @@ module(
       };
       await render<Context>(
         <template>
-          <PowerCalendarMultiple
-            @selected={{self.selected}}
-            @center={{self.center}}
-            @onSelect={{self.onSelect}}
-            as |calendar|
-          >
-            <calendar.Days @showDaysAround={{false}} />
-          </PowerCalendarMultiple>
+          <HostWrapper>
+            <PowerCalendarMultiple
+              @selected={{self.selected}}
+              @center={{self.center}}
+              @onSelect={{self.onSelect}}
+              as |calendar|
+            >
+              <calendar.Days @showDaysAround={{false}} />
+            </PowerCalendarMultiple>
+          </HostWrapper>
         </template>,
       );
-      await click('.ember-power-calendar-day[data-date="2013-10-05"]');
+      await click(
+        getRootNode(this.element).querySelector(
+          '.ember-power-calendar-day[data-date="2013-10-05"]',
+        ) as HTMLElement,
+      );
 
-      const weeks = this.element.querySelectorAll<HTMLElement>(
+      const weeks = getRootNode(this.element).querySelectorAll<HTMLElement>(
         '.ember-power-calendar-week',
       );
       assert

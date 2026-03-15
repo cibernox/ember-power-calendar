@@ -9,6 +9,15 @@ import {
 // test setup functions. This way, you can easily extend the setup that is
 // needed per test type.
 
+function getRootNode(element: Element): HTMLElement {
+  const shadowRoot = element.querySelector('[data-host-wrapper]')?.shadowRoot;
+  if (shadowRoot) {
+    return shadowRoot as unknown as HTMLElement;
+  }
+
+  return element.getRootNode() as HTMLElement;
+}
+
 function setupApplicationTest(hooks: NestedHooks, options?: SetupTestOptions) {
   upstreamSetupApplicationTest(hooks, options);
 
@@ -40,4 +49,4 @@ function setupTest(hooks: NestedHooks, options?: SetupTestOptions) {
   // Additional setup for unit tests can be done here.
 }
 
-export { setupApplicationTest, setupRenderingTest, setupTest };
+export { setupApplicationTest, setupRenderingTest, setupTest, getRootNode };

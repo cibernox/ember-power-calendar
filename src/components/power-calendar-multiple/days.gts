@@ -66,6 +66,7 @@ export default class PowerCalendarMultipleDays extends Component<PowerCalendarMu
   @tracked focusedId: string | null = null;
 
   didSetup = false;
+  element: HTMLElement | undefined;
 
   get weekdayFormat(): TWeekdayFormat {
     return this.args.weekdayFormat || 'short'; // "min" | "short" | "long"
@@ -152,15 +153,39 @@ export default class PowerCalendarMultipleDays extends Component<PowerCalendarMu
   // Actions
   @action
   handleDayFocus(e: FocusEvent): void {
+    const element = e.target as HTMLElement;
     queueMicrotask(() => {
-      this._updateFocused((e.target as HTMLElement).dataset['date']);
+      if (!element) {
+        return;
+      }
+
+      this._updateFocused(element.dataset['date']);
     });
   }
 
   @action
   handleDayBlur(): void {
     queueMicrotask(() => {
-      this._updateFocused(null);
+      let activeElement = document.activeElement;
+      if (this.element?.getRootNode() instanceof ShadowRoot) {
+        activeElement =
+          (this.element.getRootNode() as ShadowRoot).host.shadowRoot
+            ?.activeElement ?? null;
+      }
+
+      let rootElement: Document | HTMLElement = document;
+
+      if (this.element) {
+        rootElement = this.element.getRootNode() as HTMLElement;
+      }
+
+      const dayElement: HTMLElement | null = rootElement.querySelector(
+        `[data-power-calendar-id="${this.args.calendar.uniqueId}"] [data-date="${this.focusedId}"]`,
+      );
+
+      if (!activeElement || activeElement !== dayElement) {
+        this._updateFocused(null);
+      }
     });
   }
 
@@ -209,7 +234,11 @@ export default class PowerCalendarMultipleDays extends Component<PowerCalendarMu
 
     this.focusedId = day.id;
     queueMicrotask(() => {
-      focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
+      focusDate(
+        this.args.calendar.uniqueId,
+        this.focusedId ?? '',
+        this.element,
+      );
     });
   }
 
@@ -218,10 +247,12 @@ export default class PowerCalendarMultipleDays extends Component<PowerCalendarMu
     handleClick(e, this.days, this.args.calendar);
   }
 
-  setup = modifier(() => {
+  setup = modifier((element: HTMLElement) => {
     if (this.didSetup) {
       return;
     }
+
+    this.element = element;
 
     this.didSetup = true;
 
@@ -251,7 +282,7 @@ export default class PowerCalendarMultipleDays extends Component<PowerCalendarMu
       }
     }
 
-    focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
+    focusDate(this.args.calendar.uniqueId, this.focusedId ?? '', this.element);
   }
 
   async focusDay(e: MouseEvent | KeyboardEvent, date: Date, step: number = 0) {
@@ -280,10 +311,18 @@ export default class PowerCalendarMultipleDays extends Component<PowerCalendarMu
 
     if (step !== 0) {
       queueMicrotask(() => {
-        focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
+        focusDate(
+          this.args.calendar.uniqueId,
+          this.focusedId ?? '',
+          this.element,
+        );
       });
     } else {
-      focusDate(this.args.calendar.uniqueId, this.focusedId ?? '');
+      focusDate(
+        this.args.calendar.uniqueId,
+        this.focusedId ?? '',
+        this.element,
+      );
     }
   }
 
