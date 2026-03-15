@@ -11,7 +11,7 @@ export * from '../utils.ts';
 
 function findCalendarElement(
   selector: string,
-  rootElement?: RootElement,
+  rootElement?: Element | Document | ShadowRoot | null,
 ): Element | null | undefined {
   let target = document.querySelector(selector);
   if (rootElement) {
@@ -32,7 +32,7 @@ function findCalendarElement(
 
 function findCalendarGuid(
   selector: string,
-  rootElement?: RootElement,
+  rootElement?: Element | Document | ShadowRoot | null,
 ): string | undefined {
   const maybeCalendar = findCalendarElement(selector, rootElement);
   if (!maybeCalendar) {
@@ -47,7 +47,7 @@ function findCalendarGuid(
 
 function findComponentInstance(
   selector: string,
-  rootElement?: RootElement,
+  rootElement?: Element | Document | ShadowRoot | null,
 ): PowerCalendar | PowerCalendarMultiple | PowerCalendarRange {
   const calendarGuid = findCalendarGuid(selector, rootElement);
   assert(
@@ -62,7 +62,7 @@ function findComponentInstance(
 export async function calendarCenter(
   selector: string,
   newCenter: Date,
-  rootElement?: RootElement,
+  rootElement?: Element | Document | ShadowRoot | null,
 ): Promise<void> {
   assert(
     '`calendarCenter` expect a Date object as second argument',
@@ -85,7 +85,7 @@ export async function calendarCenter(
 export async function calendarSelect(
   selector: string,
   selected: Date,
-  rootElement?: RootElement,
+  rootElement?: Element | Document | ShadowRoot | null,
 ): Promise<void> {
   assert('`calendarSelect` expect a Date object as second argument', selected);
   const calendarElement = findCalendarElement(selector, rootElement);
