@@ -7,6 +7,8 @@ import type {
   PowerCalendarAPI,
   TPowerCalendarMoveCenterUnit,
 } from '#src/components/power-calendar.gts';
+import HostWrapper from '../../../../demo-app/components/host-wrapper.gts';
+import { getRootNode } from '../../../helpers';
 
 let calendarService: PowerCalendarService;
 let calendar: PowerCalendarAPI;
@@ -54,11 +56,17 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
     assert.expect(2);
     this.calendar = calendar;
     await render<Context>(
-      <template><Nav @calendar={{self.calendar}} /></template>,
+      <template>
+        <HostWrapper><Nav @calendar={{self.calendar}} /></HostWrapper>
+      </template>,
     );
-    assert.dom('.ember-power-calendar-nav-title').hasText('October 2013');
+    assert
+      .dom('.ember-power-calendar-nav-title', getRootNode(this.element))
+      .hasText('October 2013');
     this.set('calendar.locale', 'es');
-    assert.dom('.ember-power-calendar-nav-title').hasText('octubre 2013');
+    assert
+      .dom('.ember-power-calendar-nav-title', getRootNode(this.element))
+      .hasText('octubre 2013');
   });
 
   test<Context>('it can changes the date format', async function (assert) {
@@ -67,9 +75,16 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
     assert.expect(1);
     this.calendar = calendar;
     await render<Context>(
-      <template><Nav @calendar={{self.calendar}} @format="YYYY" /></template>,
+      <template>
+        <HostWrapper><Nav
+            @calendar={{self.calendar}}
+            @format="YYYY"
+          /></HostWrapper>
+      </template>,
     );
-    assert.dom('.ember-power-calendar-nav-title').hasText('2013');
+    assert
+      .dom('.ember-power-calendar-nav-title', getRootNode(this.element))
+      .hasText('2013');
   });
 
   test<Context>('it uses unit=month by default', async function (assert) {
@@ -83,10 +98,20 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
       await Promise.resolve();
     };
     await render<Context>(
-      <template><Nav @calendar={{self.calendar}} /></template>,
+      <template>
+        <HostWrapper><Nav @calendar={{self.calendar}} /></HostWrapper>
+      </template>,
     );
-    await click('.ember-power-calendar-nav-control--previous');
-    await click('.ember-power-calendar-nav-control--next');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-nav-control--previous',
+      ) as HTMLElement,
+    );
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-nav-control--next',
+      ) as HTMLElement,
+    );
 
     assert.deepEqual(
       [
@@ -108,10 +133,23 @@ module('Integration | Component | <PowerCalendar::Nav>', function (hooks) {
       await Promise.resolve();
     };
     await render<Context>(
-      <template><Nav @calendar={{self.calendar}} @unit="year" /></template>,
+      <template>
+        <HostWrapper><Nav
+            @calendar={{self.calendar}}
+            @unit="year"
+          /></HostWrapper>
+      </template>,
     );
-    await click('.ember-power-calendar-nav-control--previous');
-    await click('.ember-power-calendar-nav-control--next');
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-nav-control--previous',
+      ) as HTMLElement,
+    );
+    await click(
+      getRootNode(this.element).querySelector(
+        '.ember-power-calendar-nav-control--next',
+      ) as HTMLElement,
+    );
 
     assert.deepEqual(
       [

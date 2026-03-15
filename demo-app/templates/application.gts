@@ -1,13 +1,44 @@
 import Component from '@glimmer/component';
 import RouteTemplate from 'ember-route-template';
+import ShadowRoot from '../components/shadow-root';
 import BasicDropdownWormhole from 'ember-basic-dropdown/components/basic-dropdown-wormhole';
+import type Owner from '@ember/owner';
 
-// eslint-disable-next-line ember/no-empty-glimmer-component-classes
+// @ts-expect-error Cannot find name 'FastBoot'.
+const isFastBoot = typeof FastBoot !== 'undefined';
+
 class Application extends Component {
-  <template>
-    {{outlet}}
+  shadowDom = false;
 
-    <BasicDropdownWormhole />
+  constructor(owner: Owner, args: object) {
+    super(owner, args);
+
+    if (import.meta.env.VITE_SHADOW_DOM_BUILD === 'true') {
+      this.shadowDom = true;
+    }
+
+    if (!this.shadowDom || isFastBoot) {
+      return;
+    }
+
+    customElements.define(
+      'shadow-root',
+      class extends HTMLElement {
+        connectedCallback() {
+          this.attachShadow({ mode: 'open', delegatesFocus: true });
+        }
+      },
+    );
+  }
+
+  <template>
+    <ShadowRoot>
+      <BasicDropdownWormhole />
+
+      <h1>Welcome to ember-power-calendar!</h1>
+
+      {{outlet}}
+    </ShadowRoot>
   </template>
 }
 

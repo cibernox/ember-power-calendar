@@ -13,6 +13,7 @@ Customizable Calendar Component for Ember.
 - 🖊 **TypeScript support** – ships with type definitions for smooth TypeScript integration.
 - ✨ **Glint support** – template type-checking out of the box for safer templates.
 - 🚀 **FastBoot compatible** – works in server-rendered Ember apps.
+- 🕶 **Shadow DOM support** – can be rendered inside shadow roots without breaking positioning or events.
 - 🛠 **Addon v2 ready** – modern Ember Addon v2 format.
 - 🧱 **Headless & flexible** – build any calendar or date-picker UI without being constrained by markup or styles.
 - 🎯 **Powerful selection modes** – choose between single, range, or multiple date selection

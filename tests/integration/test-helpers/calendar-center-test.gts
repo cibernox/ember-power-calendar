@@ -8,8 +8,11 @@ import {
 } from '#src/test-support/helpers.ts';
 import type { TestContext } from '@ember/test-helpers';
 import type { PowerCalendarAPI } from '#src/components/power-calendar.gts';
+import HostWrapper from '../../../demo-app/components/host-wrapper.gts';
+import { getRootNode } from '../../helpers';
 
 interface Context extends TestContext {
+  element: HTMLElement;
   center1: Date;
   onCenterChange: (
     newCenter: NormalizeCalendarValue,
@@ -32,28 +35,43 @@ module('Test Support | Helper | calendarCenter', function (hooks) {
 
     await render<Context>(
       <template>
-        <div class="calendar-center-1">
-          <PowerCalendar
-            @center={{self.center1}}
-            @onCenterChange={{self.onCenterChange}}
-            as |calendar|
-          >
-            <calendar.Nav />
-            <calendar.Days />
-          </PowerCalendar>
-        </div>
+        <HostWrapper>
+          <div class="calendar-center-1">
+            <PowerCalendar
+              @center={{self.center1}}
+              @onCenterChange={{self.onCenterChange}}
+              as |calendar|
+            >
+              <calendar.Nav />
+              <calendar.Days />
+            </PowerCalendar>
+          </div>
+        </HostWrapper>
       </template>,
     );
     assert
-      .dom('.calendar-center-1 .ember-power-calendar-nav-title')
+      .dom(
+        '.calendar-center-1 .ember-power-calendar-nav-title',
+        getRootNode(this.element),
+      )
       .hasText('October 2013');
 
-    await calendarCenter('.calendar-center-1', new Date(2013, 8, 3));
+    await calendarCenter(
+      '.calendar-center-1',
+      new Date(2013, 8, 3),
+      getRootNode(this.element),
+    );
     assert
-      .dom('.calendar-center-1 .ember-power-calendar-nav-title')
+      .dom(
+        '.calendar-center-1 .ember-power-calendar-nav-title',
+        getRootNode(this.element),
+      )
       .hasText('September 2013', 'The nav component has updated');
     assert
-      .dom('.calendar-center-1 [data-date="2013-09-01"]')
+      .dom(
+        '.calendar-center-1 [data-date="2013-09-01"]',
+        getRootNode(this.element),
+      )
       .exists('The days component has updated');
   });
 
@@ -61,11 +79,17 @@ module('Test Support | Helper | calendarCenter', function (hooks) {
     assert.expect(1);
     await render(
       <template>
-        <div>No calendars!</div>
+        <HostWrapper>
+          <div>No calendars!</div>
+        </HostWrapper>
       </template>,
     );
     try {
-      await calendarCenter('.non-exister-selector', new Date(2013, 8, 3));
+      await calendarCenter(
+        '.non-exister-selector',
+        new Date(2013, 8, 3),
+        getRootNode(this.element),
+      );
     } catch (error) {
       assert.strictEqual(
         (error as Error).message,

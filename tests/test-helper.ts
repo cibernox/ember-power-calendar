@@ -64,6 +64,12 @@ export function start() {
 }
 
 export const defaultBasicDropdownConfig: Config = {
-  rootElement: '#ember-testing',
-  destination: 'ember-testing', // Workaround, because embroider.isTesting isn't working
+  rootElement:
+    import.meta.env.VITE_SHADOW_DOM_BUILD === 'true'
+      ? '#ember-basic-dropdown-wormhole'
+      : '#ember-testing',
+  destination:
+    import.meta.env.VITE_SHADOW_DOM_BUILD === 'true'
+      ? 'ember-basic-dropdown-wormhole'
+      : 'ember-testing', // Workaround, because embroider.isTesting isn't working
 };

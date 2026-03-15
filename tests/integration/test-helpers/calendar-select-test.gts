@@ -8,8 +8,11 @@ import type {
   TPowerCalendarOnSelect,
 } from '#src/components/power-calendar.gts';
 import type { NormalizeCalendarValue } from '#src/utils.ts';
+import HostWrapper from '../../../demo-app/components/host-wrapper.gts';
+import { getRootNode } from '../../helpers';
 
 interface Context extends TestContext {
+  element: HTMLElement;
   center4: Date;
   selected4: Date;
   onSelect: TPowerCalendarOnSelect;
@@ -36,31 +39,46 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
     };
     await render<Context>(
       <template>
-        <div class="calendar-select-1">
-          <PowerCalendar
-            @center={{self.center4}}
-            @selected={{self.selected4}}
-            @onSelect={{self.onSelect}}
-            @onCenterChange={{self.onCenterChange}}
-            as |calendar|
-          >
-            <calendar.Nav />
-            <calendar.Days />
-          </PowerCalendar>
-        </div>
+        <HostWrapper>
+          <div class="calendar-select-1">
+            <PowerCalendar
+              @center={{self.center4}}
+              @selected={{self.selected4}}
+              @onSelect={{self.onSelect}}
+              @onCenterChange={{self.onCenterChange}}
+              as |calendar|
+            >
+              <calendar.Nav />
+              <calendar.Days />
+            </PowerCalendar>
+          </div>
+        </HostWrapper>
       </template>,
     );
 
     assert
-      .dom('.calendar-select-1 .ember-power-calendar-nav-title')
+      .dom(
+        '.calendar-select-1 .ember-power-calendar-nav-title',
+        getRootNode(this.element),
+      )
       .hasText('October 2013');
     assert
-      .dom('.calendar-select-1 [data-date="2013-10-15"]')
+      .dom(
+        '.calendar-select-1 [data-date="2013-10-15"]',
+        getRootNode(this.element),
+      )
       .hasClass('ember-power-calendar-day--selected', 'The 15th is selected');
-    await calendarSelect('.calendar-select-1', new Date(2013, 9, 11));
+    await calendarSelect(
+      '.calendar-select-1',
+      new Date(2013, 9, 11),
+      getRootNode(this.element),
+    );
 
     assert
-      .dom('.calendar-select-1 [data-date="2013-10-11"]')
+      .dom(
+        '.calendar-select-1 [data-date="2013-10-11"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--selected',
         'The 11th of October is selected',
@@ -80,37 +98,58 @@ module('Test Support | Helper | calendarSelect', function (hooks) {
     };
     await render<Context>(
       <template>
-        <div class="calendar-select-1">
-          <PowerCalendar
-            @center={{self.center4}}
-            @selected={{self.selected4}}
-            @onSelect={{self.onSelect}}
-            @onCenterChange={{self.onCenterChange}}
-            as |calendar|
-          >
-            <calendar.Nav />
-            <calendar.Days />
-          </PowerCalendar>
-        </div>
+        <HostWrapper>
+          <div class="calendar-select-1">
+            <PowerCalendar
+              @center={{self.center4}}
+              @selected={{self.selected4}}
+              @onSelect={{self.onSelect}}
+              @onCenterChange={{self.onCenterChange}}
+              as |calendar|
+            >
+              <calendar.Nav />
+              <calendar.Days />
+            </PowerCalendar>
+          </div>
+        </HostWrapper>
       </template>,
     );
 
     assert
-      .dom('.calendar-select-1 .ember-power-calendar-nav-title')
+      .dom(
+        '.calendar-select-1 .ember-power-calendar-nav-title',
+        getRootNode(this.element),
+      )
       .hasText('October 2013');
     assert
-      .dom('.calendar-select-1 [data-date="2013-10-15"]')
+      .dom(
+        '.calendar-select-1 [data-date="2013-10-15"]',
+        getRootNode(this.element),
+      )
       .hasClass('ember-power-calendar-day--selected', 'The 15th is selected');
-    await calendarSelect('.calendar-select-1', new Date(2013, 8, 3));
+    await calendarSelect(
+      '.calendar-select-1',
+      new Date(2013, 8, 3),
+      getRootNode(this.element),
+    );
 
     assert
-      .dom('.calendar-select-1 .ember-power-calendar-nav-title')
+      .dom(
+        '.calendar-select-1 .ember-power-calendar-nav-title',
+        getRootNode(this.element),
+      )
       .hasText('September 2013', 'The nav component has updated');
     assert
-      .dom('.calendar-select-1 [data-date="2013-09-01"]')
+      .dom(
+        '.calendar-select-1 [data-date="2013-09-01"]',
+        getRootNode(this.element),
+      )
       .exists('The days component has updated');
     assert
-      .dom('.calendar-select-1 [data-date="2013-09-03"]')
+      .dom(
+        '.calendar-select-1 [data-date="2013-09-03"]',
+        getRootNode(this.element),
+      )
       .hasClass(
         'ember-power-calendar-day--selected',
         'The 3rd of september is selected',
