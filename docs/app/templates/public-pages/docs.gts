@@ -29,6 +29,15 @@ const groupedSections = [
     ],
   },
   {
+    groupName: 'Migrate',
+    options: [
+      {
+        route: 'public-pages.docs.migrate-1-0-to-2-0',
+        text: 'Migrate from 1.0 to 2.0',
+      },
+    ],
+  },
+  {
     groupName: 'Other',
     options: [
       { route: 'public-pages.docs.test-helpers', text: 'Test helpers' },
@@ -101,6 +110,11 @@ export default class PublicPagesDocs extends Component {
         <LinkTo @route="public-pages.docs.the-nav" class="side-nav-link">The nav</LinkTo>
         <LinkTo @route="public-pages.docs.the-days" class="side-nav-link">The
           days</LinkTo>
+        <header class="side-nav-header">Upgrade</header>
+        <LinkTo
+          @route="public-pages.docs.migrate-1-0-to-2-0"
+          class="side-nav-link"
+        >Migrate from 1.0 to 2.0</LinkTo>
         <header class="side-nav-header">Other</header>
         <LinkTo
           @route="public-pages.docs.test-helpers"

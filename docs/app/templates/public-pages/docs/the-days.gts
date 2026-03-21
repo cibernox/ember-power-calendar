@@ -206,8 +206,8 @@ import { LinkTo } from '@ember/routing';
       class="doc-page-nav-link-prev"
     >&lt; The nav</LinkTo>
     <LinkTo
-      @route="public-pages.docs.test-helpers"
+      @route="public-pages.docs.migrate-1-0-to-2-0"
       class="doc-page-nav-link-next"
-    >Test helpers &gt;</LinkTo>
+    >Migrate from 1.0 to 2.0 &gt;</LinkTo>
   </div>
 </template>

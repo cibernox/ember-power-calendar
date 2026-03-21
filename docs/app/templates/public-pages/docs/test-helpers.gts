@@ -62,9 +62,9 @@ import CodeExample from 'docs/components/code-example';
 
   <div class="doc-page-nav">
     <LinkTo
-      @route="public-pages.docs.the-days"
+      @route="public-pages.docs.migrate-1-0-to-2-0"
       class="doc-page-nav-link-prev"
-    >&lt; The days</LinkTo>
+    >&lt; Migrate from 1.0 to 2.0</LinkTo>
     <LinkTo
       @route="public-pages.docs.api-reference"
       class="doc-page-nav-link-next"
