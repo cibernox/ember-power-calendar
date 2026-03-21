@@ -1,4 +1,4 @@
-// ember-power-select v1.x
+// ember-power-calendar v1.x
 .demo-calendar-small {
   @include ember-power-calendar($cell-size: 30px);
 }
@@ -13,7 +13,7 @@
 
 // ---------------------
 
-// ember-power-select v2.x
+// ember-power-calendar v2.x
 @use "ember-power-calendar/scss/mixins.scss";
 
 .demo-calendar-small {
