@@ -5,20 +5,16 @@ import CodeExample from 'docs/components/code-example';
   <h1 class="doc-page-title">Installation &amp; setup</h1>
 
   <p>
-    Ember-power-calendar is distributed as an
-    <a
-      href="http://www.ember-cli.com/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >Ember-cli</a>
-    addon, so the major part of installation will be done by following command
-    on your ember project
+    To install
+    <code>ember-power-calendar</code>, run the following command in your Ember
+    project directory:
   </p>
 
-  <div class="highlight">
-    <pre class="language-command"><code class="language-command">$ ember install
-        ember-power-calendar</code></pre>
-  </div>
+  <p>
+    <div class="code-block">
+      <pre>$ pnpm install ember-power-calendar</pre>
+    </div>
+  </p>
 
   <p>But this is not enough to put the calendar to work.</p>
 
@@ -32,12 +28,8 @@ import CodeExample from 'docs/components/code-example';
   </p>
 
   <p>
-    From the ones available out there
-    <a href="http://momentjs.com">Moment.js</a>
-    and
-    <a href="">Luxon</a>
-    are my favorites, and I created two addons you can choose from to make Ember
-    Power Calendar work that use those libraries:
+    You can choose one of the following date libraries to make Ember Power
+    Calendar work:
   </p>
 
   <ul>
@@ -49,6 +41,12 @@ import CodeExample from 'docs/components/code-example';
         href="https://github.com/ember-power-addons/ember-power-calendar-date-fns"
       >Ember Power Calendar date-fns</a></li>
   </ul>
+
+  <p>
+    If you like, you can also create your own adapter for any other date
+    library. Just check how one of the above packages has implemented the
+    required API.
+  </p>
 
   <p>
     <strong>Note:</strong>
@@ -63,17 +61,11 @@ import CodeExample from 'docs/components/code-example';
   </p>
 
   <p>
-    Choose the one you prefer and just install it as any other addon, for
-    instance
-    <code>ember install ember-power-calendar-luxon</code>, and your calendar
-    will work, but will look ugly.
-  </p>
-
-  <p>
     After you have installed you need to register the date library to
     <code>ember-power-calendar</code>. For
     <code>ember-power-calendar-moment</code>
-    you need to add this lines.
+    you need to add this lines in
+    <code>app.js/ts</code>.
     <CodeExample @js="installation.ts" @showResult={{false}} @activeTab="js" />
 
     If you are using any other date library please check the ReadMe of the
@@ -110,8 +102,8 @@ import CodeExample from 'docs/components/code-example';
   />
 
   <p>
-    However, if you are using SASS or LESS you need to add an import statement
-    to your styles.
+    However, if you are using SASS you need to add an import statement to your
+    styles.
   </p>
 
   <CodeExample

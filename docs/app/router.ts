@@ -22,6 +22,9 @@ Router.map(function () {
       this.route('the-nav');
       this.route('the-days');
 
+      // Migrate
+      this.route('migrate-1-0-to-2-0');
+
       // OTHER
       this.route('test-helpers');
       this.route('api-reference');

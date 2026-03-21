@@ -1,3 +1,13 @@
+// ember-power-select v1.x
 .demo-calendar-red {
   @include ember-power-calendar($cell-size: 40px, $primary-color: red);
+}
+
+// ---------------------
+
+// ember-power-select v2.x
+@use "ember-power-calendar/scss/mixins.scss";
+
+.demo-calendar-red {
+  @include mixins.calendar($cell-size: 40px, $primary-color: red);
 }
