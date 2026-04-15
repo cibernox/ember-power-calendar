@@ -93,7 +93,7 @@
     "@types/rsvp": "^4.0.9",
     "babel-plugin-ember-template-compilation": "^4.0.0",
     "concurrently": "^9.0.1",
-    "ember-basic-dropdown": "git+https://github.com/cibernox/ember-basic-dropdown#f3cb963ca0a2728c2580e71e9c822e9c6bee08c5",
+    "ember-basic-dropdown": "git+https://github.com/cibernox/ember-basic-dropdown#b90e03d0b8ab6d5c61093fabc3024c806d2585d9",
     "ember-concurrency": "^5.1.0",
     "ember-page-title": "^9.0.3",
     "ember-power-calendar-moment": "^1.0.4",
