@@ -10,7 +10,6 @@ import { LinkTo } from '@ember/routing';
       The minimum required versions are:
       <ul>
         <li>Ember 4.12 and above</li>
-        <li><code>ember-basic-dropdown</code> 9.x and above</li>
         <li><code>ember-truth-helpers</code> 5.x and above</li>
         <li><code>@ember/test-helpers</code> 5.x and above</li>
         <li><code>@glimmer/component</code> 2.x and above</li>
