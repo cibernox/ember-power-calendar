@@ -4,7 +4,9 @@ import { action } from '@ember/object';
 import { on } from '@ember/modifier';
 import BasicDropdown from 'ember-basic-dropdown/components/basic-dropdown';
 import PowerSelect from 'ember-power-select/components/power-select';
-import PowerCalendar, { type PowerCalendarDefaultBlock } from 'ember-power-calendar/components/power-calendar';
+import PowerCalendar, {
+  type PowerCalendarDefaultBlock,
+} from 'ember-power-calendar/components/power-calendar';
 import {
   formatDate,
   type NormalizeCalendarValue,
@@ -57,7 +59,9 @@ export default class extends Component {
       e?.type === 'click' &&
       document.activeElement === e?.target &&
       (e?.target as HTMLElement).tagName === 'INPUT' &&
-      (e?.target as HTMLElement)?.closest('[data-ebd-id="' + dropdown.uniqueId + '-trigger"]')
+      (e?.target as HTMLElement)?.closest(
+        '[data-ebd-id="' + dropdown.uniqueId + '-trigger"]',
+      )
     ) {
       return false;
     }
@@ -95,7 +99,7 @@ export default class extends Component {
   @action
   registerAPI(api: Dropdown | null) {
     this.dropdownApi = api;
-  };
+  }
 
   <template>
     <BasicDropdown
