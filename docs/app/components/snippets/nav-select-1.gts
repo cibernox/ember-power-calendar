@@ -28,7 +28,7 @@ export default class extends Component {
     'December',
   ];
 
-  years: string[] = Array(...(Array(80) as never[])).map(
+  years: string[] = Array(...(Array(120) as never[])).map(
     (_, i) => `${i + 1940}`,
   );
 

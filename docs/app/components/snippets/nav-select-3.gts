@@ -60,7 +60,7 @@ export default class extends Component {
         <input
           type="number"
           min="1940"
-          max="2020"
+          max="2040"
           value={{formatDate cal.center "YYYY"}}
           {{on "input" (fn this.changeYear cal)}}
         />
