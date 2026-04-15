@@ -11,8 +11,7 @@ import PowerCalendarService from '#src/services/power-calendar.ts';
 import DateUtils from 'ember-power-calendar-moment';
 import { registerDateLibrary } from '#src/utils.ts';
 import { setConfig, type Config } from 'ember-basic-dropdown/config';
-// @ts-expect-error Could not find a declaration file for module '@embroider/macros/src/addon/runtime'.
-import { getGlobalConfig } from '@embroider/macros/src/addon/runtime';
+import { setTesting } from '@embroider/macros';
 import 'moment/dist/locale/es';
 import 'moment/dist/locale/ru';
 import 'moment/dist/locale/fr';
@@ -35,6 +34,7 @@ class TestApp extends EmberApp {
 Router.map(function () {});
 
 export function start() {
+  setTesting(true);
   registerDateLibrary(DateUtils);
   initialize();
   setApplication(
@@ -52,12 +52,6 @@ export function start() {
   setup(QUnit.assert);
   setupEmberOnerrorValidation();
 
-  //eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-  const config = getGlobalConfig()['@embroider/macros'];
-
-  //eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  if (config) config.isTesting = true;
-
   setConfig(defaultBasicDropdownConfig);
 
   qunitStart();
@@ -68,8 +62,4 @@ export const defaultBasicDropdownConfig: Config = {
     import.meta.env.VITE_SHADOW_DOM_BUILD === 'true'
       ? '#ember-basic-dropdown-wormhole'
       : '#ember-testing',
-  destination:
-    import.meta.env.VITE_SHADOW_DOM_BUILD === 'true'
-      ? 'ember-basic-dropdown-wormhole'
-      : 'ember-testing', // Workaround, because embroider.isTesting isn't working
 };
