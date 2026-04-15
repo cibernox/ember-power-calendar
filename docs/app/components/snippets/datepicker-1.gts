@@ -55,12 +55,23 @@ export default class extends Component {
 
   @action
   onClose(dropdown: Dropdown, e?: Event): boolean {
+    // Avoid closing date picker when cursor is inside input field
     if (
       e?.type === 'click' &&
       document.activeElement === e?.target &&
       (e?.target as HTMLElement).tagName === 'INPUT' &&
       (e?.target as HTMLElement)?.closest(
-        '[data-ebd-id="' + dropdown.uniqueId + '-trigger"]',
+        `[data-ebd-id="${dropdown.uniqueId}-trigger"]`,
+      )
+    ) {
+      return false;
+    }
+
+    // Avoid closing date picker when cursor is inside the dropdown
+    if (
+      e?.type === 'click' &&
+      document.activeElement?.closest(
+        `[id="ember-basic-dropdown-content-${dropdown.uniqueId}"]`,
       )
     ) {
       return false;
@@ -131,6 +142,7 @@ export default class extends Component {
           @selected={{this.selected}}
           @onSelect={{this.onSelect}}
           @isDatePicker={{true}}
+          @autofocus={{true}}
           as |calendar|
         >
           <calendar.Nav>
