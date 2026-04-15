@@ -64,6 +64,18 @@ export default class extends Component {
       groupName: "00's",
       options: Array(...(Array(10) as never[])).map((_, i) => `${i + 2000}`),
     },
+    {
+      groupName: "10's",
+      options: Array(...(Array(10) as never[])).map((_, i) => `${i + 2010}`),
+    },
+    {
+      groupName: "20's",
+      options: Array(...(Array(10) as never[])).map((_, i) => `${i + 2020}`),
+    },
+    {
+      groupName: "30's",
+      options: Array(...(Array(10) as never[])).map((_, i) => `${i + 2030}`),
+    },
   ];
 
   @action
