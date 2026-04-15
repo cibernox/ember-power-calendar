@@ -25,7 +25,7 @@ import { LinkTo } from '@ember/routing';
     floating box next to another element when that element is clicked.
   </p>
 
-  <p>Let's build a naive datepicker in 20 lines of code!</p>
+  <p>Let's build a naive datepicker!</p>
 
   <CodeExample @glimmerTs="datepicker-1.gts">
     {{Datepicker1}}
