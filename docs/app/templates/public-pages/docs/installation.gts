@@ -33,10 +33,12 @@ import CodeExample from 'docs/components/code-example';
   </p>
 
   <ul>
-    <li><a href="https://github.com/cibernox/ember-power-calendar-luxon">Ember
-        Power Calendar Luxon</a></li>
-    <li><a href="https://github.com/cibernox/ember-power-calendar-moment">Ember
-        Power Calendar Moment</a></li>
+    <li><a
+        href="https://github.com/ember-power-addons/ember-power-calendar-luxon"
+      >Ember Power Calendar Luxon</a></li>
+    <li><a
+        href="https://github.com/ember-power-addons/ember-power-calendar-moment"
+      >Ember Power Calendar Moment</a></li>
     <li><a
         href="https://github.com/ember-power-addons/ember-power-calendar-date-fns"
       >Ember Power Calendar date-fns</a></li>
@@ -170,7 +172,7 @@ import CodeExample from 'docs/components/code-example';
   <p>
     The addon is using internal ember-concurrency. For installation see
     <a
-      href="http://ember-concurrency.com/docs/installation"
+      href="https://ember-concurrency.com/docs/installation"
       target="_blank"
       rel="noopener noreferrer"
     >ember-concurrency</a>

@@ -14,7 +14,7 @@
 ## v1.8.0 (2025-09-16)
 
 #### :rocket: Enhancement
-* [#576](https://github.com/cibernox/ember-power-calendar/pull/576) Allow `ember-truth-helpers` v5 as dependency ([@mkszepp](https://github.com/mkszepp))
+* [#576](https://github.com/ember-power-addons/ember-power-calendar/pull/576) Allow `ember-truth-helpers` v5 as dependency ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - Markus Sanin ([@mkszepp](https://github.com/mkszepp))
@@ -22,7 +22,7 @@
 ## v1.7.0 (2025-08-18)
 
 #### :rocket: Enhancement
-* [#575](https://github.com/cibernox/ember-power-calendar/pull/575) Allow `ember-concurrency` v5 ([@mkszepp](https://github.com/mkszepp))
+* [#575](https://github.com/ember-power-addons/ember-power-calendar/pull/575) Allow `ember-concurrency` v5 ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - Markus Sanin ([@mkszepp](https://github.com/mkszepp))
@@ -30,7 +30,7 @@
 ## v1.6.0 (2025-08-06)
 
 #### :rocket: Enhancement
-* [#553](https://github.com/cibernox/ember-power-calendar/pull/553) Improve accessibility ([@mkszepp](https://github.com/mkszepp))
+* [#553](https://github.com/ember-power-addons/ember-power-calendar/pull/553) Improve accessibility ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - Markus Sanin ([@mkszepp](https://github.com/mkszepp))
@@ -38,7 +38,7 @@
 ## v1.5.4 (2025-05-13)
 
 #### :bug: Bug Fix
-* [#550](https://github.com/cibernox/ember-power-calendar/pull/550) Remove ember-source and glimmer tracking as a peer dependency ([@mkszepp](https://github.com/mkszepp))
+* [#550](https://github.com/ember-power-addons/ember-power-calendar/pull/550) Remove ember-source and glimmer tracking as a peer dependency ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - Markus Sanin ([@mkszepp](https://github.com/mkszepp))
@@ -46,7 +46,7 @@
 ## v1.5.3 (2025-03-31)
 
 #### :bug: Bug Fix
-* [#549](https://github.com/cibernox/ember-power-calendar/pull/549) Cleanup @ember/service deprecation ([@mkszepp](https://github.com/mkszepp))
+* [#549](https://github.com/ember-power-addons/ember-power-calendar/pull/549) Cleanup @ember/service deprecation ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - Markus Sanin ([@mkszepp](https://github.com/mkszepp))
@@ -54,7 +54,7 @@
 ## v1.5.2 (2025-02-22)
 
 #### :bug: Bug Fix
-* [#548](https://github.com/cibernox/ember-power-calendar/pull/548) Typing: Remove `calendar` from default blocks (not necessary to pass) ([@mkszepp](https://github.com/mkszepp))
+* [#548](https://github.com/ember-power-addons/ember-power-calendar/pull/548) Typing: Remove `calendar` from default blocks (not necessary to pass) ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - Markus Sanin ([@mkszepp](https://github.com/mkszepp))
@@ -62,7 +62,7 @@
 ## v1.5.1 (2025-02-22)
 
 #### :bug: Bug Fix
-* [#547](https://github.com/cibernox/ember-power-calendar/pull/547) Typing: Make `format` and `unit` optional in Nav signature ([@mkszepp](https://github.com/mkszepp))
+* [#547](https://github.com/ember-power-addons/ember-power-calendar/pull/547) Typing: Make `format` and `unit` optional in Nav signature ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - Markus Sanin ([@mkszepp](https://github.com/mkszepp))
@@ -70,14 +70,14 @@
 ## v1.5.0 (2025-02-22)
 
 #### :rocket: Enhancement
-* [#541](https://github.com/cibernox/ember-power-calendar/pull/541) Improve typescript story ([@mkszepp](https://github.com/mkszepp))
+* [#541](https://github.com/ember-power-addons/ember-power-calendar/pull/541) Improve typescript story ([@mkszepp](https://github.com/mkszepp))
 
 #### :bug: Bug Fix
-* [#546](https://github.com/cibernox/ember-power-calendar/pull/546) Typing: Allow `void` for onCenterChange return ([@mkszepp](https://github.com/mkszepp))
-* [#545](https://github.com/cibernox/ember-power-calendar/pull/545) Fix `ComponentLike` (glint) ([@mkszepp](https://github.com/mkszepp))
-* [#544](https://github.com/cibernox/ember-power-calendar/pull/544) Fix typing for glint ([@mkszepp](https://github.com/mkszepp))
-* [#543](https://github.com/cibernox/ember-power-calendar/pull/543) Fix memory leak of `window.__powerCalendars` (remove hash when empty) ([@apellerano-pw](https://github.com/apellerano-pw))
-* [#541](https://github.com/cibernox/ember-power-calendar/pull/541) Improve typescript story ([@mkszepp](https://github.com/mkszepp))
+* [#546](https://github.com/ember-power-addons/ember-power-calendar/pull/546) Typing: Allow `void` for onCenterChange return ([@mkszepp](https://github.com/mkszepp))
+* [#545](https://github.com/ember-power-addons/ember-power-calendar/pull/545) Fix `ComponentLike` (glint) ([@mkszepp](https://github.com/mkszepp))
+* [#544](https://github.com/ember-power-addons/ember-power-calendar/pull/544) Fix typing for glint ([@mkszepp](https://github.com/mkszepp))
+* [#543](https://github.com/ember-power-addons/ember-power-calendar/pull/543) Fix memory leak of `window.__powerCalendars` (remove hash when empty) ([@apellerano-pw](https://github.com/apellerano-pw))
+* [#541](https://github.com/ember-power-addons/ember-power-calendar/pull/541) Improve typescript story ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 2
 - Andrew Pellerano ([@apellerano-pw](https://github.com/apellerano-pw))
@@ -86,17 +86,17 @@
 ## v1.4.0 (2025-01-27)
 
 #### :rocket: Enhancement
-* [#539](https://github.com/cibernox/ember-power-calendar/pull/539) Allow `@ember/test-helpers` v5.x and update ember-cli to 6.1 ([@mkszepp](https://github.com/mkszepp))
+* [#539](https://github.com/ember-power-addons/ember-power-calendar/pull/539) Allow `@ember/test-helpers` v5.x and update ember-cli to 6.1 ([@mkszepp](https://github.com/mkszepp))
 
 #### :bug: Bug Fix
-* [#538](https://github.com/cibernox/ember-power-calendar/pull/538) Fix css variable in vendor css ([@mkszepp](https://github.com/mkszepp))
+* [#538](https://github.com/ember-power-addons/ember-power-calendar/pull/538) Fix css variable in vendor css ([@mkszepp](https://github.com/mkszepp))
 
 #### :memo: Documentation
-* [#537](https://github.com/cibernox/ember-power-calendar/pull/537) Update `date-fns` meta package link ([@mkszepp](https://github.com/mkszepp))
+* [#537](https://github.com/ember-power-addons/ember-power-calendar/pull/537) Update `date-fns` meta package link ([@mkszepp](https://github.com/mkszepp))
 
 #### :house: Internal
-* [#540](https://github.com/cibernox/ember-power-calendar/pull/540) Update ember-basic-dropdown & ember-power-select ([@mkszepp](https://github.com/mkszepp))
-* [#539](https://github.com/cibernox/ember-power-calendar/pull/539) Allow `@ember/test-helpers` v5.x and update ember-cli to 6.1 ([@mkszepp](https://github.com/mkszepp))
+* [#540](https://github.com/ember-power-addons/ember-power-calendar/pull/540) Update ember-basic-dropdown & ember-power-select ([@mkszepp](https://github.com/mkszepp))
+* [#539](https://github.com/ember-power-addons/ember-power-calendar/pull/539) Allow `@ember/test-helpers` v5.x and update ember-cli to 6.1 ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - Markus Sanin ([@mkszepp](https://github.com/mkszepp))
@@ -104,10 +104,10 @@
 ## v1.3.1 (2024-11-19)
 
 #### :bug: Bug Fix
-* [#535](https://github.com/cibernox/ember-power-calendar/pull/535) Fix default variable values (css calc isn't working correctly) ([@mkszepp](https://github.com/mkszepp))
+* [#535](https://github.com/ember-power-addons/ember-power-calendar/pull/535) Fix default variable values (css calc isn't working correctly) ([@mkszepp](https://github.com/mkszepp))
 
 #### :house: Internal
-* [#536](https://github.com/cibernox/ember-power-calendar/pull/536) Add fastboot in test-app ([@mkszepp](https://github.com/mkszepp))
+* [#536](https://github.com/ember-power-addons/ember-power-calendar/pull/536) Add fastboot in test-app ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - Markus Sanin ([@mkszepp](https://github.com/mkszepp))
@@ -115,13 +115,13 @@
 ## v1.3.0 (2024-11-12)
 
 #### :rocket: Enhancement
-* [#530](https://github.com/cibernox/ember-power-calendar/pull/530) Allow `@glimmer/component` v2 ([@mkszepp](https://github.com/mkszepp))
+* [#530](https://github.com/ember-power-addons/ember-power-calendar/pull/530) Allow `@glimmer/component` v2 ([@mkszepp](https://github.com/mkszepp))
 
 #### :memo: Documentation
-* [#529](https://github.com/cibernox/ember-power-calendar/pull/529) Remove `ember-prism`, use `primsjs` in docs ([@mkszepp](https://github.com/mkszepp))
+* [#529](https://github.com/ember-power-addons/ember-power-calendar/pull/529) Remove `ember-prism`, use `primsjs` in docs ([@mkszepp](https://github.com/mkszepp))
 
 #### :house: Internal
-* [#528](https://github.com/cibernox/ember-power-calendar/pull/528) Replace scss to css compiler while rollup ([@mkszepp](https://github.com/mkszepp))
+* [#528](https://github.com/ember-power-addons/ember-power-calendar/pull/528) Replace scss to css compiler while rollup ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - Markus Sanin ([@mkszepp](https://github.com/mkszepp))
@@ -129,15 +129,15 @@
 ## v1.2.0 (2024-09-09)
 
 #### :rocket: Enhancement
-* [#525](https://github.com/cibernox/ember-power-calendar/pull/525) Allow `@ember/test-helpers` v4 as dependency ([@mkszepp](https://github.com/mkszepp))
-* [#497](https://github.com/cibernox/ember-power-calendar/pull/497) Add support for css variables to mixin ([@HanneloreVerbraekel](https://github.com/HanneloreVerbraekel))
+* [#525](https://github.com/ember-power-addons/ember-power-calendar/pull/525) Allow `@ember/test-helpers` v4 as dependency ([@mkszepp](https://github.com/mkszepp))
+* [#497](https://github.com/ember-power-addons/ember-power-calendar/pull/497) Add support for css variables to mixin ([@HanneloreVerbraekel](https://github.com/HanneloreVerbraekel))
 
 #### :bug: Bug Fix
-* [#520](https://github.com/cibernox/ember-power-calendar/pull/520) Add missing mixin css part in generated css file (vanilla css) ([@mkszepp](https://github.com/mkszepp))
+* [#520](https://github.com/ember-power-addons/ember-power-calendar/pull/520) Add missing mixin css part in generated css file (vanilla css) ([@mkszepp](https://github.com/mkszepp))
 
 #### :house: Internal
-* [#526](https://github.com/cibernox/ember-power-calendar/pull/526) Update dependencies ([@mkszepp](https://github.com/mkszepp))
-* [#489](https://github.com/cibernox/ember-power-calendar/pull/489) Add addon blueprint config & update ([@mkszepp](https://github.com/mkszepp))
+* [#526](https://github.com/ember-power-addons/ember-power-calendar/pull/526) Update dependencies ([@mkszepp](https://github.com/mkszepp))
+* [#489](https://github.com/ember-power-addons/ember-power-calendar/pull/489) Add addon blueprint config & update ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 2
 - Hannelore Verbraekel ([@HanneloreVerbraekel](https://github.com/HanneloreVerbraekel))
@@ -146,7 +146,7 @@
 ## v1.1.0 (2024-05-06)
 
 #### :rocket: Enhancement
-* [#485](https://github.com/cibernox/ember-power-calendar/pull/485) Remove `@ember/render-modifiers` ([@mkszepp](https://github.com/mkszepp))
+* [#485](https://github.com/ember-power-addons/ember-power-calendar/pull/485) Remove `@ember/render-modifiers` ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - Markus Sanin ([@mkszepp](https://github.com/mkszepp))
@@ -154,7 +154,7 @@
 ## v1.0.2 (2024-04-08)
 
 #### :bug: Bug Fix
-* [#466](https://github.com/cibernox/ember-power-calendar/pull/466) Fix use of dataset API in findCalendarGuid test-helper ([@nickschot](https://github.com/nickschot))
+* [#466](https://github.com/ember-power-addons/ember-power-calendar/pull/466) Fix use of dataset API in findCalendarGuid test-helper ([@nickschot](https://github.com/nickschot))
 
 #### Committers: 1
 - Nick Schot ([@nickschot](https://github.com/nickschot))
@@ -162,10 +162,10 @@
 ## v1.0.1 (2024-03-15)
 
 #### :bug: Bug Fix
-* [#429](https://github.com/cibernox/ember-power-calendar/pull/429) Use datelibrary to compare months ([@eltonvus](https://github.com/eltonvus))
+* [#429](https://github.com/ember-power-addons/ember-power-calendar/pull/429) Use datelibrary to compare months ([@eltonvus](https://github.com/eltonvus))
 
 #### :house: Internal
-* [#430](https://github.com/cibernox/ember-power-calendar/pull/430) Remove NodeJs info (not necessary for v2 addon) ([@mkszepp](https://github.com/mkszepp))
+* [#430](https://github.com/ember-power-addons/ember-power-calendar/pull/430) Remove NodeJs info (not necessary for v2 addon) ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 2
 - Elton ([@eltonvus](https://github.com/eltonvus))
@@ -182,7 +182,7 @@ Braking parts:
 ## v0.22.0-beta.8 (2024-03-05)
 
 #### :bug: Bug Fix
-* [#395](https://github.com/cibernox/ember-power-calendar/pull/395) Fix TS block interface ([@mkszepp](https://github.com/mkszepp))
+* [#395](https://github.com/ember-power-addons/ember-power-calendar/pull/395) Fix TS block interface ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - [@mkszepp](https://github.com/mkszepp)
@@ -190,7 +190,7 @@ Braking parts:
 ## v0.22.0-beta.7 (2024-02-13)
 
 #### :bug: Bug Fix
-* [#393](https://github.com/cibernox/ember-power-calendar/pull/393) Remove moment & luxon types from interfaces ([@mkszepp](https://github.com/mkszepp))
+* [#393](https://github.com/ember-power-addons/ember-power-calendar/pull/393) Remove moment & luxon types from interfaces ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - [@mkszepp](https://github.com/mkszepp)
@@ -198,15 +198,15 @@ Braking parts:
 ## v0.22.0-beta.6 (2024-02-12)
 
 #### :boom: Breaking Change
-* [#387](https://github.com/cibernox/ember-power-calendar/pull/387) Update ember-concurrency to v4 and move to peerDependencies ([@mkszepp](https://github.com/mkszepp))
-* [#381](https://github.com/cibernox/ember-power-calendar/pull/381) Convert Addon to Typescript & add glint ([@mkszepp](https://github.com/mkszepp))
+* [#387](https://github.com/ember-power-addons/ember-power-calendar/pull/387) Update ember-concurrency to v4 and move to peerDependencies ([@mkszepp](https://github.com/mkszepp))
+* [#381](https://github.com/ember-power-addons/ember-power-calendar/pull/381) Convert Addon to Typescript & add glint ([@mkszepp](https://github.com/mkszepp))
 
 #### :rocket: Enhancement
-* [#386](https://github.com/cibernox/ember-power-calendar/pull/386) Add interface for date library & fix some types ([@mkszepp](https://github.com/mkszepp))
+* [#386](https://github.com/ember-power-addons/ember-power-calendar/pull/386) Add interface for date library & fix some types ([@mkszepp](https://github.com/mkszepp))
 
 #### :house: Internal
-* [#384](https://github.com/cibernox/ember-power-calendar/pull/384) Add glint in docs ([@mkszepp](https://github.com/mkszepp))
-* [#383](https://github.com/cibernox/ember-power-calendar/pull/383) Stricter dep management ([@mkszepp](https://github.com/mkszepp))
+* [#384](https://github.com/ember-power-addons/ember-power-calendar/pull/384) Add glint in docs ([@mkszepp](https://github.com/mkszepp))
+* [#383](https://github.com/ember-power-addons/ember-power-calendar/pull/383) Stricter dep management ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - [@mkszepp](https://github.com/mkszepp)
@@ -214,7 +214,7 @@ Braking parts:
 ## v0.22.0-beta.5 (2024-01-18)
 
 #### :house: Internal
-* [#365](https://github.com/cibernox/ember-power-calendar/pull/365) Update ember-cli to 5.5 ([@mkszepp](https://github.com/mkszepp))
+* [#365](https://github.com/ember-power-addons/ember-power-calendar/pull/365) Update ember-cli to 5.5 ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - [@mkszepp](https://github.com/mkszepp)
@@ -222,7 +222,7 @@ Braking parts:
 ## v0.22.0-beta.4 (2024-01-09)
 
 #### :rocket: Enhancement
-* [#349](https://github.com/cibernox/ember-power-calendar/pull/349) Add option to use `ember-power-calendar.scss` ([@mkszepp](https://github.com/mkszepp))
+* [#349](https://github.com/ember-power-addons/ember-power-calendar/pull/349) Add option to use `ember-power-calendar.scss` ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - [@mkszepp](https://github.com/mkszepp)
@@ -230,10 +230,10 @@ Braking parts:
 ## v0.22.0-beta.3 (2024-01-04)
 
 #### :bug: Bug Fix
-* [#347](https://github.com/cibernox/ember-power-calendar/pull/347) Fix less export & update ember-power-select / ember-basic-dropdown ([@mkszepp](https://github.com/mkszepp))
+* [#347](https://github.com/ember-power-addons/ember-power-calendar/pull/347) Fix less export & update ember-power-select / ember-basic-dropdown ([@mkszepp](https://github.com/mkszepp))
 
 #### :house: Internal
-* [#348](https://github.com/cibernox/ember-power-calendar/pull/348) Update power select ([@mkszepp](https://github.com/mkszepp))
+* [#348](https://github.com/ember-power-addons/ember-power-calendar/pull/348) Update power select ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - [@mkszepp](https://github.com/mkszepp)
@@ -241,7 +241,7 @@ Braking parts:
 ## v0.22.0-beta.2 (2024-01-04)
 
 #### :boom: Breaking Change
-* [#345](https://github.com/cibernox/ember-power-calendar/pull/345) Move test import `ember-power-calendar/test-support` to `ember-power-calendar/test-support/helpers` ([@mkszepp](https://github.com/mkszepp))
+* [#345](https://github.com/ember-power-addons/ember-power-calendar/pull/345) Move test import `ember-power-calendar/test-support` to `ember-power-calendar/test-support/helpers` ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - [@mkszepp](https://github.com/mkszepp)
@@ -249,7 +249,7 @@ Braking parts:
 ## v0.22.0-beta.1 (2024-01-03)
 
 #### :bug: Bug Fix
-* [#343](https://github.com/cibernox/ember-power-calendar/pull/343) Fix export for scss/less files ([@mkszepp](https://github.com/mkszepp))
+* [#343](https://github.com/ember-power-addons/ember-power-calendar/pull/343) Fix export for scss/less files ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - [@mkszepp](https://github.com/mkszepp)
@@ -257,7 +257,7 @@ Braking parts:
 ## v0.22.0-beta.0 (2024-01-03)
 
 #### :boom: Breaking Change
-* [#342](https://github.com/cibernox/ember-power-calendar/pull/342) Addon to V2 ([@mkszepp](https://github.com/mkszepp))
+* [#342](https://github.com/ember-power-addons/ember-power-calendar/pull/342) Addon to V2 ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - [@mkszepp](https://github.com/mkszepp)
@@ -265,11 +265,11 @@ Braking parts:
 ## v0.21.0 (2023-11-15)
 
 #### :boom: Breaking Change
-* [#338](https://github.com/cibernox/ember-power-calendar/pull/338) Update `peerDependencies` moment & luxon ([@mkszepp](https://github.com/mkszepp))
-* [#335](https://github.com/cibernox/ember-power-calendar/pull/335) Add `registerDateLibrary` to allow register every date library & allow `ember-truth-helpers` v4 ([@mkszepp](https://github.com/mkszepp))
+* [#338](https://github.com/ember-power-addons/ember-power-calendar/pull/338) Update `peerDependencies` moment & luxon ([@mkszepp](https://github.com/mkszepp))
+* [#335](https://github.com/ember-power-addons/ember-power-calendar/pull/335) Add `registerDateLibrary` to allow register every date library & allow `ember-truth-helpers` v4 ([@mkszepp](https://github.com/mkszepp))
 
 #### :house: Internal
-* [#339](https://github.com/cibernox/ember-power-calendar/pull/339) Add release-it ([@mkszepp](https://github.com/mkszepp))
+* [#339](https://github.com/ember-power-addons/ember-power-calendar/pull/339) Add release-it ([@mkszepp](https://github.com/mkszepp))
 
 #### Committers: 1
 - [@mkszepp](https://github.com/mkszepp)

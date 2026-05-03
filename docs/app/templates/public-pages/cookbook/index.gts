@@ -20,8 +20,8 @@ import { LinkTo } from '@ember/routing';
 
   <p>
     One of them is
-    <a href="https://github.com/cibernox/ember-basic-dropdown">Ember Basic
-      Dropdown</a>. It does only one thing, but it does it well: Display a
+    <a href="https://github.com/ember-power-addons/ember-basic-dropdown">Ember
+      Basic Dropdown</a>. It does only one thing, but it does it well: Display a
     floating box next to another element when that element is clicked.
   </p>
 
