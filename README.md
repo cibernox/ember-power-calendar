@@ -2,7 +2,7 @@
 [![Ember Observer Score](https://emberobserver.com/badges/ember-power-calendar.svg)](https://emberobserver.com/addons/ember-power-calendar)
 ![Ember Version](https://img.shields.io/badge/ember-%3E%3D4.12-brightgreen?logo=emberdotjs&logoColor=white)
 [![Discord](https://img.shields.io/badge/chat-discord-blue?style=flat&logo=discord)](https://discord.com/channels/480462759797063690/486202731766349824)
-[![Build Status](https://github.com/cibernox/ember-power-calendar/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/cibernox/ember-power-calendar)
+[![Build Status](https://github.com/ember-power-addons/ember-power-calendar/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/ember-power-addons/ember-power-calendar)
 
 # ember-power-calendar
 
