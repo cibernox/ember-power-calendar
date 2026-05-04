@@ -1,5 +1,50 @@
 # Changelog
 
+## Release (2026-05-04)
+
+* ember-power-calendar 2.0.0 (major)
+
+#### :boom: Breaking Change
+* `ember-power-calendar`
+  * [#630](https://github.com/ember-power-addons/ember-power-calendar/pull/630) Convert to modern scss api, Drop node-scss support ([@mkszepp](https://github.com/mkszepp))
+  * [#621](https://github.com/ember-power-addons/ember-power-calendar/pull/621) Convert tests to ts & fix addon typing issues & remove support for `@tag=""` ([@mkszepp](https://github.com/mkszepp))
+  * [#620](https://github.com/ember-power-addons/ember-power-calendar/pull/620) Move helpers to function based helpers (remove @ember/component usages) ([@mkszepp](https://github.com/mkszepp))
+  * [#619](https://github.com/ember-power-addons/ember-power-calendar/pull/619) Drop support for ember < 4.12 ([@mkszepp](https://github.com/mkszepp))
+  * [#618](https://github.com/ember-power-addons/ember-power-calendar/pull/618) Convert addon to gts, drop passing components as string & remove `@embroider/util` ([@mkszepp](https://github.com/mkszepp))
+
+#### :rocket: Enhancement
+* `ember-power-calendar`
+  * [#631](https://github.com/ember-power-addons/ember-power-calendar/pull/631) Add support for shadow dom ([@mkszepp](https://github.com/mkszepp))
+
+#### :bug: Bug Fix
+* `ember-power-calendar`
+  * [#624](https://github.com/ember-power-addons/ember-power-calendar/pull/624) Convert docs to vite and gts & fix some typing issues in addon ([@mkszepp](https://github.com/mkszepp))
+
+#### :memo: Documentation
+* `ember-power-calendar`
+  * [#634](https://github.com/ember-power-addons/ember-power-calendar/pull/634) Improve cookbook examples ([@mkszepp](https://github.com/mkszepp))
+  * [#632](https://github.com/ember-power-addons/ember-power-calendar/pull/632) Add docs for migrate from 1.0 to 2.0 ([@mkszepp](https://github.com/mkszepp))
+  * [#630](https://github.com/ember-power-addons/ember-power-calendar/pull/630) Convert to modern scss api, Drop node-scss support ([@mkszepp](https://github.com/mkszepp))
+  * [#624](https://github.com/ember-power-addons/ember-power-calendar/pull/624) Convert docs to vite and gts & fix some typing issues in addon ([@mkszepp](https://github.com/mkszepp))
+
+#### :house: Internal
+* `ember-power-calendar`
+  * [#639](https://github.com/ember-power-addons/ember-power-calendar/pull/639) Migrate from release-it to release-plan ([@mkszepp](https://github.com/mkszepp))
+  * [#637](https://github.com/ember-power-addons/ember-power-calendar/pull/637) Update repo link ([@mkszepp](https://github.com/mkszepp))
+  * [#636](https://github.com/ember-power-addons/ember-power-calendar/pull/636) Update dependencies ([@mkszepp](https://github.com/mkszepp))
+  * [#635](https://github.com/ember-power-addons/ember-power-calendar/pull/635) Update ember-addon blueprint v0.17.0...v0.17.1 ([@mkszepp](https://github.com/mkszepp))
+  * [#633](https://github.com/ember-power-addons/ember-power-calendar/pull/633) Change styleSheet loading for shadow root tests ([@mkszepp](https://github.com/mkszepp))
+  * [#629](https://github.com/ember-power-addons/ember-power-calendar/pull/629) Remove vendor folder ([@mkszepp](https://github.com/mkszepp))
+  * [#628](https://github.com/ember-power-addons/ember-power-calendar/pull/628) Remove ember/runloop from addon ([@mkszepp](https://github.com/mkszepp))
+  * [#627](https://github.com/ember-power-addons/ember-power-calendar/pull/627) Move to new v2 blueprint ([@mkszepp](https://github.com/mkszepp))
+  * [#625](https://github.com/ember-power-addons/ember-power-calendar/pull/625) Convert tests to gts ([@mkszepp](https://github.com/mkszepp))
+  * [#623](https://github.com/ember-power-addons/ember-power-calendar/pull/623) Remove `Component` from all components ([@mkszepp](https://github.com/mkszepp))
+  * [#622](https://github.com/ember-power-addons/ember-power-calendar/pull/622) Remove ownProp in test-app ([@mkszepp](https://github.com/mkszepp))
+  * [#621](https://github.com/ember-power-addons/ember-power-calendar/pull/621) Convert tests to ts & fix addon typing issues & remove support for `@tag=""` ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
+
 
 
 
