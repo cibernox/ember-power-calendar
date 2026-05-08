@@ -12,9 +12,13 @@ import DateUtils from 'ember-power-calendar-moment';
 import { registerDateLibrary } from '#src/utils.ts';
 import { setConfig, type Config } from 'ember-basic-dropdown/config';
 import { setTesting } from '@embroider/macros';
+// @ts-expect-error Cannot find module or type declarations for side-effect import of 'moment/dist/locale/es'.
 import 'moment/dist/locale/es';
+// @ts-expect-error Cannot find module or type declarations for side-effect import of 'moment/dist/locale/ru'.
 import 'moment/dist/locale/ru';
+// @ts-expect-error Cannot find module or type declarations for side-effect import of 'moment/dist/locale/fr'.
 import 'moment/dist/locale/fr';
+// @ts-expect-error Cannot find module or type declarations for side-effect import of 'moment/dist/locale/pt'.
 import 'moment/dist/locale/pt';
 
 class Router extends EmberRouter {

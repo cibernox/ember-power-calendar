@@ -22,7 +22,7 @@ import type {
   PowerCalendarAPI,
   TPowerCalendarOnSelect,
 } from '#src/components/power-calendar.gts';
-import type * as momentNs from 'moment';
+import type momentNs from 'moment';
 import type { TPowerCalendarRangeOnSelect } from '#src/components/power-calendar-range.gts';
 import type PowerCalendarService from '#src/services/power-calendar.ts';
 import { timeout } from 'ember-concurrency';

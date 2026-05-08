@@ -1,5 +1,5 @@
-@use "ember-power-calendar";
-@use "ember-power-calendar/scss/mixins.scss";
+@use "../ember-power-calendar.scss";
+@use "../scss/mixins.scss";
 
 .ember-power-calendar {
   @include mixins.calendar($cell-size: 42px);

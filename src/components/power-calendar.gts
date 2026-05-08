@@ -179,11 +179,11 @@ export default class PowerCalendar extends Component<PowerCalendarSignature> {
       return this._selected;
     }
 
-    return normalizeDate(this.args.selected as Date);
+    return normalizeDate(this.args.selected);
   }
 
   set selected(v: SelectedDays) {
-    this._selected = normalizeDate(v as Date | undefined);
+    this._selected = normalizeDate(v);
   }
 
   get currentCenter(): Date {
@@ -218,17 +218,11 @@ export default class PowerCalendar extends Component<PowerCalendarSignature> {
   }
 
   get navComponent(): ComponentLike<PowerCalendarNavSignature> {
-    return (
-      this.args.navComponent ||
-      (PowerCalendarNavComponent as ComponentLike<PowerCalendarNavSignature>)
-    );
+    return this.args.navComponent || PowerCalendarNavComponent;
   }
 
   get daysComponent(): ComponentLike<PowerCalendarDaysSignature> {
-    return (
-      this.args.daysComponent ||
-      (PowerCalendarDaysComponent as ComponentLike<PowerCalendarDaysSignature>)
-    );
+    return this.args.daysComponent || PowerCalendarDaysComponent;
   }
 
   calendarAPI(

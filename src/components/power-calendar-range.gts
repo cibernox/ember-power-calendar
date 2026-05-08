@@ -252,17 +252,11 @@ export default class PowerCalendarRange extends Component<PowerCalendarRangeSign
   }
 
   get navComponent(): ComponentLike<PowerCalendarRangeNavSignature> {
-    return (
-      this.args.navComponent ||
-      (PowerCalendarRangeNavComponent as ComponentLike<PowerCalendarRangeNavSignature>)
-    );
+    return this.args.navComponent || PowerCalendarRangeNavComponent;
   }
 
   get daysComponent(): ComponentLike<PowerCalendarRangeDaysSignature> {
-    return (
-      this.args.daysComponent ||
-      (PowerCalendarRangeDaysComponent as ComponentLike<PowerCalendarRangeDaysSignature>)
-    );
+    return this.args.daysComponent || PowerCalendarRangeDaysComponent;
   }
 
   calendarAPI(
