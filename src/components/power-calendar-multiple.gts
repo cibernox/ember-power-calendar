@@ -184,7 +184,7 @@ export default class PowerCalendarMultiple extends Component<PowerCalendarMultip
   }
 
   set selected(v: SelectedDays) {
-    this._selected = normalizeDate(v as Date | undefined);
+    this._selected = normalizeDate(v);
   }
 
   get currentCenter(): Date {
@@ -215,17 +215,11 @@ export default class PowerCalendarMultiple extends Component<PowerCalendarMultip
   }
 
   get navComponent(): ComponentLike<PowerCalendarMultipleNavSignature> {
-    return (
-      this.args.navComponent ||
-      (PowerCalendarMultipleNavComponent as ComponentLike<PowerCalendarMultipleNavSignature>)
-    );
+    return this.args.navComponent || PowerCalendarMultipleNavComponent;
   }
 
   get daysComponent(): ComponentLike<PowerCalendarMultipleDaysSignature> {
-    return (
-      this.args.daysComponent ||
-      (PowerCalendarMultipleDaysComponent as ComponentLike<PowerCalendarMultipleDaysSignature>)
-    );
+    return this.args.daysComponent || PowerCalendarMultipleDaysComponent;
   }
 
   calendarAPI(

@@ -11,7 +11,6 @@ import {
   startOf,
   startOfWeek,
   type BaseCalendarAPI,
-  type DayType,
   type PowerCalendarDay,
   type TWeekdayFormat,
 } from '../utils.ts';
@@ -201,7 +200,7 @@ export function buildDay<T extends BaseCalendarAPI<T>>(
     isCurrentMonth: isSame(date, currentCenter, 'month'),
     isToday: isSame(date, today, 'day'),
     isSelected: dayIsSelected(date, calendar),
-  } as PowerCalendarDay);
+  });
 }
 
 export function dayIsDisabled<T extends BaseCalendarAPI<T>>(
@@ -262,7 +261,7 @@ export function handleClick<T extends BaseCalendarAPI<T>>(
     const day = days.find((d) => d.id === dateStr);
     if (day) {
       if (calendar.actions.select) {
-        calendar.actions.select(day as DayType<T['type']>, calendar, e);
+        calendar.actions.select(day, calendar, e);
       }
 
       return day;

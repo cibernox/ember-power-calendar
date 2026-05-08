@@ -5,9 +5,13 @@ import { registerDateLibrary } from '#src/index.ts';
 import DateUtils from 'ember-power-calendar-moment';
 import { initialize } from './global-locale';
 import PowerCalendarService from '#src/services/power-calendar.ts';
+// @ts-expect-error Cannot find module or type declarations for side-effect import of 'moment/dist/locale/es'.
 import 'moment/dist/locale/es';
+// @ts-expect-error Cannot find module or type declarations for side-effect import of 'moment/dist/locale/ru'.
 import 'moment/dist/locale/ru';
+// @ts-expect-error Cannot find module or type declarations for side-effect import of 'moment/dist/locale/fr'.
 import 'moment/dist/locale/fr';
+// @ts-expect-error Cannot find module or type declarations for side-effect import of 'moment/dist/locale/pt'.
 import 'moment/dist/locale/pt';
 
 initialize();
