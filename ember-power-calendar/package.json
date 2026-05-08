@@ -11,9 +11,12 @@
   },
   "license": "MIT",
   "author": "Miguel Camba",
+  "sass": "./ember-power-calendar.scss",
+  "style": "./dist/vendor/ember-power-calendar.css",
   "exports": {
     ".": {
       "types": "./declarations/index.d.ts",
+      "sass": "./ember-power-calendar.scss",
       "default": "./dist/index.js"
     },
     "./*": {
