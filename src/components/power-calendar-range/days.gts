@@ -37,6 +37,7 @@ import {
 } from '../../-private/days-utils.ts';
 import { modifier } from 'ember-modifier';
 import { on } from '@ember/modifier';
+import { task, timeout } from 'ember-concurrency';
 import type { PowerCalendarDaysArgs } from '../power-calendar/days.ts';
 import type { PowerCalendarRangeAPI } from '../power-calendar-range.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
@@ -268,12 +269,13 @@ export default class PowerCalendarRangeDays extends Component<PowerCalendarRange
 
     if (this.args.autofocus) {
       if (this.args.autofocus) {
-        queueMicrotask(() => this.initialFocus());
+        void this.initialFocus.perform();
       }
     }
   });
 
-  initialFocus() {
+  initialFocus = task(async () => {
+    await timeout(50);
     const activeDay = this.days.find((x) => x.isSelected && !x.isDisabled);
 
     if (activeDay) {
@@ -293,7 +295,7 @@ export default class PowerCalendarRangeDays extends Component<PowerCalendarRange
     }
 
     focusDate(this.args.calendar.uniqueId, this.focusedId ?? '', this.element);
-  }
+  });
 
   async focusDay(e: MouseEvent | KeyboardEvent, date: Date, step: number = 0) {
     if (

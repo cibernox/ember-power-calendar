@@ -34,6 +34,7 @@ import { on } from '@ember/modifier';
 import emberPowerCalendarDayClasses, {
   type TDayClass,
 } from '../../helpers/ember-power-calendar-day-classes.ts';
+import { task, timeout } from 'ember-concurrency';
 import type { PowerCalendarAPI } from '../power-calendar.ts';
 import type PowerCalendarService from '../../services/power-calendar.ts';
 
@@ -251,12 +252,14 @@ export default class PowerCalendarDays extends Component<PowerCalendarDaysSignat
 
     if (this.args.autofocus) {
       if (this.args.autofocus) {
-        queueMicrotask(() => this.initialFocus());
+        void this.initialFocus.perform();
       }
     }
   });
 
-  initialFocus() {
+  initialFocus = task(async () => {
+    await timeout(50);
+
     const activeDay = this.days.find((x) => x.isSelected && !x.isDisabled);
 
     if (activeDay) {
@@ -276,7 +279,7 @@ export default class PowerCalendarDays extends Component<PowerCalendarDaysSignat
     }
 
     focusDate(this.args.calendar.uniqueId, this.focusedId ?? '', this.element);
-  }
+  });
 
   async focusDay(e: MouseEvent | KeyboardEvent, date: Date, step: number = 0) {
     if (
