@@ -11,7 +11,13 @@
 
 
 
+## v1.8.1 (2026-05-08)
 
+#### :bug: Bug Fix
+* [#1124](https://github.com/ember-power-addons/ember-power-calendar/pull/642) Add sass/css export into package.json ([@mkszepp](https://github.com/mkszepp))
+
+#### Committers: 1
+- Markus Sanin ([@mkszepp](https://github.com/mkszepp))
 
 ## v1.8.0 (2025-09-16)
 
