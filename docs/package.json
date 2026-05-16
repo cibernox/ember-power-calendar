@@ -70,7 +70,7 @@
     "ember-power-select": "git+https://github.com/ember-power-addons/ember-power-select.git#b1900d0335bb1f6de29ff468588fe46fb8e7d4bf",
     "ember-qunit": "^9.0.4",
     "ember-resolver": "^13.2.0",
-    "ember-source": "~6.12.0",
+    "ember-source": "~7.0.0",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^7.9.3",
     "ember-truth-helpers": "^5.0.0",
