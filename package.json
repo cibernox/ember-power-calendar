@@ -72,7 +72,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
-    "@babel/eslint-parser": "^7.28.6",
+    "@babel/eslint-parser": "^8.0.1",
     "@babel/plugin-transform-typescript": "^7.28.6",
     "@babel/runtime": "^7.29.2",
     "@ember/app-tsconfig": "^2.0.0",
