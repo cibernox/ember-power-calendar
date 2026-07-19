@@ -94,7 +94,7 @@
     "@types/rsvp": "^4.0.9",
     "babel-plugin-ember-template-compilation": "^4.0.0",
     "concurrently": "^10.0.3",
-    "ember-basic-dropdown": "git+https://github.com/ember-power-addons/ember-basic-dropdown#f76ebdbd8ea6db28dffc531744317c77b960c264",
+    "ember-basic-dropdown": "^9.0.0",
     "ember-concurrency": "^5.2.0",
     "ember-page-title": "^9.0.3",
     "ember-power-calendar-moment": "^1.0.4",
