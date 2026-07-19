@@ -33,10 +33,7 @@ import type PowerCalendarService from '../services/power-calendar.ts';
 export type TCalendarType = 'multiple' | 'range' | 'single';
 export type TPowerCalendarMoveCenterUnit = 'year' | 'month';
 export type SelectedDays =
-  | SelectedPowerCalendarRange
-  | Date
-  | Date[]
-  | undefined;
+  SelectedPowerCalendarRange | Date | Date[] | undefined;
 // export type CalendarAPI =
 //   | PowerCalendarAPI
 //   | PowerCalendarMultipleAPI
