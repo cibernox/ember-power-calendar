@@ -62,7 +62,7 @@ importers:
         version: 4.6.2(@glint/template@1.7.8)
       '@embroider/vite':
         specifier: ^1.7.8
-        version: 1.7.8(@embroider/core@4.6.2(@glint/template@1.7.8))(@glint/template@1.7.8)(vite@8.1.5(@types/node@26.1.1)(jiti@2.6.1)(sass-embedded@1.100.0)(terser@5.49.0)(yaml@2.9.0))
+        version: 1.7.8(@embroider/core@4.6.2(@glint/template@1.7.8))(@glint/template@1.7.8)(vite@8.1.5(@types/node@26.1.1)(jiti@2.6.1)(sass-embedded@1.100.0)(sass@1.101.0)(terser@5.49.0)(yaml@2.9.0))
       '@eslint/js':
         specifier: ^9.17.0
         version: 9.39.5
@@ -239,7 +239,7 @@ importers:
         version: 1.20.5(@babel/core@7.29.7)(@glint/template@1.7.8)
       '@embroider/vite':
         specifier: ^1.7.8
-        version: 1.7.8(@embroider/core@4.6.2(@glint/template@1.7.8))(@glint/template@1.7.8)(vite@8.1.5(@types/node@26.1.1)(jiti@2.6.1)(sass-embedded@1.100.0)(terser@5.49.0)(yaml@2.9.0))
+        version: 1.7.8(@embroider/core@4.6.2(@glint/template@1.7.8))(@glint/template@1.7.8)(vite@8.1.5(@types/node@26.1.1)(jiti@2.6.1)(sass-embedded@1.100.0)(sass@1.101.0)(terser@5.49.0)(yaml@2.9.0))
       '@eslint/js':
         specifier: ^9.39.4
         version: 9.39.5
@@ -274,8 +274,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0(@babel/core@7.29.7)(@ember/test-helpers@5.4.3(@babel/core@7.29.7))(@embroider/macros@1.20.5(@babel/core@7.29.7)(@glint/template@1.7.8))(@glimmer/component@2.1.1)
       ember-cli:
-        specifier: ~6.12.0
-        version: 6.12.0(@babel/core@7.29.7)(@types/node@26.1.1)(ejs@3.1.10)(handlebars@4.7.9)(underscore@1.13.8)
+        specifier: ~7.1.0
+        version: 7.1.0(@babel/core@7.29.7)(@types/node@26.1.1)(ejs@3.1.10)(handlebars@4.7.9)(underscore@1.13.8)
       ember-cli-babel:
         specifier: ^8.3.1
         version: 8.3.1(@babel/core@7.29.7)
@@ -1053,20 +1053,20 @@ packages:
   '@ember-data/rfc395-data@0.0.4':
     resolution: {integrity: sha512-tGRdvgC9/QMQSuSuJV45xoyhI0Pzjm7A9o/MVVA3HakXIImJbbzx/k/6dO9CUEQXIyS2y0fW6C1XaYOG7rY0FQ==}
 
-  '@ember-tooling/blueprint-blueprint@0.2.1':
-    resolution: {integrity: sha512-eZ5qicL3gfFFbmzLaSiEWPSmoRUJGnqg+dQmU0R81vv+0Ni7W/cS7MXx1l4HpN9B7Yg4M9GgdQTkeJnb6abQug==}
+  '@ember-tooling/blueprint-blueprint@0.3.0':
+    resolution: {integrity: sha512-9mwMGda8OC9oEJbvxnXX1DT5ZFR6YQumfmPwV+uUJCbGsaUkgr1UeTkcpgdL+Izvb4kjF/+BWcOtnaSvmR7Yig==}
 
-  '@ember-tooling/blueprint-model@0.5.0':
-    resolution: {integrity: sha512-2zAebSmmzpUO2wt6EyfX5TlcmvB9cTkteuZ3QhPmXLMthUpU5nUifcz3hlYcXPK7WM0HdO9qL4GdGQCoxhzaGg==}
+  '@ember-tooling/blueprint-model@0.7.0':
+    resolution: {integrity: sha512-udE6eCPtWegaMJref9JAe6a6YLnblObD/WIx1wugwHOidpAgooZTaItgaRrJGgIV71D6FwHyFD85/SQg108zaw==}
 
-  '@ember-tooling/classic-build-addon-blueprint@6.12.0':
-    resolution: {integrity: sha512-2sf34DIJO6RnpzcQy0A4RmGNwukE4vihHv/b9loDZzV4lnFNOTyHua09S5ai4szO7Iv91Q2OPEgOBo09yG+7SQ==}
+  '@ember-tooling/classic-build-addon-blueprint@7.1.0':
+    resolution: {integrity: sha512-jn2vsTatOBh6fwBIhrJs6puTPPlXf7DIEHVn+rzaJw1o/MZLf9k54gQY7/HQGKjoEbU6FR6DPSvd6bRlRdZZiQ==}
 
-  '@ember-tooling/classic-build-app-blueprint@6.12.0':
-    resolution: {integrity: sha512-dU6ig33VN+SA2yrkyJGdCMzJ6hB0fRVXpcSpnmWl2RI7TQCxlQsYR162BkMUdRN6ZWbycalDjWGW0r8KrIxzgA==}
+  '@ember-tooling/classic-build-app-blueprint@7.1.0':
+    resolution: {integrity: sha512-EYD2YC3jiErjfJuqbjtChsfYA9zNJ33+Dtp2QnEgdHjaidcDWrFpY0Kkl0O9dPVwtUCByDTj6ofJDvDBXvcOXA==}
 
-  '@ember/app-blueprint@6.12.3':
-    resolution: {integrity: sha512-Bf950zkgbKn6/pMunLTk/mkqInHU8CaNTvjR/umX1CjUNFRPTZPQb19OhstlBYTl+99jUN3feZ0xfuOt1t6c7A==}
+  '@ember/app-blueprint@7.1.1':
+    resolution: {integrity: sha512-uQokcn8U1n/nm0nXXpeXVa2IDOnEMg2+aeUrj+J8phuXHiJ3B7scnhT4NLqYpSNLXP1FbmodngxaQwIZjsFhvQ==}
 
   '@ember/app-tsconfig@2.0.0':
     resolution: {integrity: sha512-NmD1OZFtCF49k4WDaPdhGP4OKoRbPaXpTBO3AsJe0okIJeCVUiEiC8YUpfTJmld9EJOEa9mW/p0tJQS70GktOA==}
@@ -2525,8 +2525,8 @@ packages:
   babel-plugin-syntax-dynamic-import@6.18.0:
     resolution: {integrity: sha512-MioUE+LfjCEz65Wf7Z/Rm4XCP5k2c+TbMd2Z2JKc7U9uwjBhAfNPE48KC4GTGKhppMeYVepwDBNO/nGY6NYHBA==}
 
-  babel-remove-types@1.1.0:
-    resolution: {integrity: sha512-2wszSY8Pll8uefPFrJcOb2cP67epjpDnLADtzgQ9u1WgFJmBdJAkx5MGISjFCg/56Q8YgzA/o9RBMpScjhf+dw==}
+  babel-remove-types@2.0.0:
+    resolution: {integrity: sha512-HHLQOs/c2h//gl7f5VDa/r1Nd2gIk0kgzC1v01BSCEK5IJu1Zc4/fUj5uYCzC8Q0NWiucCgWKr9a43qmHkY6oA==}
 
   babylon@6.18.0:
     resolution: {integrity: sha512-q/UEjfGJ2Cm3oKV71DJz9d25TPnq5rhBVL2Q4fA5wcC3jcrdn7+SssEybFIxwAvvP+YCsCYNKughoF33GxgycQ==}
@@ -2927,9 +2927,9 @@ packages:
   config-chain@1.1.13:
     resolution: {integrity: sha512-qj+f8APARXHrM0hraqXYb2/bOVSV4PvJQlNZ/DVj0QrmNM2q2euizkeuVckQ57J+W0mRH6Hvi+k50M4Jul2VRQ==}
 
-  configstore@7.1.0:
-    resolution: {integrity: sha512-N4oog6YJWbR9kGyXvS7jEykLDXIE2C0ILYqNBZBp9iwiJpoCBWYsuAdW6PPFn6w06jjnC+3JstVvWHO4cZqvRg==}
-    engines: {node: '>=18'}
+  configstore@8.0.0:
+    resolution: {integrity: sha512-U51WPZg+o6FDFhBCV6yYFEspGMCoHvCgJSGFw9AwsW2u75gYBPoDlYca5XfDs4TdMUu3/y0R6FFdvvgyH31mKQ==}
+    engines: {node: '>=20'}
 
   connect@3.7.0:
     resolution: {integrity: sha512-ZqRXc+tZukToSNmh5C2iWMSoV3X1YUcPbqEM4DkEG5tNQXrQUZCNVGGv3IuicnkMtPfGf3Xtp8WCXs295iQ1pQ==}
@@ -3280,10 +3280,6 @@ packages:
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
 
-  diff@7.0.0:
-    resolution: {integrity: sha512-PJWHUb1RFevKCwaFA9RlG5tCd+FO5iRh9A8HEtkmBH2Li03iJriB6m6JIN4rGz3K3JLawI7/veA1xzRKP6ISBw==}
-    engines: {node: '>=0.3.1'}
-
   diff@8.0.4:
     resolution: {integrity: sha512-DPi0FmjiSU5EvQV0++GFDOJ9ASQUVFh5kD+OzOnYdi7n3Wpm9hWWGfB/O2blfHcMVTL5WkQXSnRiK9makhrcnw==}
     engines: {node: '>=0.3.1'}
@@ -3298,9 +3294,9 @@ packages:
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
 
-  dot-prop@9.0.0:
-    resolution: {integrity: sha512-1gxPBJpI/pcjQhKgIU91II6Wkay+dLcN3M6rf2uwP8hRur3HtQXjVrdAK3sjC0piaEuxzMwjXChcETiJl47lAQ==}
-    engines: {node: '>=18'}
+  dot-prop@10.1.0:
+    resolution: {integrity: sha512-MVUtAugQMOff5RnBy2d9N31iG0lNwg1qAoAOn7pOK5wf94WIaE3My2p3uwTQuvS2AcqchkcR3bHByjaM0mmi7Q==}
+    engines: {node: '>=20'}
 
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -3390,8 +3386,8 @@ packages:
     resolution: {integrity: sha512-rk7GY+FmLn/2e22HsZs0Ycrz8HQ1W3Fv+2TFOuEFW9optnDXDgkntPBIl6gact/LHsfBM5RKbM3dHsIIeLgl0Q==}
     engines: {node: 10.* || >= 12.*}
 
-  ember-cli@6.12.0:
-    resolution: {integrity: sha512-DDFTHdDofuRCZnu5FO79patRi1W4ndKFLcgb0MsspC+jyS9hgxDepBBFuV6daIjaTq5RvWdZRf5tjQ141VmcTw==}
+  ember-cli@7.1.0:
+    resolution: {integrity: sha512-lLkRbkJeA7NYhcxFLbl5ZWAjwsgGxhC87fVaJcKWM8TKIcr8dl069qtksGswgJxmlY/X9rhfL2L7CY82tO+ubQ==}
     engines: {node: '>= 20.19.0'}
     hasBin: true
 
@@ -4577,6 +4573,10 @@ packages:
   is-regex@1.2.1:
     resolution: {integrity: sha512-MjYsKHO5O7mCsmRGxWcLWheFqN9DJ/2TmngvjKXihe6efViPqc274+Fx/4fYj/r03+ESvBdTXK0V6tA3rgez1g==}
     engines: {node: '>= 0.4'}
+
+  is-safe-filename@0.1.1:
+    resolution: {integrity: sha512-4SrR7AdnY11LHfDKTZY1u6Ga3RuxZdl3YKWWShO5iyuG5h8QS4GD2tOb04peBJ5I7pXbR+CGBNEhTcwK+FzN3g==}
+    engines: {node: '>=20'}
 
   is-set@2.0.3:
     resolution: {integrity: sha512-iPAjerrse27/ygGLxw+EBR9agv9Y6uLeYVJMu+QNCoouJ1/1ri0mGrcWpfCqFZuzzx3WjtwxG098X+n4OuRkPg==}
@@ -6086,6 +6086,9 @@ packages:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
 
+  semver-deprecate@1.1.0:
+    resolution: {integrity: sha512-5AcYPbRIw9vs80YkyRxmm3Lbe88STkwNIpTKKX0Kxyy/T0yR05BTZ6JhV9B5pjTyc81SjztcFPY93kDPRFwlyA==}
+
   semver@5.7.2:
     resolution: {integrity: sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==}
     hasBin: true
@@ -6444,6 +6447,10 @@ packages:
     resolution: {integrity: sha512-9kY+CygyYM6j02t5YFHbNz2FN5QmYGv9zAjVp4lCDjlCw7amdckXlEt/bjMhUIfj4ThGRE4gCUH5+yGnNuPo5A==}
     engines: {node: '>=10.0.0'}
 
+  tagged-tag@1.0.0:
+    resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
+    engines: {node: '>=20'}
+
   tap-parser@18.3.4:
     resolution: {integrity: sha512-CiqzdpWn2CvONcWp7UNMF9/rCPJwCz0es+qykkgJruu1Y/rAS8A5MEQujmjx9NErfst3dGiZJU3lDS2jBsgbPA==}
     engines: {node: 20 || >=22}
@@ -6595,6 +6602,10 @@ packages:
   type-fest@4.41.0:
     resolution: {integrity: sha512-TeTSQ6H5YHvpqVwBRcnLDCBnDOHWYu7IvGbHT6N8AOymcr9PJGjc1GTtiWZTYg0NCgYwvnYWEkVChQAr9bjfwA==}
     engines: {node: '>=16'}
+
+  type-fest@5.8.0:
+    resolution: {integrity: sha512-YGYEVz3Fm5iy/AybuA0oyNFq7H4CgQNfRp/qfe8nurE1kuCeNm3/vfm9X4Mtl+qLyaKJUh5xrFZwogr41SMjYA==}
+    engines: {node: '>=20'}
 
   type-is@2.1.0:
     resolution: {integrity: sha512-faYHw0anBbc/kWF3zFTEnxSFOAGUX9GFbOBthvDdLsIlEoWOFOtS0zgCiQYwIskL9iGXZL3kAXD8OoZ4GmMATA==}
@@ -7923,23 +7934,35 @@ snapshots:
 
   '@ember-data/rfc395-data@0.0.4': {}
 
-  '@ember-tooling/blueprint-blueprint@0.2.1': {}
+  '@ember-tooling/blueprint-blueprint@0.3.0': {}
 
-  '@ember-tooling/blueprint-model@0.5.0':
+  '@ember-tooling/blueprint-model@0.7.0':
     dependencies:
-      chalk: 4.1.2
-      diff: 7.0.0
+      babel-remove-types: 2.0.0
+      chalk: 5.6.2
+      content-tag: 4.2.0
+      core-object: 3.1.5
+      diff: 8.0.4
+      ember-cli-normalize-entity-name: 1.0.0
+      ember-cli-string-utils: 1.1.0
+      fs-extra: 11.3.6
+      heimdalljs-logger: 0.1.10
+      inflection: 3.0.2
       isbinaryfile: 5.0.7
       lodash: 4.18.1
+      markdown-it: 14.3.0
+      markdown-it-terminal: 0.4.0(markdown-it@14.3.0)
+      minimatch: 10.2.5
       promise.hash.helper: 1.0.8
       quick-temp: 0.1.9
       silent-error: 1.1.1
+      walk-sync: 4.0.2
     transitivePeerDependencies:
       - supports-color
 
-  '@ember-tooling/classic-build-addon-blueprint@6.12.0':
+  '@ember-tooling/classic-build-addon-blueprint@7.1.0':
     dependencies:
-      '@ember-tooling/blueprint-model': 0.5.0
+      '@ember-tooling/blueprint-model': 0.7.0
       chalk: 5.6.2
       ember-cli-normalize-entity-name: 1.0.0
       ember-cli-string-utils: 1.1.0
@@ -7951,22 +7974,21 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@ember-tooling/classic-build-app-blueprint@6.12.0':
+  '@ember-tooling/classic-build-app-blueprint@7.1.0':
     dependencies:
-      '@ember-tooling/blueprint-model': 0.5.0
+      '@ember-tooling/blueprint-model': 0.7.0
       chalk: 5.6.2
       ember-cli-string-utils: 1.1.0
     transitivePeerDependencies:
       - supports-color
 
-  '@ember/app-blueprint@6.12.3':
+  '@ember/app-blueprint@7.1.1':
     dependencies:
-      chalk: 4.1.2
       ejs: 3.1.10
       ember-cli-string-utils: 1.1.0
       lodash: 4.18.1
       sort-package-json: 3.7.1
-      walk-sync: 3.0.0
+      walk-sync: 4.0.2
 
   '@ember/app-tsconfig@2.0.0': {}
 
@@ -8179,7 +8201,7 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@embroider/vite@1.7.8(@embroider/core@4.6.2(@glint/template@1.7.8))(@glint/template@1.7.8)(vite@8.1.5(@types/node@26.1.1)(jiti@2.6.1)(sass-embedded@1.100.0)(terser@5.49.0)(yaml@2.9.0))':
+  '@embroider/vite@1.7.8(@embroider/core@4.6.2(@glint/template@1.7.8))(@glint/template@1.7.8)(vite@8.1.5(@types/node@26.1.1)(jiti@2.6.1)(sass-embedded@1.100.0)(sass@1.101.0)(terser@5.49.0)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.29.7
       '@embroider/core': 4.6.2(@glint/template@1.7.8)
@@ -9642,12 +9664,12 @@ snapshots:
 
   babel-plugin-syntax-dynamic-import@6.18.0: {}
 
-  babel-remove-types@1.1.0:
+  babel-remove-types@2.0.0:
     dependencies:
       '@babel/core': 7.29.7
       '@babel/plugin-syntax-decorators': 7.29.7(@babel/core@7.29.7)
       '@babel/plugin-transform-typescript': 7.29.7(@babel/core@7.29.7)
-      prettier: 2.8.8
+      prettier: 3.9.5
     transitivePeerDependencies:
       - supports-color
 
@@ -10229,11 +10251,12 @@ snapshots:
       ini: 1.3.8
       proto-list: 1.2.4
 
-  configstore@7.1.0:
+  configstore@8.0.0:
     dependencies:
       atomically: 2.1.1
-      dot-prop: 9.0.0
+      dot-prop: 10.1.0
       graceful-fs: 4.2.11
+      is-safe-filename: 0.1.1
       xdg-basedir: 5.1.0
 
   connect@3.7.0:
@@ -10419,8 +10442,6 @@ snapshots:
     dependencies:
       dequal: 2.0.3
 
-  diff@7.0.0: {}
-
   diff@8.0.4: {}
 
   doctrine@2.1.0:
@@ -10434,9 +10455,9 @@ snapshots:
       no-case: 3.0.4
       tslib: 2.8.1
 
-  dot-prop@9.0.0:
+  dot-prop@10.1.0:
     dependencies:
-      type-fest: 4.41.0
+      type-fest: 5.8.0
 
   dunder-proto@1.0.1:
     dependencies:
@@ -10611,15 +10632,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ember-cli@6.12.0(@babel/core@7.29.7)(@types/node@26.1.1)(ejs@3.1.10)(handlebars@4.7.9)(underscore@1.13.8):
+  ember-cli@7.1.0(@babel/core@7.29.7)(@types/node@26.1.1)(ejs@3.1.10)(handlebars@4.7.9)(underscore@1.13.8):
     dependencies:
-      '@ember-tooling/blueprint-blueprint': 0.2.1
-      '@ember-tooling/blueprint-model': 0.5.0
-      '@ember-tooling/classic-build-addon-blueprint': 6.12.0
-      '@ember-tooling/classic-build-app-blueprint': 6.12.0
-      '@ember/app-blueprint': 6.12.3
+      '@ember-tooling/blueprint-blueprint': 0.3.0
+      '@ember-tooling/blueprint-model': 0.7.0
+      '@ember-tooling/classic-build-addon-blueprint': 7.1.0
+      '@ember-tooling/classic-build-app-blueprint': 7.1.0
+      '@ember/app-blueprint': 7.1.1
       '@pnpm/find-workspace-dir': 1000.1.5
-      babel-remove-types: 1.1.0
+      babel-remove-types: 2.0.0
       broccoli: 4.0.0
       broccoli-concat: 4.2.7
       broccoli-config-loader: 1.0.1
@@ -10638,7 +10659,7 @@ snapshots:
       ci-info: 4.4.0
       clean-base-url: 1.0.0
       compression: 1.8.1
-      configstore: 7.1.0
+      configstore: 8.0.0
       console-ui: 3.1.2
       content-tag: 4.2.0
       core-object: 3.1.5
@@ -10687,6 +10708,7 @@ snapshots:
       safe-stable-stringify: 2.5.0
       sane: 5.0.1
       semver: 7.8.5
+      semver-deprecate: 1.1.0
       silent-error: 1.1.1
       sort-package-json: 3.7.1
       symlink-or-copy: 1.3.1
@@ -12317,6 +12339,8 @@ snapshots:
       has-tostringtag: 1.0.2
       hasown: 2.0.4
 
+  is-safe-filename@0.1.1: {}
+
   is-set@2.0.3: {}
 
   is-shared-array-buffer@1.0.4:
@@ -13870,6 +13894,11 @@ snapshots:
     dependencies:
       xmlchars: 2.2.0
 
+  semver-deprecate@1.1.0:
+    dependencies:
+      chalk: 5.6.2
+      semver: 7.8.5
+
   semver@5.7.2: {}
 
   semver@6.3.1: {}
@@ -14333,6 +14362,8 @@ snapshots:
       string-width: 4.2.3
       strip-ansi: 6.0.1
 
+  tagged-tag@1.0.0: {}
+
   tap-parser@18.3.4:
     dependencies:
       events-to-array: 2.0.3
@@ -14582,6 +14613,10 @@ snapshots:
       prelude-ls: 1.2.1
 
   type-fest@4.41.0: {}
+
+  type-fest@5.8.0:
+    dependencies:
+      tagged-tag: 1.0.0
 
   type-is@2.1.0:
     dependencies:
