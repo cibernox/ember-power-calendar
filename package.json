@@ -84,7 +84,7 @@
     "@embroider/core": "^4.6.2",
     "@embroider/macros": "^1.20.5",
     "@embroider/vite": "^1.7.8",
-    "@eslint/js": "^9.17.0",
+    "@eslint/js": "^10.0.1",
     "@glimmer/component": "^2.1.1",
     "@glint/ember-tsc": "^1.8.12",
     "@glint/template": "^1.7.8",
